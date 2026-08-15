@@ -17,3 +17,9 @@ __pycache__/
 .vscode/
 
 typings/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.tfstate.lock.info
