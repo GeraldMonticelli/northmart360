@@ -9,5 +9,11 @@ terraform {
     databricks = {
       source = "databricks/databricks"
     }
+
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "~> 3.0"
+    }
   }
 }
+
