@@ -1,0 +1,19 @@
+
+#Python virtual environment
+.venv/
+venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# VS Code local history
+.history/
+
+# VS Code settings
+.vscode/
+
+typings/
