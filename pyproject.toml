@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "northmart"
+version = "0.1.0"
+description = "Shared Python library for NorthMart 360"
+requires-python = ">=3.12"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = [
+    "quality*",
+    "ingestion*",
+    "transformation*"
+]

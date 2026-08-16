@@ -1,4 +1,5 @@
 from pyspark import pipelines as dp
+import pyspark.sql.functions as F
 
 HISTORY_PATH = (
     "abfss://unity@stnorthmartdev.dfs.core.windows.net/"
@@ -21,7 +22,19 @@ SCHEMA_HINTS = """
     order_timestamp TIMESTAMP
 """
 
-def read_orders(path):
+def read_history(path):
+    return (
+        spark.read
+        .format("parquet")
+        .load(path)
+        .withColumn(
+            "order_timestamp",
+            F.col("order_timestamp").cast("timestamp")
+        )
+    )
+
+
+def read_live(path):
     return (
         spark.readStream
         .format("cloudFiles")
@@ -30,12 +43,19 @@ def read_orders(path):
         .option("cloudFiles.schemaHints", SCHEMA_HINTS)
         .option("rescuedDataColumn", "_rescued_data")
         .load(path)
+        .withColumn(
+            "order_timestamp",
+            F.col("order_timestamp").cast("timestamp")
+        )
     )
 
 
 dp.create_streaming_table(
     name="northmart_dev.bronze.orders",
-    comment="Raw NorthMart orders with schema evolution"
+    comment="Raw NorthMart orders with schema evolution",
+    table_properties={
+        "delta.feature.timestampNtz": "supported"
+    }
 )
 
 
@@ -45,7 +65,7 @@ dp.create_streaming_table(
     once=True,
 )
 def orders_history():
-    return read_orders(HISTORY_PATH)
+    return read_history(HISTORY_PATH)
 
 
 @dp.append_flow(
@@ -53,4 +73,4 @@ def orders_history():
     name="orders_live",
 )
 def orders_live():
-    return read_orders(INCOMING_PATH)
+    return read_live(INCOMING_PATH)

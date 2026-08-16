@@ -1,0 +1,18 @@
+resources:
+  pipelines:
+    northmart_medallion:
+      name: northmart_medallion
+
+      catalog: northmart_dev
+      schema: bronze
+
+      root_path: ../src
+
+      libraries:
+        - file:
+            path: ../src/ingestion/orders_bronze.py
+        - file:
+            path: ../src/transformation/orders_silver.py
+
+      serverless: true
+      continuous: false

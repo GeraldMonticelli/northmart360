@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: northmart
+Version: 0.1.0
+Summary: Shared Python library for NorthMart 360
+Requires-Python: >=3.12

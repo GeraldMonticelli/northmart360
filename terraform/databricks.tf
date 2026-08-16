@@ -184,3 +184,63 @@ resource "databricks_grants" "gold" {
   }
 }
 
+resource "databricks_sql_endpoint" "northmart" {
+  name = "sql-northmart-dev"
+
+  cluster_size = "2X-Small"
+
+  min_num_clusters = 1
+  max_num_clusters = 1
+
+  auto_stop_mins = 10
+
+  warehouse_type            = "PRO"
+  enable_serverless_compute = true
+}
+
+
+resource "databricks_mws_permission_assignment" "northmart_data_engineers" {
+  provider = databricks.account
+
+  workspace_id = 7405613337187597
+  principal_id = databricks_group.northmart_data_engineers.id
+
+  permissions = ["USER"]
+}
+
+resource "databricks_mws_permission_assignment" "northmart_data_analysts" {
+  provider = databricks.account
+
+  workspace_id = 7405613337187597
+  principal_id = databricks_group.northmart_data_analysts.id
+
+  permissions = ["USER"]
+}
+
+resource "databricks_mws_permission_assignment" "northmart_data_readers" {
+  provider = databricks.account
+
+  workspace_id = 7405613337187597
+  principal_id = databricks_group.northmart_data_readers.id
+
+  permissions = ["USER"]
+}
+
+resource "databricks_permissions" "northmart_sql_warehouse" {
+  sql_endpoint_id = databricks_sql_endpoint.northmart.id
+
+  depends_on = [
+    databricks_mws_permission_assignment.northmart_data_engineers,
+    databricks_mws_permission_assignment.northmart_data_analysts
+  ]
+
+  access_control {
+    group_name       = databricks_group.northmart_data_engineers.display_name
+    permission_level = "CAN_USE"
+  }
+
+  access_control {
+    group_name       = databricks_group.northmart_data_analysts.display_name
+    permission_level = "CAN_USE"
+  }
+}

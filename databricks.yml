@@ -5,6 +5,10 @@
 bundle:
   name: northmart360
 
+variables:
+  sql_warehouse_id:
+    description: SQL Warehouse used by NorthMart jobs
+
 include:
   - resource/*.yml
 

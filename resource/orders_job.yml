@@ -1,0 +1,18 @@
+resources:
+  jobs:
+    northmart_orders_job:
+      name: northmart_orders_job
+
+      tasks:
+        - task_key: init_dq_rules
+          sql_task:
+            file:
+              path: ../src/quality/dq_rules.sql
+            warehouse_id: ${var.sql_warehouse_id}
+
+        - task_key: run_medallion_pipeline
+          depends_on:
+            - task_key: init_dq_rules
+
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.northmart_medallion.id}
