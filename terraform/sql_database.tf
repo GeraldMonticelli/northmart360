@@ -1,0 +1,43 @@
+resource "azurerm_mssql_server" "northmart" {
+  name                = "sql-northmart-dev"
+  resource_group_name = "rg-dp750"
+  location            = "Central India"
+  version             = "12.0"
+
+  administrator_login          = var.sql_admin_login
+  administrator_login_password = var.sql_admin_password
+
+  minimum_tls_version = "1.2"
+}
+
+resource "azurerm_mssql_database" "northmart" {
+  name      = "sqldb-northmart-dev"
+  server_id = azurerm_mssql_server.northmart.id
+
+  sku_name = "GP_S_Gen5_1"
+
+  min_capacity                = 0.5
+  auto_pause_delay_in_minutes = 60
+
+  max_size_gb = 32
+
+  zone_redundant = false
+}
+
+resource "azurerm_mssql_firewall_rule" "gerald" {
+  name      = "gerald-dev-machine"
+  server_id = azurerm_mssql_server.northmart.id
+
+  start_ip_address = var.dev_public_ip
+  end_ip_address   = var.dev_public_ip
+}
+
+resource "azurerm_mssql_firewall_rule" "allow_azure_services" {
+  name = "AllowAzureServices"
+
+  server_id = azurerm_mssql_server.northmart.id
+
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
+
+}

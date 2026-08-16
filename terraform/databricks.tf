@@ -142,6 +142,8 @@ resource "databricks_grants" "bronze" {
     ]
   }
 }
+
+// grant permissions
 resource "databricks_grants" "silver" {
   schema = "${databricks_catalog.northmart_dev.name}.${databricks_schema.silver.name}"
 
@@ -161,6 +163,7 @@ resource "databricks_grants" "silver" {
   }
 }
 
+//grant gold access permissions to groups 
 resource "databricks_grants" "gold" {
   schema = "${databricks_catalog.northmart_dev.name}.${databricks_schema.gold.name}"
 
@@ -184,6 +187,7 @@ resource "databricks_grants" "gold" {
   }
 }
 
+// create the sql warhouse pro serverless to execute SQL to create rule tables in UC
 resource "databricks_sql_endpoint" "northmart" {
   name = "sql-northmart-dev"
 
@@ -198,7 +202,7 @@ resource "databricks_sql_endpoint" "northmart" {
   enable_serverless_compute = true
 }
 
-
+// import entra account-imported groups in workspace 
 resource "databricks_mws_permission_assignment" "northmart_data_engineers" {
   provider = databricks.account
 
@@ -226,6 +230,8 @@ resource "databricks_mws_permission_assignment" "northmart_data_readers" {
   permissions = ["USER"]
 }
 
+
+//assign permission on sql compute 
 resource "databricks_permissions" "northmart_sql_warehouse" {
   sql_endpoint_id = databricks_sql_endpoint.northmart.id
 
@@ -243,4 +249,15 @@ resource "databricks_permissions" "northmart_sql_warehouse" {
     group_name       = databricks_group.northmart_data_analysts.display_name
     permission_level = "CAN_USE"
   }
+}
+
+//create the scope in databricks for the SQL database login password
+
+resource "databricks_secret_scope" "northmart" {
+  name = "kv-northmart-gmkng"
+  keyvault_metadata {
+    resource_id = azurerm_key_vault.northmart.id
+    dns_name    = azurerm_key_vault.northmart.vault_uri
+  }
+
 }

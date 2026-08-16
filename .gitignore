@@ -23,3 +23,6 @@ typings/
 *.tfstate
 *.tfstate.*
 .terraform.tfstate.lock.info
+terraform.tfvars
+
+data/state/

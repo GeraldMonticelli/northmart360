@@ -20,6 +20,7 @@ sync:
     - .venv/**
     - .git/**
     - src/source_generator/**
+    - tests/**
 
 targets:
   dev:

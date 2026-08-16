@@ -1,0 +1,14 @@
+resources:
+  jobs:
+    northmart_platform_setup:
+      name: northmart_platform_setup
+
+      tasks:
+        - task_key: create_sql_connection
+
+          sql_task:
+            warehouse_id: ${var.sql_warehouse_id}
+
+            file:
+              path: ../src/database/010_create_northmart_connection.sql
+              source: WORKSPACE
