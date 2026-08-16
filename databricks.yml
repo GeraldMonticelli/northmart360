@@ -5,12 +5,25 @@
 bundle:
   name: northmart360
 
+include:
+  - resource/*.yml
+
+sync:
+  include:
+    - src/**
+  exclude:
+    - terraform/**
+    - .venv/**
+    - .git/**
+    - src/source_generator/**
+
 targets:
   dev:
     mode: development
     default: true
     workspace:
       host: https://adb-7405613337187597.17.azuredatabricks.net
+      profile: dp750
 
   ## Optionally, there could be 'staging' or 'prod' targets here.
   #

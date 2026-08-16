@@ -1,0 +1,15 @@
+resources:
+  pipelines:
+    northmart_bronze:
+      name: northmart_bronze
+
+      catalog: northmart_dev
+      schema: bronze
+
+      libraries:
+        - file:
+            path: ../src/bronze/orders.py
+
+      serverless: true
+
+      continuous: false
