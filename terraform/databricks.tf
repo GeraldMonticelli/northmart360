@@ -329,7 +329,7 @@ resource "databricks_mws_ncc_private_endpoint_rule" "northmart_sql" {
 
   network_connectivity_config_id = (
     databricks_mws_network_connectivity_config.northmart
-      .network_connectivity_config_id
+    .network_connectivity_config_id
   )
 
   resource_id = azurerm_mssql_server.northmart.id
