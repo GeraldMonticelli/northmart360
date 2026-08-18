@@ -261,3 +261,77 @@ resource "databricks_secret_scope" "northmart" {
   }
 
 }
+
+
+// create the NCC for the serverless compute with pricate access to ALDS
+# ============================================================
+# NorthMart - Serverless Network Connectivity
+# Network Connectivity Configuration for serverless workloads
+# ============================================================
+
+resource "databricks_mws_network_connectivity_config" "northmart" {
+  provider = databricks.account
+
+  name   = "ncc-northmart-dev"
+  region = "centralindia"
+}
+
+# Attach the NCC to the existing NorthMart Databricks workspace.
+#
+# A workspace can only be attached to one NCC at a time.
+resource "databricks_mws_ncc_binding" "northmart" {
+  provider = databricks.account
+
+  network_connectivity_config_id = (
+    databricks_mws_network_connectivity_config.northmart
+    .network_connectivity_config_id
+  )
+
+  workspace_id = 7405613337187597
+}
+
+# ------------------------------------------------------------
+# 3. Private endpoint rule - ADLS DFS endpoint
+#
+# Used for ADLS Gen2 hierarchical namespace access.
+# ------------------------------------------------------------
+resource "databricks_mws_ncc_private_endpoint_rule" "northmart_adls_dfs" {
+  provider = databricks.account
+
+  network_connectivity_config_id = (
+    databricks_mws_network_connectivity_config.northmart
+    .network_connectivity_config_id
+  )
+
+  resource_id = azurerm_storage_account.northmart.id
+  group_id    = "dfs"
+}
+
+# ------------------------------------------------------------
+# 4. Private endpoint rule - ADLS Blob endpoint
+#
+# Some Databricks/storage operations use the blob endpoint
+# even when the account has hierarchical namespace enabled.
+# ------------------------------------------------------------
+resource "databricks_mws_ncc_private_endpoint_rule" "northmart_adls_blob" {
+  provider = databricks.account
+
+  network_connectivity_config_id = (
+    databricks_mws_network_connectivity_config.northmart
+    .network_connectivity_config_id
+  )
+  resource_id = azurerm_storage_account.northmart.id
+  group_id    = "blob"
+}
+
+resource "databricks_mws_ncc_private_endpoint_rule" "northmart_sql" {
+  provider = databricks.account
+
+  network_connectivity_config_id = (
+    databricks_mws_network_connectivity_config.northmart
+      .network_connectivity_config_id
+  )
+
+  resource_id = azurerm_mssql_server.northmart.id
+  group_id    = "sqlServer"
+}
