@@ -15,17 +15,21 @@ include:
 sync:
   include:
     - src/**
+    - tests/**
   exclude:
     - terraform/**
     - .venv/**
     - .git/**
     - src/source_generator/**
-    - tests/**
+
 
 targets:
   dev:
     mode: development
     default: true
+
+    variables:
+      sql_warehouse_id: "400d6525fd91fee7"
     workspace:
       host: https://adb-7405613337187597.17.azuredatabricks.net
       profile: dp750
