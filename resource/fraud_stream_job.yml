@@ -1,0 +1,16 @@
+resources:
+  jobs:
+    fraud_stream_job:
+      name: northmart-fraud-stream-${bundle.target}
+
+      continuous:
+        pause_status: PAUSED
+
+      tasks:
+        - task_key: ingest_fraud_events
+
+          notebook_task:
+            notebook_path: ../tests/ingest_kafka.ipynb
+            source: WORKSPACE
+
+          existing_cluster_id: "0811-144810-41lfoivv"

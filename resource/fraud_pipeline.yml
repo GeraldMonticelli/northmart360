@@ -1,0 +1,36 @@
+resources:
+  pipelines:
+    fraud_pipeline:
+      name: northmart-fraud-pipeline
+
+      catalog: northmart_dev
+      schema: silver
+
+      clusters:
+        - label: default
+          node_type_id: Standard_D4s_v3
+          driver_node_type_id: Standard_D4s_v3
+
+          num_workers: 0
+
+          spark_conf:
+            spark.databricks.cluster.profile: singleNode
+            spark.master: local[*]
+
+          custom_tags:
+            ResourceClass: SingleNode
+
+      libraries:
+        - file:
+            path: ../src/ingestion/fraud_transactions_bronze.py
+        - file:
+            path: ../src/transformation/fraud_transactions_silver.py
+        - file:
+            path: ../src/transformation/fraud_feature_5min.py
+
+      configuration:
+        fraud.kafka.bootstrap_servers: "evhns-northmart-fraud-dev.servicebus.windows.net:9093"
+        fraud.kafka.topic: "fraud-transactions"
+        
+      continuous: false
+      development: true
