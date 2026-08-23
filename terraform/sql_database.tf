@@ -25,11 +25,13 @@ resource "azurerm_mssql_database" "northmart" {
 }
 
 resource "azurerm_mssql_firewall_rule" "gerald" {
-  name      = "gerald-dev-machine"
+  for_each = toset(var.dev_public_ips)
+
+  name      = "gerald-dev-${replace(each.value, ".", "-")}"
   server_id = azurerm_mssql_server.northmart.id
 
-  start_ip_address = var.dev_public_ip
-  end_ip_address   = var.dev_public_ip
+  start_ip_address = each.value
+  end_ip_address   = each.value
 }
 
 resource "azurerm_mssql_firewall_rule" "allow_azure_services" {

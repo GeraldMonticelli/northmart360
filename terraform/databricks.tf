@@ -57,6 +57,16 @@ resource "databricks_schema" "silver" {
   }
 }
 
+resource "databricks_schema" "ml" {
+  catalog_name = databricks_catalog.northmart_dev.name
+  name         = "ml"
+  storage_root = "abfss://unity@stnorthmartdev.dfs.core.windows.net/catalogs/northmart_dev/ml"
+  properties = {
+    "collation" = "UTF8_BINARY"
+    "owner"     = "root"
+  }
+}
+
 resource "databricks_schema" "gold" {
   catalog_name = databricks_catalog.northmart_dev.name
   name         = "gold"

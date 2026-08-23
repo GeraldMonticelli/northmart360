@@ -7,6 +7,6 @@ variable "sql_admin_password" {
   sensitive = true
 }
 
-variable "dev_public_ip" {
-  type = string
+variable "dev_public_ips" {
+  type = list(string)
 }

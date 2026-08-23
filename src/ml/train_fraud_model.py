@@ -1,11 +1,13 @@
 import mlflow
 import mlflow.spark
 
+
 from pyspark.sql import SparkSession
 from pyspark.ml import Pipeline
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.classification import RandomForestClassifier
 from pyspark.ml.evaluation import BinaryClassificationEvaluator
+from mlflow.models import infer_signature
 
 
 spark = SparkSession.builder.getOrCreate()
@@ -60,6 +62,8 @@ pipeline = Pipeline(
     ]
 )
 
+
+
 # ---------------------------------------------------------
 # 4. MLflow experiment
 # ---------------------------------------------------------
@@ -96,9 +100,19 @@ with mlflow.start_run() as run:
     mlflow.log_metric("roc_auc", roc_auc)
     mlflow.log_metric("pr_auc", pr_auc)
 
+    signature = infer_signature(
+        test_df.select(
+            "transaction_count_5min",
+            "amount_sum_5min"
+        ),
+        predictions.select(
+            "prediction"
+            )
+    )
     mlflow.spark.log_model(
         model,
-        artifact_path="model"
+        artifact_path="model",
+        signature=signature
     )
 
     print(f"MLflow run_id = {run.info.run_id}")
