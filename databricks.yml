@@ -16,11 +16,15 @@ sync:
   include:
     - src/**
     - tests/**
+    - northmart_dbt/**
   exclude:
     - terraform/**
     - .venv/**
+    - .venv-dbt/**    
     - .git/**
     - src/source_generator/**
+    - northmart_dbt/target/**
+    - northmart_dbt/logs/**
 
 
 targets:
@@ -32,7 +36,6 @@ targets:
       sql_warehouse_id: "400d6525fd91fee7"
     workspace:
       host: https://adb-7405613337187597.17.azuredatabricks.net
-      profile: dp750
 
   ## Optionally, there could be 'staging' or 'prod' targets here.
   #
