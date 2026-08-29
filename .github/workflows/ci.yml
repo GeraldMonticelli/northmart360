@@ -24,5 +24,38 @@ jobs:
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
 
+      - name: Inspect GitHub OIDC claims
+        shell: bash
+        run: |
+          TOKEN=$(curl -sS \
+            -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=${DATABRICKS_HOST}/oidc/v1/token" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['value'])")
+          
+          export TOKEN
+
+          python3 - <<'PY'
+          import os, json, base64
+
+          token = os.environ["TOKEN"]
+          payload = token.split(".")[1]
+          payload += "=" * (-len(payload) % 4)
+
+          claims = json.loads(
+              base64.urlsafe_b64decode(payload).decode()
+          )
+          for key in [
+              "iss",
+              "aud",
+              "sub",
+              "repository",
+              "repository_id",
+              "repository_owner",
+              "repository_owner_id",
+              "environment"
+          ]:
+              print(f"{key}: {claims.get(key)}")
+          PY
+
       - name: Test Databricks authentication
         run: databricks current-user me
