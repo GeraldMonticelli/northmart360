@@ -10,3 +10,8 @@ variable "sql_admin_password" {
 variable "dev_public_ips" {
   type = list(string)
 }
+
+variable "fraud_producer_ssh_public_key" {
+  description = "SSH public key for the fraud producer VM"
+  type        = string
+}

@@ -67,7 +67,7 @@ resource "azurerm_linux_virtual_machine" "fraud_producer" {
 
   admin_ssh_key {
     username   = "azureuser"
-    public_key = file(pathexpand("~/.ssh/id_ed25519.pub"))
+    public_key = var.fraud_producer_ssh_public_key
   }
 
   os_disk {
