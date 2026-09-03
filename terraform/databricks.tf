@@ -125,7 +125,7 @@ resource "databricks_grants" "northmart_catalog" {
 
   grant {
     principal  = databricks_group.northmart_data_engineers.display_name
-    privileges = ["USE_CATALOG"]
+    privileges = ["ALL_PRIVILEGES"]
   }
 
   grant {
