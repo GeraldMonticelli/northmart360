@@ -1,0 +1,46 @@
+resources:
+  jobs:
+    fraud_deployment_job:
+
+      name: northmart-fraud-model-deployment-${bundle.target}
+
+      max_concurrent_runs: 1
+
+      parameters:
+        - name: model_name
+          default: northmart_dev.ml.fraud_detection_model
+
+        - name: model_version
+          default: ""
+
+      tasks:
+        - task_key: evaluate_candidate
+
+          spark_python_task:
+            python_file: ../src/ml/deploy_fraud_model.py
+
+            parameters:
+              - "{{job.parameters.model_name}}"
+              - "{{job.parameters.model_version}}"
+
+          job_cluster_key: fraud_deployment_cluster
+
+          libraries:
+            - pypi:
+                package: mlflow
+
+      job_clusters:
+        - job_cluster_key: fraud_deployment_cluster
+
+          new_cluster:
+            spark_version: 17.3.x-scala2.13
+            node_type_id: Standard_D4s_v3
+            num_workers: 0
+            data_security_mode: SINGLE_USER
+
+            spark_conf:
+              spark.databricks.cluster.profile: singleNode
+              spark.master: local[*]
+
+            custom_tags:
+              ResourceClass: SingleNode

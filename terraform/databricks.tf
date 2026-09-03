@@ -137,6 +137,12 @@ resource "databricks_grants" "northmart_catalog" {
     principal  = databricks_group.northmart_data_readers.display_name
     privileges = ["USE_CATALOG"]
   }
+
+  grant {
+    principal  = databricks_service_principal.github_cicd.application_id
+    privileges = ["ALL_PRIVILEGES"]
+
+}
 }
 
 resource "databricks_grants" "bronze" {
@@ -259,6 +265,13 @@ resource "databricks_permissions" "northmart_sql_warehouse" {
     group_name       = databricks_group.northmart_data_analysts.display_name
     permission_level = "CAN_USE"
   }
+
+  access_control {
+    service_principal_name = databricks_service_principal.github_cicd.application_id
+    permission_level       = "CAN_MANAGE"
+
+}
+
 }
 
 //create the scope in databricks for the SQL database login password

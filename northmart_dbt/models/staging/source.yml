@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: northmart
+    catalog: northmart_dev
+    schema: silver
+
+    tables:
+      - name: fraud_transactions_silver

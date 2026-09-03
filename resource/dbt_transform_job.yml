@@ -1,0 +1,25 @@
+resources:
+  jobs:
+    dbt_transform_job:
+      name: northmart-dbt-transform-${bundle.target}
+
+      tasks:
+        - task_key: dbt_build
+
+          dbt_task:
+            project_directory: ${workspace.file_path}/northmart_dbt
+            commands:
+              - dbt build
+            warehouse_id: ${var.sql_warehouse_id}
+            catalog: northmart_dev
+            schema: dbt
+            source: WORKSPACE
+
+          environment_key: dbt_env
+
+      environments:
+        - environment_key: dbt_env
+          spec:
+            environment_version: "1"
+            dependencies:
+              - dbt-databricks==1.12.4

@@ -7,9 +7,13 @@ resources:
         - task_key: train_fraud_model
 
           spark_python_task:
-            python_file: ../src/ml/train_fraud_model.py
+            python_file: ../src/ml/train_fraud_model_2.py
 
           job_cluster_key: fraud_ml_cluster
+
+          libraries:
+            - pypi:
+                package: databricks-feature-engineering
 
       job_clusters:
         - job_cluster_key: fraud_ml_cluster

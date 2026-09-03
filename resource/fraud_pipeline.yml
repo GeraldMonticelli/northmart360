@@ -26,7 +26,7 @@ resources:
         - file:
             path: ../src/transformation/fraud_transactions_silver.py
         - file:
-            path: ../src/transformation/fraud_feature_5min.py
+            path: ../src/transformation/fraud_features_300min.py
 
       configuration:
         fraud.kafka.bootstrap_servers: "evhns-northmart-fraud-dev.servicebus.windows.net:9093"

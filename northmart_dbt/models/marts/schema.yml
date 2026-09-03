@@ -1,0 +1,91 @@
+version: 2
+
+models:
+  - name: fct_transactions
+    description: >
+      Transaction-level fact table enriched with card velocity
+      and customer behavioural features.
+
+    config:
+      contract:
+        enforced: true
+
+    columns:
+      - name: transaction_id
+        description: Unique transaction identifier
+        data_type: string
+        data_tests:
+          - not_null
+          - unique
+
+      - name: customer_id
+        data_type: string
+        data_tests:
+          - not_null
+
+      - name: card_id
+        data_type: string
+        data_tests:
+          - not_null
+
+      - name: event_time
+        data_type: timestamp
+        data_tests:
+          - not_null
+
+      - name: amount
+        data_type: double
+
+      - name: currency
+        data_type: string
+
+      - name: country
+        data_type: string
+
+      - name: merchant_id
+        data_type: string
+
+      - name: merchant_category
+        data_type: string
+
+      - name: channel
+        data_type: string
+
+      - name: device_id
+        data_type: string
+
+      - name: fraud_scenario
+        data_type: string
+
+      - name: is_fraud
+        data_type: int
+
+      - name: transaction_hour
+        data_type: int
+
+      - name: kafka_partition
+        data_type: int
+
+      - name: kafka_offset
+        data_type: bigint
+
+      - name: kafka_timestamp
+        data_type: timestamp
+
+      - name: previous_tx_count_30m
+        data_type: bigint
+
+      - name: previous_amount_30m
+        data_type: double
+
+      - name: previous_avg_amount_24h
+        data_type: double
+
+      - name: previous_tx_count_24h
+        data_type: bigint
+
+      - name: previous_amount_24h
+        data_type: double
+
+      - name: previous_avg_amount_7d
+        data_type: double
