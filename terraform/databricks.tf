@@ -141,8 +141,12 @@ resource "databricks_grants" "northmart_catalog" {
   grant {
     principal  = databricks_service_principal.github_cicd.application_id
     privileges = ["ALL_PRIVILEGES"]
-
-}
+  }
+  
+  grant {
+    principal  = databricks_service_principal.platform_cicd.application_id
+    privileges = ["ALL_PRIVILEGES"]
+  }
 }
 
 resource "databricks_grants" "bronze" {
