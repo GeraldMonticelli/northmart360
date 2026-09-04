@@ -45,16 +45,10 @@ jobs:
         working-directory: terraform
         run: terraform validate
 
-      - name: Install Databricks CLI
-        uses: databricks/setup-cli@main
+      - name: Terraform plan
+        working-directory: terraform
+        run: terraform plan -input=false
 
-      - name: Check identities
-        run: |
-          echo "Azure identity:"
-          az account show --query user -o json
-          echo "Databricks identity:"
-          databricks current-user me
-
-      - name: Check Unity Catalog privileges
-        run: |
-          databricks grants get catalog northmart_dev
+      - name: Terraform apply
+        working-directory: terraform
+        run: terraform apply -auto-approve -input=false
