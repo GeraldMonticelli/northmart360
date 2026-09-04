@@ -54,3 +54,7 @@ jobs:
           az account show --query user -o json
           echo "Databricks identity:"
           databricks current-user me
+
+      - name: Check Unity Catalog privileges
+        run: |
+          databricks grants get catalog northmart_dev
