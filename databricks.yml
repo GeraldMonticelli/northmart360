@@ -9,6 +9,13 @@ variables:
   sql_warehouse_id:
     description: SQL Warehouse used by NorthMart jobs
 
+  catalog:
+    description: Unity Catalog catalog for this environment
+
+  eventhub_namespace:
+    description: Event Hub namespace for this environment
+
+
 include:
   - resource/*.yml
 
@@ -26,7 +33,6 @@ sync:
     - northmart_dbt/target/**
     - northmart_dbt/logs/**
 
-
 targets:
   dev:
     mode: development
@@ -34,11 +40,18 @@ targets:
 
     variables:
       sql_warehouse_id: "400d6525fd91fee7"
+      catalog: northmart_dev
+      eventhub_namespace: evhns-northmart-fraud-dev
+
     workspace:
       host: https://adb-7405613337187597.17.azuredatabricks.net
 
-  ## Optionally, there could be 'staging' or 'prod' targets here.
-  #
-  # prod:
-  #   workspace:
-  #     host: https://adb-7405613337187597.17.azuredatabricks.net
+  test:
+    mode: production
+
+    variables:
+      catalog: northmart_test
+      eventhub_namespace: evhns-northmart-fraud-test
+
+    workspace:
+      host: https://adb-7405613337187597.17.azuredatabricks.net

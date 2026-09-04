@@ -17,7 +17,13 @@ jobs:
       ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
       ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-      
+
+      TF_VAR_environment: ${{ vars.TF_VAR_environment }}
+      TF_VAR_resource_group_name: ${{ vars.TF_VAR_resource_group_name }}
+      TF_VAR_storage_account_name: ${{ vars.TF_VAR_storage_account_name }}
+      TF_VAR_key_vault_name: ${{ vars.TF_VAR_key_vault_name }}
+      TF_VAR_workspace_name: ${{ vars.TF_VAR_workspace_name }}
+
       TF_VAR_fraud_producer_ssh_public_key: ${{ vars.TF_VAR_fraud_producer_ssh_public_key }}
       TF_VAR_sql_admin_login: ${{ vars.TF_VAR_SQL_ADMIN_LOGIN }}
       TF_VAR_dev_public_ips: ${{ vars.TF_VAR_DEV_PUBLIC_IPS }}

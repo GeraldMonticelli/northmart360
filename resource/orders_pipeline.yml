@@ -3,7 +3,7 @@ resources:
     northmart_medallion:
       name: northmart_medallion
 
-      catalog: northmart_dev
+      catalog: ${var.catalog}
       schema: bronze
 
       root_path: ../src

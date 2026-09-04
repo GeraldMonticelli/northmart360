@@ -11,7 +11,7 @@ resources:
             commands:
               - dbt build
             warehouse_id: ${var.sql_warehouse_id}
-            catalog: northmart_dev
+            catalog: ${var.catalog}
             schema: dbt
             source: WORKSPACE
 

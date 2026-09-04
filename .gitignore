@@ -29,6 +29,7 @@ typings/
 *.tfstate.*
 .terraform.tfstate.lock.info
 terraform.tfvars
+test.tfvars
 
 data/state/
 

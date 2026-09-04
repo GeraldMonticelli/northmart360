@@ -1,32 +1,32 @@
 resource "databricks_storage_credential" "northmart" {
-  name = "sc_northmart_dev"
+  name = "sc_${local.catalog_name}"
   azure_managed_identity {
     access_connector_id = azurerm_databricks_access_connector.northmart.id
   }
-  comment = "ac-northmart-dev"
+  comment = local.access_connector_name
 }
 
 resource "databricks_external_location" "northmart" {
-  name               = "el_northmart_dev"
-  url                = "abfss://unity@stnorthmartdev.dfs.core.windows.net/"
+  name               = "el_${local.catalog_name}"
+  url                = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/"
   credential_name    = databricks_storage_credential.northmart.name
   enable_file_events = true
   file_event_queue {
     managed_aqs {
-      resource_group  = "rg-dp750"
+      resource_group  = var.resource_group_name
       subscription_id = "60b97edd-4189-44b0-92bd-5ba7c24dadc5"
     }
   }
 }
 
 resource "databricks_catalog" "northmart_dev" {
-  name                       = "northmart_dev"
+  name                       = local.catalog_name
   comment                    = "NorthMart development catalog"
   custom_max_retention_hours = 0
   properties = {
     "collation" = "UTF8_BINARY"
   }
-  storage_root = "abfss://unity@stnorthmartdev.dfs.core.windows.net/catalogs/northmart_dev"
+  storage_root = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/catalogs/${local.catalog_name}"
   effective_predictive_optimization_flag {
     inherited_from_name = "metastore_azure_centralindia"
     inherited_from_type = "METASTORE"
@@ -40,7 +40,7 @@ resource "databricks_catalog" "northmart_dev" {
 resource "databricks_schema" "bronze" {
   catalog_name = databricks_catalog.northmart_dev.name
   name         = "bronze"
-  storage_root = "abfss://unity@stnorthmartdev.dfs.core.windows.net/catalogs/northmart_dev/bronze"
+  storage_root = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/catalogs/${local.catalog_name}/bronze"
   properties = {
     "collation" = "UTF8_BINARY"
     "owner"     = "root"
@@ -50,7 +50,7 @@ resource "databricks_schema" "bronze" {
 resource "databricks_schema" "silver" {
   catalog_name = databricks_catalog.northmart_dev.name
   name         = "silver"
-  storage_root = "abfss://unity@stnorthmartdev.dfs.core.windows.net/catalogs/northmart_dev/silver"
+  storage_root = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/catalogs/${local.catalog_name}/silver"
   properties = {
     "collation" = "UTF8_BINARY"
     "owner"     = "root"
@@ -60,7 +60,7 @@ resource "databricks_schema" "silver" {
 resource "databricks_schema" "ml" {
   catalog_name = databricks_catalog.northmart_dev.name
   name         = "ml"
-  storage_root = "abfss://unity@stnorthmartdev.dfs.core.windows.net/catalogs/northmart_dev/ml"
+  storage_root = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/catalogs/${local.catalog_name}/ml"
   properties = {
     "collation" = "UTF8_BINARY"
     "owner"     = "root"
@@ -70,7 +70,7 @@ resource "databricks_schema" "ml" {
 resource "databricks_schema" "gold" {
   catalog_name = databricks_catalog.northmart_dev.name
   name         = "gold"
-  storage_root = "abfss://unity@stnorthmartdev.dfs.core.windows.net/catalogs/northmart_dev/gold"
+  storage_root = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/catalogs/${local.catalog_name}/gold"
   properties = {
     "collation" = "UTF8_BINARY"
     "owner"     = "root"
@@ -80,7 +80,7 @@ resource "databricks_schema" "gold" {
 resource "databricks_schema" "reference" {
   catalog_name = databricks_catalog.northmart_dev.name
   name         = "reference"
-  storage_root = "abfss://unity@stnorthmartdev.dfs.core.windows.net/catalogs/northmart_dev/reference"
+  storage_root = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/catalogs/${local.catalog_name}/reference"
   properties = {
     "collation" = "UTF8_BINARY"
     "owner"     = "root"
@@ -99,32 +99,36 @@ resource "databricks_schema" "sandbox" {
   }
 }
 
-resource "databricks_group" "northmart_data_engineers" {
-  provider = databricks.account
-
-  display_name = azuread_group.northmart_data_engineers.display_name
-  external_id  = azuread_group.northmart_data_engineers.object_id
+data "databricks_group" "northmart_data_engineers" {
+  provider     = databricks.account
+  display_name = "grp-northmart-data-engineers"
 }
 
-resource "databricks_group" "northmart_data_analysts" {
-  provider = databricks.account
-
-  display_name = azuread_group.northmart_data_analysts.display_name
-  external_id  = azuread_group.northmart_data_analysts.object_id
+data "databricks_group" "northmart_data_analysts" {
+  provider     = databricks.account
+  display_name = "grp-northmart-data-analysts"
 }
 
-resource "databricks_group" "northmart_data_readers" {
-  provider = databricks.account
+data "databricks_group" "northmart_data_readers" {
+  provider     = databricks.account
+  display_name = "grp-northmart-data-readers"
+}
 
-  display_name = azuread_group.northmart_data_readers.display_name
-  external_id  = azuread_group.northmart_data_readers.object_id
+data "databricks_service_principal" "github_cicd" {
+  provider       = databricks.account
+  application_id = "818c9a7a-b711-4ebf-909a-a0be7c379c3f"
+}
+
+data "databricks_service_principal" "platform_cicd" {
+  provider       = databricks.account
+  application_id = "080dc876-6182-44a4-a5dd-3e85292d302a"
 }
 
 resource "databricks_grants" "northmart_catalog" {
   catalog = databricks_catalog.northmart_dev.name
 
   grant {
-    principal  = databricks_group.northmart_data_engineers.display_name
+    principal = data.databricks_group.northmart_data_engineers.display_name
     privileges = [
       "ALL_PRIVILEGES",
       "MANAGE"
@@ -132,7 +136,7 @@ resource "databricks_grants" "northmart_catalog" {
   }
 
   grant {
-    principal  = databricks_group.northmart_data_analysts.display_name
+    principal = data.databricks_group.northmart_data_analysts.display_name
     privileges = [
       "ALL_PRIVILEGES",
       "MANAGE"
@@ -140,7 +144,7 @@ resource "databricks_grants" "northmart_catalog" {
   }
 
   grant {
-    principal  = databricks_group.northmart_data_readers.display_name
+    principal = data.databricks_group.northmart_data_readers.display_name
     privileges = [
       "ALL_PRIVILEGES",
       "MANAGE"
@@ -148,15 +152,15 @@ resource "databricks_grants" "northmart_catalog" {
   }
 
   grant {
-    principal  = databricks_service_principal.github_cicd.application_id
+    principal = data.databricks_service_principal.github_cicd.application_id
     privileges = [
       "ALL_PRIVILEGES",
       "MANAGE"
     ]
   }
-  
+
   grant {
-    principal  = databricks_service_principal.platform_cicd.application_id
+    principal = data.databricks_service_principal.platform_cicd.application_id
     privileges = [
       "ALL_PRIVILEGES",
       "MANAGE"
@@ -168,7 +172,7 @@ resource "databricks_grants" "bronze" {
   schema = "${databricks_catalog.northmart_dev.name}.${databricks_schema.bronze.name}"
 
   grant {
-    principal = databricks_group.northmart_data_engineers.display_name
+    principal = data.databricks_group.northmart_data_engineers.display_name
 
     privileges = [
       "USE_SCHEMA",
@@ -183,7 +187,7 @@ resource "databricks_grants" "silver" {
   schema = "${databricks_catalog.northmart_dev.name}.${databricks_schema.silver.name}"
 
   grant {
-    principal = databricks_group.northmart_data_engineers.display_name
+    principal = data.databricks_group.northmart_data_engineers.display_name
 
     privileges = [
       "USE_SCHEMA",
@@ -193,7 +197,7 @@ resource "databricks_grants" "silver" {
   }
 
   grant {
-    principal  = databricks_group.northmart_data_analysts.display_name
+    principal  = data.databricks_group.northmart_data_analysts.display_name
     privileges = ["USE_SCHEMA"]
   }
 }
@@ -203,7 +207,7 @@ resource "databricks_grants" "gold" {
   schema = "${databricks_catalog.northmart_dev.name}.${databricks_schema.gold.name}"
 
   grant {
-    principal = databricks_group.northmart_data_engineers.display_name
+    principal = data.databricks_group.northmart_data_engineers.display_name
 
     privileges = [
       "USE_SCHEMA",
@@ -212,19 +216,19 @@ resource "databricks_grants" "gold" {
   }
 
   grant {
-    principal  = databricks_group.northmart_data_analysts.display_name
+    principal  = data.databricks_group.northmart_data_analysts.display_name
     privileges = ["USE_SCHEMA"]
   }
 
   grant {
-    principal  = databricks_group.northmart_data_readers.display_name
+    principal  = data.databricks_group.northmart_data_readers.display_name
     privileges = ["USE_SCHEMA"]
   }
 }
 
 // create the sql warhouse pro serverless to execute SQL to create rule tables in UC
 resource "databricks_sql_endpoint" "northmart" {
-  name = "sql-northmart-dev"
+  name = local.sql_server_name
 
   cluster_size = "2X-Small"
 
@@ -242,7 +246,7 @@ resource "databricks_mws_permission_assignment" "northmart_data_engineers" {
   provider = databricks.account
 
   workspace_id = 7405613337187597
-  principal_id = databricks_group.northmart_data_engineers.id
+  principal_id = data.databricks_group.northmart_data_engineers.id
 
   permissions = ["USER"]
 }
@@ -251,7 +255,7 @@ resource "databricks_mws_permission_assignment" "northmart_data_analysts" {
   provider = databricks.account
 
   workspace_id = 7405613337187597
-  principal_id = databricks_group.northmart_data_analysts.id
+  principal_id = data.databricks_group.northmart_data_analysts.id
 
   permissions = ["USER"]
 }
@@ -260,7 +264,7 @@ resource "databricks_mws_permission_assignment" "northmart_data_readers" {
   provider = databricks.account
 
   workspace_id = 7405613337187597
-  principal_id = databricks_group.northmart_data_readers.id
+  principal_id = data.databricks_group.northmart_data_readers.id
 
   permissions = ["USER"]
 }
@@ -276,27 +280,27 @@ resource "databricks_permissions" "northmart_sql_warehouse" {
   ]
 
   access_control {
-    group_name       = databricks_group.northmart_data_engineers.display_name
+    group_name       = data.databricks_group.northmart_data_engineers.display_name
     permission_level = "CAN_USE"
   }
 
   access_control {
-    group_name       = databricks_group.northmart_data_analysts.display_name
+    group_name       = data.databricks_group.northmart_data_analysts.display_name
     permission_level = "CAN_USE"
   }
 
   access_control {
-    service_principal_name = databricks_service_principal.github_cicd.application_id
+    service_principal_name = data.databricks_service_principal.github_cicd.application_id
     permission_level       = "CAN_MANAGE"
 
-}
+  }
 
 }
 
 //create the scope in databricks for the SQL database login password
 
 resource "databricks_secret_scope" "northmart" {
-  name = "kv-northmart-gmkng"
+  name = var.key_vault_name
   keyvault_metadata {
     resource_id = azurerm_key_vault.northmart.id
     dns_name    = azurerm_key_vault.northmart.vault_uri
@@ -314,7 +318,7 @@ resource "databricks_secret_scope" "northmart" {
 resource "databricks_mws_network_connectivity_config" "northmart" {
   provider = databricks.account
 
-  name   = "ncc-northmart-dev"
+  name   = local.ncc_name
   region = "centralindia"
 }
 

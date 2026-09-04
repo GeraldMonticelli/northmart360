@@ -1,7 +1,7 @@
 resource "azurerm_mssql_server" "northmart" {
-  name                = "sql-northmart-dev"
-  resource_group_name = "rg-dp750"
-  location            = "Central India"
+  name                = local.sql_server_name
+  resource_group_name = var.resource_group_name
+  location            = var.location
   version             = "12.0"
 
   administrator_login          = var.sql_admin_login
@@ -11,7 +11,7 @@ resource "azurerm_mssql_server" "northmart" {
 }
 
 resource "azurerm_mssql_database" "northmart" {
-  name      = "sqldb-northmart-dev"
+  name      = local.sql_database_name
   server_id = azurerm_mssql_server.northmart.id
 
   sku_name = "GP_S_Gen5_1"
@@ -27,7 +27,7 @@ resource "azurerm_mssql_database" "northmart" {
 resource "azurerm_mssql_firewall_rule" "gerald" {
   for_each = toset(var.dev_public_ips)
 
-  name      = "gerald-dev-${replace(each.value, ".", "-")}"
+  name      = "gerald-${var.environment}-${replace(each.value, ".", "-")}"
   server_id = azurerm_mssql_server.northmart.id
 
   start_ip_address = each.value

@@ -1,8 +1,8 @@
 resource "azurerm_storage_account" "northmart" {
   default_to_oauth_authentication = true
-  name                            = "stnorthmartdev"
-  resource_group_name             = "rg-dp750"
-  location                        = "Central India"
+  name                            = var.storage_account_name
+  resource_group_name             = var.resource_group_name
+  location                        = var.location
 
   account_tier              = "Standard"
   account_replication_type  = "LRS"
@@ -15,9 +15,9 @@ resource "azurerm_storage_account" "northmart" {
 }
 
 resource "azurerm_databricks_access_connector" "northmart" {
-  name                = "ac-northmart-dev"
-  resource_group_name = "rg-dp750"
-  location            = "Central India"
+  name                = local.access_connector_name
+  resource_group_name = var.resource_group_name
+  location            = var.location
   identity {
     type = "SystemAssigned"
   }
@@ -28,25 +28,25 @@ resource "azurerm_databricks_access_connector" "northmart" {
 }
 
 resource "azurerm_key_vault" "northmart" {
-  name                       = "kv-northmart-gmkng"
-  resource_group_name        = "rg-dp750"
-  location                   = "Central India"
+  name                       = var.key_vault_name
+  resource_group_name        = var.resource_group_name
+  location                   = var.location
   sku_name                   = "standard"
   rbac_authorization_enabled = false
   tenant_id                  = "ba5562e5-5ac3-48be-a9c2-03e01afc4253"
 }
 
 resource "azurerm_virtual_network" "northmart_databricks" {
-  name                = "vnet-northmart-dev"
-  resource_group_name = "rg-dp750"
-  location            = "Central India"
+  name                = local.vnet_name
+  resource_group_name = var.resource_group_name
+  location            = var.location
 
   address_space = ["10.20.0.0/16"]
 }
 
 resource "azurerm_subnet" "databricks_public" {
   name                 = "snet-databricks-public"
-  resource_group_name  = "rg-dp750"
+  resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.northmart_databricks.name
   address_prefixes     = ["10.20.0.0/24"]
 
@@ -67,7 +67,7 @@ resource "azurerm_subnet" "databricks_public" {
 
 resource "azurerm_subnet" "databricks_private" {
   name                 = "snet-databricks-private"
-  resource_group_name  = "rg-dp750"
+  resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.northmart_databricks.name
   address_prefixes     = ["10.20.1.0/24"]
 
@@ -87,12 +87,12 @@ resource "azurerm_subnet" "databricks_private" {
 }
 
 resource "azurerm_databricks_workspace" "northmart" {
-  name                          = "adb-dp750"
-  resource_group_name           = "rg-dp750"
-  location                      = "Central India"
+  name                          = var.workspace_name
+  resource_group_name           = var.resource_group_name
+  location                      = var.location
   public_network_access_enabled = true
   sku                           = "premium"
-  managed_resource_group_name   = "databricks-rg-adb-dp750-1ejtwyuys0j4z"
+  managed_resource_group_name   = var.databricks_managed_resource_group_name
   custom_parameters {
     no_public_ip       = true
     virtual_network_id = azurerm_virtual_network.northmart_databricks.id
@@ -100,7 +100,6 @@ resource "azurerm_databricks_workspace" "northmart" {
     public_subnet_name  = azurerm_subnet.databricks_public.name
     private_subnet_name = azurerm_subnet.databricks_private.name
 
-    storage_account_name     = "dbstoraged2ew5oif43myk"
     storage_account_sku_name = "Standard_ZRS"
   }
   tags = {}
@@ -108,14 +107,14 @@ resource "azurerm_databricks_workspace" "northmart" {
 
 resource "azurerm_network_security_group" "databricks_public" {
   name                = "nsg-databricks-public"
-  resource_group_name = "rg-dp750"
-  location            = "Central India"
+  resource_group_name = var.resource_group_name
+  location            = var.location
 }
 
 resource "azurerm_network_security_group" "databricks_private" {
   name                = "nsg-databricks-private"
-  resource_group_name = "rg-dp750"
-  location            = "Central India"
+  resource_group_name = var.resource_group_name
+  location            = var.location
 }
 
 resource "azurerm_subnet_network_security_group_association" "databricks_public" {
@@ -131,7 +130,7 @@ resource "azurerm_subnet_network_security_group_association" "databricks_private
 // subnet for the private endpoint deployment
 resource "azurerm_subnet" "private_endpoints" {
   name                 = "snet-private-endpoints"
-  resource_group_name  = "rg-dp750"
+  resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.northmart_databricks.name
   address_prefixes     = ["10.20.2.0/24"]
 }
@@ -142,17 +141,17 @@ resource "azurerm_subnet" "private_endpoints" {
 
 resource "azurerm_private_dns_zone" "adls_dfs" {
   name                = "privatelink.dfs.core.windows.net"
-  resource_group_name = "rg-dp750"
+  resource_group_name = var.resource_group_name
 }
 
 resource "azurerm_private_dns_zone" "adls_blob" {
   name                = "privatelink.blob.core.windows.net"
-  resource_group_name = "rg-dp750"
+  resource_group_name = var.resource_group_name
 }
 
 resource "azurerm_private_dns_zone" "sql" {
   name                = "privatelink.database.windows.net"
-  resource_group_name = "rg-dp750"
+  resource_group_name = var.resource_group_name
 }
 
 
@@ -190,8 +189,8 @@ resource "azurerm_private_dns_zone_virtual_network_link" "sql" {
 
 resource "azurerm_private_endpoint" "northmart_adls_dfs" {
   name                = "pe-northmart-adls-dfs"
-  location            = "Central India"
-  resource_group_name = "rg-dp750"
+  location            = var.location
+  resource_group_name = var.resource_group_name
   subnet_id           = azurerm_subnet.private_endpoints.id
 
   private_service_connection {
@@ -217,8 +216,8 @@ resource "azurerm_private_endpoint" "northmart_adls_dfs" {
 
 resource "azurerm_private_endpoint" "northmart_adls_blob" {
   name                = "pe-northmart-adls-blob"
-  location            = "Central India"
-  resource_group_name = "rg-dp750"
+  location            = var.location
+  resource_group_name = var.resource_group_name
   subnet_id           = azurerm_subnet.private_endpoints.id
 
   private_service_connection {
@@ -244,8 +243,8 @@ resource "azurerm_private_endpoint" "northmart_adls_blob" {
 
 resource "azurerm_private_endpoint" "northmart_sql" {
   name                = "pe-northmart-sql"
-  location            = "Central India"
-  resource_group_name = "rg-dp750"
+  location            = var.location
+  resource_group_name = var.resource_group_name
   subnet_id           = azurerm_subnet.private_endpoints.id
 
   private_service_connection {

@@ -8,7 +8,7 @@ resources:
 
       parameters:
         - name: model_name
-          default: northmart_dev.ml.fraud_detection_model
+          default: ${var.catalog}.ml.fraud_detection_model
 
         - name: model_version
           default: ""

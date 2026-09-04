@@ -3,7 +3,7 @@ resources:
     fraud_pipeline:
       name: northmart-fraud-pipeline
 
-      catalog: northmart_dev
+      catalog: ${var.catalog}
       schema: silver
 
       clusters:
@@ -29,7 +29,7 @@ resources:
             path: ../src/transformation/fraud_features_300min.py
 
       configuration:
-        fraud.kafka.bootstrap_servers: "evhns-northmart-fraud-dev.servicebus.windows.net:9093"
+        fraud.kafka.bootstrap_servers: "${var.eventhub_namespace}.servicebus.windows.net:9093"
         fraud.kafka.topic: "fraud-transactions"
         
       continuous: false
