@@ -10,10 +10,55 @@ permissions:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    environment: platform
+    environment: platform-test
 
     env:
       ARM_USE_OIDC: true
       ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
       ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      TF_VAR_environment: ${{ vars.TF_VAR_ENVIRONMENT }}
+      TF_VAR_resource_group_name: ${{ vars.TF_VAR_RESOURCE_GROUP_NAME }}
+      TF_VAR_storage_account_name: ${{ vars.TF_VAR_STORAGE_ACCOUNT_NAME }}
+      TF_VAR_key_vault_name: ${{ vars.TF_VAR_KEY_VAULT_NAME }}
+      TF_VAR_workspace_name: ${{ vars.TF_VAR_WORKSPACE_NAME }}
+      TF_VAR_databricks_managed_resource_group_name: ${{ vars.TF_VAR_DATABRICKS_MANAGED_RESOURCE_GROUP_NAME }}
+
+      TF_VAR_dev_public_ips: ${{ vars.TF_VAR_DEV_PUBLIC_IPS }}
+      TF_VAR_fraud_producer_ssh_public_key: ${{ vars.TF_VAR_FRAUD_PRODUCER_SSH_PUBLIC_KEY }}
+      TF_VAR_sql_admin_login: ${{ vars.TF_VAR_SQL_ADMIN_LOGIN }}
+      TF_VAR_sql_admin_password: ${{ secrets.TF_VAR_SQL_ADMIN_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init TEST
+        working-directory: terraform
+        run: |
+          terraform init \
+            -reconfigure \
+            -backend-config="key=northmart-test.tfstate"
+
+      - name: Terraform Validate
+        working-directory: terraform
+        run: terraform validate
+
+      - name: Terraform Plan TEST
+        working-directory: terraform
+        run: terraform plan -out=test.tfplan
+
+      - name: Terraform Apply TEST
+        working-directory: terraform
+        run: terraform apply -auto-approve test.tfplan

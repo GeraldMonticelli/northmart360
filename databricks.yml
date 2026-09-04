@@ -53,5 +53,3 @@ targets:
       catalog: northmart_test
       eventhub_namespace: evhns-northmart-fraud-test
 
-    workspace:
-      host: https://adb-7405613337187597.17.azuredatabricks.net
