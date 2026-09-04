@@ -45,6 +45,9 @@ jobs:
         working-directory: terraform
         run: terraform validate
 
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
       - name: Check identities
         run: |
           echo "Azure identity:"
