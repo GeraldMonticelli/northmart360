@@ -125,27 +125,42 @@ resource "databricks_grants" "northmart_catalog" {
 
   grant {
     principal  = databricks_group.northmart_data_engineers.display_name
-    privileges = ["ALL_PRIVILEGES"]
+    privileges = [
+      "ALL_PRIVILEGES",
+      "MANAGE"
+    ]
   }
 
   grant {
     principal  = databricks_group.northmart_data_analysts.display_name
-    privileges = ["USE_CATALOG"]
+    privileges = [
+      "ALL_PRIVILEGES",
+      "MANAGE"
+    ]
   }
 
   grant {
     principal  = databricks_group.northmart_data_readers.display_name
-    privileges = ["USE_CATALOG"]
+    privileges = [
+      "ALL_PRIVILEGES",
+      "MANAGE"
+    ]
   }
 
   grant {
     principal  = databricks_service_principal.github_cicd.application_id
-    privileges = ["ALL_PRIVILEGES"]
+    privileges = [
+      "ALL_PRIVILEGES",
+      "MANAGE"
+    ]
   }
   
   grant {
     principal  = databricks_service_principal.platform_cicd.application_id
-    privileges = ["ALL_PRIVILEGES"]
+    privileges = [
+      "ALL_PRIVILEGES",
+      "MANAGE"
+    ]
   }
 }
 
