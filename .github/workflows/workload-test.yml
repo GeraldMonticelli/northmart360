@@ -59,14 +59,17 @@ jobs:
 
       - name: Discover TEST SQL Warehouse
         run: |
-          WAREHOUSE_ID=$(databricks warehouses list -o json \
-            | jq -r '.[] | select(.name == "sql-northmart-test") | .id' | head -1)
+          echo "=== Warehouses visible to CI SP ==="
+          databricks warehouses list -o json
 
-          test -n "$WAREHOUSE_ID" || {
-            echo "SQL Warehouse sql-northmart-test not found"
-            exit 1
-          }
+          WAREHOUSE_ID=$(databricks warehouses list -o json \
+            | jq -r '.warehouses[]? | select(.name == "sql-northmart-test") | .id' \
+            | head -1)
+
           echo "Discovered SQL Warehouse ID: $WAREHOUSE_ID"
+
+          test -n "$WAREHOUSE_ID" || exit 1
+
           echo "BUNDLE_VAR_sql_warehouse_id=$WAREHOUSE_ID" >> "$GITHUB_ENV"
         
       - name: Validate Databricks bundle
