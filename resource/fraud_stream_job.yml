@@ -11,6 +11,20 @@ resources:
 
           notebook_task:
             notebook_path: ../tests/ingest_kafka.ipynb
-            source: WORKSPACE
+            source: WORKSPACE  
+          job_cluster_key: fraud_stream_cluster
 
-          existing_cluster_id: "0811-144810-41lfoivv"
+      job_clusters:
+        - job_cluster_key: fraud_stream_cluster
+          new_cluster:
+            spark_version: 17.3.x-scala2.13
+            node_type_id: Standard_D4s_v3
+            num_workers: 0
+            data_security_mode: SINGLE_USER
+
+            spark_conf:
+              spark.databricks.cluster.profile: singleNode
+              spark.master: local[*]
+
+            custom_tags:
+              ResourceClass: SingleNode
