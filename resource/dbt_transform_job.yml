@@ -1,7 +1,7 @@
 resources:
   jobs:
     dbt_transform_job:
-      name: northmart-dbt-transform-${bundle.target}
+      name: northmart-dbt-${bundle.target}-release-v0.1.0
 
       tasks:
         - task_key: dbt_build

@@ -34,6 +34,14 @@ USING (
         'DROP',
         true,
         'Unit price cannot be negative'
+      ),
+      (
+      'orders_silver',
+      'reasonable_quantity',
+      'quantity <= 100',
+      'DROP',
+      true,
+      'Quantity cannot exceed 100 units'
       )
     AS source(
         rule_set,
