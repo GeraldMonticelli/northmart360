@@ -60,6 +60,7 @@ jobs:
           databricks current-user me
 
       - name: Discover TEST SQL Warehouse
+        working-directory: /tmp
         run: |
           echo "=== Databricks environment ==="
           env | grep '^DATABRICKS_' | sort
