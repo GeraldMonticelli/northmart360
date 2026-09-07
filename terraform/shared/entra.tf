@@ -12,3 +12,8 @@ resource "azuread_group" "northmart_data_readers" {
   display_name     = "grp-northmart-data-readers"
   security_enabled = true
 }
+
+resource "azuread_group" "platform_admins" {
+  display_name     = "northmart-platform-admins"
+  security_enabled = true
+}

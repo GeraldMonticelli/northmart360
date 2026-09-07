@@ -1,0 +1,45 @@
+name: Platform Shared
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy-shared:
+    runs-on: ubuntu-latest
+    environment: platform-shared
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init Shared
+        working-directory: terraform/shared
+        run: |
+          terraform init \
+            -reconfigure \
+            -backend-config="key=northmart-shared.tfstate"
+
+      - name: Terraform Validate
+        working-directory: terraform/shared
+        run: terraform validate
+
+      - name: Terraform Plan
+        working-directory: terraform/shared
+        run: terraform plan -out=shared.tfplan
+
+      - name: Terraform Apply
+        working-directory: terraform/shared
+        run: terraform apply -auto-approve shared.tfplan
