@@ -1,0 +1,66 @@
+name: Workload Test
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  databricks-test:
+    runs-on: ubuntu-latest
+    environment: workload-test
+
+    env:
+      DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
+      DATABRICKS_AUTH_TYPE: github-oidc
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ----------------------------------------------------------
+      # Azure authentication - used only to discover the workspace
+      # ----------------------------------------------------------
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Discover Databricks workspace
+        shell: bash
+        run: |
+          HOST=$(az databricks workspace show \
+            --resource-group "${{ vars.AZURE_RESOURCE_GROUP_NAME }}" \
+            --name "${{ vars.DATABRICKS_WORKSPACE_NAME }}" \
+            --query workspaceUrl \
+            --output tsv)
+
+          if [ -z "$HOST" ]; then
+            echo "Databricks workspace not found"
+            exit 1
+          fi
+
+          echo "DATABRICKS_HOST=https://$HOST" >> "$GITHUB_ENV"
+
+      # ----------------------------------------------------------
+      # Databricks workload deployment
+      # ----------------------------------------------------------
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Test Databricks authentication
+        run: databricks current-user me
+
+      - name: Validate Databricks bundle
+        run: databricks bundle validate -t test
+
+      - name: Deploy Databricks bundle
+        run: databricks bundle deploy -t test
+
+      - name: Run dbt build
+        run: databricks bundle run dbt_transform_job -t test --progress-format append

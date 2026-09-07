@@ -3,20 +3,30 @@ resource "databricks_storage_credential" "northmart" {
   azure_managed_identity {
     access_connector_id = azurerm_databricks_access_connector.northmart.id
   }
-  comment = local.access_connector_name
+  comment = azurerm_databricks_access_connector.northmart.name
 }
 
 resource "databricks_external_location" "northmart" {
   name               = "el_${local.catalog_name}"
-  url                = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/"
+  url                = "abfss://unity@${azurerm_storage_account.northmart.name}.dfs.core.windows.net/"
   credential_name    = databricks_storage_credential.northmart.name
   enable_file_events = true
   file_event_queue {
     managed_aqs {
-      resource_group  = var.resource_group_name
+      resource_group  = azurerm_resource_group.northmart.name
       subscription_id = "60b97edd-4189-44b0-92bd-5ba7c24dadc5"
     }
   }
+  depends_on = [
+    azurerm_storage_container.unity,
+    azurerm_role_assignment.northmart_blob_data_contributor,
+    azurerm_role_assignment.northmart_storage_account_contributor,
+    databricks_mws_ncc_private_endpoint_rule.northmart_adls_blob,
+    databricks_mws_ncc_private_endpoint_rule.northmart_adls_dfs,
+    azurerm_private_endpoint.northmart_adls_blob,
+    azurerm_private_endpoint.northmart_adls_dfs,
+    azapi_update_resource.approve_ncc_storage_private_endpoints
+  ]
 }
 
 resource "databricks_catalog" "northmart_dev" {
@@ -26,21 +36,25 @@ resource "databricks_catalog" "northmart_dev" {
   properties = {
     "collation" = "UTF8_BINARY"
   }
-  storage_root = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/catalogs/${local.catalog_name}"
+  storage_root = "abfss://unity@${azurerm_storage_account.northmart.name}.dfs.core.windows.net/catalogs/${local.catalog_name}"
   effective_predictive_optimization_flag {
     inherited_from_name = "metastore_azure_centralindia"
     inherited_from_type = "METASTORE"
     value               = "ENABLE"
   }
   provider_config {
-    workspace_id = "7405613337187597"
+    workspace_id = azurerm_databricks_workspace.northmart.workspace_id
   }
+
+  depends_on = [
+    databricks_external_location.northmart
+  ]
 }
 
 resource "databricks_schema" "bronze" {
   catalog_name = databricks_catalog.northmart_dev.name
   name         = "bronze"
-  storage_root = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/catalogs/${local.catalog_name}/bronze"
+  storage_root = "abfss://unity@${azurerm_storage_account.northmart.name}.dfs.core.windows.net/catalogs/${databricks_catalog.northmart_dev.name}/bronze"
   properties = {
     "collation" = "UTF8_BINARY"
     "owner"     = "root"
@@ -50,7 +64,7 @@ resource "databricks_schema" "bronze" {
 resource "databricks_schema" "silver" {
   catalog_name = databricks_catalog.northmart_dev.name
   name         = "silver"
-  storage_root = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/catalogs/${local.catalog_name}/silver"
+  storage_root = "abfss://unity@${azurerm_storage_account.northmart.name}.dfs.core.windows.net/catalogs/${databricks_catalog.northmart_dev.name}/silver"
   properties = {
     "collation" = "UTF8_BINARY"
     "owner"     = "root"
@@ -60,7 +74,7 @@ resource "databricks_schema" "silver" {
 resource "databricks_schema" "ml" {
   catalog_name = databricks_catalog.northmart_dev.name
   name         = "ml"
-  storage_root = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/catalogs/${local.catalog_name}/ml"
+  storage_root = "abfss://unity@${azurerm_storage_account.northmart.name}.dfs.core.windows.net/catalogs/${databricks_catalog.northmart_dev.name}/ml"
   properties = {
     "collation" = "UTF8_BINARY"
     "owner"     = "root"
@@ -70,7 +84,7 @@ resource "databricks_schema" "ml" {
 resource "databricks_schema" "gold" {
   catalog_name = databricks_catalog.northmart_dev.name
   name         = "gold"
-  storage_root = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/catalogs/${local.catalog_name}/gold"
+  storage_root = "abfss://unity@${azurerm_storage_account.northmart.name}.dfs.core.windows.net/catalogs/${databricks_catalog.northmart_dev.name}/gold"
   properties = {
     "collation" = "UTF8_BINARY"
     "owner"     = "root"
@@ -80,7 +94,7 @@ resource "databricks_schema" "gold" {
 resource "databricks_schema" "reference" {
   catalog_name = databricks_catalog.northmart_dev.name
   name         = "reference"
-  storage_root = "abfss://unity@${var.storage_account_name}.dfs.core.windows.net/catalogs/${local.catalog_name}/reference"
+  storage_root = "abfss://unity@${azurerm_storage_account.northmart.name}.dfs.core.windows.net/catalogs/${databricks_catalog.northmart_dev.name}/reference"
   properties = {
     "collation" = "UTF8_BINARY"
     "owner"     = "root"
@@ -95,7 +109,7 @@ resource "databricks_schema" "sandbox" {
     "owner"     = "root"
   }
   provider_config {
-    workspace_id = "7405613337187597"
+    workspace_id = azurerm_databricks_workspace.northmart.workspace_id
   }
 }
 
@@ -245,7 +259,7 @@ resource "databricks_sql_endpoint" "northmart" {
 resource "databricks_mws_permission_assignment" "northmart_data_engineers" {
   provider = databricks.account
 
-  workspace_id = 7405613337187597
+  workspace_id = azurerm_databricks_workspace.northmart.workspace_id
   principal_id = data.databricks_group.northmart_data_engineers.id
 
   permissions = ["USER"]
@@ -254,7 +268,7 @@ resource "databricks_mws_permission_assignment" "northmart_data_engineers" {
 resource "databricks_mws_permission_assignment" "northmart_data_analysts" {
   provider = databricks.account
 
-  workspace_id = 7405613337187597
+  workspace_id = azurerm_databricks_workspace.northmart.workspace_id
   principal_id = data.databricks_group.northmart_data_analysts.id
 
   permissions = ["USER"]
@@ -263,12 +277,20 @@ resource "databricks_mws_permission_assignment" "northmart_data_analysts" {
 resource "databricks_mws_permission_assignment" "northmart_data_readers" {
   provider = databricks.account
 
-  workspace_id = 7405613337187597
+  workspace_id = azurerm_databricks_workspace.northmart.workspace_id
   principal_id = data.databricks_group.northmart_data_readers.id
 
   permissions = ["USER"]
 }
 
+resource "databricks_mws_permission_assignment" "github_cicd" {
+  provider = databricks.account
+
+  workspace_id = azurerm_databricks_workspace.northmart.workspace_id
+  principal_id = data.databricks_service_principal.github_cicd.id
+
+  permissions = ["USER"]
+}
 
 //assign permission on sql compute 
 resource "databricks_permissions" "northmart_sql_warehouse" {
@@ -333,7 +355,7 @@ resource "databricks_mws_ncc_binding" "northmart" {
     .network_connectivity_config_id
   )
 
-  workspace_id = 7405613337187597
+  workspace_id = azurerm_databricks_workspace.northmart.workspace_id
 }
 
 # ------------------------------------------------------------

@@ -31,6 +31,25 @@ typings/
 terraform.tfvars
 test.tfvars
 
+# Terraform local files
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+.terraform.lock.hcl.backup
+crash.log
+crash.*.log
+
+# Terraform variable files containing environment-specific/secrets
+*.tfvars
+*.tfvars.json
+
+# Local Databricks / environment
+.databrickscfg
+.env
+.env.*
+
+
 data/state/
 
 # dbt generated artifacts

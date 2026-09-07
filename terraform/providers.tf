@@ -8,12 +8,14 @@ terraform {
   }
 }
 
+provider "azapi" {}
+
 provider "azurerm" {
   features {}
 }
 
 provider "databricks" {
-  host = "https://adb-7405613337187597.17.azuredatabricks.net"
+  host = "https://${azurerm_databricks_workspace.northmart.workspace_url}"
 }
 
 provider "databricks" {

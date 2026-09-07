@@ -1,6 +1,6 @@
 resource "azurerm_mssql_server" "northmart" {
   name                = local.sql_server_name
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.northmart.name
   location            = var.location
   version             = "12.0"
 
