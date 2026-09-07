@@ -1,8 +1,19 @@
-
 name: Platform Test
 
 on:
+  workflow_call:
+    inputs:
+      release_ref:
+        description: "Git tag or commit to deploy"
+        required: true
+        type: string
+
   workflow_dispatch:
+    inputs:
+      release_ref:
+        description: "Git tag or commit to deploy"
+        required: true
+        type: string
 
 permissions:
   id-token: write
@@ -26,7 +37,17 @@ jobs:
       TF_VAR_dev_public_ips: ${{ vars.TF_VAR_DEV_PUBLIC_IPS }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_ref }}
+      
+      - name: Show release
+        run: |
+          echo "Requested release: ${{ inputs.release_ref }}"
+          echo "Actual commit:"
+          git rev-parse HEAD
+          git log -1 --oneline
 
       - name: Azure Login
         uses: azure/login@v2
