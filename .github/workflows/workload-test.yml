@@ -55,10 +55,13 @@ jobs:
         uses: databricks/setup-cli@main
 
       - name: Test Databricks authentication
-        run: databricks current-user me
+        run: |
+          echo "Authenticating against: $DATABRICKS_HOST"
+          databricks current-user me
 
       - name: Discover TEST SQL Warehouse
         run: |
+          echo "DATABRICKS_HOST used: $DATABRICKS_HOST"
           echo "=== Warehouses visible to CI SP ==="
           databricks warehouses list -o json
 
