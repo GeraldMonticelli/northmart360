@@ -1,7 +1,7 @@
 resources:
   jobs:
     northmart_orders_job:
-      name: northmart_orders_job
+      name: northmart_orders_job_POST_RELEASE
 
       tasks:
         - task_key: init_dq_rules
