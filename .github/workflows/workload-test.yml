@@ -61,12 +61,15 @@ jobs:
 
       - name: Discover TEST SQL Warehouse
         run: |
+          echo "=== Databricks environment ==="
+          env | grep '^DATABRICKS_' | sort
+          echo "=== Databricks host ==="
           echo "DATABRICKS_HOST used: $DATABRICKS_HOST"
           echo "=== Warehouses visible to CI SP ==="
           databricks warehouses list -o json
 
           WAREHOUSE_ID=$(databricks warehouses list -o json \
-            | jq -r '.warehouses[]? | select(.name == "sql-northmart-test") | .id' \
+            | jq -r '.[] | select(.name == "sql-northmart-test") | .id' \
             | head -1)
 
           echo "Discovered SQL Warehouse ID: $WAREHOUSE_ID"
