@@ -33,4 +33,4 @@ resources:
         fraud.kafka.topic: "fraud-transactions"
         
       continuous: false
-      development: true
+      development: ${var.pipeline_development}
