@@ -45,6 +45,7 @@ jobs:
             exit 1
           fi
 
+          echo "Discovered host: https://$HOST"
           echo "DATABRICKS_HOST=https://$HOST" >> "$GITHUB_ENV"
 
       # ----------------------------------------------------------
@@ -56,6 +57,18 @@ jobs:
       - name: Test Databricks authentication
         run: databricks current-user me
 
+      - name: Discover TEST SQL Warehouse
+        run: |
+          WAREHOUSE_ID=$(databricks warehouses list -o json \
+            | jq -r '.[] | select(.name == "sql-northmart-test") | .id' | head -1)
+
+          test -n "$WAREHOUSE_ID" || {
+            echo "SQL Warehouse sql-northmart-test not found"
+            exit 1
+          }
+          echo "Discovered SQL Warehouse ID: $WAREHOUSE_ID"
+          echo "BUNDLE_VAR_sql_warehouse_id=$WAREHOUSE_ID" >> "$GITHUB_ENV"
+        
       - name: Validate Databricks bundle
         run: databricks bundle validate -t test
 
