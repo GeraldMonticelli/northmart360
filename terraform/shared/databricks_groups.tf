@@ -18,3 +18,10 @@ resource "databricks_group" "northmart_data_readers" {
   display_name = azuread_group.northmart_data_readers.display_name
   external_id  = azuread_group.northmart_data_readers.object_id
 }
+
+resource "databricks_group" "platform_admins" {
+  provider = databricks.account
+
+  display_name = azuread_group.platform_admins.display_name
+  external_id  = azuread_group.platform_admins.object_id
+}

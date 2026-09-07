@@ -138,6 +138,11 @@ data "databricks_service_principal" "platform_cicd" {
   application_id = "080dc876-6182-44a4-a5dd-3e85292d302a"
 }
 
+data "databricks_group" "platform_admins" {
+  provider     = databricks.account
+  display_name = "northmart-platform-admins"
+}
+
 resource "databricks_grants" "northmart_catalog" {
   catalog = databricks_catalog.northmart_dev.name
 
@@ -290,6 +295,15 @@ resource "databricks_mws_permission_assignment" "github_cicd" {
   principal_id = data.databricks_service_principal.github_cicd.id
 
   permissions = ["USER"]
+}
+
+resource "databricks_mws_permission_assignment" "platform_admins" {
+  provider = databricks.account
+
+  workspace_id = azurerm_databricks_workspace.northmart.workspace_id
+  principal_id = data.databricks_group.platform_admins.id
+
+  permissions = ["ADMIN"]
 }
 
 //assign permission on sql compute 
