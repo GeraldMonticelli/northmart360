@@ -48,6 +48,11 @@ jobs:
           echo "Authenticating against: $DATABRICKS_HOST"
           databricks current-user me
 
+      - name: Force delete TEST external location
+        run: |
+          echo "Deleting external location el_northmart_test with force..."
+          databricks external-locations delete el_northmart_test --force
+
       # ------------------------------------------------------------
       #  Terraform destroy
       # ------------------------------------------------------------
