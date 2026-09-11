@@ -1,0 +1,35 @@
+name: Run Test
+
+on:
+  workflow_call:
+    inputs:
+      release_ref:
+        description: "Git tag or commit to deploy"
+        required: true
+        type: string
+
+  workflow_dispatch:
+    inputs:
+      release_ref:
+        description: "Git tag or commit to deploy"
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  databricks-test:
+    runs-on: ubuntu-latest
+    environment: workload-test
+
+    env:
+      DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
+      DATABRICKS_AUTH_TYPE: github-oidc
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_ref }}

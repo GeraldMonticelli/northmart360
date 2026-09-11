@@ -103,6 +103,3 @@ jobs:
 
       - name: Deploy Databricks bundle
         run: databricks bundle deploy -t test
-
-      - name: Run dbt build
-        run: databricks bundle run dbt_transform_job -t test --progress-format append

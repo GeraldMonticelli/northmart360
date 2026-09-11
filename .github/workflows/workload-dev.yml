@@ -28,6 +28,3 @@ jobs:
 
       - name: Deploy Databricks bundle
         run: databricks bundle deploy -t dev
-
-      - name: Run dbt build
-        run: databricks bundle run dbt_transform_job -t dev --progress-format append
