@@ -11,6 +11,7 @@ resource "databricks_external_location" "northmart" {
   url                = "abfss://unity@${azurerm_storage_account.northmart.name}.dfs.core.windows.net/"
   credential_name    = databricks_storage_credential.northmart.name
   enable_file_events = true
+  force_destroy      = true
   file_event_queue {
     managed_aqs {
       resource_group  = azurerm_resource_group.northmart.name
