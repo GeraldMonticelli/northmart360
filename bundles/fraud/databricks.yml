@@ -3,7 +3,7 @@
 # See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
 
 bundle:
-  name: northmart360
+  name: fraud
 
 variables:
   sql_warehouse_id:
@@ -20,21 +20,16 @@ variables:
 
 
 include:
-  - resource/*.yml
+  - resources/*.yml
 
 sync:
   include:
     - src/**
-    - tests/**
-    - northmart_dbt/**
-  exclude:
-    - terraform/**
-    - .venv/**
-    - .venv-dbt/**    
-    - .git/**
+    - dbt/**
+  exclude:  
     - src/source_generator/**
-    - northmart_dbt/target/**
-    - northmart_dbt/logs/**
+    - dbt/target/**
+    - dbt/logs/**
 
 targets:
   dev:

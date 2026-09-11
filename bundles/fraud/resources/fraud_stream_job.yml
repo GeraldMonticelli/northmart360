@@ -8,10 +8,14 @@ resources:
 
       tasks:
         - task_key: ingest_fraud_events
+          spark_python_task:
+            python_file: ../src/ingestion/ingest_kafka.py
+            parameters:
+              - "--catalog"
+              - "${var.catalog}"
+              - "--eventhub-namespace"
+              - "${var.eventhub_namespace}"
 
-          notebook_task:
-            notebook_path: ../tests/ingest_kafka.ipynb
-            source: WORKSPACE  
           job_cluster_key: fraud_stream_cluster
 
       job_clusters:

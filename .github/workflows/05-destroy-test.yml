@@ -1,0 +1,62 @@
+name: 05 - Destroy TEST
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: 'Type DESTROY-TEST'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: northmart-test
+  cancel-in-progress: false
+
+jobs:
+  destroy:
+    if: ${{ inputs.confirmation == 'DESTROY-TEST' }}
+    runs-on: ubuntu-latest
+    environment: test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Cleanup workload-created UC objects
+        env:
+          DATABRICKS_AUTH_TYPE: github-oidc
+          DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST_TEST }}
+          DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
+        run: |
+          databricks schemas delete northmart_test.dbt --force || true
+
+      - name: Terraform init TEST
+        working-directory: platform/terraform
+        run: |
+          terraform init \
+            -reconfigure \
+            -backend-config="key=northmart-test.tfstate"
+
+      - name: Terraform destroy TEST
+        working-directory: platform/terraform
+        run: |
+          terraform destroy \
+            -var-file=test.tfvars \
+            -auto-approve
