@@ -11,7 +11,6 @@ resource "databricks_external_location" "northmart" {
   url                = "abfss://unity@${azurerm_storage_account.northmart.name}.dfs.core.windows.net/"
   credential_name    = databricks_storage_credential.northmart.name
   enable_file_events = true
-  force_destroy      = true
   file_event_queue {
     managed_aqs {
       resource_group  = azurerm_resource_group.northmart.name
@@ -34,7 +33,6 @@ resource "databricks_catalog" "northmart_dev" {
   name                       = local.catalog_name
   comment                    = "NorthMart development catalog"
   custom_max_retention_hours = 0
-  force_destroy              = true
   properties = {
     "collation" = "UTF8_BINARY"
   }
@@ -331,6 +329,11 @@ resource "databricks_permissions" "northmart_sql_warehouse" {
     service_principal_name = data.databricks_service_principal.github_cicd.application_id
     permission_level       = "CAN_MANAGE"
 
+  }
+
+  access_control {
+    permission_level       = "IS_OWNER"
+    service_principal_name = data.databricks_service_principal.platform_cicd.application_id
   }
 
 }

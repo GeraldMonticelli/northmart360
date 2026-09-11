@@ -39,6 +39,7 @@ test.tfvars
 .terraform.lock.hcl.backup
 crash.log
 crash.*.log
+*.png
 
 # Terraform variable files containing environment-specific/secrets
 *.tfvars

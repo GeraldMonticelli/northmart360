@@ -65,6 +65,10 @@ resource "azurerm_linux_virtual_machine" "fraud_producer" {
     azurerm_network_interface.fraud_producer.id
   ]
 
+  identity {
+    type = "SystemAssigned"
+  }
+
   admin_ssh_key {
     username   = "azureuser"
     public_key = var.fraud_producer_ssh_public_key
