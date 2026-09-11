@@ -33,6 +33,7 @@ resource "databricks_catalog" "northmart_dev" {
   name                       = local.catalog_name
   comment                    = "NorthMart development catalog"
   custom_max_retention_hours = 0
+  force_destroy              = true
   properties = {
     "collation" = "UTF8_BINARY"
   }

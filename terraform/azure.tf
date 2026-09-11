@@ -16,7 +16,7 @@ resource "azurerm_storage_account" "northmart" {
   tags = {
     "Environnement" = "Learning"
     "Projet"        = "dp-750"
-    release_marker = "v0.1.0"
+    release_marker  = "v0.1.0"
   }
 }
 
