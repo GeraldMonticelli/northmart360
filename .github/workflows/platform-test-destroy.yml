@@ -36,6 +36,26 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
     
+      # ------------------------------------------------------------
+      # Databricks CLI
+      # ------------------------------------------------------------
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Test Databricks authentication
+        run: |
+          echo "Authenticating against: $DATABRICKS_HOST"
+          databricks current-user me
+
+      - name: List remaining TEST schemas
+        run: |
+         echo "=== Remaining schemas in northmart_test ==="
+         databricks schemas list northmart_test
+
+      # ------------------------------------------------------------
+      #  Terraform destroy
+      # ------------------------------------------------------------
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
