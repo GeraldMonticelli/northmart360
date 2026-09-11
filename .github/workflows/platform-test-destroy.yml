@@ -48,21 +48,6 @@ jobs:
           echo "Authenticating against: $DATABRICKS_HOST"
           databricks current-user me
 
-      - name: List remaining TEST schemas
-        run: |
-         echo "=== Remaining schemas in northmart_test ==="
-         databricks schemas list northmart_test
-
-      - name: Delete non-Terraform DBT schema
-        run: |
-          echo "Deleting northmart_test.dbt and all its contents..."
-          databricks schemas delete northmart_test.dbt --force
-
-      - name: Verify remaining TEST schemas
-        run: |
-          echo "=== Schemas after cleanup ==="
-          databricks schemas list northmart_test
-
       # ------------------------------------------------------------
       #  Terraform destroy
       # ------------------------------------------------------------
