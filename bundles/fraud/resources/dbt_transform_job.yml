@@ -1,13 +1,13 @@
 resources:
   jobs:
     dbt_transform_job:
-      name: northmart-dbt-${bundle.target}-release-v0.1.0
+      name: dbt-fraud-${bundle.target}
 
       tasks:
-        - task_key: dbt_build
+        - task_key: dbt_fraud_build
 
           dbt_task:
-            project_directory: ${workspace.file_path}/northmart_dbt
+            project_directory: ${workspace.file_path}/bundles/fraud/dbt
             commands:
               - dbt build
             warehouse_id: ${var.sql_warehouse_id}

@@ -2,6 +2,7 @@
 #Python virtual environment
 .venv/
 .venv-dbt/
+.venv-test/
 venv/
 env/
 

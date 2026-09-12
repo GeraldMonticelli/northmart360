@@ -1,15 +1,11 @@
-from pyspark import pipelines as dp
+from pyspark.sql import DataFrame
 from pyspark.sql.functions import (
     col,
     from_json,
     to_timestamp,
     hour,
-    window,
-    count,
     when,
-    sum as spark_sum,
 )
-
 from pyspark.sql.types import (
     StructType,
     StructField,
@@ -17,6 +13,7 @@ from pyspark.sql.types import (
     DoubleType,
     TimestampType,
 )
+
 
 transaction_schema = StructType([
     StructField("transaction_id", StringType(), True),
@@ -33,27 +30,11 @@ transaction_schema = StructType([
     StructField("fraud_scenario", StringType(), True),
 ])
 
-@dp.table(
-    name="northmart_dev.silver.fraud_transactions_silver",
-    comment="Validated and normalized fraud transactions."
-)
-@dp.expect(
-    "valid_transaction_id",
-    "transaction_id IS NOT NULL"
-)
-@dp.expect(
-    "positive_amount",
-    "amount > 0"
-)
-@dp.expect(
-    "valid_event_time",
-    "event_time IS NOT NULL"
-)
-def fraud_transactions_silver():
 
-    bronze = spark.readStream.table(
-        "northmart_dev.bronze.fraud_transactions"
-    )
+def transform_fraud_transactions(bronze: DataFrame) -> DataFrame:
+    """
+    Transform raw Kafka Bronze transactions into Silver transactions.
+    """
 
     parsed = (
         bronze
@@ -61,14 +42,14 @@ def fraud_transactions_silver():
             "transaction",
             from_json(
                 col("value"),
-                transaction_schema
-            )
+                transaction_schema,
+            ),
         )
         .select(
             "transaction.*",
             "partition",
             "offset",
-            "kafka_timestamp"
+            "kafka_timestamp",
         )
     )
 
@@ -76,14 +57,17 @@ def fraud_transactions_silver():
         parsed
         .withColumn(
             "is_fraud",
-            when(col("fraud_scenario").isNotNull(), 1).otherwise(0)
+            when(
+                col("fraud_scenario").isNotNull(),
+                1,
+            ).otherwise(0),
         )
         .withColumn(
             "event_time",
-            to_timestamp("event_time")
+            to_timestamp("event_time"),
         )
         .withColumn(
             "transaction_hour",
-            hour("event_time")
+            hour("event_time"),
         )
     )
