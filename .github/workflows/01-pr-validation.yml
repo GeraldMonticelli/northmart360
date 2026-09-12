@@ -17,6 +17,7 @@ jobs:
   validate:
     name: Validate release candidate
     runs-on: ubuntu-latest
+    environment: platform-test
 
     steps:
       - name: Checkout PR
