@@ -10,7 +10,7 @@ permissions:
   id-token: write
 
 env:
-  TF_DIR: platform/terraform
+  TF_DIR: terraform
   TF_VERSION: "1.15.8"
 
 jobs:
@@ -58,11 +58,42 @@ jobs:
 
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
+  
+      - name: Discover Databricks host
+        id: databricks
+        working-directory: ${{ env.TF_DIR }}
+        shell: bash
+        run: |
+          HOST=$($(az databricks workspace show \
+            --resource-group "${{ vars.TF_VAR_RESOURCE_GROUP_NAME }}" \
+            --name "${{ vars.TF_VAR_WORKSPACE_NAME }}" \
+            --query workspaceUrl \
+            -o tsv 2>/dev/null || true)
+
+          if [ -n "$HOST" ]; then
+            if [[ "$HOST" != https://* ]]; then
+              HOST="https://$HOST"
+            fi
+
+            echo "host=$HOST" >> "$GITHUB_OUTPUT"
+            echo "Databricks TEST workspace discovered."
+          else
+            echo "host=" >> "$GITHUB_OUTPUT"
+            echo "No existing Databricks TEST workspace. Bundle validation will be skipped."
+          fi
 
       - name: Validate Databricks bundle
+        if: steps.databricks.outputs.host != ''
+        working-directory: bundles/fraud
         env:
           DATABRICKS_AUTH_TYPE: github-oidc
-          DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST_TEST }}
-          DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
+          DATABRICKS_HOST: ${{ steps.databricks.outputs.host }}
+          DATABRICKS_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
         run: |
           databricks bundle validate -t test
+
+      - name: Skip Fraud bundle validation
+        if: steps.databricks.outputs.host == ''
+        run: |
+          echo "Databricks TEST workspace does not currently exist."
+          echo "Skipping Databricks bundle validation."
