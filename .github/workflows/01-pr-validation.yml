@@ -53,7 +53,6 @@ jobs:
         working-directory: ${{ env.TF_DIR }}
         run: |
           terraform plan \
-            -var-file=test.tfvars \
             -out=tfplan
 
       - name: Install Databricks CLI
