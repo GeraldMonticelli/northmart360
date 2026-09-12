@@ -76,19 +76,17 @@ jobs:
         working-directory: ${{ env.TF_DIR }}
         shell: bash
         run: |
-          HOST=$($(az databricks workspace show \
-            --resource-group "${{ vars.TF_VAR_RESOURCE_GROUP_NAME }}" \
-            --name "${{ vars.TF_VAR_WORKSPACE_NAME }}" \
-            --query workspaceUrl \
-            -o tsv 2>/dev/null || true)
-
+          HOST=$(az databricks workspace show \
+            --resource-group "$TF_VAR_resource_group_name" \
+            --name "$TF_VAR_workspace_name" \
+            --query "workspaceUrl" \
+            --output tsv 2>/dev/null || true)
           if [ -n "$HOST" ]; then
             if [[ "$HOST" != https://* ]]; then
               HOST="https://$HOST"
             fi
-
             echo "host=$HOST" >> "$GITHUB_OUTPUT"
-            echo "Databricks TEST workspace discovered."
+            echo "Databricks TEST workspace discovered: $HOST"
           else
             echo "host=" >> "$GITHUB_OUTPUT"
             echo "No existing Databricks TEST workspace. Bundle validation will be skipped."
