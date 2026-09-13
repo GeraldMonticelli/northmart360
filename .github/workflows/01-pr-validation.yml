@@ -47,6 +47,22 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Install Python CI dependencies
+        working-directory: bundles/fraud
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ruff pytest databricks-connect
+
+      - name: Ruff
+        working-directory: bundles/fraud
+        run: |
+          ruff check src tests
+
+      - name: Pytest
+        working-directory: bundles/fraud
+        run: |
+          python -m pytest tests/unit -v
+
       - name: Terraform init
         working-directory: ${{ env.TF_DIR }}
         run: |
