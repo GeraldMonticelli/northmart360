@@ -38,8 +38,10 @@ jobs:
           filters: |
             fraud:
               - 'bundles/fraud/**'
+              - '.github/workflows/01-pr-validation.yml'
             terraform:
               - 'terraform/**'
+              - '.github/workflows/01-pr-validation.yml'
 
 
   # ============================================================
