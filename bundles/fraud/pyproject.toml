@@ -15,3 +15,9 @@ include = [
     "ingestion*",
     "transformation*"
 ]
+
+[tool.ruff]
+builtins = ["spark", "dbutils"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "DTZ"]

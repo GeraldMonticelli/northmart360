@@ -1,12 +1,11 @@
-from datetime import datetime
 import io
 import random
 import time
+from datetime import UTC, datetime
 
 import pandas as pd
 from azure.identity import DefaultAzureCredential
 from azure.storage.filedatalake import DataLakeServiceClient
-
 
 STORAGE_ACCOUNT = "stnorthmartdev"
 FILE_SYSTEM = "unity"
@@ -122,8 +121,7 @@ def apply_existing_cdc(state: pd.DataFrame) -> pd.DataFrame:
                     for column, value in event.items():
                         state.at[index, column] = value
 
-            elif operation == "DELETE":
-                if mask.any():
+            elif operation == "DELETE" and mask.any():
                     state = state.loc[~mask].copy()
 
     state = state.reset_index(drop=True)
@@ -131,7 +129,7 @@ def apply_existing_cdc(state: pd.DataFrame) -> pd.DataFrame:
 
 
 def create_new_customer(customer_id: int) -> dict:
-    now = datetime.now()
+    now = datetime.now(UTC)
     city, country = random.choice(CITIES)
 
     return {
@@ -177,8 +175,8 @@ def create_update(customer: pd.Series) -> dict:
     event["sequence_number"] = (
         int(customer["sequence_number"]) + 1
     )
-    event["event_timestamp"] = datetime.now()
-    event["ingestion_timestamp"] = datetime.now()
+    event["event_timestamp"] = datetime.now(UTC)
+    event["ingestion_timestamp"] = datetime.now(UTC)
 
     return event
 
@@ -190,8 +188,8 @@ def create_delete(customer: pd.Series) -> dict:
     event["sequence_number"] = (
         int(customer["sequence_number"]) + 1
     )
-    event["event_timestamp"] = datetime.now()
-    event["ingestion_timestamp"] = datetime.now()
+    event["event_timestamp"] = datetime.now(UTC)
+    event["ingestion_timestamp"] = datetime.now(UTC)
 
     return event
 
@@ -272,7 +270,7 @@ def generate_changes(
 
 
 def upload_batch(df: pd.DataFrame) -> None:
-    timestamp = datetime.now().strftime(
+    timestamp = datetime.now(UTC).strftime(
         "%Y%m%d_%H%M%S_%f"
     )
 
@@ -302,7 +300,7 @@ def upload_batch(df: pd.DataFrame) -> None:
     )
 
     print(
-        f"{datetime.now().isoformat(timespec='seconds')} | "
+        f"{datetime.now(UTC).isoformat(timespec='seconds')} | "
         f"{remote_name} | "
         f"{len(df):,} CDC events"
     )

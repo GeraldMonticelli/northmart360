@@ -1,15 +1,7 @@
 from pyspark import pipelines as dp
-
 from pyspark.sql.functions import (
     col,
-    from_json,
-    to_timestamp,
-    hour,
-    window,
-    count,
-    sum as spark_sum,
 )
-
 
 connection_string = dbutils.secrets.get(
     scope="kv-northmart-gmkng",

@@ -1,11 +1,14 @@
 from pyspark import pipelines as dp
 from pyspark.sql.functions import (
-    col,
-    window,
-    count,
-    sum as spark_sum,
     avg,
+    col,
+    count,
+    window,
 )
+from pyspark.sql.functions import (
+    sum as spark_sum,
+)
+
 
 @dp.table(
     name="northmart_dev.ml.fraud_features_300min",

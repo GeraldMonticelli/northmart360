@@ -1,15 +1,7 @@
 from pyspark import pipelines as dp
-from pyspark.sql.functions import (
-    col,
-    from_json,
-    to_timestamp,
-    hour,
-    window,
-    count,
-    sum as spark_sum,
-    max as spark_max
-)
-
+from pyspark.sql.functions import col, count, window
+from pyspark.sql.functions import max as spark_max
+from pyspark.sql.functions import sum as spark_sum
 
 
 @dp.table(

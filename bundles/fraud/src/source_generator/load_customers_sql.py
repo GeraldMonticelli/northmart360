@@ -1,10 +1,9 @@
 import os
 import random
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pyodbc
 from faker import Faker
-
 
 SERVER = "sql-northmart-dev.database.windows.net"
 DATABASE = "sqldb-northmart-dev"
@@ -57,7 +56,7 @@ def generate_customer(customer_id):
         "@northmart.example"
     ).lower().replace(" ", "")
 
-    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    now = datetime.now(UTC).replace(tzinfo=None)
 
     loyalty_level = random.choices(
         LOYALTY_LEVELS,

@@ -1,14 +1,11 @@
 import mlflow
 import mlflow.spark
-
-
-from pyspark.sql import SparkSession
+from mlflow.models import infer_signature
 from pyspark.ml import Pipeline
-from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.classification import RandomForestClassifier
 from pyspark.ml.evaluation import BinaryClassificationEvaluator
-from mlflow.models import infer_signature
-
+from pyspark.ml.feature import VectorAssembler
+from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.getOrCreate()
 

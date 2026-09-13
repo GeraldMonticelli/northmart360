@@ -1,12 +1,11 @@
-from datetime import datetime
-from pathlib import Path
 import random
+from datetime import UTC, datetime
+from pathlib import Path
 
 import pandas as pd
-from faker import Faker
 from azure.identity import DefaultAzureCredential
 from azure.storage.filedatalake import DataLakeServiceClient
-
+from faker import Faker
 
 STORAGE_ACCOUNT = "stnorthmartdev"
 FILE_SYSTEM = "unity"
@@ -61,7 +60,7 @@ def generate_customer(customer_id: int) -> dict:
         "@northmart.example"
     ).lower().replace(" ", "")
 
-    now = datetime.now()
+    now = datetime.now(UTC)
 
     return {
         "customer_id": customer_id,

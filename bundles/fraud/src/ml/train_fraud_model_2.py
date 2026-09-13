@@ -1,18 +1,15 @@
 import mlflow
 import mlflow.sklearn
-
 from databricks.feature_engineering import (
     FeatureEngineeringClient,
     FeatureLookup,
 )
-
 from sklearn.compose import ColumnTransformer
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.impute import SimpleImputer
+from sklearn.metrics import classification_report, roc_auc_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
-from sklearn.impute import SimpleImputer
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import roc_auc_score, classification_report
-
 
 # --------------------------------------------------
 # 1. Clients / config

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import UTC, datetime
 
 from src.transformation.fraud_transformations import (
     transform_fraud_transactions,
@@ -27,7 +27,7 @@ def test_transform_fraud_transactions(spark):
             """,
             0,
             100,
-            datetime(2026, 9, 12, 10, 15),
+            datetime(2026, 9, 12, 10, 15, tzinfo=UTC),
         ),
         (
             """
@@ -48,7 +48,7 @@ def test_transform_fraud_transactions(spark):
             """,
             0,
             101,
-            datetime(2026, 9, 12, 23, 42),
+            datetime(2026, 9, 12, 23, 42, tzinfo=UTC),
         ),
     ]
 

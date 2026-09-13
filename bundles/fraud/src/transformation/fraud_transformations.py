@@ -2,18 +2,17 @@ from pyspark.sql import DataFrame
 from pyspark.sql.functions import (
     col,
     from_json,
-    to_timestamp,
     hour,
+    to_timestamp,
     when,
 )
 from pyspark.sql.types import (
-    StructType,
-    StructField,
-    StringType,
     DoubleType,
+    StringType,
+    StructField,
+    StructType,
     TimestampType,
 )
-
 
 transaction_schema = StructType([
     StructField("transaction_id", StringType(), True),

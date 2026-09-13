@@ -1,6 +1,6 @@
 import mlflow
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import struct, current_timestamp
+from pyspark.sql.functions import current_timestamp, struct
 
 spark = SparkSession.builder.getOrCreate()
 

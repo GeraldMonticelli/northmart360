@@ -1,13 +1,12 @@
-from datetime import datetime
 import io
 import random
 import time
 import uuid
+from datetime import UTC, datetime
 
 import pandas as pd
 from azure.identity import DefaultAzureCredential
 from azure.storage.filedatalake import DataLakeServiceClient
-
 
 STORAGE_ACCOUNT = "stnorthmartdev"
 FILE_SYSTEM = "unity"
@@ -57,13 +56,13 @@ def generate_live_orders(n: int) -> pd.DataFrame:
 
             elif anomaly == "future_timestamp":
                 order_timestamp = (
-                    datetime.now()
+                    datetime.now(UTC)
                     + pd.Timedelta(days=random.randint(1, 5))
                 )
             else:
-                order_timestamp = datetime.now()
+                order_timestamp = datetime.now(UTC)
         else:
-            order_timestamp = datetime.now()
+            order_timestamp = datetime.now(UTC)
 
         rows.append(
             {
@@ -97,7 +96,7 @@ def generate_live_orders(n: int) -> pd.DataFrame:
                         "returned",
                     ]
                 ),
-                "ingestion_timestamp": datetime.now(),
+                "ingestion_timestamp": datetime.now(UTC),
             }
         )
 
@@ -105,7 +104,7 @@ def generate_live_orders(n: int) -> pd.DataFrame:
 
 
 def upload_batch(df: pd.DataFrame) -> None:
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+    timestamp = datetime.now(UTC).strftime("%Y%m%d_%H%M%S_%f")
     remote_name = f"orders_{timestamp}.parquet"
 
     buffer = io.BytesIO()
@@ -124,7 +123,7 @@ def upload_batch(df: pd.DataFrame) -> None:
     file_client.upload_data(buffer, overwrite=True)
 
     print(
-        f"{datetime.now().isoformat(timespec='seconds')} | "
+        f"{datetime.now(UTC).isoformat(timespec='seconds')} | "
         f"{remote_name} | "
         f"{len(df):,} rows uploaded"
     )

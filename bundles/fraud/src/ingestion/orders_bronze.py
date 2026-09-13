@@ -1,5 +1,5 @@
-from pyspark import pipelines as dp
 import pyspark.sql.functions as F
+from pyspark import pipelines as dp
 
 HISTORY_PATH = (
     "abfss://unity@stnorthmartdev.dfs.core.windows.net/"

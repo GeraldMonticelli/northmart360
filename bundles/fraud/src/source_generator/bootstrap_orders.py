@@ -1,12 +1,11 @@
-from datetime import datetime, timedelta
 import random
 import uuid
+from datetime import UTC, datetime, timedelta
 
 import pandas as pd
-from faker import Faker
 from azure.identity import DefaultAzureCredential
 from azure.storage.filedatalake import DataLakeServiceClient
-
+from faker import Faker
 
 STORAGE_ACCOUNT = "stnorthmartdev"
 FILE_SYSTEM = "unity"
@@ -31,7 +30,7 @@ directory_client = file_system_client.get_directory_client(TARGET_DIR)
 def generate_orders(n: int) -> pd.DataFrame:
     rows = []
 
-    start_date = datetime.now() - timedelta(days=365)
+    start_date = datetime.now(UTC) - timedelta(days=365)
 
     for _ in range(n):
         quantity = random.randint(1, 8)
@@ -63,7 +62,7 @@ def generate_orders(n: int) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-for batch_no, start in enumerate(range(0, TOTAL_ROWS, ROWS_PER_FILE), start=1):
+for batch_no, _start in enumerate(range(0, TOTAL_ROWS, ROWS_PER_FILE), start=1):
     df = generate_orders(ROWS_PER_FILE)
 
     # Stabiliser les types avant écriture Parquet

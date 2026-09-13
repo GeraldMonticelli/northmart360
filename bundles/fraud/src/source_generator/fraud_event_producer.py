@@ -3,10 +3,9 @@ import os
 import random
 import time
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from confluent_kafka import Producer
-
 
 BOOTSTRAP_SERVERS = os.environ["KAFKA_BOOTSTRAP_SERVERS"]
 TOPIC = os.environ["KAFKA_TOPIC"]
@@ -62,7 +61,7 @@ def generate_normal_transaction():
         "transaction_id": str(uuid.uuid4()),
         "customer_id": f"C-{customer_id:06d}",
         "card_id": f"CARD-{card_id:06d}",
-        "event_time": datetime.now(timezone.utc).isoformat(),
+        "event_time": datetime.now(UTC).isoformat(),
         "amount": round(random.uniform(5, 300), 2),
         "currency": "EUR",
         "country": random.choice(COUNTRIES),
