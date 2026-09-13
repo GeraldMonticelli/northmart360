@@ -1,7 +1,9 @@
 from src.quality.fraud_rules import is_high_value_transaction
 
-def test_high_value_transaction():
+
+def test_very_high_value_transaction():
     assert is_high_value_transaction(6800.0) is True
+
 
 def test_high_value_transaction():
     assert is_high_value_transaction(6000.0) is True
