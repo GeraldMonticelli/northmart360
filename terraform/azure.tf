@@ -14,8 +14,8 @@ resource "azurerm_storage_account" "northmart" {
   location                        = var.location
   min_tls_version                 = "TLS1_2"
   allow_nested_items_to_be_public = false
-  public_network_access_enabled = false
-  local_user_enabled = false
+  public_network_access_enabled   = false
+  local_user_enabled              = false
 
   blob_properties {
     delete_retention_policy {
