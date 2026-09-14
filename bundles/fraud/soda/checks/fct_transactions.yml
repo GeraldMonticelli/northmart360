@@ -1,0 +1,28 @@
+dataset: northmart_test/northmart_test/dbt/fct_transactions
+
+checks:
+  - row_count:
+      threshold:
+        must_be_greater_than: 0
+
+columns:
+  - name: transaction_id
+    checks:
+      - missing:
+      - duplicate:
+
+  - name: event_time
+    checks:
+      - missing:
+
+  - name: amount
+    checks:
+      - invalid:
+          valid_min: 0
+
+  - name: is_fraud
+    checks:
+      - invalid:
+          valid_values:
+            - 0
+            - 1

@@ -1,17 +1,17 @@
-name: Run Test
+name: Release Validation Test
 
 on:
   workflow_call:
     inputs:
       release_ref:
-        description: "Git tag or commit to deploy"
+        description: "Git tag or commit to validate"
         required: true
         type: string
 
   workflow_dispatch:
     inputs:
       release_ref:
-        description: "Git tag or commit to deploy"
+        description: "Git tag or commit to validate"
         required: true
         type: string
 
@@ -20,7 +20,7 @@ permissions:
   contents: read
 
 jobs:
-  databricks-test:
+  release-validation:
     runs-on: ubuntu-latest
     environment: workload-test
 
@@ -29,7 +29,149 @@ jobs:
       DATABRICKS_AUTH_TYPE: github-oidc
 
     steps:
-      - name: Checkout
+      # ----------------------------------------------------------
+      # Exact release
+      # ----------------------------------------------------------
+      - name: Checkout release
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.release_ref }}
+
+      - name: Show release
+        run: |
+          echo "Requested release: ${{ inputs.release_ref }}"
+          echo "Actual commit:"
+          git rev-parse HEAD
+          git log -1 --oneline
+
+      # ----------------------------------------------------------
+      # Azure authentication
+      # Used only to discover TEST infrastructure
+      # ----------------------------------------------------------
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Discover Databricks workspace
+        shell: bash
+        run: |
+          HOST=$(az databricks workspace show \
+            --resource-group "${{ vars.AZURE_RESOURCE_GROUP_NAME }}" \
+            --name "${{ vars.DATABRICKS_WORKSPACE_NAME }}" \
+            --query workspaceUrl \
+            --output tsv)
+
+          test -n "$HOST"
+
+          echo "DATABRICKS_HOST=https://$HOST" >> "$GITHUB_ENV"
+
+      # ----------------------------------------------------------
+      # Databricks
+      # ----------------------------------------------------------
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      # ==========================================================
+      # GATE 1 - PLATFORM SMOKE TESTS
+      # ==========================================================
+      - name: Smoke - Databricks authentication
+        run: databricks current-user me
+
+      - name: Smoke - SQL Warehouse exists
+        shell: bash
+        run: |
+          WAREHOUSE_ID=$(databricks warehouses list -o json \
+            | jq -r '.[] | select(.name == "sql-northmart-test") | .id' \
+            | head -1)
+
+          test -n "$WAREHOUSE_ID"
+
+          echo "TEST SQL Warehouse found: $WAREHOUSE_ID"
+          echo "TEST_WAREHOUSE_ID=$WAREHOUSE_ID" >> "$GITHUB_ENV"
+          echo "BUNDLE_VAR_sql_warehouse_id=$WAREHOUSE_ID" >> "$GITHUB_ENV"
+
+      - name: Smoke - Unity Catalog
+        shell: bash
+        run: |
+          databricks catalogs get northmart_test
+
+      # ==========================================================
+      # GATE 2 - INTEGRATION TESTS
+      # ==========================================================
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install integration test dependencies
+        working-directory: bundles/fraud
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install pytest databricks-connect
+
+      - name: Run Databricks integration tests
+        working-directory: bundles/fraud
+        run: |
+          python -m pytest tests/integration -v
+
+      # ==========================================================
+      # GATE 3 - DBT BUILD
+      # ==========================================================
+      - name: Run dbt build on TEST
+        run: |
+          databricks bundle run dbt_transform_job \
+            -t test \
+            --progress-format append
+
+      # ==========================================================
+      # GATE 4 - SODA DATA CONTRACT
+      # ==========================================================
+
+      - name: Install Soda
+        working-directory: bundles/fraud
+        run: |
+          pip install "soda-core==4.23.1" "soda-databricks==4.23.1"
+
+      - name: Discover SQL Warehouse HTTP path
+        shell: bash
+        run: |
+          HTTP_PATH=$(databricks warehouses get "$TEST_WAREHOUSE_ID" -o json \
+            | jq -r '.odbc_params.path')
+
+          test -n "$HTTP_PATH"
+          test "$HTTP_PATH" != "null"
+
+          echo "DATABRICKS_SQL_HTTP_PATH=$HTTP_PATH" >> "$GITHUB_ENV"
+
+      - name: Get ephemeral Databricks OAuth token
+        shell: bash
+        run: |
+          TOKEN=$(python - <<'PY'
+          from databricks.sdk import WorkspaceClient
+
+          w = WorkspaceClient()
+          headers = w.config.authenticate()
+          auth = headers["Authorization"]
+
+          if not auth.startswith("Bearer "):
+              raise RuntimeError("Databricks authentication did not return a Bearer token")
+
+          print(auth.removeprefix("Bearer "))
+          PY
+          )
+
+          test -n "$TOKEN"
+
+          echo "::add-mask::$TOKEN"
+          echo "SODA_DATABRICKS_TOKEN=$TOKEN" >> "$GITHUB_ENV"
+
+      - name: Verify Soda Data Contract
+        working-directory: bundles/fraud
+        run: |
+          soda contract verify \
+            --data-source soda/configuration.yml \
+            --contract soda/checks/fct_transactions.yml
