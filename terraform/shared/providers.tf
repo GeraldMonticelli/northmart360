@@ -1,4 +1,5 @@
 terraform {
+  required_version = ">= 1.6.0"
   backend "azurerm" {
     resource_group_name  = "rg-northmart-tfstate"
     storage_account_name = "stnorthmarttfstate01"
@@ -8,15 +9,18 @@ terraform {
 
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
-    }
-
-    azuread = {
-      source = "hashicorp/azuread"
+      source  = "hashicorp/azurerm"
+      version = "~> 5.4"
     }
 
     databricks = {
-      source = "databricks/databricks"
+      source  = "databricks/databricks"
+      version = "~> 1.130"
+    }
+
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "~> 3.0"
     }
   }
 }

@@ -1,0 +1,38 @@
+name: Release Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_ref:
+        description: "Git tag or commit to deploy to TEST"
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+
+  platform-test:
+    name: Deploy TEST Platform
+    uses: ./.github/workflows/platform-test.yml
+    with:
+      release_ref: ${{ inputs.release_ref }}
+    secrets: inherit
+
+  workload-test:
+    name: Deploy TEST Workload
+    needs: platform-test
+    uses: ./.github/workflows/workload-test.yml
+    with:
+      release_ref: ${{ inputs.release_ref }}
+    secrets: inherit
+
+  release-validation:
+    name: Validate TEST Release
+    needs: workload-test
+    uses: ./.github/workflows/release-validation-test.yml
+    with:
+      release_ref: ${{ inputs.release_ref }}
+    secrets: inherit

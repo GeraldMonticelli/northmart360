@@ -1,0 +1,90 @@
+name: 04 - Rollback
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to rollback"
+        required: true
+        type: choice
+        options:
+          - test
+          - prod
+
+      release_ref:
+        description: "Previous known-good Git SHA"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: northmart-${{ inputs.environment }}
+  cancel-in-progress: false
+
+jobs:
+  rollback:
+    name: Rollback ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    steps:
+      - name: Checkout previous release
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_ref }}
+
+      - name: Confirm rollback target
+        run: |
+          echo "ROLLBACK"
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Requested ref: ${{ inputs.release_ref }}"
+          echo "Resolved SHA:"
+          git rev-parse HEAD
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Terraform init
+        working-directory: platform/terraform
+        run: |
+          terraform init \
+            -reconfigure \
+            -backend-config="key=northmart-${{ inputs.environment }}.tfstate"
+
+      - name: Terraform rollback plan
+        working-directory: platform/terraform
+        run: |
+          terraform plan \
+            -var-file=${{ inputs.environment }}.tfvars \
+            -out=rollback.tfplan
+
+      # IMPORTANT :
+      # Pour notre première version je veux volontairement
+      # une validation avant de rendre cet apply automatique.
+
+      - name: Terraform rollback apply
+        working-directory: platform/terraform
+        run: terraform apply -auto-approve rollback.tfplan
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Validate previous bundle
+        run: |
+          databricks bundle validate \
+            -t ${{ inputs.environment }}
+
+      - name: Deploy previous bundle
+        run: |
+          databricks bundle deploy \
+            -t ${{ inputs.environment }}

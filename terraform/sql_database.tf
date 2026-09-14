@@ -1,4 +1,10 @@
+
 resource "azurerm_mssql_server" "northmart" {
+  # checkov:skip=CKV_AZURE_113:Public SQL access temporarily retained for development connectivity
+  # checkov:skip=CKV_AZURE_24:Extended SQL audit retention out of scope for learning environment
+  # checkov:skip=CKV2_AZURE_27:Entra-only SQL administration deferred for learning environment
+  # checkov:skip=CKV2_AZURE_2:SQL vulnerability assessment deferred for learning environment
+  # checkov:skip=CKV_AZURE_23:SQL auditing deferred for learning environment
   name                = local.sql_server_name
   resource_group_name = azurerm_resource_group.northmart.name
   location            = var.location
@@ -10,7 +16,10 @@ resource "azurerm_mssql_server" "northmart" {
   minimum_tls_version = "1.2"
 }
 
+
 resource "azurerm_mssql_database" "northmart" {
+  # checkov:skip=CKV_AZURE_224:Ledger not required for fraud analytics workload
+  # checkov:skip=CKV_AZURE_229:Zone redundancy intentionally disabled for lab cost control
   name      = local.sql_database_name
   server_id = azurerm_mssql_server.northmart.id
 
@@ -34,7 +43,9 @@ resource "azurerm_mssql_firewall_rule" "gerald" {
   end_ip_address   = each.value
 }
 
+
 resource "azurerm_mssql_firewall_rule" "allow_azure_services" {
+  # checkov:skip=CKV2_AZURE_34:AllowAzureServices temporarily retained for learning environment connectivity
   name = "AllowAzureServices"
 
   server_id = azurerm_mssql_server.northmart.id

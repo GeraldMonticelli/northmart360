@@ -1,0 +1,55 @@
+# This is a Declarative Automation Bundle definition for northmart360.
+# The Databricks extension requires databricks.yml configuration file.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+
+bundle:
+  name: fraud
+
+variables:
+  sql_warehouse_id:
+    description: SQL Warehouse used by NorthMart jobs
+
+  catalog:
+    description: Unity Catalog catalog for this environment
+
+  eventhub_namespace:
+    description: Event Hub namespace for this environment
+
+  pipeline_development:
+    description: Run pipelines in development mode
+
+
+include:
+  - resources/*.yml
+
+sync:
+  include:
+    - src/**
+    - dbt/**
+  exclude:  
+    - src/source_generator/**
+    - dbt/target/**
+    - dbt/logs/**
+
+targets:
+  dev:
+    mode: development
+    default: true
+
+    variables:
+      sql_warehouse_id: "400d6525fd91fee7"
+      catalog: northmart_dev
+      eventhub_namespace: evhns-northmart-fraud-dev
+      pipeline_development: true
+
+    workspace:
+      host: https://adb-7405613337187597.17.azuredatabricks.net
+
+  test:
+    mode: production
+
+    variables:
+      catalog: northmart_test
+      eventhub_namespace: evhns-northmart-fraud-test
+      pipeline_development: false
+
