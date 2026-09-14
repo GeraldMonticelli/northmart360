@@ -209,6 +209,9 @@ jobs:
         working-directory: ${{ env.TF_DIR }}
         run: terraform validate
 
+      - name: Install Checkov
+        run: pip install checkov
+
       - name: Checkov IaC security scan
         run: |
           checkov \
