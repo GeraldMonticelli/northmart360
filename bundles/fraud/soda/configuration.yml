@@ -1,0 +1,8 @@
+type: databricks
+name: northmart_test
+
+connection:
+  host: ${env.DATABRICKS_HOST}
+  http_path: ${env.DATABRICKS_SQL_HTTP_PATH}
+  catalog: northmart_test
+  access_token: ${env.SODA_DATABRICKS_TOKEN}
