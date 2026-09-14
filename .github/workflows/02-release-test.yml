@@ -28,3 +28,11 @@ jobs:
     with:
       release_ref: ${{ inputs.release_ref }}
     secrets: inherit
+
+  release-validation:
+    name: Validate TEST Release
+    needs: workload-test
+    uses: ./.github/workflows/release-validation-test.yml
+    with:
+      release_ref: ${{ inputs.release_ref }}
+    secrets: inherit

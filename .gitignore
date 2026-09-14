@@ -61,3 +61,6 @@ northmart_dbt/dbt_packages/
 
 .gitkeep
 
+.coverage
+coverage.xml
+tflint_*.zip

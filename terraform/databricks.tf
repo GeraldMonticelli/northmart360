@@ -370,8 +370,7 @@ resource "databricks_mws_ncc_binding" "northmart" {
   provider = databricks.account
 
   network_connectivity_config_id = (
-    databricks_mws_network_connectivity_config.northmart
-    .network_connectivity_config_id
+    databricks_mws_network_connectivity_config.northmart.network_connectivity_config_id
   )
 
   workspace_id = azurerm_databricks_workspace.northmart.workspace_id
@@ -386,8 +385,7 @@ resource "databricks_mws_ncc_private_endpoint_rule" "northmart_adls_dfs" {
   provider = databricks.account
 
   network_connectivity_config_id = (
-    databricks_mws_network_connectivity_config.northmart
-    .network_connectivity_config_id
+    databricks_mws_network_connectivity_config.northmart.network_connectivity_config_id
   )
 
   resource_id = azurerm_storage_account.northmart.id
@@ -404,8 +402,7 @@ resource "databricks_mws_ncc_private_endpoint_rule" "northmart_adls_blob" {
   provider = databricks.account
 
   network_connectivity_config_id = (
-    databricks_mws_network_connectivity_config.northmart
-    .network_connectivity_config_id
+    databricks_mws_network_connectivity_config.northmart.network_connectivity_config_id
   )
   resource_id = azurerm_storage_account.northmart.id
   group_id    = "blob"
@@ -415,8 +412,7 @@ resource "databricks_mws_ncc_private_endpoint_rule" "northmart_sql" {
   provider = databricks.account
 
   network_connectivity_config_id = (
-    databricks_mws_network_connectivity_config.northmart
-    .network_connectivity_config_id
+    databricks_mws_network_connectivity_config.northmart.network_connectivity_config_id
   )
 
   resource_id = azurerm_mssql_server.northmart.id

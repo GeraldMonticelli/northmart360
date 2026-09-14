@@ -3,11 +3,28 @@ resource "azurerm_resource_group" "northmart" {
   location = var.location
 }
 
+
 resource "azurerm_storage_account" "northmart" {
+  # checkov:skip=CKV_AZURE_33:Queue logging not required for this learning workload
+  # checkov:skip=CKV_AZURE_206:LRS intentionally used for learning environment cost control
+  # checkov:skip=CKV2_AZURE_1:Microsoft-managed encryption accepted for learning environment
   default_to_oauth_authentication = true
   name                            = var.storage_account_name
   resource_group_name             = azurerm_resource_group.northmart.name
   location                        = var.location
+  min_tls_version                 = "TLS1_2"
+  allow_nested_items_to_be_public = false
+  public_network_access_enabled = false
+  local_user_enabled = false
+
+  blob_properties {
+    delete_retention_policy {
+      days = 7
+    }
+    container_delete_retention_policy {
+      days = 7
+    }
+  }
 
   account_tier              = "Standard"
   account_replication_type  = "LRS"
@@ -21,6 +38,7 @@ resource "azurerm_storage_account" "northmart" {
 }
 
 resource "azurerm_storage_container" "unity" {
+  # checkov:skip=CKV2_AZURE_21:Blob read logging deferred for learning environment
   name               = "unity"
   storage_account_id = azurerm_storage_account.northmart.id
 
@@ -40,13 +58,18 @@ resource "azurerm_databricks_access_connector" "northmart" {
   }
 }
 
+
 resource "azurerm_key_vault" "northmart" {
+  # checkov:skip=CKV_AZURE_189:Public network access temporarily retained for learning environment
+  # checkov:skip=CKV_AZURE_109:Key Vault network hardening deferred for learning environment
+  # checkov:skip=CKV2_AZURE_32:Private endpoint for Key Vault deferred for learning environment
   name                       = var.key_vault_name
   resource_group_name        = azurerm_resource_group.northmart.name
   location                   = var.location
   sku_name                   = "standard"
   rbac_authorization_enabled = false
   tenant_id                  = "ba5562e5-5ac3-48be-a9c2-03e01afc4253"
+  purge_protection_enabled   = true
 }
 
 resource "azurerm_virtual_network" "northmart_databricks" {
@@ -99,7 +122,10 @@ resource "azurerm_subnet" "databricks_private" {
   }
 }
 
+
 resource "azurerm_databricks_workspace" "northmart" {
+  # checkov:skip=CKV_AZURE_158:Public workspace access intentionally retained for learning environment
+  # checkov:skip=CKV2_AZURE_48:Customer-managed key for DBFS out of scope for learning environment 
   name                          = var.workspace_name
   resource_group_name           = azurerm_resource_group.northmart.name
   location                      = var.location
@@ -143,8 +169,9 @@ resource "azurerm_subnet_network_security_group_association" "databricks_private
   network_security_group_id = azurerm_network_security_group.databricks_private.id
 }
 
-// subnet for the private endpoint deployment
+
 resource "azurerm_subnet" "private_endpoints" {
+  # checkov:skip=CKV2_AZURE_31:Dedicated private endpoint subnet intentionally has no NSG in this learning architecture
   name                 = "snet-private-endpoints"
   resource_group_name  = azurerm_resource_group.northmart.name
   virtual_network_name = azurerm_virtual_network.northmart_databricks.name

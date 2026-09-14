@@ -67,17 +67,36 @@ jobs:
         working-directory: bundles/fraud
         run: |
           python -m pip install --upgrade pip
-          python -m pip install ruff pytest databricks-connect
+          python -m pip install \
+            ruff \
+            pytest \
+            pytest-cov \
+            checkov \
+            databricks-connect
 
       - name: Ruff
         working-directory: bundles/fraud
         run: |
           ruff check src tests
 
-      - name: Pytest
+      - name: Pytest with coverage
         working-directory: bundles/fraud
         run: |
-          python -m pytest tests/unit -v
+          python -m pytest tests/unit \
+            -v \
+            --cov=src \
+            --cov-report=term-missing \
+            --cov-report=xml
+
+      - name: Publish Python coverage
+        working-directory: bundles/fraud
+        run: |
+          {
+            echo "## Python Unit Test Coverage"
+            echo '```text'
+            python -m coverage report
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Azure login
         uses: azure/login@v2
@@ -177,9 +196,25 @@ jobs:
         working-directory: ${{ env.TF_DIR }}
         run: terraform fmt -check -recursive
 
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v5
+
+      - name: TFLint
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          tflint --init
+          tflint --recursive
+
       - name: Terraform validate
         working-directory: ${{ env.TF_DIR }}
         run: terraform validate
+
+      - name: Checkov IaC security scan
+        run: |
+          checkov \
+            -d terraform \
+            --framework terraform \
+            --compact
 
       - name: Terraform plan TEST
         working-directory: ${{ env.TF_DIR }}
@@ -195,3 +230,18 @@ jobs:
           echo '```terraform' >> "$GITHUB_STEP_SUMMARY"
           terraform show -no-color tfplan >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+  secret-scanning:
+    name: Secret scanning
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

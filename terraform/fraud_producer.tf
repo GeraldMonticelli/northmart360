@@ -39,7 +39,9 @@ resource "azurerm_public_ip" "fraud_producer" {
   sku               = "Standard"
 }
 
+
 resource "azurerm_network_interface" "fraud_producer" {
+  # checkov:skip=CKV_AZURE_119:Public IP temporarily required for fraud producer lab administration
   name                = "nic-fraud-producer"
   location            = var.location
   resource_group_name = azurerm_resource_group.northmart.name
@@ -52,7 +54,9 @@ resource "azurerm_network_interface" "fraud_producer" {
   }
 }
 
+
 resource "azurerm_linux_virtual_machine" "fraud_producer" {
+  # checkov:skip=CKV_AZURE_50:VM extensions accepted for fraud producer learning workload
   name                = "vm-fraud-producer"
   resource_group_name = azurerm_resource_group.northmart.name
   location            = var.location
