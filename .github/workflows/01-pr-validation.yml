@@ -210,7 +210,7 @@ jobs:
         run: terraform validate
 
       - name: Install Checkov
-        run: pip install checkov
+        run: pip install checkov==3.3.17
 
       - name: Checkov IaC security scan
         run: |
