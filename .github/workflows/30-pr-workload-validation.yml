@@ -55,21 +55,22 @@ jobs:
           fi
 
       - name: Discover TEST SQL Warehouse
-        id: warehouse
-        if: steps.databricks.outputs.host != ''
         env:
-          DATABRICKS_HOST: ${{ steps.databricks.outputs.host }}
           DATABRICKS_AUTH_TYPE: github-oidc
+          DATABRICKS_HOST: ${{ steps.databricks.outputs.host }}
           DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
         run: |
+          echo "Warehouses visible to CI service principal:"
+          databricks warehouses list
+
           WAREHOUSE_ID=$(databricks warehouses list --output json \
             | jq -r '.[] | select(.name == "sql-northmart-test") | .id' \
             | head -1)
 
-          if [ -z "$WAREHOUSE_ID" ] || [ "$WAREHOUSE_ID" = "null" ]; then
-            echo "TEST SQL Warehouse not found"
+          test -n "$WAREHOUSE_ID" || {
+            echo "ERROR: sql-northmart-test not found"
             exit 1
-          fi
+          }
 
           echo "warehouse_id=$WAREHOUSE_ID" >> "$GITHUB_OUTPUT"
 
