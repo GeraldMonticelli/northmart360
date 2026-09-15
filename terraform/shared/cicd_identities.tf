@@ -42,7 +42,7 @@ resource "databricks_service_principal_federation_policy" "github_cicd_test" {
   oidc_policy = {
     issuer = "https://token.actions.githubusercontent.com"
     subject_claim = "job_workflow_ref"
-    subject       = "GeraldMonticelli/northmart360/.github/workflows/workload-test.yml@refs/heads/main"
+    subject       = "GeraldMonticelli/northmart360/.github/workflows/oidc-auth-test.yml@refs/heads/test/databricks-oidc-auth"
     #subject = "repo:GeraldMonticelli/northmart360:environment:workload-test"
 
     audiences = [
