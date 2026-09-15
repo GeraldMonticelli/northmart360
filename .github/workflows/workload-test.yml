@@ -99,7 +99,9 @@ jobs:
           echo "BUNDLE_VAR_sql_warehouse_id=$WAREHOUSE_ID" >> "$GITHUB_ENV"
         
       - name: Validate Databricks bundle
+        working-directory: bundles/fraud
         run: databricks bundle validate -t test
 
       - name: Deploy Databricks bundle
+        working-directory: bundles/fraud
         run: databricks bundle deploy -t test
