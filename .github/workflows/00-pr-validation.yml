@@ -1,0 +1,295 @@
+name: 00 - PR Validation
+
+# ============================================================
+# NORTHMART PR VALIDATION ORCHESTRATOR
+#
+# This is the ONLY workflow directly triggered by pull requests.
+#
+# Responsibilities:
+#   1. Detect which repository areas changed.
+#   2. Classify the PR as CI-only or workload/platform.
+#   3. Reject PRs mixing GitHub workflow changes with other code.
+#   4. Dispatch validation to trusted reusable workflows on main.
+#   5. Aggregate all results into one stable status check.
+#
+# GitHub Ruleset requires ONLY:
+#   "PR Validation Gate"
+#
+# Privileged Azure/Databricks validation is delegated to reusable
+# workflows pinned to @main. This keeps the privileged validator
+# trusted and provides a stable OIDC job_workflow_ref.
+# ============================================================
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+
+  # ==========================================================
+  # 1. Detect repository areas modified by the PR
+  # ==========================================================
+  changes:
+    name: Detect changed paths
+    runs-on: ubuntu-latest
+
+    outputs:
+      workflows: ${{ steps.filter.outputs.workflows }}
+      fraud: ${{ steps.filter.outputs.fraud }}
+      terraform: ${{ steps.filter.outputs.terraform }}
+      terraform_shared: ${{ steps.filter.outputs.terraform_shared }}
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+
+      - name: Detect changes
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            workflows:
+              - '.github/workflows/**'
+
+            fraud:
+              - 'bundles/fraud/**'
+
+            terraform:
+              - 'terraform/**'
+              - '!terraform/shared/**'
+
+            terraform_shared:
+              - 'terraform/shared/**'
+
+      - name: Show detected paths
+        run: |
+          echo "workflows=${{ steps.filter.outputs.workflows }}"
+          echo "fraud=${{ steps.filter.outputs.fraud }}"
+          echo "terraform=${{ steps.filter.outputs.terraform }}"
+          echo "terraform_shared=${{ steps.filter.outputs.terraform_shared }}"
+
+  # ==========================================================
+  # 2. PR policy
+  #
+  # CI workflow changes must be isolated from application and
+  # platform changes. A mixed PR is rejected.
+  # ==========================================================
+  pr-policy:
+    name: PR Policy
+    needs: changes
+    runs-on: ubuntu-latest
+
+    outputs:
+      pr_type: ${{ steps.classify.outputs.pr_type }}
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Classify PR
+        id: classify
+        shell: bash
+        run: |
+          git fetch origin "${{ github.base_ref }}"
+
+          FILES=$(git diff --name-only \
+            "origin/${{ github.base_ref }}...HEAD")
+
+          echo "Changed files:"
+          echo "$FILES"
+
+          WORKFLOW_COUNT=$(echo "$FILES" \
+            | grep -c '^\.github/workflows/' || true)
+
+          NON_WORKFLOW_COUNT=$(echo "$FILES" \
+            | grep -vc '^\.github/workflows/' || true)
+
+          if [ "$WORKFLOW_COUNT" -gt 0 ] && \
+             [ "$NON_WORKFLOW_COUNT" -gt 0 ]; then
+            echo "ERROR: Mixed CI/workload PRs are forbidden."
+            echo "Split workflow and non-workflow changes into separate PRs."
+            exit 1
+          fi
+
+          if [ "$WORKFLOW_COUNT" -gt 0 ]; then
+            echo "pr_type=ci" >> "$GITHUB_OUTPUT"
+            echo "PR type: CI"
+          else
+            echo "pr_type=workload" >> "$GITHUB_OUTPUT"
+            echo "PR type: workload/platform"
+          fi
+
+  # ==========================================================
+  # 3A. CI workflow validation
+  #
+  # Runs ONLY for PRs containing GitHub workflow changes.
+  # ==========================================================
+  workflow-validation:
+    name: Workflow validation
+    needs:
+      - changes
+      - pr-policy
+
+    if: needs.pr-policy.outputs.pr_type == 'ci'
+
+    uses: GeraldMonticelli/northmart360/.github/workflows/10-pr-workflow-validation.yml@main
+    secrets: inherit
+
+  # ==========================================================
+  # 3B. Fraud Python validation
+  # ==========================================================
+  fraud-validation:
+    name: Fraud validation
+    needs:
+      - changes
+      - pr-policy
+
+    if: |
+      needs.pr-policy.outputs.pr_type == 'workload' &&
+      needs.changes.outputs.fraud == 'true'
+
+    uses: GeraldMonticelli/northmart360/.github/workflows/20-pr-fraud-validation.yml@main
+    secrets: inherit
+
+  # ==========================================================
+  # 3C. Databricks bundle validation
+  #
+  # IMPORTANT:
+  # This trusted reusable remains pinned to @main.
+  # Its stable workflow identity is used by the Databricks
+  # federation policy through job_workflow_ref.
+  # ==========================================================
+  fraud-bundle-validation:
+    name: Fraud bundle validation
+    needs:
+      - changes
+      - pr-policy
+
+    if: |
+      needs.pr-policy.outputs.pr_type == 'workload' &&
+      needs.changes.outputs.fraud == 'true'
+
+    uses: GeraldMonticelli/northmart360/.github/workflows/30-pr-workload-validation.yml@main
+    secrets: inherit
+
+  # ==========================================================
+  # 3D. Terraform TEST validation
+  # ==========================================================
+  terraform-validation:
+    name: Terraform validation
+    needs:
+      - changes
+      - pr-policy
+
+    if: |
+      needs.pr-policy.outputs.pr_type == 'workload' &&
+      needs.changes.outputs.terraform == 'true'
+
+    uses: GeraldMonticelli/northmart360/.github/workflows/40-pr-terraform-validation.yml@main
+    secrets: inherit
+
+  # ==========================================================
+  # 3E. Terraform SHARED validation
+  # ==========================================================
+  terraform-shared-validation:
+    name: Terraform Shared validation
+    needs:
+      - changes
+      - pr-policy
+
+    if: |
+      needs.pr-policy.outputs.pr_type == 'workload' &&
+      needs.changes.outputs.terraform_shared == 'true'
+
+    uses: GeraldMonticelli/northmart360/.github/workflows/41-pr-terraform-shared-validation.yml@main
+    secrets: inherit
+
+  # ==========================================================
+  # 4. Secret scanning
+  #
+  # Runs for EVERY PR, independently of PR type.
+  # ==========================================================
+  secret-scanning:
+    name: Secret scanning
+    uses: GeraldMonticelli/northmart360/.github/workflows/50-pr-secret-validation.yml@main
+    secrets: inherit
+
+  # ==========================================================
+  # 5. Universal PR gate
+  #
+  # This job ALWAYS runs.
+  #
+  # "success" and "skipped" are accepted because specialized
+  # validators legitimately skip when their repository area
+  # was not modified.
+  #
+  # Any failure/cancellation blocks the PR.
+  #
+  # This is the ONLY status check required by the main ruleset.
+  # ==========================================================
+  pr-validation-gate:
+    name: PR Validation Gate
+    if: always()
+
+    needs:
+      - changes
+      - pr-policy
+      - workflow-validation
+      - fraud-validation
+      - fraud-bundle-validation
+      - terraform-validation
+      - terraform-shared-validation
+      - secret-scanning
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verify validation results
+        shell: bash
+        env:
+          CHANGES: ${{ needs.changes.result }}
+          POLICY: ${{ needs.pr-policy.result }}
+          WORKFLOW: ${{ needs.workflow-validation.result }}
+          FRAUD: ${{ needs.fraud-validation.result }}
+          FRAUD_BUNDLE: ${{ needs.fraud-bundle-validation.result }}
+          TERRAFORM: ${{ needs.terraform-validation.result }}
+          TERRAFORM_SHARED: ${{ needs.terraform-shared-validation.result }}
+          SECRETS: ${{ needs.secret-scanning.result }}
+
+        run: |
+          echo "changes=$CHANGES"
+          echo "policy=$POLICY"
+          echo "workflow=$WORKFLOW"
+          echo "fraud=$FRAUD"
+          echo "fraud_bundle=$FRAUD_BUNDLE"
+          echo "terraform=$TERRAFORM"
+          echo "terraform_shared=$TERRAFORM_SHARED"
+          echo "secrets=$SECRETS"
+
+          for RESULT in \
+            "$CHANGES" \
+            "$POLICY" \
+            "$WORKFLOW" \
+            "$FRAUD" \
+            "$FRAUD_BUNDLE" \
+            "$TERRAFORM" \
+            "$TERRAFORM_SHARED" \
+            "$SECRETS"
+          do
+            case "$RESULT" in
+              success|skipped)
+                ;;
+              *)
+                echo "ERROR: validation result=$RESULT"
+                exit 1
+                ;;
+            esac
+          done
+
+          echo "PR validation succeeded."
