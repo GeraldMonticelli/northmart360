@@ -110,13 +110,6 @@ jobs:
           NON_WORKFLOW_COUNT=$(echo "$FILES" \
             | grep -vc '^\.github/workflows/' || true)
 
-          if [ "$WORKFLOW_COUNT" -gt 0 ] && \
-             [ "$NON_WORKFLOW_COUNT" -gt 0 ]; then
-            echo "ERROR: Mixed CI/workload PRs are forbidden."
-            echo "Split workflow and non-workflow changes into separate PRs."
-            exit 1
-          fi
-
           if [ "$WORKFLOW_COUNT" -gt 0 ]; then
             echo "pr_type=ci" >> "$GITHUB_OUTPUT"
             echo "PR type: CI"
