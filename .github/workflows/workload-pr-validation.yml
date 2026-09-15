@@ -15,6 +15,8 @@ jobs:
     env:
       DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
       DATABRICKS_AUTH_TYPE: github-oidc
+      TF_VAR_resource_group_name: ${{ vars.TF_VAR_RESOURCE_GROUP_NAME }}
+      TF_VAR_workspace_name: ${{ vars.TF_VAR_WORKSPACE_NAME }}
 
     steps:
       - name: Checkout PR
@@ -38,7 +40,7 @@ jobs:
             --resource-group "$TF_VAR_resource_group_name" \
             --name "$TF_VAR_workspace_name" \
             --query "workspaceUrl" \
-            --output tsv 2>/dev/null || true)
+            --output tsv)
 
           if [ -n "$HOST" ]; then
             if [[ "$HOST" != https://* ]]; then
