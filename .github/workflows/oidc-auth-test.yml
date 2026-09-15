@@ -1,0 +1,46 @@
+name: Databricks OIDC Auth Test
+
+on:
+  push:
+    branches:
+      - test/databricks-oidc-auth
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  auth-test:
+    runs-on: ubuntu-latest
+    environment: workload-test
+
+    env:
+      DATABRICKS_AUTH_TYPE: github-oidc
+      DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
+
+    steps:
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Discover TEST Databricks workspace
+        shell: bash
+        run: |
+          HOST=$(az databricks workspace show \
+            --resource-group "${{ vars.TF_VAR_RESOURCE_GROUP_NAME }}" \
+            --name "${{ vars.TF_VAR_WORKSPACE_NAME }}" \
+            --query workspaceUrl \
+            -o tsv)
+
+          echo "DATABRICKS_HOST=https://$HOST" >> "$GITHUB_ENV"
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Test Databricks authentication
+        run: |
+          databricks current-user me
