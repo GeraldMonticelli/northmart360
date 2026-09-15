@@ -90,7 +90,9 @@ jobs:
       - name: Terraform plan summary
         working-directory: ${{ env.TF_DIR }}
         run: |
-          echo "## Terraform Plan — TEST" >> "$GITHUB_STEP_SUMMARY"
-          echo '```terraform' >> "$GITHUB_STEP_SUMMARY"
-          terraform show -no-color tfplan >> "$GITHUB_STEP_SUMMARY"
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "## Terraform Plan — TEST"
+            echo '```terraform'
+            terraform show -no-color tfplan
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

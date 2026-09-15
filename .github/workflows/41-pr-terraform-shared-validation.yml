@@ -76,8 +76,10 @@ jobs:
       - name: Terraform plan summary
         working-directory: terraform/shared
         run: |
-          echo "## Terraform Plan — SHARED" >> "$GITHUB_STEP_SUMMARY"
-          echo '```terraform' >> "$GITHUB_STEP_SUMMARY"
-          terraform show -no-color shared.tfplan >> "$GITHUB_STEP_SUMMARY"
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "## Terraform Plan — SHARED"
+            echo '```terraform'
+            terraform show -no-color shared.tfplan
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
           
