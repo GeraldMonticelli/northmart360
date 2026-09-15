@@ -7,7 +7,7 @@ resources:
         - task_key: dbt_fraud_build
 
           dbt_task:
-            project_directory: ${workspace.file_path}/bundles/fraud/dbt
+            project_directory: ${workspace.file_path}/dbt
             commands:
               - dbt build
             warehouse_id: ${var.sql_warehouse_id}

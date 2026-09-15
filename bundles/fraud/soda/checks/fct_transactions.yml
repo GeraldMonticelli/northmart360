@@ -1,4 +1,4 @@
-dataset: northmart_test/northmart_test/dbt/fct_transactions
+dataset: ${env.SODA_DATABRICKS_CATALOG}/${env.SODA_DATABRICKS_CATALOG}/dbt/fct_transactions
 
 checks:
   - row_count:

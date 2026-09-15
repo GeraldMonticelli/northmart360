@@ -1,8 +1,8 @@
 type: databricks
-name: northmart_test
+name: ${SODA_DATABRICKS_CATALOG}
 
 connection:
   host: ${env.DATABRICKS_HOST}
   http_path: ${env.DATABRICKS_SQL_HTTP_PATH}
-  catalog: northmart_test
+  catalog: ${env.SODA_DATABRICKS_CATALOG}
   access_token: ${env.SODA_DATABRICKS_TOKEN}
