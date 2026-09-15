@@ -82,6 +82,9 @@ jobs:
   workload-test:
     name: Deploy TEST Workload
     needs: platform-test
+    if: |
+      always() &&
+      needs.platform-test.result == 'success'
     uses: GeraldMonticelli/northmart360/.github/workflows/workload-test.yml@main
     with:
       release_ref: ${{ github.event_name == 'push' && github.ref_name || inputs.release_ref }}
@@ -90,6 +93,9 @@ jobs:
   release-validation:
     name: Validate TEST Release
     needs: workload-test
+    if: |
+      always() &&
+      needs.workload-test.result == 'success'
     uses: GeraldMonticelli/northmart360/.github/workflows/release-validation-test.yml@main
     with:
       release_ref: ${{ github.event_name == 'push' && github.ref_name || inputs.release_ref }}
