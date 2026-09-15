@@ -118,7 +118,7 @@ jobs:
     needs: changes
     if: needs.changes.outputs.fraud == 'true'
     
-    uses: GeraldMonticelli/northmart360/.github/workflows/workload-pr-validation.yml@main
+    uses: GeraldMonticelli/northmart360/.github/workflows/workload-pr-validation.yml@fix/dbt-env
     secrets: inherit
 
   # ============================================================
