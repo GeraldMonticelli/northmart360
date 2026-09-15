@@ -6,10 +6,10 @@ name: 00 - PR Validation
 # This is the ONLY workflow directly triggered by pull requests.
 #
 # Responsibilities:
-#   1. Detect which repository areas changed.
-#   2. Classify the PR as CI-only or workload/platform.
-#   3. Reject PRs mixing GitHub workflow changes with other code.
-#   4. Dispatch validation to trusted reusable workflows on main.
+#   1. Detect which repository areas changed in the complete PR.
+#   2. Run every applicable validation independently.
+#   3. Allow a PR to span multiple repository areas.
+#   4. Delegate privileged validation to trusted workflows on main.
 #   5. Aggregate all results into one stable status check.
 #
 # GitHub Ruleset requires ONLY:
@@ -28,6 +28,7 @@ on:
 permissions:
   contents: read
   id-token: write
+
 jobs:
 
   # ==========================================================
@@ -73,82 +74,39 @@ jobs:
           echo "terraform_shared=${{ steps.filter.outputs.terraform_shared }}"
 
   # ==========================================================
-  # 2. PR policy
+  # 2A. GitHub workflow validation
   #
-  # CI workflow changes must be isolated from application and
-  # platform changes. A mixed PR is rejected.
-  # ==========================================================
-  pr-policy:
-    name: PR Policy
-    needs: changes
-    runs-on: ubuntu-latest
-
-    outputs:
-      pr_type: ${{ steps.classify.outputs.pr_type }}
-
-    steps:
-      - name: Checkout PR
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Classify PR
-        id: classify
-        shell: bash
-        run: |
-          git fetch origin "${{ github.base_ref }}"
-
-          FILES=$(git diff --name-only \
-            "origin/${{ github.base_ref }}...HEAD")
-
-          echo "Changed files:"
-          echo "$FILES"
-
-          WORKFLOW_COUNT=$(echo "$FILES" \
-            | grep -c '^\.github/workflows/' || true)
-
-          if [ "$WORKFLOW_COUNT" -gt 0 ]; then
-            echo "pr_type=ci" >> "$GITHUB_OUTPUT"
-            echo "PR type: CI"
-          else
-            echo "pr_type=workload" >> "$GITHUB_OUTPUT"
-            echo "PR type: workload/platform"
-          fi
-
-  # ==========================================================
-  # 3A. CI workflow validation
-  #
-  # Runs ONLY for PRs containing GitHub workflow changes.
+  # Runs whenever .github/workflows/** is modified.
   # ==========================================================
   workflow-validation:
     name: Workflow validation
     needs:
       - changes
-      - pr-policy
 
-    if: needs.pr-policy.outputs.pr_type == 'ci'
+    if: needs.changes.outputs.workflows == 'true'
 
     uses: GeraldMonticelli/northmart360/.github/workflows/10-pr-workflow-validation.yml@main
     secrets: inherit
 
   # ==========================================================
-  # 3B. Fraud Python validation
+  # 2B. Fraud Python validation
+  #
+  # Runs whenever bundles/fraud/** is modified.
   # ==========================================================
   fraud-validation:
     name: Fraud validation
     needs:
       - changes
-      - pr-policy
 
-    if: |
-      needs.pr-policy.outputs.pr_type == 'workload' &&
-      needs.changes.outputs.fraud == 'true'
+    if: needs.changes.outputs.fraud == 'true'
 
     uses: GeraldMonticelli/northmart360/.github/workflows/20-pr-fraud-validation.yml@main
     secrets: inherit
 
   # ==========================================================
-  # 3C. Databricks bundle validation
+  # 2C. Databricks bundle validation
+  #
+  # Runs whenever bundles/fraud/** is modified.
   #
   # IMPORTANT:
   # This trusted reusable remains pinned to @main.
@@ -159,67 +117,64 @@ jobs:
     name: Fraud bundle validation
     needs:
       - changes
-      - pr-policy
 
-    if: |
-      needs.pr-policy.outputs.pr_type == 'workload' &&
-      needs.changes.outputs.fraud == 'true'
+    if: needs.changes.outputs.fraud == 'true'
 
     uses: GeraldMonticelli/northmart360/.github/workflows/30-pr-workload-validation.yml@main
     secrets: inherit
 
   # ==========================================================
-  # 3D. Terraform TEST validation
+  # 2D. Terraform TEST validation
+  #
+  # Runs whenever terraform/** except terraform/shared/**
+  # is modified.
   # ==========================================================
   terraform-validation:
     name: Terraform validation
     needs:
       - changes
-      - pr-policy
 
-    if: |
-      needs.pr-policy.outputs.pr_type == 'workload' &&
-      needs.changes.outputs.terraform == 'true'
+    if: needs.changes.outputs.terraform == 'true'
 
     uses: GeraldMonticelli/northmart360/.github/workflows/40-pr-terraform-validation.yml@main
     secrets: inherit
 
   # ==========================================================
-  # 3E. Terraform SHARED validation
+  # 2E. Terraform SHARED validation
+  #
+  # Runs whenever terraform/shared/** is modified.
   # ==========================================================
   terraform-shared-validation:
     name: Terraform Shared validation
     needs:
       - changes
-      - pr-policy
 
-    if: |
-      needs.pr-policy.outputs.pr_type == 'workload' &&
-      needs.changes.outputs.terraform_shared == 'true'
+    if: needs.changes.outputs.terraform_shared == 'true'
 
     uses: GeraldMonticelli/northmart360/.github/workflows/41-pr-terraform-shared-validation.yml@main
     secrets: inherit
 
   # ==========================================================
-  # 4. Secret scanning
+  # 3. Secret scanning
   #
-  # Runs for EVERY PR, independently of PR type.
+  # Runs for EVERY PR.
   # ==========================================================
   secret-scanning:
     name: Secret scanning
+
     uses: GeraldMonticelli/northmart360/.github/workflows/50-pr-secret-validation.yml@main
     secrets: inherit
 
   # ==========================================================
-  # 5. Universal PR gate
+  # 4. Universal PR gate
   #
   # This job ALWAYS runs.
   #
-  # "success" and "skipped" are accepted because specialized
-  # validators legitimately skip when their repository area
-  # was not modified.
+  # Specialized validations may legitimately be skipped when
+  # their repository area was not modified.
   #
-  # Any failure/cancellation blocks the PR.
+  # success + skipped = acceptable
+  # failure + cancelled = PR blocked
   #
   # This is the ONLY status check required by the main ruleset.
   # ==========================================================
@@ -229,7 +184,6 @@ jobs:
 
     needs:
       - changes
-      - pr-policy
       - workflow-validation
       - fraud-validation
       - fraud-bundle-validation
@@ -244,7 +198,6 @@ jobs:
         shell: bash
         env:
           CHANGES: ${{ needs.changes.result }}
-          POLICY: ${{ needs.pr-policy.result }}
           WORKFLOW: ${{ needs.workflow-validation.result }}
           FRAUD: ${{ needs.fraud-validation.result }}
           FRAUD_BUNDLE: ${{ needs.fraud-bundle-validation.result }}
@@ -254,7 +207,6 @@ jobs:
 
         run: |
           echo "changes=$CHANGES"
-          echo "policy=$POLICY"
           echo "workflow=$WORKFLOW"
           echo "fraud=$FRAUD"
           echo "fraud_bundle=$FRAUD_BUNDLE"
@@ -264,7 +216,6 @@ jobs:
 
           for RESULT in \
             "$CHANGES" \
-            "$POLICY" \
             "$WORKFLOW" \
             "$FRAUD" \
             "$FRAUD_BUNDLE" \

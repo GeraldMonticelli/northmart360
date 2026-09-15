@@ -55,6 +55,7 @@ jobs:
           fi
 
       - name: Discover TEST SQL Warehouse
+        id: warehouse
         env:
           DATABRICKS_AUTH_TYPE: github-oidc
           DATABRICKS_HOST: ${{ steps.databricks.outputs.host }}
@@ -68,40 +69,27 @@ jobs:
             | head -1)
 
           test -n "$WAREHOUSE_ID" || {
-            echo "ERROR: sql-northmart-test not found"
+            echo "ERROR: sql-northmart-test not visible to CI principal"
             exit 1
           }
 
           echo "warehouse_id=$WAREHOUSE_ID" >> "$GITHUB_OUTPUT"
 
       - name: Validate Databricks authentication
-        if: steps.databricks.outputs.host != ''
         env:
           DATABRICKS_AUTH_TYPE: github-oidc
           DATABRICKS_HOST: ${{ steps.databricks.outputs.host }}
           DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
-        run: |
-          databricks current-user me
+        run: databricks current-user me
 
       - name: Validate Databricks bundle
-        if: steps.databricks.outputs.host != ''
         working-directory: bundles/fraud
         env:
           DATABRICKS_AUTH_TYPE: github-oidc
           DATABRICKS_HOST: ${{ steps.databricks.outputs.host }}
           DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
+          BUNDLE_VAR_sql_warehouse_id: ${{ steps.warehouse.outputs.warehouse_id }}
         run: |
-          WAREHOUSE_ID=$(databricks warehouses list --output json \
-            | jq -r '.[] | select(.name == "sql-northmart-test") | .id' \
-            | head -1)
-
-          test -n "$WAREHOUSE_ID" || {
-            echo "ERROR: sql-northmart-test not found"
-            exit 1
-          }
-
-          export BUNDLE_VAR_sql_warehouse_id="$WAREHOUSE_ID"
-
           databricks bundle validate -t test
 
       - name: Skip Fraud bundle validation
