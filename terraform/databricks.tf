@@ -422,7 +422,8 @@ resource "databricks_mws_ncc_private_endpoint_rule" "northmart_sql" {
 resource "databricks_entitlements" "github_cicd" {
   service_principal_id = data.databricks_service_principal.github_cicd.id
 
-  workspace_access = true
+  workspace_access      = true
+  databricks_sql_access = true
 
   depends_on = [
     databricks_mws_permission_assignment.github_cicd

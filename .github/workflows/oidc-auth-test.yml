@@ -1,9 +1,6 @@
 name: Databricks OIDC Auth Test
 
 on:
-  push:
-    branches:
-      - test/databricks-oidc-auth
   workflow_dispatch:
 
 permissions:
