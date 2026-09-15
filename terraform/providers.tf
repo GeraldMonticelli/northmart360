@@ -15,7 +15,7 @@ provider "azurerm" {
 }
 
 provider "databricks" {
-  host = "https://${azurerm_databricks_workspace.northmart.workspace_url}"
+  host    = "https://${azurerm_databricks_workspace.northmart.workspace_url}"
   profile = var.databricks_workspace_profile
 }
 
