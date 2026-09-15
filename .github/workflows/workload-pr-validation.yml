@@ -89,8 +89,18 @@ jobs:
           DATABRICKS_AUTH_TYPE: github-oidc
           DATABRICKS_HOST: ${{ steps.databricks.outputs.host }}
           DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
-          BUNDLE_VAR_sql_warehouse_id: ${{ steps.warehouse.outputs.warehouse_id }}
         run: |
+          WAREHOUSE_ID=$(databricks warehouses list --output json \
+            | jq -r '.[] | select(.name == "sql-northmart-test") | .id' \
+            | head -1)
+
+          test -n "$WAREHOUSE_ID" || {
+            echo "ERROR: sql-northmart-test not found"
+            exit 1
+          }
+
+          export BUNDLE_VAR_sql_warehouse_id="$WAREHOUSE_ID"
+
           databricks bundle validate -t test
 
       - name: Skip Fraud bundle validation
