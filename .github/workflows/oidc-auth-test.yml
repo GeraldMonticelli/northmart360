@@ -31,8 +31,8 @@ jobs:
         shell: bash
         run: |
           HOST=$(az databricks workspace show \
-            --resource-group "${{ vars.TF_VAR_RESOURCE_GROUP_NAME }}" \
-            --name "${{ vars.TF_VAR_WORKSPACE_NAME }}" \
+            --resource-group "${{ vars.AZURE_RESOURCE_GROUP_NAME }}" \
+            --name "${{ vars.DATABRICKS_WORKSPACE_NAME }}" \
             --query workspaceUrl \
             -o tsv)
 
