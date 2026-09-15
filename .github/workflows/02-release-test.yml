@@ -17,12 +17,66 @@ permissions:
   contents: read
 
 jobs:
+  detect-changes:
+    name: Detect release changes
+    runs-on: ubuntu-latest
+
+    outputs:
+      terraform_shared: ${{ steps.changes.outputs.terraform_shared }}
+
+    steps:
+      - name: Checkout release
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect Shared Terraform changes
+        id: changes
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            CURRENT_TAG="${GITHUB_REF_NAME}"
+          else
+            CURRENT_TAG="${{ inputs.release_ref }}"
+          fi
+          
+          PREVIOUS_TAG=$(git tag --sort=-version:refname \
+            | grep -Fxv "$CURRENT_TAG" \
+            | head -n 1)
+
+          echo "Current release:  $CURRENT_TAG"
+          echo "Previous release: $PREVIOUS_TAG"
+
+          if [ -z "$PREVIOUS_TAG" ]; then
+            echo "terraform_shared=true" >> "$GITHUB_OUTPUT"
+          elif git diff --quiet "$PREVIOUS_TAG" "$CURRENT_TAG" -- terraform/shared; then
+            echo "terraform_shared=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "terraform_shared=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  platform-shared:
+    name: Deploy Shared Platform
+    needs: detect-changes
+    if: needs.detect-changes.outputs.terraform_shared == 'true'
+    uses: ./.github/workflows/platform-shared.yml
+    with:
+      release_ref: ${{ github.event_name == 'push' && github.ref_name || inputs.release_ref }}
+    secrets: inherit
 
   platform-test:
     name: Deploy TEST Platform
+    needs:
+      - detect-changes
+      - platform-shared
+    if: |
+      always() &&
+      needs.detect-changes.result == 'success' &&
+      (needs.platform-shared.result == 'success' ||
+       needs.platform-shared.result == 'skipped')
     uses: ./.github/workflows/platform-test.yml
     with:
-      release_ref: ${{ inputs.release_ref }}
+      release_ref: ${{ github.event_name == 'push' && github.ref_name || inputs.release_ref }}
     secrets: inherit
 
   workload-test:
@@ -30,7 +84,7 @@ jobs:
     needs: platform-test
     uses: ./.github/workflows/workload-test.yml
     with:
-      release_ref: ${{ inputs.release_ref }}
+      release_ref: ${{ github.event_name == 'push' && github.ref_name || inputs.release_ref }}
     secrets: inherit
 
   release-validation:
@@ -38,5 +92,5 @@ jobs:
     needs: workload-test
     uses: ./.github/workflows/release-validation-test.yml
     with:
-      release_ref: ${{ inputs.release_ref }}
+      release_ref: ${{ github.event_name == 'push' && github.ref_name || inputs.release_ref }}
     secrets: inherit

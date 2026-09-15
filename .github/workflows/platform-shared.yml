@@ -1,7 +1,19 @@
 name: Platform Shared
 
 on:
+  workflow_call:
+    inputs:
+      release_ref:
+        description: "Git tag or commit to deploy"
+        required: true
+        type: string
+
   workflow_dispatch:
+    inputs:
+      release_ref:
+        description: "Git tag or commit to deploy"
+        required: true
+        type: string
 
 permissions:
   id-token: write
@@ -13,7 +25,10 @@ jobs:
     environment: platform-shared
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout release
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_ref }}
 
       - name: Azure Login
         uses: azure/login@v2
