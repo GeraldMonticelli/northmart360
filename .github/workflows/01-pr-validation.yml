@@ -146,7 +146,7 @@ jobs:
         env:
           DATABRICKS_AUTH_TYPE: github-oidc
           DATABRICKS_HOST: ${{ steps.databricks.outputs.host }}
-          DATABRICKS_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+          DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
         run: |
           databricks bundle validate -t test
 
