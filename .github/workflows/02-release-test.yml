@@ -82,7 +82,7 @@ jobs:
   workload-test:
     name: Deploy TEST Workload
     needs: platform-test
-    uses: ./.github/workflows/workload-test.yml
+    uses: GeraldMonticelli/northmart360/.github/workflows/workload-test.yml@main
     with:
       release_ref: ${{ github.event_name == 'push' && github.ref_name || inputs.release_ref }}
     secrets: inherit
@@ -90,7 +90,7 @@ jobs:
   release-validation:
     name: Validate TEST Release
     needs: workload-test
-    uses: ./.github/workflows/release-validation-test.yml
+    uses: GeraldMonticelli/northmart360/.github/workflows/release-validation-test.yml@main
     with:
       release_ref: ${{ github.event_name == 'push' && github.ref_name || inputs.release_ref }}
     secrets: inherit

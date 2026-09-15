@@ -418,3 +418,13 @@ resource "databricks_mws_ncc_private_endpoint_rule" "northmart_sql" {
   resource_id = azurerm_mssql_server.northmart.id
   group_id    = "sqlServer"
 }
+
+resource "databricks_entitlements" "github_cicd" {
+  service_principal_id = data.databricks_service_principal.github_cicd.id
+
+  workspace_access = true
+
+  depends_on = [
+    databricks_mws_permission_assignment.github_cicd
+  ]
+}

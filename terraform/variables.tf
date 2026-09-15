@@ -56,6 +56,16 @@ variable "databricks_managed_resource_group_name" {
   type = string
 }
 
+variable "databricks_workspace_profile" {
+  type    = string
+  default = null
+}
+
+variable "databricks_account_profile" {
+  type    = string
+  default = null
+}
+
 locals {
   catalog_name            = "${var.workload_name}_${var.environment}"
   sql_server_name         = "sql-${var.workload_name}-${var.environment}"
