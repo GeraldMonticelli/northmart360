@@ -16,12 +16,14 @@ provider "azurerm" {
 
 provider "databricks" {
   host = "https://${azurerm_databricks_workspace.northmart.workspace_url}"
+  profile = var.databricks_workspace_profile
 }
 
 provider "databricks" {
   alias      = "account"
   host       = "https://accounts.azuredatabricks.net"
   account_id = "72b31e8d-b148-4abf-bce7-a803d20310c5"
+  profile    = var.databricks_account_profile
 }
 
 provider "azuread" {}
