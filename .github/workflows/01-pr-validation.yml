@@ -26,6 +26,7 @@ jobs:
     outputs:
       fraud: ${{ steps.filter.outputs.fraud }}
       terraform: ${{ steps.filter.outputs.terraform }}
+      terraform_shared: ${{ steps.filter.outputs.terraform_shared }}
 
     steps:
       - name: Checkout PR
@@ -41,7 +42,9 @@ jobs:
               - '.github/workflows/01-pr-validation.yml'
             terraform:
               - 'terraform/**'
-              - '.github/workflows/01-pr-validation.yml'
+              - '!terraform/shared/**'
+            terraform_shared:
+              - 'terraform/shared/**'
 
 
   # ============================================================
@@ -211,13 +214,15 @@ jobs:
 
       - name: Install Checkov
         run: pip install checkov==3.3.17
-
+      
+      # shared already has it own checkov scan, so we skip it here to avoid duplicate findings
       - name: Checkov IaC security scan
         run: |
           checkov \
-            -d terraform \
+            -d . \
             --framework terraform \
-            --compact
+            --compact \
+            --skip-path shared
 
       - name: Terraform plan TEST
         working-directory: ${{ env.TF_DIR }}
@@ -248,3 +253,78 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # ============================================================
+  # Terraform shared validation
+  # ============================================================
+
+  terraform-shared-validation:
+    name: Terraform Shared validation
+    needs: changes
+    if: needs.changes.outputs.terraform_shared == 'true'
+    runs-on: ubuntu-latest
+    environment: platform-shared
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Terraform init Shared
+        working-directory: terraform/shared
+        run: |
+          terraform init \
+            -reconfigure \
+            -backend-config="key=northmart-shared.tfstate"
+
+      - name: Terraform format
+        working-directory: terraform/shared
+        run: terraform fmt -check -recursive
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v5
+
+      - name: TFLint
+        working-directory: terraform/shared
+        run: |
+          tflint --init
+          tflint --recursive
+
+      - name: Terraform validate
+        working-directory: terraform/shared
+        run: terraform validate
+
+      - name: Install Checkov
+        run: pip install checkov==3.3.17
+
+      - name: Checkov IaC security scan
+        run: |
+          checkov \
+            -d terraform/shared \
+            --framework terraform \
+            --compact
+
+      - name: Terraform plan Shared
+        working-directory: terraform/shared
+        run: |
+          terraform plan \
+            -input=false \
+            -out=shared.tfplan
+
+      - name: Terraform plan summary
+        working-directory: terraform/shared
+        run: |
+          echo "## Terraform Plan — SHARED" >> "$GITHUB_STEP_SUMMARY"
+          echo '```terraform' >> "$GITHUB_STEP_SUMMARY"
+          terraform show -no-color shared.tfplan >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
