@@ -68,6 +68,7 @@ resource "databricks_service_principal_federation_policy" "github_cicd_release_v
   }
 }
 
+
 resource "databricks_service_principal_federation_policy" "github_cicd_pr_valiation" {
   provider = databricks.account
 
