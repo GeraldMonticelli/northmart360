@@ -68,6 +68,22 @@ resource "databricks_service_principal_federation_policy" "github_cicd_release_v
   }
 }
 
+resource "databricks_service_principal_federation_policy" "github_cicd_pr_valiation" {
+  provider = databricks.account
+
+  service_principal_id = databricks_service_principal.github_cicd.id
+
+  oidc_policy = {
+    issuer        = "https://token.actions.githubusercontent.com"
+    subject_claim = "job_workflow_ref"
+    subject       = "GeraldMonticelli/northmart360/.github/workflows/01-pr-validation.yml@refs/heads/main"
+
+    audiences = [
+      "72b31e8d-b148-4abf-bce7-a803d20310c5"
+    ]
+  }
+}
+
 # ============================================================
 # PLATFORM CI/CD IDENTITY
 # Entra-managed service principal
