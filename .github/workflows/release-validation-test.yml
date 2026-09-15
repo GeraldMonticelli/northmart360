@@ -122,6 +122,7 @@ jobs:
       # GATE 3 - DBT BUILD
       # ==========================================================
       - name: Run dbt build on TEST
+        working-directory: bundles/fraud
         run: |
           databricks bundle run dbt_transform_job \
             -t test \

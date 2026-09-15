@@ -44,7 +44,15 @@ jobs:
               - '!terraform/shared/**'
             terraform_shared:
               - 'terraform/shared/**'
-
+              
+      - name: Show detected paths
+        run: |
+          echo "fraud=${{ steps.filter.outputs.fraud }}"
+          echo "fraud files=${{ steps.filter.outputs.fraud_files }}"
+          echo "terraform=${{ steps.filter.outputs.terraform }}"
+          echo "terraform files=${{ steps.filter.outputs.terraform_files }}"
+          echo "terraform_shared=${{ steps.filter.outputs.terraform_shared }}"
+          echo "shared files=${{ steps.filter.outputs.terraform_shared_files }}"
 
   # ============================================================
   # Fraud workload validation
