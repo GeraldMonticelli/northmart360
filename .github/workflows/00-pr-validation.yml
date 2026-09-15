@@ -107,9 +107,6 @@ jobs:
           WORKFLOW_COUNT=$(echo "$FILES" \
             | grep -c '^\.github/workflows/' || true)
 
-          NON_WORKFLOW_COUNT=$(echo "$FILES" \
-            | grep -vc '^\.github/workflows/' || true)
-
           if [ "$WORKFLOW_COUNT" -gt 0 ]; then
             echo "pr_type=ci" >> "$GITHUB_OUTPUT"
             echo "PR type: CI"
