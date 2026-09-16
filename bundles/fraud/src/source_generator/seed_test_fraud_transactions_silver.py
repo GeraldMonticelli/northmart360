@@ -1,15 +1,15 @@
-from datetime import datetime, timedelta, timezone
 import uuid
+from datetime import UTC, datetime, timedelta
 
 from pyspark.sql import SparkSession
 from pyspark.sql.types import (
-    StructType,
-    StructField,
-    StringType,
-    TimestampType,
     DoubleType,
     IntegerType,
     LongType,
+    StringType,
+    StructField,
+    StructType,
+    TimestampType,
 )
 
 spark = SparkSession.builder.getOrCreate()
@@ -40,7 +40,7 @@ schema = StructType([
     StructField("transaction_hour", IntegerType(), False),
 ])
 
-base_time = datetime(2026, 9, 16, 10, 0, tzinfo=timezone.utc)
+base_time = datetime(2026, 9, 16, 10, 0, tzinfo=UTC)
 
 rows = []
 
