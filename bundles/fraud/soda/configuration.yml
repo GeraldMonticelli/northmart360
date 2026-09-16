@@ -1,5 +1,5 @@
 type: databricks
-name: ${SODA_DATABRICKS_CATALOG}
+name: ${env.SODA_DATABRICKS_CATALOG}
 
 connection:
   host: ${env.DATABRICKS_HOST}
