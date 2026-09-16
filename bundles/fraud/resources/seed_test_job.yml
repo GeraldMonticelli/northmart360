@@ -1,0 +1,17 @@
+resources:
+  jobs:
+    seed_test_data_job:
+      name: seed-fraud-test-${bundle.target}
+
+      tasks:
+        - task_key: seed_fraud_transactions_silver
+
+          spark_python_task:
+            python_file: ../src/source_generator/seed_test_fraud_transactions_silver.py
+
+          environment_key: default
+
+      environments:
+        - environment_key: default
+          spec:
+             environment_version: "4"
