@@ -117,7 +117,15 @@ jobs:
         working-directory: bundles/fraud
         run: |
           python -m pytest tests/integration -v
-
+      # ==========================================================
+      # TEST DATA INITIALIZATION
+      # ==========================================================
+      - name: Seed TEST fraud transactions
+        working-directory: bundles/fraud
+        run: |
+          databricks bundle run seed_test_data_job \
+            -t test \
+            --progress-format append
       # ==========================================================
       # GATE 3 - DBT BUILD
       # ==========================================================
