@@ -27,7 +27,6 @@ sync:
     - src/**
     - dbt/**
   exclude:  
-    - src/source_generator/**
     - dbt/target/**
     - dbt/logs/**
 
