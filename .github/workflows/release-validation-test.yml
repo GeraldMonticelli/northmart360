@@ -27,6 +27,7 @@ jobs:
     env:
       DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
       DATABRICKS_AUTH_TYPE: github-oidc
+      SODA_DATABRICKS_CATALOG: ${{ vars.SODA_DATABRICKS_CATALOG }}
 
     steps:
       # ----------------------------------------------------------
