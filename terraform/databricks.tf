@@ -429,3 +429,12 @@ resource "databricks_entitlements" "github_cicd" {
     databricks_mws_permission_assignment.github_cicd
   ]
 }
+
+resource "databricks_permissions" "bundle_root" {
+  directory_path = "/.bundle"
+
+  access_control {
+    service_principal_name = data.databricks_service_principal.github_cicd.application_id
+    permission_level       = "CAN_MANAGE"
+  }
+}
