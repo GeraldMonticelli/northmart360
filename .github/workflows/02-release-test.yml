@@ -79,24 +79,44 @@ jobs:
       release_ref: ${{ github.event_name == 'push' && github.ref_name || inputs.release_ref }}
     secrets: inherit
 
-  workload-test:
-    name: Deploy TEST Workload
+  databricks-test-discovery:
+    name: Discover TEST Databricks resources
     needs: platform-test
     if: |
       always() &&
       needs.platform-test.result == 'success'
+    uses: GeraldMonticelli/northmart360/.github/workflows/databricks-test-discovery.yml@main
+    with:
+      release_ref: ${{ github.event_name == 'push' && github.ref_name || inputs.release_ref }}
+      required: true
+    secrets: inherit
+
+  workload-test:
+    name: Deploy TEST Workload
+    needs: databricks-test-discovery
+    if: |
+      always() &&
+      needs.databricks-test-discovery.result == 'success'
     uses: GeraldMonticelli/northmart360/.github/workflows/workload-test.yml@main
     with:
       release_ref: ${{ github.event_name == 'push' && github.ref_name || inputs.release_ref }}
+      workload_path: bundles/fraud
+      databricks_host: ${{ needs.databricks-test-discovery.outputs.host }}
+      warehouse_id: ${{ needs.databricks-test-discovery.outputs.warehouse_id }}
     secrets: inherit
 
   release-validation:
     name: Validate TEST Release
-    needs: workload-test
+    needs:
+      - databricks-test-discovery
+      - workload-test
     if: |
       always() &&
+      needs.databricks-test-discovery.result == 'success' &&
       needs.workload-test.result == 'success'
     uses: GeraldMonticelli/northmart360/.github/workflows/release-validation-test.yml@main
     with:
       release_ref: ${{ github.event_name == 'push' && github.ref_name || inputs.release_ref }}
+      databricks_host: ${{ needs.databricks-test-discovery.outputs.host }}
+      warehouse_id: ${{ needs.databricks-test-discovery.outputs.warehouse_id }}
     secrets: inherit
