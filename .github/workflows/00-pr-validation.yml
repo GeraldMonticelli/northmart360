@@ -104,14 +104,10 @@ jobs:
     secrets: inherit
 
   # ==========================================================
+  # ==========================================================
   # 2C. Databricks bundle validation
   #
   # Runs whenever bundles/fraud/** is modified.
-  #
-  # IMPORTANT:
-  # This trusted reusable remains pinned to @main.
-  # Its stable workflow identity is used by the Databricks
-  # federation policy through job_workflow_ref.
   # ==========================================================
   fraud-bundle-validation:
     name: Fraud bundle validation
