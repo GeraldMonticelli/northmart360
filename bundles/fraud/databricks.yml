@@ -2,6 +2,7 @@
 # The Databricks extension requires databricks.yml configuration file.
 # See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
 # CI/CD generic workload validation test
+# CI/CD generic workload validation test2
 bundle:
   name: fraud
 
