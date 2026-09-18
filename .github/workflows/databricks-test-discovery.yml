@@ -1,0 +1,112 @@
+name: Databricks TEST Discovery
+
+on:
+  workflow_call:
+    inputs:
+      release_ref:
+        description: "Git tag or commit to inspect"
+        required: false
+        type: string
+      required:
+        description: "Fail when the TEST workspace does not exist"
+        required: false
+        default: false
+        type: boolean
+    outputs:
+      host:
+        description: "Databricks TEST workspace URL"
+        value: ${{ jobs.discovery.outputs.host }}
+      warehouse_id:
+        description: "Databricks TEST SQL warehouse ID"
+        value: ${{ jobs.discovery.outputs.warehouse_id }}
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  discovery:
+    name: Discover Databricks TEST resources
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.required && 'workload-test' || 'platform-test' }}
+
+    outputs:
+      host: ${{ steps.workspace.outputs.host }}
+      warehouse_id: ${{ steps.warehouse.outputs.warehouse_id }}
+
+    env:
+      DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
+      DATABRICKS_AUTH_TYPE: github-oidc
+      RESOURCE_GROUP_NAME: ${{ vars.TF_VAR_RESOURCE_GROUP_NAME || vars.AZURE_RESOURCE_GROUP_NAME }}
+      WORKSPACE_NAME: ${{ vars.TF_VAR_WORKSPACE_NAME || vars.DATABRICKS_WORKSPACE_NAME }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_ref }}
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Discover Databricks workspace
+        id: workspace
+        shell: bash
+        run: |
+          if ! HOST=$(az databricks workspace show \
+              --resource-group "$RESOURCE_GROUP_NAME" \
+              --name "$WORKSPACE_NAME" \
+              --query "workspaceUrl" \
+              --output tsv); then
+            if [ "${{ inputs.required }}" = "true" ]; then
+              echo "ERROR: Databricks TEST workspace could not be queried."
+              exit 1
+            fi
+
+            echo "No existing Databricks TEST workspace."
+            echo "host=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ -z "$HOST" ]; then
+            if [ "${{ inputs.required }}" = "true" ]; then
+              echo "ERROR: Databricks TEST workspace was not found."
+              exit 1
+            fi
+
+            echo "host=" >> "$GITHUB_OUTPUT"
+            echo "No existing Databricks TEST workspace."
+            exit 0
+          fi
+
+          if [[ "$HOST" != https://* ]]; then
+            HOST="https://$HOST"
+          fi
+
+          echo "host=$HOST" >> "$GITHUB_OUTPUT"
+          echo "Databricks TEST workspace discovered: $HOST"
+
+      - name: Discover TEST SQL Warehouse
+        id: warehouse
+        if: steps.workspace.outputs.host != ''
+        env:
+          DATABRICKS_HOST: ${{ steps.workspace.outputs.host }}
+        shell: bash
+        run: |
+          WAREHOUSE_ID=$(databricks warehouses list --output json \
+            | jq -r '.[] | select(.name == "sql-northmart-test") | .id' \
+            | head -1)
+
+          test -n "$WAREHOUSE_ID" || {
+            echo "ERROR: sql-northmart-test not visible to CI principal"
+            exit 1
+          }
+
+          echo "warehouse_id=$WAREHOUSE_ID" >> "$GITHUB_OUTPUT"
