@@ -89,23 +89,22 @@ jobs:
     secrets: inherit
 
   # ==========================================================
-  # 2B. Fraud Python validation
+  # 2B. Databricks TEST discovery
   #
   # Runs whenever bundles/fraud/** is modified.
   # ==========================================================
-  fraud-validation:
-    name: Fraud validation
+  databricks-test-discovery:
+    name: Databricks TEST discovery
     needs:
       - changes
 
     if: needs.changes.outputs.fraud == 'true'
 
-    uses: GeraldMonticelli/northmart360/.github/workflows/20-pr-fraud-validation.yml@main
+    uses: GeraldMonticelli/northmart360/.github/workflows/databricks-test-discovery.yml@main
     secrets: inherit
 
   # ==========================================================
-  # ==========================================================
-  # 2C. Databricks bundle validation
+  # 2C. Generic Databricks bundle validation
   #
   # Runs whenever bundles/fraud/** is modified.
   # ==========================================================
@@ -113,10 +112,15 @@ jobs:
     name: Fraud bundle validation
     needs:
       - changes
+      - databricks-test-discovery
 
     if: needs.changes.outputs.fraud == 'true'
 
     uses: GeraldMonticelli/northmart360/.github/workflows/30-pr-workload-validation.yml@main
+    with:
+      workload_path: bundles/fraud
+      databricks_host: ${{ needs.databricks-test-discovery.outputs.host }}
+      warehouse_id: ${{ needs.databricks-test-discovery.outputs.warehouse_id }}
     secrets: inherit
 
   # ==========================================================
@@ -181,7 +185,7 @@ jobs:
     needs:
       - changes
       - workflow-validation
-      - fraud-validation
+      - databricks-test-discovery
       - fraud-bundle-validation
       - terraform-validation
       - terraform-shared-validation
@@ -195,7 +199,7 @@ jobs:
         env:
           CHANGES: ${{ needs.changes.result }}
           WORKFLOW: ${{ needs.workflow-validation.result }}
-          FRAUD: ${{ needs.fraud-validation.result }}
+          DATABRICKS_DISCOVERY: ${{ needs.databricks-test-discovery.result }}
           FRAUD_BUNDLE: ${{ needs.fraud-bundle-validation.result }}
           TERRAFORM: ${{ needs.terraform-validation.result }}
           TERRAFORM_SHARED: ${{ needs.terraform-shared-validation.result }}
@@ -204,7 +208,7 @@ jobs:
         run: |
           echo "changes=$CHANGES"
           echo "workflow=$WORKFLOW"
-          echo "fraud=$FRAUD"
+          echo "databricks_discovery=$DATABRICKS_DISCOVERY"
           echo "fraud_bundle=$FRAUD_BUNDLE"
           echo "terraform=$TERRAFORM"
           echo "terraform_shared=$TERRAFORM_SHARED"
@@ -213,7 +217,7 @@ jobs:
           for RESULT in \
             "$CHANGES" \
             "$WORKFLOW" \
-            "$FRAUD" \
+            "$DATABRICKS_DISCOVERY" \
             "$FRAUD_BUNDLE" \
             "$TERRAFORM" \
             "$TERRAFORM_SHARED" \
