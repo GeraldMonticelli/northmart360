@@ -7,13 +7,17 @@ on:
         description: "Git tag or commit to deploy"
         required: true
         type: string
+      workload_path:
+        description: "Path to the Databricks workload bundle"
+        required: true
+        type: string
       databricks_host:
         description: "Databricks TEST workspace URL"
-        required: true
+        required: false
         type: string
       warehouse_id:
         description: "Databricks TEST SQL warehouse ID"
-        required: true
+        required: false
         type: string
 
   workflow_dispatch:
@@ -22,13 +26,17 @@ on:
         description: "Git tag or commit to deploy"
         required: true
         type: string
+      workload_path:
+        description: "Path to the Databricks workload bundle"
+        required: true
+        type: string
       databricks_host:
         description: "Databricks TEST workspace URL"
-        required: true
+        required: false
         type: string
       warehouse_id:
         description: "Databricks TEST SQL warehouse ID"
-        required: true
+        required: false
         type: string
 
 permissions:
@@ -45,6 +53,8 @@ jobs:
       DATABRICKS_AUTH_TYPE: github-oidc
       DATABRICKS_HOST: ${{ inputs.databricks_host }}
       BUNDLE_VAR_sql_warehouse_id: ${{ inputs.warehouse_id }}
+      RESOURCE_GROUP_NAME: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
+      WORKSPACE_NAME: ${{ vars.DATABRICKS_WORKSPACE_NAME }}
 
     steps:
       - name: Checkout
@@ -58,14 +68,55 @@ jobs:
           echo "Actual commit:"
           git rev-parse HEAD
           git log -1 --oneline
+
+      # Transitional bootstrap discovery. Replace with the shared discovery
+      # workflow in the activation PR once it exists on main.
+      - name: Azure login
+        if: inputs.databricks_host == ''
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
 
+      - name: Discover Databricks TEST resources
+        id: discovery
+        if: inputs.databricks_host == ''
+        shell: bash
+        run: |
+          HOST=$(az databricks workspace show \
+            --resource-group "$RESOURCE_GROUP_NAME" \
+            --name "$WORKSPACE_NAME" \
+            --query "workspaceUrl" \
+            --output tsv)
+
+          if [[ "$HOST" != https://* ]]; then
+            HOST="https://$HOST"
+          fi
+
+          export DATABRICKS_HOST="$HOST"
+          WAREHOUSE_ID=$(databricks warehouses list --output json \
+            | jq -r '.[] | select(.name == "sql-northmart-test") | .id' \
+            | head -1)
+
+          test -n "$HOST"
+          test -n "$WAREHOUSE_ID"
+          echo "DATABRICKS_HOST=$HOST" >> "$GITHUB_ENV"
+          echo "host=$HOST" >> "$GITHUB_OUTPUT"
+          echo "warehouse_id=$WAREHOUSE_ID" >> "$GITHUB_OUTPUT"
+
       - name: Test Databricks authentication
         run: |
+          export DATABRICKS_HOST="${{ inputs.databricks_host || steps.discovery.outputs.host }}"
           echo "Authenticating against: $DATABRICKS_HOST"
           databricks current-user me
 
       - name: Deploy Databricks bundle
-        working-directory: bundles/fraud
+        working-directory: ${{ inputs.workload_path }}
+        env:
+          DATABRICKS_HOST: ${{ inputs.databricks_host || steps.discovery.outputs.host }}
+          BUNDLE_VAR_sql_warehouse_id: ${{ inputs.warehouse_id || steps.discovery.outputs.warehouse_id }}
         run: databricks bundle deploy -t test
