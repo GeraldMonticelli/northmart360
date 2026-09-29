@@ -103,16 +103,27 @@ jobs:
       - name: Discover existing TEST Databricks workspace
         shell: bash
         run: |
-          HOST=$(az databricks workspace show \
+          ERROR_FILE=$(mktemp)
+          trap 'rm -f "$ERROR_FILE"' EXIT
+          if ! HOST=$(az databricks workspace show \
             --resource-group "${{ vars.TF_VAR_RESOURCE_GROUP_NAME }}" \
             --name "${{ vars.TF_VAR_WORKSPACE_NAME }}" \
             --query workspaceUrl \
-            --output tsv)
-
-          test -n "$HOST" || {
-            echo "ERROR: Existing TEST Databricks workspace was not found."
+            --output tsv 2>"$ERROR_FILE"); then
+            if grep -Eq 'ResourceNotFound|ResourceGroupNotFound|was not found|could not be found' "$ERROR_FILE"; then
+              echo "TEST Databricks workspace is already absent; continuing with account-level recovery."
+              echo "DATABRICKS_WORKSPACE_ABSENT=true" >> "$GITHUB_ENV"
+              exit 0
+            fi
+            cat "$ERROR_FILE" >&2
             exit 1
-          }
+          fi
+
+          if [[ -z "$HOST" ]]; then
+            echo "TEST Databricks workspace is already absent; continuing with account-level recovery."
+            echo "DATABRICKS_WORKSPACE_ABSENT=true" >> "$GITHUB_ENV"
+            exit 0
+          fi
 
           if [[ "$HOST" != https://* ]]; then
             HOST="https://$HOST"
@@ -121,6 +132,7 @@ jobs:
           echo "DATABRICKS_HOST=$HOST" >> "$GITHUB_ENV"
 
       - name: Remove runtime Unity Catalog objects from TEST
+        if: ${{ env.DATABRICKS_WORKSPACE_ABSENT != 'true' }}
         shell: bash
         run: |
           TOKEN=$(az account get-access-token \
@@ -377,6 +389,7 @@ jobs:
           done
 
       - name: Force-delete TEST external location
+        if: ${{ env.DATABRICKS_WORKSPACE_ABSENT != 'true' }}
         shell: bash
         run: |
           TOKEN=$(az account get-access-token \
@@ -410,6 +423,131 @@ jobs:
             cat "$RESPONSE_FILE" >&2
             exit 1
           fi
+
+      - name: Detach stale TEST workspace from NCC
+        shell: bash
+        run: |
+          TOKEN=$(az account get-access-token \
+            --resource 2ff814a6-3304-4ab8-85cb-cd0e6f879c1d \
+            --query accessToken \
+            --output tsv)
+          test -n "$TOKEN" || {
+            echo "ERROR: Could not obtain a Databricks account API token from Azure OIDC."
+            exit 1
+          }
+          echo "::add-mask::$TOKEN"
+
+          ACCOUNT_API="https://accounts.azuredatabricks.net/api/2.0/accounts/72b31e8d-b148-4abf-bce7-a803d20310c5"
+          NCC_ID="59d55d36-6b31-4438-8801-1f46c9493da8"
+          STALE_WORKSPACE_ID="7405615106754180"
+          EXPECTED_NCC_NAME="ncc-northmart-test"
+          TMP_DIR=$(mktemp -d)
+          trap 'rm -rf "$TMP_DIR"' EXIT
+
+          request() {
+            local method="$1"
+            local endpoint="$2"
+            local body_file="$3"
+            shift 3
+            HTTP_STATUS=$(curl --silent --show-error \
+              --request "$method" \
+              --header "Authorization: Bearer $TOKEN" \
+              --header "Content-Type: application/json" \
+              "$@" \
+              --output "$body_file" \
+              --write-out '%{http_code}' \
+              "$ACCOUNT_API$endpoint")
+            if [[ "$HTTP_STATUS" != 2?? ]]; then
+              echo "Databricks account API endpoint: $ACCOUNT_API$endpoint" >&2
+              echo "Databricks HTTP status: $HTTP_STATUS" >&2
+              echo "Databricks response body:" >&2
+              cat "$body_file" >&2
+              return 1
+            fi
+          }
+
+          request GET "/network-connectivity-configs/$NCC_ID" "$TMP_DIR/ncc.json"
+          NCC_NAME=$(jq -r '.name // empty' "$TMP_DIR/ncc.json")
+          if [[ "$NCC_NAME" != "$EXPECTED_NCC_NAME" ]]; then
+            echo "ERROR: NCC $NCC_ID has unexpected name '$NCC_NAME'; refusing to detach or delete it." >&2
+            exit 1
+          fi
+          echo "Verified TEST NCC: $NCC_NAME ($NCC_ID)"
+
+          request GET "/workspaces" "$TMP_DIR/workspaces.json"
+          jq -e 'type == "array"' "$TMP_DIR/workspaces.json" >/dev/null || {
+            echo "ERROR: Databricks account API returned an unexpected workspace-list shape." >&2
+            cat "$TMP_DIR/workspaces.json" >&2
+            exit 1
+          }
+
+          jq -c --arg ncc "$NCC_ID" \
+            '.[] | select((.network_connectivity_config_id // "") == $ncc)' \
+            "$TMP_DIR/workspaces.json" > "$TMP_DIR/attached-workspaces.jsonl"
+          echo "Workspace attachments reported for TEST NCC:"
+          if [[ -s "$TMP_DIR/attached-workspaces.jsonl" ]]; then
+            while IFS= read -r workspace; do
+              jq -r '"ATTACHED WORKSPACE: id=\(.workspace_id) name=\(.workspace_name // .name // "unknown")"' \
+                <<< "$workspace"
+            done < "$TMP_DIR/attached-workspaces.jsonl"
+          else
+            echo "No active workspace attachments are listed."
+          fi
+
+          jq -c --arg id "$STALE_WORKSPACE_ID" \
+            'select((.workspace_id | tostring) == $id)' \
+            "$TMP_DIR/attached-workspaces.jsonl" > "$TMP_DIR/stale-attachment.jsonl"
+          if [[ -s "$TMP_DIR/stale-attachment.jsonl" ]]; then
+            echo "Stale TEST workspace $STALE_WORKSPACE_ID is listed as attached; attempting to clear its NCC assignment."
+          else
+            echo "Stale TEST workspace $STALE_WORKSPACE_ID is not in the active workspace list; attempting account-level detach."
+          fi
+          UPDATE_ENDPOINT="/workspaces/$STALE_WORKSPACE_ID?update_mask=network_connectivity_config_id"
+          UPDATE_BODY='{"network_connectivity_config_id":""}'
+          UPDATE_STATUS=$(curl --silent --show-error \
+            --request PATCH \
+            --header "Authorization: Bearer $TOKEN" \
+            --header "Content-Type: application/json" \
+            --data "$UPDATE_BODY" \
+            --output "$TMP_DIR/detach.json" \
+            --write-out '%{http_code}' \
+            "$ACCOUNT_API$UPDATE_ENDPOINT")
+          if [[ "$UPDATE_STATUS" == 2?? ]]; then
+            echo "Detached stale TEST workspace $STALE_WORKSPACE_ID from NCC $NCC_ID."
+          elif [[ "$UPDATE_STATUS" == "404" ]]; then
+            echo "Databricks account API endpoint: $ACCOUNT_API$UPDATE_ENDPOINT" >&2
+            echo "Databricks HTTP status: $UPDATE_STATUS" >&2
+            echo "Databricks response body:" >&2
+            cat "$TMP_DIR/detach.json" >&2
+            echo "ERROR: The account API could not detach stale workspace $STALE_WORKSPACE_ID; refusing to let Terraform delete the NCC." >&2
+            exit 1
+          else
+            echo "Databricks account API endpoint: $ACCOUNT_API$UPDATE_ENDPOINT" >&2
+            echo "Databricks HTTP status: $UPDATE_STATUS" >&2
+            echo "Databricks response body:" >&2
+            cat "$TMP_DIR/detach.json" >&2
+            exit 1
+          fi
+
+          request GET "/workspaces" "$TMP_DIR/workspaces-after.json"
+          jq -c --arg ncc "$NCC_ID" \
+            '.[] | select((.network_connectivity_config_id // "") == $ncc)' \
+            "$TMP_DIR/workspaces-after.json" > "$TMP_DIR/remaining-attachments.jsonl"
+          echo "Workspace attachments remaining on TEST NCC:"
+          if [[ -s "$TMP_DIR/remaining-attachments.jsonl" ]]; then
+            while IFS= read -r workspace; do
+              jq -r '"ATTACHED WORKSPACE: id=\(.workspace_id) name=\(.workspace_name // .name // "unknown")"' \
+                <<< "$workspace"
+            done < "$TMP_DIR/remaining-attachments.jsonl"
+          else
+            echo "None."
+          fi
+
+          if [[ -s "$TMP_DIR/remaining-attachments.jsonl" ]]; then
+            echo "ERROR: NCC $NCC_ID still has workspace attachments after detaching TEST workspace $STALE_WORKSPACE_ID. All remaining attachments are preserved; stopping before Terraform can delete the NCC." >&2
+            exit 1
+          fi
+          echo "TEST NCC has no remaining active workspace attachments."
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
