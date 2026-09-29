@@ -104,4 +104,4 @@ jobs:
       - name: Destroy Databricks bundle
         if: inputs.operation == 'destroy'
         working-directory: ${{ inputs.workload_path }}
-        run: databricks bundle destroy -t test
+        run: databricks bundle destroy -t test --auto-approve
