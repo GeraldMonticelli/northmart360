@@ -213,6 +213,10 @@ jobs:
             return 1
           }
 
+          is_system_schema() {
+            [[ "$1" == "information_schema" ]]
+          }
+
           cleanup_collection() {
             local schema_name="$1"
             local endpoint="$2"
@@ -280,6 +284,11 @@ jobs:
             }
             echo "Discovered Unity Catalog SCHEMA: $CATALOG.$schema_name"
 
+            if is_system_schema "$schema_name"; then
+              echo "Ignoring system Unity Catalog SCHEMA and its contents: $CATALOG.$schema_name"
+              continue
+            fi
+
             cleanup_collection "$schema_name" "/tables" "tables" "TABLE" "table_type"
             cleanup_collection "$schema_name" "/volumes" "volumes" "VOLUME" ""
             cleanup_collection "$schema_name" "/functions" "functions" "FUNCTION" ""
@@ -310,6 +319,11 @@ jobs:
           while IFS= read -r schema; do
             schema_name=$(jq -r '.name // empty' <<< "$schema")
             full_schema_name="$CATALOG.$schema_name"
+            if is_system_schema "$schema_name"; then
+              echo "REMAINING SYSTEM SCHEMA: $full_schema_name (excluded from cleanup verification)"
+              continue
+            fi
+
             if is_terraform_managed_schema "$schema_name"; then
               echo "REMAINING SCHEMA: $full_schema_name (Terraform-managed)"
             else
