@@ -10,6 +10,7 @@ resource "databricks_external_location" "northmart" {
   name               = "el_${local.catalog_name}"
   url                = "abfss://unity@${azurerm_storage_account.northmart.name}.dfs.core.windows.net/"
   credential_name    = databricks_storage_credential.northmart.name
+  force_destroy      = var.environment == "test"
   enable_file_events = true
   file_event_queue {
     managed_aqs {
