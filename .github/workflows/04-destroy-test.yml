@@ -499,34 +499,27 @@ jobs:
             "$TMP_DIR/attached-workspaces.jsonl" > "$TMP_DIR/stale-attachment.jsonl"
           if [[ -s "$TMP_DIR/stale-attachment.jsonl" ]]; then
             echo "Stale TEST workspace $STALE_WORKSPACE_ID is listed as attached; attempting to clear its NCC assignment."
+            UPDATE_ENDPOINT="/workspaces/$STALE_WORKSPACE_ID?update_mask=network_connectivity_config_id"
+            UPDATE_BODY='{"network_connectivity_config_id":""}'
+            UPDATE_STATUS=$(curl --silent --show-error \
+              --request PATCH \
+              --header "Authorization: Bearer $TOKEN" \
+              --header "Content-Type: application/json" \
+              --data "$UPDATE_BODY" \
+              --output "$TMP_DIR/detach.json" \
+              --write-out '%{http_code}' \
+              "$ACCOUNT_API$UPDATE_ENDPOINT")
+            if [[ "$UPDATE_STATUS" == 2?? ]]; then
+              echo "Detached stale TEST workspace $STALE_WORKSPACE_ID from NCC $NCC_ID."
+            else
+              echo "Databricks account API endpoint: $ACCOUNT_API$UPDATE_ENDPOINT" >&2
+              echo "Databricks HTTP status: $UPDATE_STATUS" >&2
+              echo "Databricks response body:" >&2
+              cat "$TMP_DIR/detach.json" >&2
+              exit 1
+            fi
           else
-            echo "Stale TEST workspace $STALE_WORKSPACE_ID is not in the active workspace list; attempting account-level detach."
-          fi
-          UPDATE_ENDPOINT="/workspaces/$STALE_WORKSPACE_ID?update_mask=network_connectivity_config_id"
-          UPDATE_BODY='{"network_connectivity_config_id":""}'
-          UPDATE_STATUS=$(curl --silent --show-error \
-            --request PATCH \
-            --header "Authorization: Bearer $TOKEN" \
-            --header "Content-Type: application/json" \
-            --data "$UPDATE_BODY" \
-            --output "$TMP_DIR/detach.json" \
-            --write-out '%{http_code}' \
-            "$ACCOUNT_API$UPDATE_ENDPOINT")
-          if [[ "$UPDATE_STATUS" == 2?? ]]; then
-            echo "Detached stale TEST workspace $STALE_WORKSPACE_ID from NCC $NCC_ID."
-          elif [[ "$UPDATE_STATUS" == "404" ]]; then
-            echo "Databricks account API endpoint: $ACCOUNT_API$UPDATE_ENDPOINT" >&2
-            echo "Databricks HTTP status: $UPDATE_STATUS" >&2
-            echo "Databricks response body:" >&2
-            cat "$TMP_DIR/detach.json" >&2
-            echo "ERROR: The account API could not detach stale workspace $STALE_WORKSPACE_ID; refusing to let Terraform delete the NCC." >&2
-            exit 1
-          else
-            echo "Databricks account API endpoint: $ACCOUNT_API$UPDATE_ENDPOINT" >&2
-            echo "Databricks HTTP status: $UPDATE_STATUS" >&2
-            echo "Databricks response body:" >&2
-            cat "$TMP_DIR/detach.json" >&2
-            exit 1
+            echo "Stale TEST workspace $STALE_WORKSPACE_ID is not an active workspace attachment; no workspace update is needed."
           fi
 
           request GET "/workspaces" "$TMP_DIR/workspaces-after.json"
