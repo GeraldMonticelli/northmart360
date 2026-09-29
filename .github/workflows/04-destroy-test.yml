@@ -376,6 +376,41 @@ jobs:
             fi
           done
 
+      - name: Force-delete TEST external location
+        shell: bash
+        run: |
+          TOKEN=$(az account get-access-token \
+            --resource 2ff814a6-3304-4ab8-85cb-cd0e6f879c1d \
+            --query accessToken \
+            --output tsv)
+          test -n "$TOKEN" || {
+            echo "ERROR: Could not obtain a Databricks access token from Azure OIDC."
+            exit 1
+          }
+          echo "::add-mask::$TOKEN"
+
+          ENDPOINT="$DATABRICKS_HOST/api/2.1/unity-catalog/external-locations/el_northmart_test?force=true"
+          RESPONSE_FILE=$(mktemp)
+          trap 'rm -f "$RESPONSE_FILE"' EXIT
+          HTTP_STATUS=$(curl --silent --show-error \
+            --request DELETE \
+            --header "Authorization: Bearer $TOKEN" \
+            --output "$RESPONSE_FILE" \
+            --write-out '%{http_code}' \
+            "$ENDPOINT")
+
+          if [[ "$HTTP_STATUS" == 2?? ]]; then
+            echo "Force-deleted TEST external location: el_northmart_test"
+          elif [[ "$HTTP_STATUS" == "404" ]]; then
+            echo "TEST external location el_northmart_test is already absent."
+          else
+            echo "Databricks request endpoint: $ENDPOINT" >&2
+            echo "Databricks HTTP status: $HTTP_STATUS" >&2
+            echo "Databricks response body:" >&2
+            cat "$RESPONSE_FILE" >&2
+            exit 1
+          fi
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
