@@ -167,9 +167,21 @@ jobs:
           fi
 
           SCHEMA_OWNER=$(jq -r '.owner // empty' <<< "$SCHEMA")
-          SCHEMA_PERMISSIONS=$(curl --fail --silent --show-error \
+          PERMISSIONS_ENDPOINT="$API/permissions/schemas/northmart_test.silver"
+          PERMISSIONS_RESPONSE=$(curl --silent --show-error \
+            --write-out $'\n%{http_code}' \
             --header "$AUTH_HEADER" \
-            "$API/permissions/schemas/northmart_test.silver")
+            "$PERMISSIONS_ENDPOINT")
+          PERMISSIONS_STATUS="${PERMISSIONS_RESPONSE##*$'\n'}"
+          SCHEMA_PERMISSIONS="${PERMISSIONS_RESPONSE%$'\n'*}"
+          echo "Databricks request endpoint: $PERMISSIONS_ENDPOINT"
+          echo "Databricks HTTP status: $PERMISSIONS_STATUS"
+          echo "Databricks response body:"
+          printf '%s\n' "$SCHEMA_PERMISSIONS"
+          if [[ "$PERMISSIONS_STATUS" != 2?? ]]; then
+            exit 1
+          fi
+
           SCHEMA_PRIVILEGES=$(jq -r \
             --arg application_id "$APPLICATION_ID" \
             --arg display_name "$DISPLAY_NAME" \
