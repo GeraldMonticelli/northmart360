@@ -166,42 +166,6 @@ jobs:
             exit 1
           fi
 
-          SCHEMA_OWNER=$(jq -r '.owner // empty' <<< "$SCHEMA")
-          PERMISSIONS_ENDPOINT="$API/permissions/SCHEMA/northmart_test.silver"
-          PERMISSIONS_RESPONSE=$(curl --silent --show-error \
-            --write-out $'\n%{http_code}' \
-            --header "$AUTH_HEADER" \
-            "$PERMISSIONS_ENDPOINT")
-          PERMISSIONS_STATUS="${PERMISSIONS_RESPONSE##*$'\n'}"
-          SCHEMA_PERMISSIONS="${PERMISSIONS_RESPONSE%$'\n'*}"
-          echo "Databricks request endpoint: $PERMISSIONS_ENDPOINT"
-          echo "Databricks HTTP status: $PERMISSIONS_STATUS"
-          echo "Databricks response body:"
-          printf '%s\n' "$SCHEMA_PERMISSIONS"
-          if [[ "$PERMISSIONS_STATUS" != 2?? ]]; then
-            exit 1
-          fi
-
-          SCHEMA_PRIVILEGES=$(jq -r \
-            --arg application_id "$APPLICATION_ID" \
-            --arg display_name "$DISPLAY_NAME" \
-            --arg user_name "$USER_NAME" \
-            --arg user_id "$USER_ID" \
-            '[.privilege_assignments[]?
-              | select(
-                  (.principal | ascii_downcase) == ($application_id | ascii_downcase) or
-                  (.principal | ascii_downcase) == ($display_name | ascii_downcase) or
-                  (.principal | ascii_downcase) == ($user_name | ascii_downcase) or
-                  (.principal | ascii_downcase) == ($user_id | ascii_downcase)
-                )
-              | .privileges[]?
-              | if type == "object" then .privilege else . end]
-             | unique
-             | join(",")' \
-            <<< "$SCHEMA_PERMISSIONS")
-          echo "Schema owner: ${SCHEMA_OWNER:-unknown}"
-          echo "Direct/inherited schema privileges for the authenticated principal: ${SCHEMA_PRIVILEGES:-none}"
-
           TABLES=$(curl --fail --silent --show-error --get \
             --header "$AUTH_HEADER" \
             --data-urlencode "catalog_name=northmart_test" \
@@ -230,55 +194,24 @@ jobs:
             --header "$AUTH_HEADER" \
             "$API/tables/$ENCODED_FULL_NAME")
           TABLE_OWNER=$(jq -r '.owner // empty' <<< "$TABLE")
-
-          OWNER_MATCH=$(jq -r \
-            --arg owner "$TABLE_OWNER" \
-            --arg application_id "$APPLICATION_ID" \
-            --arg display_name "$DISPLAY_NAME" \
-            --arg user_name "$USER_NAME" \
-            --arg user_id "$USER_ID" \
-            '[$application_id, $display_name, $user_name, $user_id]
-             | map(select(length > 0))
-             | any(.[]; ascii_downcase == ($owner | ascii_downcase))' \
-            <<< "$CURRENT_USER")
-
-          HAS_MANAGE=false
-          if [[ "$OWNER_MATCH" != "true" ]]; then
-            TABLE_PERMISSIONS=$(curl --fail --silent --show-error \
-              --header "$AUTH_HEADER" \
-              "$API/permissions/TABLE/$ENCODED_FULL_NAME")
-            HAS_MANAGE=$(jq -r \
-              --arg application_id "$APPLICATION_ID" \
-              --arg display_name "$DISPLAY_NAME" \
-              --arg user_name "$USER_NAME" \
-              --arg user_id "$USER_ID" \
-              '[.privilege_assignments[]?
-                | select(
-                    (.principal | ascii_downcase) == ($application_id | ascii_downcase) or
-                    (.principal | ascii_downcase) == ($display_name | ascii_downcase) or
-                    (.principal | ascii_downcase) == ($user_name | ascii_downcase) or
-                    (.principal | ascii_downcase) == ($user_id | ascii_downcase)
-                  )
-                | .privileges[]?
-                | if type == "object" then .privilege else . end
-                | select(. == "MANAGE")]
-               | length > 0' \
-              <<< "$TABLE_PERMISSIONS")
-          fi
-
-          if [[ "$OWNER_MATCH" != "true" && "$HAS_MANAGE" != "true" ]]; then
-            echo "ERROR: The platform-test principal is neither the table owner nor explicitly granted MANAGE."
-            echo "Schema owner reported by Databricks: ${SCHEMA_OWNER:-unknown}"
-            echo "Table owner reported by Databricks: ${TABLE_OWNER:-unknown}"
-            echo "No object was deleted."
-            exit 1
-          fi
+          echo "Blocking table owner: ${TABLE_OWNER:-unknown}"
 
           echo "Deleting only $FULL_NAME ($TABLE_TYPE)."
-          curl --fail --silent --show-error \
+          DELETE_ENDPOINT="$API/tables/$ENCODED_FULL_NAME"
+          DELETE_RESPONSE=$(curl --silent --show-error \
+            --write-out $'\n%{http_code}' \
             --request DELETE \
             --header "$AUTH_HEADER" \
-            "$API/tables/$ENCODED_FULL_NAME"
+            "$DELETE_ENDPOINT")
+          DELETE_STATUS="${DELETE_RESPONSE##*$'\n'}"
+          DELETE_BODY="${DELETE_RESPONSE%$'\n'*}"
+          echo "Databricks request endpoint: $DELETE_ENDPOINT"
+          echo "Databricks HTTP status: $DELETE_STATUS"
+          echo "Databricks response body:"
+          printf '%s\n' "$DELETE_BODY"
+          if [[ "$DELETE_STATUS" != 2?? ]]; then
+            exit 1
+          fi
 
           REMAINING_TABLES=$(curl --fail --silent --show-error --get \
             --header "$AUTH_HEADER" \
