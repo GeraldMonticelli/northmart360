@@ -271,6 +271,12 @@ jobs:
 
           echo "Authenticated Databricks principal: ${DISPLAY_NAME:-$USER_NAME}"
 
+          api_request GET "/catalogs/$CATALOG" true
+          if [[ "$API_STATUS" == "404" ]]; then
+            echo "Unity Catalog $CATALOG is already absent; skipping cleanup."
+            exit 0
+          fi
+
           INITIAL_SCHEMAS_FILE="$CLEANUP_TMP_DIR/initial-schemas.jsonl"
           list_uc_objects "/schemas" "schemas" "$INITIAL_SCHEMAS_FILE" \
             --data-urlencode "catalog_name=$CATALOG" \
