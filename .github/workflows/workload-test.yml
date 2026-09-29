@@ -19,6 +19,11 @@ on:
         description: "Databricks TEST SQL warehouse ID"
         required: false
         type: string
+      operation:
+        description: "Deploy or destroy the TEST bundle"
+        required: false
+        default: deploy
+        type: string
 
   workflow_dispatch:
     inputs:
@@ -38,6 +43,13 @@ on:
         description: "Databricks TEST SQL warehouse ID"
         required: false
         type: string
+      operation:
+        description: "Manual runs support deploy; destroy is available through workflow calls"
+        required: true
+        default: deploy
+        type: choice
+        options:
+          - deploy
 
 permissions:
   id-token: write
@@ -67,6 +79,15 @@ jobs:
           git rev-parse HEAD
           git log -1 --oneline
 
+      - name: Validate operation
+        env:
+          OPERATION: ${{ inputs.operation }}
+        run: |
+          if [[ "$OPERATION" != "deploy" && "$OPERATION" != "destroy" ]]; then
+            echo "operation must be deploy or destroy."
+            exit 1
+          fi
+
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
 
@@ -76,5 +97,11 @@ jobs:
           databricks current-user me
 
       - name: Deploy Databricks bundle
+        if: inputs.operation == 'deploy'
         working-directory: ${{ inputs.workload_path }}
         run: databricks bundle deploy -t test
+
+      - name: Destroy Databricks bundle
+        if: inputs.operation == 'destroy'
+        working-directory: ${{ inputs.workload_path }}
+        run: databricks bundle destroy -t test

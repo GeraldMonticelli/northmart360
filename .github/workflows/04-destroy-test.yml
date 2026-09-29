@@ -1,10 +1,10 @@
-name: 05 - Destroy TEST
+name: Destroy TEST
 
 on:
   workflow_dispatch:
     inputs:
-      confirmation:
-        description: 'Type DESTROY-TEST'
+      confirm_destroy:
+        description: "Type DESTROY-TEST to destroy the TEST environment"
         required: true
         type: string
 
@@ -17,46 +17,91 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  destroy:
-    if: ${{ inputs.confirmation == 'DESTROY-TEST' }}
+  validate-confirmation:
     runs-on: ubuntu-latest
-    environment: test
+    steps:
+      - name: Verify destroy confirmation
+        env:
+          CONFIRM_DESTROY: ${{ inputs.confirm_destroy }}
+        run: |
+          if [[ "$CONFIRM_DESTROY" != "DESTROY-TEST" ]]; then
+            echo "confirm_destroy must equal DESTROY-TEST."
+            exit 1
+          fi
+
+  discover-test:
+    needs: validate-confirmation
+    uses: GeraldMonticelli/northmart360/.github/workflows/databricks-test-discovery.yml@main
+    with:
+      release_ref: ${{ github.sha }}
+      required: true
+    secrets: inherit
+
+  destroy-bundle:
+    needs: discover-test
+    uses: GeraldMonticelli/northmart360/.github/workflows/workload-test.yml@main
+    with:
+      release_ref: ${{ github.sha }}
+      workload_path: bundles/fraud
+      databricks_host: ${{ needs.discover-test.outputs.host }}
+      warehouse_id: ${{ needs.discover-test.outputs.warehouse_id }}
+      operation: destroy
+    secrets: inherit
+
+  destroy-infrastructure:
+    needs: destroy-bundle
+    runs-on: ubuntu-latest
+    environment: platform-test
+
+    env:
+      TF_VAR_environment: ${{ vars.TF_VAR_ENVIRONMENT }}
+      TF_VAR_resource_group_name: ${{ vars.TF_VAR_RESOURCE_GROUP_NAME }}
+      TF_VAR_storage_account_name: ${{ vars.TF_VAR_STORAGE_ACCOUNT_NAME }}
+      TF_VAR_key_vault_name: ${{ vars.TF_VAR_KEY_VAULT_NAME }}
+      TF_VAR_workspace_name: ${{ vars.TF_VAR_WORKSPACE_NAME }}
+      TF_VAR_databricks_managed_resource_group_name: ${{ vars.TF_VAR_DATABRICKS_MANAGED_RESOURCE_GROUP_NAME }}
+      TF_VAR_sql_admin_login: ${{ vars.TF_VAR_SQL_ADMIN_LOGIN }}
+      TF_VAR_sql_admin_password: ${{ secrets.TF_VAR_SQL_ADMIN_PASSWORD }}
+      TF_VAR_fraud_producer_ssh_public_key: ${{ vars.TF_VAR_FRAUD_PRODUCER_SSH_PUBLIC_KEY }}
+      TF_VAR_dev_public_ips: ${{ vars.TF_VAR_DEV_PUBLIC_IPS }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Azure login
+      - name: Azure Login
         uses: azure/login@v2
         with:
           client-id: ${{ vars.AZURE_CLIENT_ID }}
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Install Databricks CLI
-        uses: databricks/setup-cli@main
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
-      - name: Cleanup workload-created UC objects
-        env:
-          DATABRICKS_AUTH_TYPE: github-oidc
-          DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST_TEST }}
-          DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
-        run: |
-          databricks schemas delete northmart_test.dbt --force || true
-
-      - name: Terraform init TEST
-        working-directory: platform/terraform
+      - name: Terraform Init TEST
+        working-directory: terraform
         run: |
           terraform init \
             -reconfigure \
             -backend-config="key=northmart-test.tfstate"
 
-      - name: Terraform destroy TEST
-        working-directory: platform/terraform
+      - name: Terraform Destroy Plan TEST
+        working-directory: terraform
         run: |
-          terraform destroy \
-            -var-file=test.tfvars \
-            -auto-approve
+          terraform plan \
+            -destroy \
+            -out=test-destroy.tfplan
+
+      - name: Display saved destroy plan
+        working-directory: terraform
+        run: terraform show -no-color test-destroy.tfplan
+
+      - name: Apply saved destroy plan
+        working-directory: terraform
+        run: |
+          terraform apply \
+            -auto-approve \
+            test-destroy.tfplan
