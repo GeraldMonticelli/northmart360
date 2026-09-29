@@ -151,9 +151,21 @@ jobs:
 
           echo "Authenticated Databricks principal: ${DISPLAY_NAME:-$USER_NAME}"
 
-          SCHEMA=$(curl --fail --silent --show-error \
+          SCHEMA_ENDPOINT="$API/schemas/northmart_test.silver"
+          SCHEMA_RESPONSE=$(curl --silent --show-error \
+            --write-out $'\n%{http_code}' \
             --header "$AUTH_HEADER" \
-            "$API/schemas/northmart_test.silver")
+            "$SCHEMA_ENDPOINT")
+          SCHEMA_STATUS="${SCHEMA_RESPONSE##*$'\n'}"
+          SCHEMA="${SCHEMA_RESPONSE%$'\n'*}"
+          echo "Databricks request endpoint: $SCHEMA_ENDPOINT"
+          echo "Databricks HTTP status: $SCHEMA_STATUS"
+          echo "Databricks response body:"
+          printf '%s\n' "$SCHEMA"
+          if [[ "$SCHEMA_STATUS" != 2?? ]]; then
+            exit 1
+          fi
+
           SCHEMA_OWNER=$(jq -r '.owner // empty' <<< "$SCHEMA")
           SCHEMA_PERMISSIONS=$(curl --fail --silent --show-error \
             --header "$AUTH_HEADER" \
