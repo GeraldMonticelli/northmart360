@@ -136,6 +136,9 @@ jobs:
           API="$DATABRICKS_HOST/api/2.1/unity-catalog"
           AUTH_HEADER="Authorization: Bearer $TOKEN"
           CATALOG="northmart_test"
+          CLEANUP_TMP_DIR=$(mktemp -d)
+          API_BODY_FILE="$CLEANUP_TMP_DIR/response.json"
+          trap 'rm -rf "$CLEANUP_TMP_DIR"' EXIT
 
           # These names come from the databricks_schema resources in terraform/databricks.tf.
           TERRAFORM_MANAGED_SCHEMAS=(bronze silver ml gold reference sandbox)
@@ -149,7 +152,6 @@ jobs:
             local -a curl_args=(
               --silent
               --show-error
-              --write-out $'\n%{http_code}'
               --header "$AUTH_HEADER"
             )
             if [[ "$method" == "GET" ]]; then
@@ -160,10 +162,7 @@ jobs:
             curl_args+=("$@")
             curl_args+=("$API$endpoint")
 
-            local raw_response
-            raw_response=$(curl "${curl_args[@]}")
-            API_STATUS="${raw_response##*$'\n'}"
-            API_BODY="${raw_response%$'\n'*}"
+            API_STATUS=$(curl "${curl_args[@]}" --output "$API_BODY_FILE" --write-out '%{http_code}')
 
             if [[ "$API_STATUS" == 2?? ]]; then
               return 0
@@ -175,38 +174,32 @@ jobs:
             echo "Databricks request endpoint: $API$endpoint" >&2
             echo "Databricks HTTP status: $API_STATUS" >&2
             echo "Databricks response body:" >&2
-            printf '%s\n' "$API_BODY" >&2
+            cat "$API_BODY_FILE" >&2
             return 1
           }
 
           list_uc_objects() {
             local endpoint="$1"
             local response_key="$2"
-            shift 2
+            local output_file="$3"
+            shift 3
 
             local page_token=""
-            local all_objects="[]"
-            local page_objects
             local next_page_token
+            : > "$output_file"
             while true; do
               local -a query_args=("$@" --data-urlencode "max_results=0")
               if [[ -n "$page_token" ]]; then
                 query_args+=(--data-urlencode "page_token=$page_token")
               fi
               api_request GET "$endpoint" false "${query_args[@]}"
-              page_objects=$(jq --arg key "$response_key" '.[$key] // []' <<< "$API_BODY")
-              all_objects=$(jq -cn \
-                --argjson all "$all_objects" \
-                --argjson page "$page_objects" \
-                '$all + $page')
-              next_page_token=$(jq -r '.next_page_token // empty' <<< "$API_BODY")
+              jq -c --arg key "$response_key" '.[$key][]?' "$API_BODY_FILE" >> "$output_file"
+              next_page_token=$(jq -r '.next_page_token // empty' "$API_BODY_FILE")
               if [[ -z "$next_page_token" ]]; then
                 break
               fi
               page_token="$next_page_token"
             done
-
-            LIST_RESULT="$all_objects"
           }
 
           is_terraform_managed_schema() {
@@ -227,11 +220,11 @@ jobs:
             local default_type="$4"
             local type_field="$5"
 
-            list_uc_objects "$endpoint" "$response_key" \
+            local objects_file="$CLEANUP_TMP_DIR/objects.jsonl"
+            list_uc_objects "$endpoint" "$response_key" "$objects_file" \
               --data-urlencode "catalog_name=$CATALOG" \
               --data-urlencode "schema_name=$schema_name" \
               --data-urlencode "include_browse=true"
-            local objects="$LIST_RESULT"
 
             while IFS= read -r object; do
               local object_name
@@ -256,7 +249,7 @@ jobs:
               else
                 echo "Deleted Unity Catalog $object_type: $full_name"
               fi
-            done < <(jq -c '.[]' <<< "$objects")
+            done < "$objects_file"
           }
 
           CURRENT_USER=$(curl --fail --silent --show-error \
@@ -274,10 +267,10 @@ jobs:
 
           echo "Authenticated Databricks principal: ${DISPLAY_NAME:-$USER_NAME}"
 
-          list_uc_objects "/schemas" "schemas" \
+          INITIAL_SCHEMAS_FILE="$CLEANUP_TMP_DIR/initial-schemas.jsonl"
+          list_uc_objects "/schemas" "schemas" "$INITIAL_SCHEMAS_FILE" \
             --data-urlencode "catalog_name=$CATALOG" \
             --data-urlencode "include_browse=true"
-          INITIAL_SCHEMAS="$LIST_RESULT"
 
           while IFS= read -r schema; do
             schema_name=$(jq -r '.name // empty' <<< "$schema")
@@ -302,16 +295,16 @@ jobs:
                 echo "Deleted runtime-created Unity Catalog SCHEMA: $CATALOG.$schema_name"
               fi
             fi
-          done < <(jq -c '.[]' <<< "$INITIAL_SCHEMAS")
+          done < "$INITIAL_SCHEMAS_FILE"
 
           echo "Unity Catalog objects remaining before Terraform apply:"
           api_request GET "/catalogs/$CATALOG" false
           echo "REMAINING CATALOG: $CATALOG (Terraform-managed)"
 
-          list_uc_objects "/schemas" "schemas" \
+          REMAINING_SCHEMAS_FILE="$CLEANUP_TMP_DIR/remaining-schemas.jsonl"
+          list_uc_objects "/schemas" "schemas" "$REMAINING_SCHEMAS_FILE" \
             --data-urlencode "catalog_name=$CATALOG" \
             --data-urlencode "include_browse=true"
-          REMAINING_SCHEMAS="$LIST_RESULT"
           remaining_runtime_objects=0
 
           while IFS= read -r schema; do
@@ -330,10 +323,11 @@ jobs:
               "functions functions FUNCTION -" \
               "models registered_models MODEL -"; do
               read -r route response_key default_type type_field <<< "$collection"
+              remaining_objects_file="$CLEANUP_TMP_DIR/remaining-$route.jsonl"
               if [[ "$type_field" == "-" ]]; then
                 type_field=""
               fi
-              list_uc_objects "/$route" "$response_key" \
+              list_uc_objects "/$route" "$response_key" "$remaining_objects_file" \
                 --data-urlencode "catalog_name=$CATALOG" \
                 --data-urlencode "schema_name=$schema_name" \
                 --data-urlencode "include_browse=true"
@@ -346,9 +340,9 @@ jobs:
                   <<< "$object")
                 echo "REMAINING Unity Catalog $object_type: $CATALOG.$schema_name.$object_name"
                 remaining_runtime_objects=$((remaining_runtime_objects + 1))
-              done < <(jq -c '.[]' <<< "$LIST_RESULT")
+              done < "$remaining_objects_file"
             done
-          done < <(jq -c '.[]' <<< "$REMAINING_SCHEMAS")
+          done < "$REMAINING_SCHEMAS_FILE"
 
           if [[ "$remaining_runtime_objects" -ne 0 ]]; then
             echo "ERROR: $remaining_runtime_objects non-Terraform Unity Catalog object(s) remain."
@@ -356,8 +350,8 @@ jobs:
           fi
 
           for managed_schema in "${TERRAFORM_MANAGED_SCHEMAS[@]}"; do
-            if ! jq -e --arg name "$managed_schema" \
-              'any(.[]; .name == $name)' <<< "$REMAINING_SCHEMAS" >/dev/null; then
+            if ! jq -s -e --arg name "$managed_schema" \
+              'any(.[]; .name == $name)' "$REMAINING_SCHEMAS_FILE" >/dev/null; then
               echo "Managed schema is absent and will not be recreated: $CATALOG.$managed_schema"
             fi
           done
