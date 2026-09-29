@@ -1,0 +1,21 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+
+<#CustomerMap>
+    a rr:TriplesMap ;
+    rr:logicalTable [ rr:tableName "northmart_dev.crm.customer" ] ;
+    rr:subjectMap [
+        rr:template "https://northmart.example/resource/crm/customer/{customer_id}" ;
+        rr:class <https://northmart.example/crm/Customer>
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate <https://northmart.example/crm/customerId> ;
+        rr:objectMap [ rr:column "customer_id" ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate <https://northmart.example/crm/givenName> ;
+        rr:objectMap [ rr:column "first_name" ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate <https://northmart.example/crm/birthDate> ;
+        rr:objectMap [ rr:column "birth_date" ]
+    ] .

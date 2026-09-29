@@ -1,0 +1,31 @@
+name: Semantic Validation
+
+on:
+  workflow_call:
+
+jobs:
+  semantic-validation:
+    name: Semantic contract validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: bundles/semantic_contract/requirements.txt
+
+      - name: Install dependencies
+        working-directory: bundles/semantic_contract
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate semantic contract
+        working-directory: bundles/semantic_contract
+        run: |
+          python scripts/validate_semantic_contract.py

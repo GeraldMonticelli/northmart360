@@ -1,0 +1,307 @@
+{
+  "id": "northmart-semantic-poc",
+  "name": "NorthMart Semantic POC",
+  "type": "Project",
+  "model": {
+    "id": "northmart-semantic-model",
+    "name": "NorthMart Semantic Model",
+    "type": "Package",
+    "contents": [
+      {
+        "id": "person",
+        "name": "Person",
+        "type": "Class",
+        "stereotype": "kind",
+        "restrictedTo": [
+          "functional-complex"
+        ]
+      },
+      {
+        "id": "customer",
+        "name": "Customer",
+        "type": "Class",
+        "stereotype": "roleMixin",
+        "restrictedTo": [
+          "functional-complex"
+        ]
+      },
+      {
+        "id": "organization",
+        "name": "Organization",
+        "type": "Class",
+        "stereotype": "kind",
+        "restrictedTo": [
+          "functional-complex"
+        ]
+      },
+      {
+        "id": "merchant",
+        "name": "Merchant",
+        "type": "Class",
+        "stereotype": "role",
+        "restrictedTo": [
+          "functional-complex"
+        ]
+      },
+      {
+        "id": "merchant-organization-generalization",
+        "type": "Generalization",
+        "specific": {
+          "id": "merchant",
+          "type": "Class"
+        },
+        "general": {
+          "id": "organization",
+          "type": "Class"
+        }
+      },
+      {
+        "id": "person-customer",
+        "name": "PersonCustomer",
+        "type": "Class",
+        "stereotype": "role",
+        "restrictedTo": [
+          "functional-complex"
+        ]
+      },
+      {
+        "id": "organization-customer",
+        "name": "OrganizationCustomer",
+        "type": "Class",
+        "stereotype": "role",
+        "restrictedTo": [
+          "functional-complex"
+        ]
+      },
+      {
+        "id": "person-customer-person-gen",
+        "type": "Generalization",
+        "specific": {
+          "id": "person-customer",
+          "type": "Class"
+        },
+        "general": {
+          "id": "person",
+          "type": "Class"
+        }
+      },
+      {
+        "id": "person-customer-customer-gen",
+        "type": "Generalization",
+        "specific": {
+          "id": "person-customer",
+          "type": "Class"
+        },
+        "general": {
+          "id": "customer",
+          "type": "Class"
+        }
+      },
+      {
+        "id": "organization-customer-organization-gen",
+        "type": "Generalization",
+        "specific": {
+          "id": "organization-customer",
+          "type": "Class"
+        },
+        "general": {
+          "id": "organization",
+          "type": "Class"
+        }
+      },
+      {
+        "id": "organization-customer-customer-gen",
+        "type": "Generalization",
+        "specific": {
+          "id": "organization-customer",
+          "type": "Class"
+        },
+        "general": {
+          "id": "customer",
+          "type": "Class"
+        }
+      },
+      {
+        "id": "minor",
+        "name": "Minor",
+        "type": "Class",
+        "stereotype": "phase",
+        "restrictedTo": [
+          "functional-complex"
+        ]
+      },
+      {
+        "id": "adult",
+        "name": "Adult",
+        "type": "Class",
+        "stereotype": "phase",
+        "restrictedTo": [
+          "functional-complex"
+        ]
+      },
+      {
+        "id": "minor-person-gen",
+        "type": "Generalization",
+        "specific": {
+          "id": "minor",
+          "type": "Class"
+        },
+        "general": {
+          "id": "person",
+          "type": "Class"
+        }
+      },
+      {
+        "id": "adult-person-gen",
+        "type": "Generalization",
+        "specific": {
+          "id": "adult",
+          "type": "Class"
+        },
+        "general": {
+          "id": "person",
+          "type": "Class"
+        }
+      },
+      {
+        "id": "card",
+        "name": "Card",
+        "type": "Class",
+        "stereotype": "kind",
+        "restrictedTo": [
+          "functional-complex"
+        ]
+      },
+      {
+        "id": "card-holding",
+        "name": "CardHolding",
+        "type": "Class",
+        "stereotype": "relator",
+        "restrictedTo": [
+          "relator"
+        ]
+      },
+      {
+        "id": "customer-relationship",
+        "name": "CustomerRelationship",
+        "type": "Class",
+        "stereotype": "relator",
+        "restrictedTo": [
+          "relator"
+        ]
+      },
+      {
+        "id": "customer-relationship-customer-mediation",
+        "name": "customer participation",
+        "type": "Relation",
+        "stereotype": "mediation",
+        "properties": [
+          {
+            "id": "customer-relationship-customer-end",
+            "type": "Property",
+            "name": "customer",
+            "propertyType": {
+              "id": "customer",
+              "type": "Class"
+            },
+            "cardinality": "1"
+          },
+          {
+            "id": "customer-relationship-relator-end",
+            "type": "Property",
+            "name": "customerRelationship",
+            "propertyType": {
+              "id": "customer-relationship",
+              "type": "Class"
+            },
+            "cardinality": "0..*"
+          }
+        ]
+      },
+      {
+        "id": "customer-relationship-provider-mediation",
+        "name": "provider participation",
+        "type": "Relation",
+        "stereotype": "mediation",
+        "properties": [
+          {
+            "id": "customer-relationship-provider-end",
+            "type": "Property",
+            "name": "provider",
+            "propertyType": {
+              "id": "organization",
+              "type": "Class"
+            },
+            "cardinality": "1"
+          },
+          {
+            "id": "provider-customer-relationship-end",
+            "type": "Property",
+            "name": "customerRelationship",
+            "propertyType": {
+              "id": "customer-relationship",
+              "type": "Class"
+            },
+            "cardinality": "0..*"
+          }
+        ]
+      },
+      {
+        "id": "card-holding-customer-mediation",
+        "name": "card holder participation",
+        "type": "Relation",
+        "stereotype": "mediation",
+        "properties": [
+          {
+            "id": "card-holding-customer-end",
+            "type": "Property",
+            "name": "holder",
+            "propertyType": {
+              "id": "customer",
+              "type": "Class"
+            },
+            "cardinality": "1"
+          },
+          {
+            "id": "customer-card-holding-end",
+            "type": "Property",
+            "name": "cardHolding",
+            "propertyType": {
+              "id": "card-holding",
+              "type": "Class"
+            },
+            "cardinality": "0..*"
+          }
+        ]
+      },
+      {
+        "id": "card-holding-card-mediation",
+        "name": "card participation",
+        "type": "Relation",
+        "stereotype": "mediation",
+        "properties": [
+          {
+            "id": "card-holding-card-end",
+            "type": "Property",
+            "name": "card",
+            "propertyType": {
+              "id": "card",
+              "type": "Class"
+            },
+            "cardinality": "1"
+          },
+          {
+            "id": "card-card-holding-end",
+            "type": "Property",
+            "name": "cardHolding",
+            "propertyType": {
+              "id": "card-holding",
+              "type": "Class"
+            },
+            "cardinality": "0..*"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+@prefix ent:  <https://northmart.example/enterprise/> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+ent:Party a owl:Class ; rdfs:label "Party"@en .
+ent:partyIdentifier a owl:DatatypeProperty ;
+  rdfs:domain ent:Party ; rdfs:range xsd:string .
+ent:givenName a owl:DatatypeProperty ;
+  rdfs:domain ent:Party ; rdfs:range xsd:string .
+ent:birthDate a owl:DatatypeProperty ;
+  rdfs:domain ent:Party ; rdfs:range xsd:date .

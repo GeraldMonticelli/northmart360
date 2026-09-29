@@ -1,0 +1,716 @@
+@prefix ok: <https://w3id.org/ontouml/knowledge#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/ontouml/knowledge#constraint/category-c2> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/category-c2> .
+
+<https://w3id.org/ontouml/knowledge#constraint/category-c3> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/category-c3> .
+
+<https://w3id.org/ontouml/knowledge#constraint/collective-c1> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/collective-c1> .
+
+<https://w3id.org/ontouml/knowledge#constraint/collective-c4> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/collective-c4> .
+
+<https://w3id.org/ontouml/knowledge#constraint/kind-c1> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/kind-c1> .
+
+<https://w3id.org/ontouml/knowledge#constraint/kind-c2> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/kind-c2> .
+
+<https://w3id.org/ontouml/knowledge#constraint/kind-c4> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/kind-c4> .
+
+<https://w3id.org/ontouml/knowledge#constraint/mixin-c2> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/mixin-c2> .
+
+<https://w3id.org/ontouml/knowledge#constraint/mode-c3> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/mode-c3> .
+
+<https://w3id.org/ontouml/knowledge#constraint/mode-c4> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/mode-c4> .
+
+<https://w3id.org/ontouml/knowledge#constraint/mode-c6> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/mode-c6> .
+
+<https://w3id.org/ontouml/knowledge#constraint/phase-c1> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/phase-c1> .
+
+<https://w3id.org/ontouml/knowledge#constraint/phase-c3> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/phase-c3> .
+
+<https://w3id.org/ontouml/knowledge#constraint/phase-c4> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/phase-c4> .
+
+<https://w3id.org/ontouml/knowledge#constraint/phase-c5> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/phase-c5> .
+
+<https://w3id.org/ontouml/knowledge#constraint/phasemixin-c2> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/phasemixin-c2> .
+
+<https://w3id.org/ontouml/knowledge#constraint/phasemixin-c3> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/phasemixin-c3> .
+
+<https://w3id.org/ontouml/knowledge#constraint/phasemixin-c4> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/phasemixin-c4> .
+
+<https://w3id.org/ontouml/knowledge#constraint/quality-c3> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/quality-c3> .
+
+<https://w3id.org/ontouml/knowledge#constraint/quality-c4> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/quality-c4> .
+
+<https://w3id.org/ontouml/knowledge#constraint/quality-c6> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/quality-c6> .
+
+<https://w3id.org/ontouml/knowledge#constraint/quantity-c1> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/quantity-c1> .
+
+<https://w3id.org/ontouml/knowledge#constraint/quantity-c4> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/quantity-c4> .
+
+<https://w3id.org/ontouml/knowledge#constraint/relator-c3> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/relator-c3> .
+
+<https://w3id.org/ontouml/knowledge#constraint/relator-c4> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/relator-c4> .
+
+<https://w3id.org/ontouml/knowledge#constraint/relator-c6> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/relator-c6> .
+
+<https://w3id.org/ontouml/knowledge#constraint/role-c1> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/role-c1> .
+
+<https://w3id.org/ontouml/knowledge#constraint/role-c3> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/role-c3> .
+
+<https://w3id.org/ontouml/knowledge#constraint/role-c4> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/role-c4> .
+
+<https://w3id.org/ontouml/knowledge#constraint/rolemixin-c2> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/rolemixin-c2> .
+
+<https://w3id.org/ontouml/knowledge#constraint/rolemixin-c3> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/rolemixin-c3> .
+
+<https://w3id.org/ontouml/knowledge#constraint/subkind-c1> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/subkind-c1> .
+
+<https://w3id.org/ontouml/knowledge#constraint/subkind-c3> ok:implementedBy <https://w3id.org/ontouml/knowledge#shape/subkind-c3> .
+
+<https://w3id.org/ontouml/knowledge#shape/category-c2> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "category-c2: forbidden subtype stereotype for category." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#mode> <https://w3id.org/ontouml#phase> <https://w3id.org/ontouml#quality> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#subkind> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#category> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/category-c2> .
+
+<https://w3id.org/ontouml/knowledge#shape/category-c3> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "category-c3: forbidden subtype stereotype for category." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#phase> <https://w3id.org/ontouml#phaseMixin> <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#roleMixin> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#category> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/category-c3> .
+
+<https://w3id.org/ontouml/knowledge#shape/collective-c1> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "collective-c1: forbidden subtype stereotype for collective." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#mode> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#collective> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/collective-c1> .
+
+<https://w3id.org/ontouml/knowledge#shape/collective-c4> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "collective-c4: forbidden subtype stereotype for collective." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#roleMixin> <https://w3id.org/ontouml#phase> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#collective> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/collective-c4> .
+
+<https://w3id.org/ontouml/knowledge#shape/kind-c1> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "kind-c1: forbidden subtype stereotype for kind." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#mode> <https://w3id.org/ontouml#quality> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#kind> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/kind-c1> .
+
+<https://w3id.org/ontouml/knowledge#shape/kind-c2> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "kind-c2: forbidden subtype stereotype for kind." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#subkind> <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#phase> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#kind> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/kind-c2> .
+
+<https://w3id.org/ontouml/knowledge#shape/kind-c4> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "kind-c4: forbidden subtype stereotype for kind." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#roleMixin> <https://w3id.org/ontouml#phase> <https://w3id.org/ontouml#phaseMixin> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#kind> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/kind-c4> .
+
+<https://w3id.org/ontouml/knowledge#shape/mixin-c2> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "mixin-c2: forbidden subtype stereotype for mixin." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#category> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#mixin> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/mixin-c2> .
+
+<https://w3id.org/ontouml/knowledge#shape/mode-c3> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "mode-c3: forbidden subtype stereotype for mode." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#quality> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#mode> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/mode-c3> .
+
+<https://w3id.org/ontouml/knowledge#shape/mode-c4> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "mode-c4: forbidden subtype stereotype for mode." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#subkind> <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#phase> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#mode> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/mode-c4> .
+
+<https://w3id.org/ontouml/knowledge#shape/mode-c6> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "mode-c6: forbidden subtype stereotype for mode." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#roleMixin> <https://w3id.org/ontouml#phase> <https://w3id.org/ontouml#phaseMixin> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#mode> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/mode-c6> .
+
+<https://w3id.org/ontouml/knowledge#shape/phase-c1> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "phase-c1: exactly 1 identity-provider ancestor is required." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this
+WHERE {
+  {
+    SELECT $this (COUNT(DISTINCT ?provider) AS ?count)
+    WHERE {
+      $this (^ontouml:specific/ontouml:general)+ ?provider .
+      ?provider ontouml:stereotype ?providerType .
+      VALUES ?providerType { <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> <https://w3id.org/ontouml#mode> }
+    }
+    GROUP BY $this
+  }
+  FILTER (?count != 1)
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this WHERE {
+  ?this a ontouml:Class ; ontouml:stereotype <https://w3id.org/ontouml#phase> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/phase-c1> .
+
+<https://w3id.org/ontouml/knowledge#shape/phase-c3> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "phase-c3: forbidden supertype stereotype for phase." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  ?gen ontouml:specific $this ;
+      ontouml:general ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#roleMixin> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#phase> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/phase-c3> .
+
+<https://w3id.org/ontouml/knowledge#shape/phase-c4> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "phase-c4: forbidden subtype stereotype for phase." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> <https://w3id.org/ontouml#mode> <https://w3id.org/ontouml#subkind> <https://w3id.org/ontouml#category> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#phase> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/phase-c4> .
+
+<https://w3id.org/ontouml/knowledge#shape/phase-c5> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "phase-c5: forbidden subtype stereotype for phase." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#category> <https://w3id.org/ontouml#roleMixin> <https://w3id.org/ontouml#phaseMixin> <https://w3id.org/ontouml#mixin> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#phase> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/phase-c5> .
+
+<https://w3id.org/ontouml/knowledge#shape/phasemixin-c2> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "phasemixin-c2: forbidden subtype stereotype for phaseMixin." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#mode> <https://w3id.org/ontouml#phase> <https://w3id.org/ontouml#quality> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#subkind> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#phaseMixin> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/phasemixin-c2> .
+
+<https://w3id.org/ontouml/knowledge#shape/phasemixin-c3> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "phasemixin-c3: forbidden supertype stereotype for phaseMixin." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:specific/ontouml:general)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#category> <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#mixin> <https://w3id.org/ontouml#mode> <https://w3id.org/ontouml#quality> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> <https://w3id.org/ontouml#subkind> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#phaseMixin> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/phasemixin-c3> .
+
+<https://w3id.org/ontouml/knowledge#shape/phasemixin-c4> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "phasemixin-c4: forbidden subtype stereotype for phaseMixin." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#roleMixin> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#phaseMixin> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/phasemixin-c4> .
+
+<https://w3id.org/ontouml/knowledge#shape/quality-c3> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "quality-c3: forbidden subtype stereotype for quality." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#mode> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#quality> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/quality-c3> .
+
+<https://w3id.org/ontouml/knowledge#shape/quality-c4> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "quality-c4: forbidden subtype stereotype for quality." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#subkind> <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#phase> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#quality> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/quality-c4> .
+
+<https://w3id.org/ontouml/knowledge#shape/quality-c6> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "quality-c6: forbidden subtype stereotype for quality." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#roleMixin> <https://w3id.org/ontouml#phase> <https://w3id.org/ontouml#phaseMixin> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#quality> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/quality-c6> .
+
+<https://w3id.org/ontouml/knowledge#shape/quantity-c1> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "quantity-c1: forbidden subtype stereotype for quantity." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#mode> <https://w3id.org/ontouml#relator> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#quantity> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/quantity-c1> .
+
+<https://w3id.org/ontouml/knowledge#shape/quantity-c4> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "quantity-c4: forbidden subtype stereotype for quantity." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#roleMixin> <https://w3id.org/ontouml#phase> <https://w3id.org/ontouml#phaseMixin> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#quantity> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/quantity-c4> .
+
+<https://w3id.org/ontouml/knowledge#shape/relator-c3> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "relator-c3: forbidden subtype stereotype for relator." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#mode> <https://w3id.org/ontouml#quantity> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#relator> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/relator-c3> .
+
+<https://w3id.org/ontouml/knowledge#shape/relator-c4> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "relator-c4: forbidden subtype stereotype for relator." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#subkind> <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#phase> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#relator> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/relator-c4> .
+
+<https://w3id.org/ontouml/knowledge#shape/relator-c6> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "relator-c6: forbidden subtype stereotype for relator." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#roleMixin> <https://w3id.org/ontouml#phase> <https://w3id.org/ontouml#phaseMixin> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#relator> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/relator-c6> .
+
+<https://w3id.org/ontouml/knowledge#shape/role-c1> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "role-c1: exactly 1 identity-provider ancestor is required." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this
+WHERE {
+  {
+    SELECT $this (COUNT(DISTINCT ?provider) AS ?count)
+    WHERE {
+      $this (^ontouml:specific/ontouml:general)+ ?provider .
+      ?provider ontouml:stereotype ?providerType .
+      VALUES ?providerType { <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> <https://w3id.org/ontouml#mode> }
+    }
+    GROUP BY $this
+  }
+  FILTER (?count != 1)
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this WHERE {
+  ?this a ontouml:Class ; ontouml:stereotype <https://w3id.org/ontouml#role> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/role-c1> .
+
+<https://w3id.org/ontouml/knowledge#shape/role-c3> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "role-c3: forbidden subtype stereotype for role." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#subkind> <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> <https://w3id.org/ontouml#category> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#role> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/role-c3> .
+
+<https://w3id.org/ontouml/knowledge#shape/role-c4> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "role-c4: forbidden subtype stereotype for role." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#category> <https://w3id.org/ontouml#roleMixin> <https://w3id.org/ontouml#mixin> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#role> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/role-c4> .
+
+<https://w3id.org/ontouml/knowledge#shape/rolemixin-c2> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "rolemixin-c2: forbidden subtype stereotype for roleMixin." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:general/ontouml:specific)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#mode> <https://w3id.org/ontouml#phase> <https://w3id.org/ontouml#quality> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> <https://w3id.org/ontouml#role> <https://w3id.org/ontouml#subkind> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#roleMixin> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/rolemixin-c2> .
+
+<https://w3id.org/ontouml/knowledge#shape/rolemixin-c3> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "rolemixin-c3: forbidden supertype stereotype for roleMixin." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:specific/ontouml:general)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#category> <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#mixin> <https://w3id.org/ontouml#mode> <https://w3id.org/ontouml#quality> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> <https://w3id.org/ontouml#subkind> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#roleMixin> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/rolemixin-c3> .
+
+<https://w3id.org/ontouml/knowledge#shape/subkind-c1> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "subkind-c1: exactly 1 identity-provider ancestor is required." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this
+WHERE {
+  {
+    SELECT $this (COUNT(DISTINCT ?provider) AS ?count)
+    WHERE {
+      $this (^ontouml:specific/ontouml:general)+ ?provider .
+      ?provider ontouml:stereotype ?providerType .
+      VALUES ?providerType { <https://w3id.org/ontouml#kind> <https://w3id.org/ontouml#collective> <https://w3id.org/ontouml#quantity> <https://w3id.org/ontouml#relator> <https://w3id.org/ontouml#mode> }
+    }
+    GROUP BY $this
+  }
+  FILTER (?count != 1)
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this WHERE {
+  ?this a ontouml:Class ; ontouml:stereotype <https://w3id.org/ontouml#subkind> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/subkind-c1> .
+
+<https://w3id.org/ontouml/knowledge#shape/subkind-c3> a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "subkind-c3: forbidden supertype stereotype for subkind." ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT $this ?other ?forbidden
+WHERE {
+  $this (^ontouml:specific/ontouml:general)+ ?other .
+?other ontouml:stereotype ?forbidden .
+  VALUES ?forbidden { <https://w3id.org/ontouml#category> <https://w3id.org/ontouml#mixin> <https://w3id.org/ontouml#roleMixin> <https://w3id.org/ontouml#phaseMixin> }
+}""" ] ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:prefixes ok:OntoUMLPrefixes ;
+            sh:select """SELECT ?this
+WHERE {
+  ?this a ontouml:Class ;
+        ontouml:stereotype <https://w3id.org/ontouml#subkind> .
+}""" ] ;
+    ok:implementsConstraint <https://w3id.org/ontouml/knowledge#constraint/subkind-c3> .
+
+ok:OntoUMLPrefixes sh:declare [ sh:namespace "https://w3id.org/ontouml#"^^xsd:anyURI ;
+            sh:prefix "ontouml" ] .
+

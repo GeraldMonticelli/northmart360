@@ -1,0 +1,43 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix dp:   <https://northmart.example/ontology/dataproduct#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Enterprise governance: every physical column must bind to a semantic IRI.
+dp:GovernedColumnShape a sh:NodeShape ;
+  sh:targetClass dp:Column ;
+  sh:property [
+    sh:path dp:semanticBinding ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Every physical column must have exactly one semanticBinding IRI."@en
+  ] .
+
+# Enterprise governance: local classes participating in alignment use an IRI target.
+dp:ClassAlignmentShape a sh:NodeShape ;
+  sh:targetSubjectsOf rdfs:subClassOf ;
+  sh:property [
+    sh:path rdfs:subClassOf ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI
+  ] .
+
+# Enterprise governance: aligned properties use an IRI target.
+dp:PropertyAlignmentShape a sh:NodeShape ;
+  sh:targetSubjectsOf rdfs:subPropertyOf ;
+  sh:property [
+    sh:path rdfs:subPropertyOf ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI
+  ] .
+
+@prefix dp: <https://northmart.example/ontology/dataproduct#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+dp:GovernedTableSemanticBindingShape a sh:NodeShape ;
+  sh:targetClass dp:Table ;
+  sh:property [
+    sh:path dp:semanticBinding ;
+    sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ;
+    sh:message "Every physical table must bind to exactly one local semantic class IRI."@en
+  ] .

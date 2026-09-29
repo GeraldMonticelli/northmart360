@@ -1,0 +1,960 @@
+PREFIX :     <http://swat.cse.lehigh.edu/onto/univ-bench.owl#>
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+rdf:Property  rdf:type       rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      rdf:Property , rdfs:Resource;
+        owl:equivalentClass  rdf:Property .
+
+rdfs:Class  rdf:type         rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      rdfs:Class , rdfs:Resource;
+        owl:equivalentClass  rdfs:Class .
+
+rdf:List  rdf:type           rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      rdf:List , rdfs:Resource;
+        owl:equivalentClass  rdf:List .
+
+owl:Property  rdf:type       rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      owl:Property , rdfs:Resource;
+        owl:equivalentClass  owl:Property .
+
+owl:Ontology  rdf:type       rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      owl:Ontology , rdfs:Resource;
+        owl:equivalentClass  owl:Ontology .
+
+:orgPublication  rdf:type   owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Organization , rdfs:Resource;
+        rdfs:label          "publishes";
+        rdfs:range          owl:Thing , :Publication , rdfs:Resource;
+        rdfs:subPropertyOf  :orgPublication .
+
+:FullProfessor  rdf:type     rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "full professor";
+        rdfs:subClassOf      :FullProfessor , rdfs:Resource , owl:Thing , :Professor , :Faculty , :Employee , _:b0 , :Person;
+        owl:equivalentClass  :FullProfessor .
+
+:Program  rdf:type           rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "program";
+        rdfs:subClassOf      :Program , rdfs:Resource , owl:Thing , :Organization;
+        owl:equivalentClass  :Program .
+
+:publicationAuthor  rdf:type  owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Publication , rdfs:Resource;
+        rdfs:label          "was written by";
+        rdfs:range          owl:Thing , :Person , rdfs:Resource;
+        rdfs:subPropertyOf  :publicationAuthor .
+
+:ClericalStaff  rdf:type     rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "clerical staff worker";
+        rdfs:subClassOf      :ClericalStaff , rdfs:Resource , owl:Thing , :AdministrativeStaff , _:b0 , :Person , :Employee;
+        owl:equivalentClass  :ClericalStaff .
+
+:GraduateCourse  rdf:type    rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "Graduate Level Courses";
+        rdfs:subClassOf      :GraduateCourse , rdfs:Resource , owl:Thing , :Course , :Work;
+        owl:equivalentClass  :GraduateCourse .
+
+:undergraduateDegreeFrom
+        rdf:type            owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Person , rdfs:Resource;
+        rdfs:label          "has an undergraduate degree from";
+        rdfs:range          owl:Thing , :University , rdfs:Resource , :Organization;
+        rdfs:subPropertyOf  :degreeFrom , :undergraduateDegreeFrom .
+
+:Article  rdf:type           rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "article";
+        rdfs:subClassOf      :Article , rdfs:Resource , owl:Thing , :Publication;
+        owl:equivalentClass  :Article .
+
+:Specification  rdf:type     rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "published specification";
+        rdfs:subClassOf      :Specification , rdfs:Resource , owl:Thing , :Publication;
+        owl:equivalentClass  :Specification .
+
+:Institute  rdf:type         rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "institute";
+        rdfs:subClassOf      :Institute , rdfs:Resource , owl:Thing , :Organization;
+        owl:equivalentClass  :Institute .
+
+:doctoralDegreeFrom  rdf:type  owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Person , rdfs:Resource;
+        rdfs:label          "has a doctoral degree from";
+        rdfs:range          owl:Thing , :University , rdfs:Resource , :Organization;
+        rdfs:subPropertyOf  :degreeFrom , :doctoralDegreeFrom .
+
+:AdministrativeStaff  rdf:type  rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "administrative staff worker";
+        rdfs:subClassOf      :AdministrativeStaff , rdfs:Resource , owl:Thing , :Employee , _:b0 , :Person;
+        owl:equivalentClass  :AdministrativeStaff .
+
+_:b1    rdf:type             rdfs:Class , owl:Class , owl:Restriction , rdfs:Resource;
+        rdfs:subClassOf      _:b1 , rdfs:Resource , owl:Thing , :Person , :TeachingAssistant;
+        owl:equivalentClass  _:b1 , :TeachingAssistant;
+        owl:onProperty       :teachingAssistantOf;
+        owl:someValuesFrom   :Course .
+
+:teacherOf  rdf:type        owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Faculty , rdfs:Resource , :Employee , _:b0 , :Person;
+        rdfs:label          "teaches";
+        rdfs:range          owl:Thing , :Course , rdfs:Resource , :Work;
+        rdfs:subPropertyOf  :teacherOf .
+
+:tenured  rdf:type          owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Professor , rdfs:Resource , :Faculty , :Employee , _:b0 , :Person;
+        rdfs:label          "is tenured:";
+        rdfs:range          owl:Thing , rdfs:Resource;
+        rdfs:subPropertyOf  :tenured .
+
+:teachingAssistantOf  rdf:type  owl:ObjectProperty , owl:Property , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :TeachingAssistant , rdfs:Resource , _:b1 , :Person;
+        rdfs:label          "is a teaching assistant for";
+        rdfs:range          owl:Thing , :Course , rdfs:Resource , :Work;
+        rdfs:subPropertyOf  :teachingAssistantOf .
+
+:affiliateOf  rdf:type      owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Organization , rdfs:Resource;
+        rdfs:label          "is affiliated with";
+        rdfs:range          owl:Thing , :Person , rdfs:Resource;
+        rdfs:subPropertyOf  :affiliateOf .
+
+_:b2    rdf:type             rdfs:Class , owl:Class , owl:Restriction , rdfs:Resource;
+        rdfs:subClassOf      _:b2 , rdfs:Resource , owl:Thing , _:b0 , :Person , :Employee;
+        owl:equivalentClass  _:b2;
+        owl:onProperty       :worksFor;
+        owl:someValuesFrom   :ResearchGroup .
+
+:publicationDate  rdf:type  owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Publication , rdfs:Resource;
+        rdfs:label          "was written on";
+        rdfs:range          owl:Thing , rdfs:Resource;
+        rdfs:subPropertyOf  :publicationDate .
+
+:advisor  rdf:type          owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Person , rdfs:Resource;
+        rdfs:label          "is being advised by";
+        rdfs:range          owl:Thing , :Professor , rdfs:Resource , :Faculty , :Employee , _:b0 , :Person;
+        rdfs:subPropertyOf  :advisor .
+
+:Department  rdf:type        rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "university department";
+        rdfs:subClassOf      :Department , rdfs:Resource , owl:Thing , :Organization;
+        owl:equivalentClass  :Department .
+
+:worksFor  rdf:type         owl:ObjectProperty , owl:Property , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , rdfs:Resource , :Person;
+        rdfs:label          "Works For";
+        rdfs:range          owl:Thing , rdfs:Resource , :Organization;
+        rdfs:subPropertyOf  :memberOf , :worksFor .
+
+:researchProject  rdf:type  owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :ResearchGroup , rdfs:Resource , :Organization;
+        rdfs:label          "has as a research project";
+        rdfs:range          owl:Thing , :Research , rdfs:Resource , :Work;
+        rdfs:subPropertyOf  :researchProject .
+
+:GraduateStudent  rdf:type   rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "graduate student";
+        rdfs:subClassOf      :GraduateStudent , rdfs:Resource , owl:Thing , _:b3 , :Person , _:b4 , :Student;
+        owl:equivalentClass  :GraduateStudent .
+
+:Manual  rdf:type            rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "manual";
+        rdfs:subClassOf      :Manual , rdfs:Resource , owl:Thing , :Publication;
+        owl:equivalentClass  :Manual .
+
+:takesCourse  rdf:type      owl:ObjectProperty , owl:Property , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , rdfs:Resource;
+        rdfs:label          "is taking";
+        rdfs:range          owl:Thing , rdfs:Resource;
+        rdfs:subPropertyOf  :takesCourse .
+
+:UnofficialPublication
+        rdf:type             rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "unnoficial publication";
+        rdfs:subClassOf      :UnofficialPublication , rdfs:Resource , owl:Thing , :Publication;
+        owl:equivalentClass  :UnofficialPublication .
+
+:softwareVersion  rdf:type  owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Software , rdfs:Resource , :Publication;
+        rdfs:label          "is version";
+        rdfs:range          owl:Thing , rdfs:Resource;
+        rdfs:subPropertyOf  :softwareVersion .
+
+:Research  rdf:type          rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "research work";
+        rdfs:subClassOf      owl:Thing , :Research , rdfs:Resource , :Work;
+        owl:equivalentClass  :Research .
+
+:publicationResearch  rdf:type  owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Publication , rdfs:Resource;
+        rdfs:label          "is about";
+        rdfs:range          owl:Thing , :Research , rdfs:Resource , :Work;
+        rdfs:subPropertyOf  :publicationResearch .
+
+:College  rdf:type           rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "school";
+        rdfs:subClassOf      :College , rdfs:Resource , owl:Thing , :Organization;
+        owl:equivalentClass  :College .
+
+:AssistantProfessor  rdf:type  rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "assistant professor";
+        rdfs:subClassOf      :AssistantProfessor , rdfs:Resource , owl:Thing , :Professor , :Faculty , :Employee , _:b0 , :Person;
+        owl:equivalentClass  :AssistantProfessor .
+
+:Book   rdf:type             rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "book";
+        rdfs:subClassOf      :Book , rdfs:Resource , owl:Thing , :Publication;
+        owl:equivalentClass  :Book .
+
+_:b4    rdf:type             rdfs:Class , owl:Class , owl:Restriction , rdfs:Resource;
+        rdfs:subClassOf      _:b4 , rdfs:Resource , owl:Thing;
+        owl:equivalentClass  _:b4;
+        owl:onProperty       :takesCourse;
+        owl:someValuesFrom   :Course .
+
+:UndergraduateStudent
+        rdf:type             rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "undergraduate student";
+        rdfs:subClassOf      :UndergraduateStudent , rdfs:Resource , owl:Thing , :Student , _:b4 , :Person;
+        owl:equivalentClass  :UndergraduateStudent .
+
+:VisitingProfessor  rdf:type  rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "visiting professor";
+        rdfs:subClassOf      :VisitingProfessor , rdfs:Resource , owl:Thing , :Professor , :Faculty , :Employee , _:b0 , :Person;
+        owl:equivalentClass  :VisitingProfessor .
+
+:SystemsStaff  rdf:type      rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "systems staff worker";
+        rdfs:subClassOf      :SystemsStaff , rdfs:Resource , owl:Thing , :AdministrativeStaff , _:b0 , :Person , :Employee;
+        owl:equivalentClass  :SystemsStaff .
+
+:degreeFrom  rdf:type       owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Person , rdfs:Resource;
+        rdfs:label          "has a degree from";
+        rdfs:range          owl:Thing , :University , rdfs:Resource , :Organization;
+        rdfs:subPropertyOf  :degreeFrom;
+        owl:inverseOf       :hasAlumnus .
+
+:hasAlumnus  rdf:type       owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :University , rdfs:Resource , :Organization;
+        rdfs:label          "has as an alumnus";
+        rdfs:range          owl:Thing , :Person , rdfs:Resource;
+        rdfs:subPropertyOf  :hasAlumnus;
+        owl:inverseOf       :degreeFrom .
+
+_:b3    rdf:type             rdfs:Class , owl:Class , owl:Restriction , rdfs:Resource;
+        rdfs:subClassOf      _:b3 , rdfs:Resource , owl:Thing , _:b4;
+        owl:equivalentClass  _:b3;
+        owl:onProperty       :takesCourse;
+        owl:someValuesFrom   :GraduateCourse .
+
+:Schedule  rdf:type          rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "schedule";
+        rdfs:subClassOf      owl:Thing , :Schedule , rdfs:Resource;
+        owl:equivalentClass  :Schedule .
+
+:listedCourse  rdf:type     owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Schedule , rdfs:Resource;
+        rdfs:label          "lists as a course";
+        rdfs:range          owl:Thing , :Course , rdfs:Resource , :Work;
+        rdfs:subPropertyOf  :listedCourse .
+
+:TechnicalReport  rdf:type   rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "technical report";
+        rdfs:subClassOf      :TechnicalReport , rdfs:Resource , owl:Thing , :Article , :Publication;
+        owl:equivalentClass  :TechnicalReport .
+
+:JournalArticle  rdf:type    rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "journal article";
+        rdfs:subClassOf      :JournalArticle , rdfs:Resource , owl:Thing , :Article , :Publication;
+        owl:equivalentClass  :JournalArticle .
+
+_:b5    rdf:type             rdfs:Class , owl:Class , owl:Restriction , rdfs:Resource;
+        rdfs:subClassOf      _:b5 , rdfs:Resource , owl:Thing , _:b0 , :Person , :Director , :Employee;
+        owl:equivalentClass  _:b5 , :Director;
+        owl:onProperty       :headOf;
+        owl:someValuesFrom   :Program .
+
+_:b6    rdf:type             rdfs:Class , owl:Class , owl:Restriction , rdfs:Resource;
+        rdfs:subClassOf      _:b6 , rdfs:Resource , owl:Thing , :Person , _:b0 , :Employee , :Chair , :Professor , :Faculty;
+        owl:equivalentClass  _:b6 , :Chair;
+        owl:onProperty       :headOf;
+        owl:someValuesFrom   :Department .
+
+:Course  rdf:type            rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "teaching course";
+        rdfs:subClassOf      :Course , rdfs:Resource , owl:Thing , :Work;
+        owl:equivalentClass  :Course .
+
+:softwareDocumentation
+        rdf:type            owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Software , rdfs:Resource , :Publication;
+        rdfs:label          "is documented in";
+        rdfs:range          owl:Thing , :Publication , rdfs:Resource;
+        rdfs:subPropertyOf  :softwareDocumentation .
+
+:Organization  rdf:type      rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "organization";
+        rdfs:subClassOf      owl:Thing , :Organization , rdfs:Resource;
+        owl:equivalentClass  :Organization .
+
+:affiliatedOrganizationOf
+        rdf:type            owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Organization , rdfs:Resource;
+        rdfs:label          "is affiliated with";
+        rdfs:range          owl:Thing , :Organization , rdfs:Resource;
+        rdfs:subPropertyOf  :affiliatedOrganizationOf .
+
+:ConferencePaper  rdf:type   rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "conference paper";
+        rdfs:subClassOf      :ConferencePaper , rdfs:Resource , owl:Thing , :Article , :Publication;
+        owl:equivalentClass  :ConferencePaper .
+
+:PostDoc  rdf:type           rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "post doctorate";
+        rdfs:subClassOf      :PostDoc , rdfs:Resource , owl:Thing , :Faculty , :Employee , _:b0 , :Person;
+        owl:equivalentClass  :PostDoc .
+
+_:b0    rdf:type             rdfs:Class , owl:Class , owl:Restriction , rdfs:Resource;
+        rdfs:subClassOf      _:b0 , rdfs:Resource , owl:Thing , :Person , :Employee;
+        owl:equivalentClass  _:b0 , :Employee;
+        owl:onProperty       :worksFor;
+        owl:someValuesFrom   :Organization .
+
+:University  rdf:type        rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "university";
+        rdfs:subClassOf      owl:Thing , :University , rdfs:Resource , :Organization;
+        owl:equivalentClass  :University .
+
+:mastersDegreeFrom  rdf:type  owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Person , rdfs:Resource;
+        rdfs:label          "has a masters degree from";
+        rdfs:range          owl:Thing , :University , rdfs:Resource , :Organization;
+        rdfs:subPropertyOf  :degreeFrom , :mastersDegreeFrom .
+
+:Publication  rdf:type       rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "publication";
+        rdfs:subClassOf      :Publication , rdfs:Resource , owl:Thing;
+        owl:equivalentClass  :Publication .
+
+:Faculty  rdf:type           rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "faculty member";
+        rdfs:subClassOf      :Faculty , rdfs:Resource , owl:Thing , :Employee , _:b0 , :Person;
+        owl:equivalentClass  :Faculty .
+
+owl:inverseOf  rdf:type     rdf:Property , rdfs:Resource;
+        rdfs:subPropertyOf  owl:inverseOf .
+
+:member  rdf:type           owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Organization , rdfs:Resource;
+        rdfs:label          "has as a member";
+        rdfs:range          owl:Thing , :Person , rdfs:Resource;
+        rdfs:subPropertyOf  :member;
+        owl:inverseOf       :memberOf .
+
+:memberOf  rdf:type         owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         :Person , owl:Thing , rdfs:Resource;
+        rdfs:label          "member of";
+        rdfs:range          :Organization , owl:Thing , rdfs:Resource;
+        rdfs:subPropertyOf  :memberOf;
+        owl:inverseOf       :member .
+
+:Software  rdf:type          rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "software program";
+        rdfs:subClassOf      :Software , rdfs:Resource , owl:Thing , :Publication;
+        owl:equivalentClass  :Software .
+
+:Professor  rdf:type         rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "professor";
+        rdfs:subClassOf      :Professor , rdfs:Resource , owl:Thing , :Faculty , :Employee , _:b0 , :Person;
+        owl:equivalentClass  :Professor .
+
+:Work   rdf:type             rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "Work";
+        rdfs:subClassOf      :Work , rdfs:Resource , owl:Thing;
+        owl:equivalentClass  :Work .
+
+owl:someValuesFrom  rdf:type  rdf:Property , rdfs:Resource;
+        rdfs:subPropertyOf  owl:someValuesFrom .
+
+_:b7    rdf:type             rdfs:Class , owl:Class , owl:Restriction , rdfs:Resource;
+        rdfs:subClassOf      _:b7 , rdfs:Resource , owl:Thing , :Person , :Dean , :Professor , :Faculty , _:b0 , :Employee;
+        owl:equivalentClass  _:b7 , :Dean;
+        owl:onProperty       :headOf;
+        owl:someValuesFrom   :College .
+
+rdfs:comment  rdf:type      rdf:Property , rdfs:Resource;
+        rdfs:subPropertyOf  rdfs:comment .
+
+:headOf  rdf:type           owl:ObjectProperty , owl:Property , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Thing , :Person , rdfs:Resource;
+        rdfs:label          "is the head of";
+        rdfs:range          owl:Thing , rdfs:Resource , :Organization;
+        rdfs:subPropertyOf  :memberOf , :worksFor , :headOf .
+
+:Person  rdf:type            rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "person";
+        rdfs:subClassOf      owl:Thing , :Person , rdfs:Resource;
+        owl:equivalentClass  :Person .
+
+:AssociateProfessor  rdf:type  rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "associate professor";
+        rdfs:subClassOf      :AssociateProfessor , rdfs:Resource , owl:Thing , :Professor , :Faculty , :Employee , _:b0 , :Person;
+        owl:equivalentClass  :AssociateProfessor .
+
+:ResearchAssistant  rdf:type  rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "university research assistant";
+        rdfs:subClassOf      :ResearchAssistant , rdfs:Resource , owl:Thing , _:b2 , :Person , _:b0 , :Employee;
+        owl:equivalentClass  :ResearchAssistant .
+
+:ResearchGroup  rdf:type     rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "research group";
+        rdfs:subClassOf      :ResearchGroup , rdfs:Resource , owl:Thing , :Organization;
+        owl:equivalentClass  :ResearchGroup .
+
+rdfs:label  rdf:type        rdf:Property , rdfs:Resource;
+        rdfs:subPropertyOf  rdfs:label .
+
+:Lecturer  rdf:type          rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "lecturer";
+        rdfs:subClassOf      :Lecturer , rdfs:Resource , owl:Thing , :Faculty , _:b0 , :Person , :Employee;
+        owl:equivalentClass  :Lecturer .
+
+:Chair  rdf:type             rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "chair";
+        rdfs:subClassOf      :Chair , rdfs:Resource , owl:Thing , _:b6 , :Person , :Professor , :Faculty , :Employee , _:b0;
+        owl:equivalentClass  :Chair , _:b6;
+        owl:intersectionOf   [ rdf:type   rdfs:Resource , rdf:List;
+                               rdf:first  :Person;
+                               rdf:rest   [ rdf:type   rdf:List , rdfs:Resource;
+                                            rdf:first  _:b6;
+                                            rdf:rest   ()
+                                          ]
+                             ] .
+
+:Dean   rdf:type             rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "dean";
+        rdfs:subClassOf      :Dean , rdfs:Resource , owl:Thing , _:b7 , :Professor , :Employee , :Faculty , _:b0 , :Person;
+        owl:equivalentClass  :Dean , _:b7;
+        owl:intersectionOf   [ rdf:type   rdf:List , rdfs:Resource;
+                               rdf:first  _:b7;
+                               rdf:rest   ()
+                             ] .
+
+:Director  rdf:type          rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "director";
+        rdfs:subClassOf      :Director , rdfs:Resource , owl:Thing , _:b5 , :Person , _:b0 , :Employee;
+        owl:equivalentClass  :Director , _:b5;
+        owl:intersectionOf   [ rdf:type   rdfs:Resource , rdf:List;
+                               rdf:first  :Person;
+                               rdf:rest   [ rdf:type   rdf:List , rdfs:Resource;
+                                            rdf:first  _:b5;
+                                            rdf:rest   ()
+                                          ]
+                             ] .
+
+:Employee  rdf:type          rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "Employee";
+        rdfs:subClassOf      :Employee , rdfs:Resource , owl:Thing , _:b0 , :Person;
+        owl:equivalentClass  :Employee , _:b0;
+        owl:intersectionOf   [ rdf:type   rdfs:Resource , rdf:List;
+                               rdf:first  :Person;
+                               rdf:rest   [ rdf:type   rdf:List , rdfs:Resource;
+                                            rdf:first  _:b0;
+                                            rdf:rest   ()
+                                          ]
+                             ] .
+
+:Student  rdf:type           rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "student";
+        rdfs:subClassOf      :Student , rdfs:Resource , owl:Thing , _:b4 , :Person;
+        owl:equivalentClass  :Student;
+        owl:intersectionOf   [ rdf:type   rdfs:Resource , rdf:List;
+                               rdf:first  :Person;
+                               rdf:rest   [ rdf:type   rdf:List , rdfs:Resource;
+                                            rdf:first  _:b4;
+                                            rdf:rest   ()
+                                          ]
+                             ] .
+
+:TeachingAssistant  rdf:type  rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:label           "university teaching assistant";
+        rdfs:subClassOf      owl:Thing , :TeachingAssistant , rdfs:Resource , _:b1 , :Person;
+        owl:equivalentClass  :TeachingAssistant , _:b1;
+        owl:intersectionOf   [ rdf:type   rdfs:Resource , rdf:List;
+                               rdf:first  :Person;
+                               rdf:rest   [ rdf:type   rdf:List , rdfs:Resource;
+                                            rdf:first  _:b1;
+                                            rdf:rest   ()
+                                          ]
+                             ] .
+
+<http://www.w3.org/2001/XMLSchema#gMonthDay>
+        rdf:type  rdfs:Datatype , rdfs:Resource , rdfs:Class .
+
+<http://www.w3.org/2001/XMLSchema#gYearMonth>
+        rdf:type  rdfs:Datatype , rdfs:Class , rdfs:Resource .
+
+<http://www.w3.org/2001/XMLSchema#gYear>
+        rdf:type  rdfs:Datatype , rdfs:Class , rdfs:Resource .
+
+<http://www.w3.org/2001/XMLSchema#gMonth>
+        rdf:type  rdfs:Datatype , rdfs:Class , rdfs:Resource .
+
+<http://www.w3.org/2001/XMLSchema#gDay>
+        rdf:type  rdfs:Datatype , rdfs:Resource , rdfs:Class .
+
+<http://www.w3.org/2001/XMLSchema#duration>
+        rdf:type          rdfs:Datatype , rdfs:Resource , rdfs:Class , owl:Class;
+        owl:disjointWith  <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#byte> .
+
+<http://www.w3.org/2001/XMLSchema#dateTime>
+        rdf:type          rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        owl:disjointWith  <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#byte> .
+
+<http://www.w3.org/2001/XMLSchema#time>
+        rdf:type          rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        owl:disjointWith  <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#byte> .
+
+<http://www.w3.org/2001/XMLSchema#date>
+        rdf:type          rdfs:Datatype , rdfs:Resource , rdfs:Class , owl:Class;
+        owl:disjointWith  <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#byte> .
+
+<http://www.w3.org/2001/XMLSchema#base64Binary>
+        rdf:type  rdfs:Datatype , rdfs:Resource , rdfs:Class .
+
+<http://www.w3.org/2001/XMLSchema#hexBinary>
+        rdf:type  rdfs:Datatype , rdfs:Class , rdfs:Resource .
+
+<http://www.w3.org/2001/XMLSchema#anyURI>
+        rdf:type  rdfs:Datatype , rdfs:Class , rdfs:Resource .
+
+<http://www.w3.org/2001/XMLSchema#string>
+        rdf:type          rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        owl:disjointWith  <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#byte> .
+
+<http://www.w3.org/2001/XMLSchema#boolean>
+        rdf:type          rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        owl:disjointWith  <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#byte> .
+
+<http://www.w3.org/2001/XMLSchema#negativeInteger>
+        rdf:type  rdfs:Datatype , rdfs:Class , rdfs:Resource .
+
+<http://www.w3.org/2001/XMLSchema#positiveInteger>
+        rdf:type  rdfs:Datatype , rdfs:Resource , rdfs:Class .
+
+<http://www.w3.org/2001/XMLSchema#nonNegativeInteger>
+        rdf:type             rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#integer>;
+        owl:disjointWith     <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#float>;
+        owl:equivalentClass  <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+
+<http://www.w3.org/2001/XMLSchema#nonPositiveInteger>
+        rdf:type          rdfs:Datatype , rdfs:Resource , rdfs:Class , owl:Class;
+        owl:disjointWith  <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#float> .
+
+<http://www.w3.org/2001/XMLSchema#integer>
+        rdf:type             rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#integer>;
+        owl:disjointWith     <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#float>;
+        owl:equivalentClass  <http://www.w3.org/2001/XMLSchema#integer> .
+
+<http://www.w3.org/2001/XMLSchema#decimal>
+        rdf:type          rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        owl:disjointWith  <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#float> .
+
+<http://www.w3.org/2001/XMLSchema#unsignedLong>
+        rdf:type             rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#long>;
+        owl:disjointWith     <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#float>;
+        owl:equivalentClass  <http://www.w3.org/2001/XMLSchema#unsignedLong> .
+
+<http://www.w3.org/2001/XMLSchema#unsignedInt>
+        rdf:type             rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int>;
+        owl:disjointWith     <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#float>;
+        owl:equivalentClass  <http://www.w3.org/2001/XMLSchema#unsignedInt> .
+
+<http://www.w3.org/2001/XMLSchema#unsignedShort>
+        rdf:type             rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#short>;
+        owl:disjointWith     <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#float>;
+        owl:equivalentClass  <http://www.w3.org/2001/XMLSchema#unsignedShort> .
+
+<http://www.w3.org/2001/XMLSchema#unsignedByte>
+        rdf:type             rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#byte>;
+        owl:disjointWith     <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#float>;
+        owl:equivalentClass  <http://www.w3.org/2001/XMLSchema#unsignedByte> .
+
+<http://www.w3.org/2001/XMLSchema#byte>
+        rdf:type             rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#byte>;
+        owl:disjointWith     <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#float>;
+        owl:equivalentClass  <http://www.w3.org/2001/XMLSchema#byte> .
+
+<http://www.w3.org/2001/XMLSchema#short>
+        rdf:type             rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#short>;
+        owl:disjointWith     <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#float>;
+        owl:equivalentClass  <http://www.w3.org/2001/XMLSchema#short> .
+
+<http://www.w3.org/2001/XMLSchema#long>
+        rdf:type             rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#long>;
+        owl:disjointWith     <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#float>;
+        owl:equivalentClass  <http://www.w3.org/2001/XMLSchema#long> .
+
+<http://www.w3.org/2001/XMLSchema#int>
+        rdf:type             rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int>;
+        owl:disjointWith     <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#float>;
+        owl:equivalentClass  <http://www.w3.org/2001/XMLSchema#int> .
+
+<http://www.w3.org/2001/XMLSchema#double>
+        rdf:type  rdfs:Datatype , rdfs:Class , rdfs:Resource .
+
+<http://www.w3.org/2001/XMLSchema#float>
+        rdf:type          rdfs:Datatype , rdfs:Class , rdfs:Resource , owl:Class;
+        owl:disjointWith  <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#byte> .
+
+owl:intersectionOf  rdf:type  rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Class , rdfs:Resource , rdfs:Class;
+        rdfs:subPropertyOf  owl:intersectionOf .
+
+owl:differentFrom  rdf:type  owl:SymmetricProperty , owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:subPropertyOf  owl:differentFrom .
+
+owl:versionInfo  rdf:type   rdf:Property , owl:AnnotationProperty , rdfs:Resource;
+        rdfs:subPropertyOf  owl:versionInfo .
+
+owl:incompatibleWith  rdf:type  rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Ontology , rdfs:Resource;
+        rdfs:range          owl:Ontology , rdfs:Resource;
+        rdfs:subPropertyOf  owl:incompatibleWith .
+
+owl:backwardCompatibleWith
+        rdf:type            rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Ontology , rdfs:Resource;
+        rdfs:range          owl:Ontology , rdfs:Resource;
+        rdfs:subPropertyOf  owl:backwardCompatibleWith .
+
+owl:priorVersion  rdf:type  rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Ontology , rdfs:Resource;
+        rdfs:range          owl:Ontology , rdfs:Resource;
+        rdfs:subPropertyOf  owl:priorVersion .
+
+owl:imports  rdf:type       owl:OntologyProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Ontology , rdfs:Resource;
+        rdfs:range          owl:Ontology , rdfs:Resource;
+        rdfs:subPropertyOf  owl:imports .
+
+owl:OntologyProperty  rdf:type  rdfs:Class , rdfs:Resource;
+        rdfs:subClassOf  rdf:Property .
+
+owl:onProperty  rdf:type    rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Restriction , rdfs:Resource , owl:Class , rdfs:Class;
+        rdfs:range          owl:Property , rdfs:Resource;
+        rdfs:subPropertyOf  owl:onProperty .
+
+owl:sameAs  rdf:type        owl:SymmetricProperty , owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:subPropertyOf  owl:sameAs .
+
+owl:disjointWith  rdf:type  owl:SymmetricProperty , owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Class , rdfs:Resource , rdfs:Class;
+        rdfs:range          owl:Class , rdfs:Resource , rdfs:Class;
+        rdfs:subPropertyOf  owl:disjointWith .
+
+owl:equivalentClass  rdf:type  rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Class , rdfs:Resource , rdfs:Class;
+        rdfs:range          owl:Class , rdfs:Resource , rdfs:Class;
+        rdfs:subPropertyOf  owl:equivalentClass .
+
+owl:Nothing  rdf:type        rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:subClassOf      owl:Nothing , rdfs:Resource , owl:Thing;
+        owl:equivalentClass  owl:Nothing .
+
+owl:Thing  rdf:type          rdfs:Class , owl:Class , rdfs:Resource;
+        rdfs:subClassOf      owl:Thing , rdfs:Resource;
+        owl:equivalentClass  owl:Thing .
+
+owl:Restriction  rdf:type    rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      owl:Restriction , rdfs:Resource , owl:Class;
+        owl:equivalentClass  owl:Restriction .
+
+owl:Class  rdf:type          rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      owl:Class , rdfs:Resource , rdfs:Class;
+        owl:equivalentClass  owl:Class .
+
+owl:oneOf  rdf:type         rdf:Property , rdfs:Resource;
+        rdfs:domain         owl:Class , rdfs:Resource , rdfs:Class;
+        rdfs:subPropertyOf  owl:oneOf .
+
+owl:SymmetricProperty
+        rdf:type         rdfs:Class , rdfs:Resource;
+        rdfs:subClassOf  owl:ObjectProperty .
+
+owl:TransitiveProperty
+        rdf:type         rdfs:Class , rdfs:Resource;
+        rdfs:subClassOf  owl:ObjectProperty .
+
+owl:InverseFunctionalProperty
+        rdf:type         rdfs:Resource , rdfs:Class;
+        rdfs:subClassOf  owl:ObjectProperty .
+
+owl:DatatypeProperty  rdf:type  rdfs:Class , rdfs:Resource;
+        rdfs:subClassOf  rdf:Property .
+
+owl:ObjectProperty  rdf:type  rdfs:Class , rdfs:Resource;
+        rdfs:subClassOf  rdf:Property .
+
+owl:FunctionalProperty
+        rdf:type         rdfs:Class , rdfs:Resource;
+        rdfs:subClassOf  rdf:Property .
+
+rdfs:Datatype  rdf:type  rdfs:Class , rdfs:Resource;
+        rdfs:subClassOf  rdfs:Class .
+
+rdf:XMLLiteral  rdf:type  rdfs:Datatype , rdfs:Resource , rdfs:Class .
+
+rdfs:isDefinedBy  rdf:type  rdf:Property , rdfs:Resource;
+        rdfs:subPropertyOf  rdfs:seeAlso , rdfs:isDefinedBy .
+
+rdfs:ContainerMembershipProperty
+        rdf:type         rdfs:Resource , rdfs:Class;
+        rdfs:subClassOf  rdf:Property .
+
+rdf:Seq  rdf:type        rdfs:Resource , rdfs:Class;
+        rdfs:subClassOf  rdfs:Container .
+
+rdf:Bag  rdf:type        rdfs:Class , rdfs:Resource;
+        rdfs:subClassOf  rdfs:Container .
+
+rdf:Alt  rdf:type        rdfs:Class , rdfs:Resource;
+        rdfs:subClassOf  rdfs:Container .
+
+rdfs:range  rdf:type        rdf:Property , rdfs:Resource;
+        rdfs:domain         rdf:Property , rdfs:Resource;
+        rdfs:range          rdfs:Class , rdfs:Resource;
+        rdfs:subPropertyOf  rdfs:range .
+
+rdfs:domain  rdf:type       rdf:Property , rdfs:Resource;
+        rdfs:domain         rdf:Property , rdfs:Resource;
+        rdfs:range          rdfs:Class , rdfs:Resource;
+        rdfs:subPropertyOf  rdfs:domain .
+
+rdfs:subClassOf  rdf:type   rdf:Property , rdfs:Resource;
+        rdfs:domain         rdfs:Class , rdfs:Resource;
+        rdfs:range          rdfs:Class , rdfs:Resource;
+        rdfs:subPropertyOf  rdfs:subClassOf .
+
+rdfs:subPropertyOf  rdf:type  rdf:Property , rdfs:Resource;
+        rdfs:domain         rdf:Property , rdfs:Resource;
+        rdfs:range          rdf:Property , rdfs:Resource;
+        rdfs:subPropertyOf  rdfs:subPropertyOf .
+
+rdf:rest  rdf:type          owl:FunctionalProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         rdf:List , rdfs:Resource;
+        rdfs:range          rdf:List , rdfs:Resource;
+        rdfs:subPropertyOf  rdf:rest .
+
+rdf:first  rdf:type         owl:FunctionalProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         rdf:List , rdfs:Resource;
+        rdfs:subPropertyOf  rdf:first .
+
+rdf:predicate  rdf:type     rdf:Property , rdfs:Resource;
+        rdfs:domain         rdf:Statement , rdfs:Resource;
+        rdfs:subPropertyOf  rdf:predicate .
+
+rdf:object  rdf:type        rdf:Property , rdfs:Resource;
+        rdfs:domain         rdf:Statement , rdfs:Resource;
+        rdfs:subPropertyOf  rdf:object .
+
+rdf:subject  rdf:type       rdf:Property , rdfs:Resource;
+        rdfs:domain         rdf:Statement , rdfs:Resource;
+        rdfs:subPropertyOf  rdf:subject .
+
+rdf:nil  rdf:type  rdf:List , rdfs:Resource .
+
+rdf:Statement  rdf:type      rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      rdf:Statement , rdfs:Resource;
+        owl:equivalentClass  rdf:Statement .
+
+rdfs:Literal  rdf:type       rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      rdfs:Literal , rdfs:Resource;
+        owl:equivalentClass  rdfs:Literal .
+
+rdfs:Resource  rdf:type      rdfs:Class , rdfs:Resource , owl:Class;
+        rdfs:subClassOf      rdfs:Resource;
+        owl:equivalentClass  rdfs:Resource .
+
+rdf:type  rdf:type          rdf:Property , rdfs:Resource;
+        rdfs:range          rdfs:Class , rdfs:Resource;
+        rdfs:subPropertyOf  rdf:type .
+
+:officeNumber  rdf:type     owl:DatatypeProperty , rdf:Property , rdfs:Resource;
+        rdfs:label          "office room No.";
+        rdfs:subPropertyOf  :officeNumber .
+
+:researchInterest  rdf:type  owl:DatatypeProperty , rdf:Property , rdfs:Resource;
+        rdfs:label          "is researching";
+        rdfs:subPropertyOf  :researchInterest .
+
+:subOrganizationOf  rdf:type  owl:TransitiveProperty , owl:ObjectProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         :Organization , owl:Thing , rdfs:Resource;
+        rdfs:label          "is part of";
+        rdfs:range          :Organization , owl:Thing , rdfs:Resource;
+        rdfs:subPropertyOf  :subOrganizationOf .
+
+:age    rdf:type            owl:DatatypeProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         :Person , owl:Thing , rdfs:Resource;
+        rdfs:label          "is age";
+        rdfs:subPropertyOf  :age .
+
+:emailAddress  rdf:type     owl:DatatypeProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         :Person , owl:Thing , rdfs:Resource;
+        rdfs:label          "can be reached at";
+        rdfs:subPropertyOf  :emailAddress .
+
+:telephone  rdf:type        owl:DatatypeProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         :Person , owl:Thing , rdfs:Resource;
+        rdfs:label          "telephone number";
+        rdfs:subPropertyOf  :telephone .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl>
+        rdf:type         owl:Ontology , rdfs:Resource;
+        rdfs:comment     "An university ontology for benchmark tests";
+        rdfs:label       "Univ-bench Ontology";
+        owl:versionInfo  "univ-bench-ontology-owl, ver April 1, 2004" .
+
+:title  rdf:type            owl:DatatypeProperty , rdf:Property , rdfs:Resource;
+        rdfs:domain         :Person , owl:Thing , rdfs:Resource;
+        rdfs:label          "title";
+        rdfs:subPropertyOf  :title .
+
+:name   rdf:type            owl:DatatypeProperty , rdf:Property , rdfs:Resource;
+        rdfs:label          "name";
+        rdfs:subPropertyOf  :name .
+
+owl:AnnotationProperty
+        rdf:type  rdfs:Class , rdfs:Resource .
+
+rdfs:seeAlso  rdf:type      rdfs:Resource , rdf:Property;
+        rdfs:subPropertyOf  rdfs:seeAlso .
+
+rdfs:Container  rdf:type  rdfs:Class , rdfs:Resource .
+
+_:b8    rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b8 .
+
+_:b9    rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b9 .
+
+_:b10   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b10 .
+
+_:b11   rdf:type    owl:Thing , rdfs:Resource , :Work , :Course;
+        owl:sameAs  _:b11 .
+
+_:b12   rdf:type    owl:Thing , rdfs:Resource , :Program , :Organization;
+        owl:sameAs  _:b12 .
+
+_:b13   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b13 .
+
+_:b14   rdf:type    owl:Thing , rdfs:Resource , :Department , :Organization;
+        owl:sameAs  _:b14 .
+
+_:b15   rdf:type    owl:Thing , rdfs:Resource , :Organization , :ResearchGroup;
+        owl:sameAs  _:b15 .
+
+_:b16   rdf:type    owl:Thing , rdfs:Resource , :Work , :GraduateCourse , :Course;
+        owl:sameAs  _:b16 .
+
+_:b17   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b17 .
+
+_:b18   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b18 .
+
+_:b19   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b19 .
+
+_:b20   rdf:type    owl:Thing , rdfs:Resource , :College , :Organization;
+        owl:sameAs  _:b20 .
+
+_:b21   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b21 .
+
+_:b22   rdf:type    owl:Thing , rdfs:Resource , :Work , :Course;
+        owl:sameAs  _:b22 .
+
+_:b23   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b23 .
+
+_:b24   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b24 .
+
+_:b25   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b25 .
+
+_:b26   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b26 .
+
+_:b27   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b27 .
+
+_:b28   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b28 .
+
+_:b29   rdf:type    owl:Thing , rdfs:Resource , :Program , :Organization;
+        owl:sameAs  _:b29 .
+
+_:b30   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b30 .
+
+_:b31   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b31 .
+
+_:b32   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b32 .
+
+_:b33   rdf:type    owl:Thing , rdfs:Resource , :Work , :GraduateCourse , :Course;
+        owl:sameAs  _:b33 .
+
+_:b34   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b34 .
+
+_:b35   rdf:type    owl:Thing , rdfs:Resource , :Work , :Course;
+        owl:sameAs  _:b35 .
+
+_:b36   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b36 .
+
+_:b37   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b37 .
+
+_:b38   rdf:type    owl:Thing , rdfs:Resource , :Work , :Course;
+        owl:sameAs  _:b38 .
+
+_:b39   rdf:type    owl:Thing , rdfs:Resource , :Work , :Course;
+        owl:sameAs  _:b39 .
+
+_:b40   rdf:type    owl:Thing , rdfs:Resource , :College , :Organization;
+        owl:sameAs  _:b40 .
+
+_:b41   rdf:type    owl:Thing , rdfs:Resource , :Work , :Course;
+        owl:sameAs  _:b41 .
+
+_:b42   rdf:type    owl:Thing , rdfs:Resource , :Work , :Course;
+        owl:sameAs  _:b42 .
+
+_:b43   rdf:type    owl:Thing , rdfs:Resource , :Organization;
+        owl:sameAs  _:b43 .
+
+_:b44   rdf:type    owl:Thing , rdfs:Resource , :Organization , :ResearchGroup;
+        owl:sameAs  _:b44 .
+
+_:b45   rdf:type    owl:Thing , rdfs:Resource , :Department , :Organization;
+        owl:sameAs  _:b45 .

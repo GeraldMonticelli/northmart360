@@ -1,0 +1,332 @@
+@prefix : <urn:uuid:f4c1b173-54f2-5a1d-909c-dad5c770aa96#> .
+@prefix ontouml: <https://w3id.org/ontouml#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:adult-person-gen a ontouml:Generalization ;
+    ontouml:general :person ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:specific :adult .
+
+:card-card-holding-end_cardinality a ontouml:Cardinality ;
+    ontouml:cardinalityValue "0..*" ;
+    ontouml:lowerBound "0"^^xsd:nonNegativeInteger ;
+    ontouml:upperBound "*" .
+
+:card-holding-card-end_cardinality a ontouml:Cardinality ;
+    ontouml:cardinalityValue "1..1" ;
+    ontouml:lowerBound "1"^^xsd:nonNegativeInteger ;
+    ontouml:upperBound "1" .
+
+:card-holding-card-mediation a ontouml:Relation ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:name "card participation" ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:relationEnd :card-card-holding-end,
+        :card-holding-card-end ;
+    ontouml:sourceEnd :card-holding-card-end ;
+    ontouml:stereotype ontouml:mediation ;
+    ontouml:targetEnd :card-card-holding-end .
+
+:card-holding-customer-end_cardinality a ontouml:Cardinality ;
+    ontouml:cardinalityValue "1..1" ;
+    ontouml:lowerBound "1"^^xsd:nonNegativeInteger ;
+    ontouml:upperBound "1" .
+
+:card-holding-customer-mediation a ontouml:Relation ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:name "card holder participation" ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:relationEnd :card-holding-customer-end,
+        :customer-card-holding-end ;
+    ontouml:sourceEnd :card-holding-customer-end ;
+    ontouml:stereotype ontouml:mediation ;
+    ontouml:targetEnd :customer-card-holding-end .
+
+:customer-card-holding-end_cardinality a ontouml:Cardinality ;
+    ontouml:cardinalityValue "0..*" ;
+    ontouml:lowerBound "0"^^xsd:nonNegativeInteger ;
+    ontouml:upperBound "*" .
+
+:customer-relationship-customer-end_cardinality a ontouml:Cardinality ;
+    ontouml:cardinalityValue "1..1" ;
+    ontouml:lowerBound "1"^^xsd:nonNegativeInteger ;
+    ontouml:upperBound "1" .
+
+:customer-relationship-customer-mediation a ontouml:Relation ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:name "customer participation" ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:relationEnd :customer-relationship-customer-end,
+        :customer-relationship-relator-end ;
+    ontouml:sourceEnd :customer-relationship-customer-end ;
+    ontouml:stereotype ontouml:mediation ;
+    ontouml:targetEnd :customer-relationship-relator-end .
+
+:customer-relationship-provider-end_cardinality a ontouml:Cardinality ;
+    ontouml:cardinalityValue "1..1" ;
+    ontouml:lowerBound "1"^^xsd:nonNegativeInteger ;
+    ontouml:upperBound "1" .
+
+:customer-relationship-provider-mediation a ontouml:Relation ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:name "provider participation" ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:relationEnd :customer-relationship-provider-end,
+        :provider-customer-relationship-end ;
+    ontouml:sourceEnd :customer-relationship-provider-end ;
+    ontouml:stereotype ontouml:mediation ;
+    ontouml:targetEnd :provider-customer-relationship-end .
+
+:customer-relationship-relator-end_cardinality a ontouml:Cardinality ;
+    ontouml:cardinalityValue "0..*" ;
+    ontouml:lowerBound "0"^^xsd:nonNegativeInteger ;
+    ontouml:upperBound "*" .
+
+:merchant-organization-generalization a ontouml:Generalization ;
+    ontouml:general :organization ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:specific :merchant .
+
+:minor-person-gen a ontouml:Generalization ;
+    ontouml:general :person ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:specific :minor .
+
+:northmart-semantic-model a ontouml:Package ;
+    ontouml:containsModelElement :adult,
+        :adult-person-gen,
+        :card,
+        :card-holding,
+        :card-holding-card-mediation,
+        :card-holding-customer-mediation,
+        :customer,
+        :customer-relationship,
+        :customer-relationship-customer-mediation,
+        :customer-relationship-provider-mediation,
+        :merchant,
+        :merchant-organization-generalization,
+        :minor,
+        :minor-person-gen,
+        :organization,
+        :organization-customer,
+        :organization-customer-customer-gen,
+        :organization-customer-organization-gen,
+        :person,
+        :person-customer,
+        :person-customer-customer-gen,
+        :person-customer-person-gen ;
+    ontouml:name "NorthMart Semantic Model" ;
+    ontouml:project :northmart-semantic-poc .
+
+:organization-customer-customer-gen a ontouml:Generalization ;
+    ontouml:general :customer ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:specific :organization-customer .
+
+:organization-customer-organization-gen a ontouml:Generalization ;
+    ontouml:general :organization ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:specific :organization-customer .
+
+:person-customer-customer-gen a ontouml:Generalization ;
+    ontouml:general :customer ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:specific :person-customer .
+
+:person-customer-person-gen a ontouml:Generalization ;
+    ontouml:general :person ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:specific :person-customer .
+
+:provider-customer-relationship-end_cardinality a ontouml:Cardinality ;
+    ontouml:cardinalityValue "0..*" ;
+    ontouml:lowerBound "0"^^xsd:nonNegativeInteger ;
+    ontouml:upperBound "*" .
+
+:adult a ontouml:Class ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:isPowertype false ;
+    ontouml:name "Adult" ;
+    ontouml:order "1"^^xsd:nonNegativeInteger ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:stereotype ontouml:phase .
+
+:card a ontouml:Class ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:isPowertype false ;
+    ontouml:name "Card" ;
+    ontouml:order "1"^^xsd:nonNegativeInteger ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:stereotype ontouml:kind .
+
+:card-card-holding-end a ontouml:Property ;
+    ontouml:aggregationKind ontouml:none ;
+    ontouml:cardinality :card-card-holding-end_cardinality ;
+    ontouml:isDerived false ;
+    ontouml:isOrdered false ;
+    ontouml:isReadOnly false ;
+    ontouml:name "cardHolding" ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:propertyType :card-holding .
+
+:card-holding-card-end a ontouml:Property ;
+    ontouml:aggregationKind ontouml:none ;
+    ontouml:cardinality :card-holding-card-end_cardinality ;
+    ontouml:isDerived false ;
+    ontouml:isOrdered false ;
+    ontouml:isReadOnly false ;
+    ontouml:name "card" ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:propertyType :card .
+
+:card-holding-customer-end a ontouml:Property ;
+    ontouml:aggregationKind ontouml:none ;
+    ontouml:cardinality :card-holding-customer-end_cardinality ;
+    ontouml:isDerived false ;
+    ontouml:isOrdered false ;
+    ontouml:isReadOnly false ;
+    ontouml:name "holder" ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:propertyType :customer .
+
+:customer-card-holding-end a ontouml:Property ;
+    ontouml:aggregationKind ontouml:none ;
+    ontouml:cardinality :customer-card-holding-end_cardinality ;
+    ontouml:isDerived false ;
+    ontouml:isOrdered false ;
+    ontouml:isReadOnly false ;
+    ontouml:name "cardHolding" ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:propertyType :card-holding .
+
+:customer-relationship-customer-end a ontouml:Property ;
+    ontouml:aggregationKind ontouml:none ;
+    ontouml:cardinality :customer-relationship-customer-end_cardinality ;
+    ontouml:isDerived false ;
+    ontouml:isOrdered false ;
+    ontouml:isReadOnly false ;
+    ontouml:name "customer" ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:propertyType :customer .
+
+:customer-relationship-provider-end a ontouml:Property ;
+    ontouml:aggregationKind ontouml:none ;
+    ontouml:cardinality :customer-relationship-provider-end_cardinality ;
+    ontouml:isDerived false ;
+    ontouml:isOrdered false ;
+    ontouml:isReadOnly false ;
+    ontouml:name "provider" ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:propertyType :organization .
+
+:customer-relationship-relator-end a ontouml:Property ;
+    ontouml:aggregationKind ontouml:none ;
+    ontouml:cardinality :customer-relationship-relator-end_cardinality ;
+    ontouml:isDerived false ;
+    ontouml:isOrdered false ;
+    ontouml:isReadOnly false ;
+    ontouml:name "customerRelationship" ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:propertyType :customer-relationship .
+
+:merchant a ontouml:Class ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:isPowertype false ;
+    ontouml:name "Merchant" ;
+    ontouml:order "1"^^xsd:nonNegativeInteger ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:stereotype ontouml:role .
+
+:minor a ontouml:Class ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:isPowertype false ;
+    ontouml:name "Minor" ;
+    ontouml:order "1"^^xsd:nonNegativeInteger ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:stereotype ontouml:phase .
+
+:provider-customer-relationship-end a ontouml:Property ;
+    ontouml:aggregationKind ontouml:none ;
+    ontouml:cardinality :provider-customer-relationship-end_cardinality ;
+    ontouml:isDerived false ;
+    ontouml:isOrdered false ;
+    ontouml:isReadOnly false ;
+    ontouml:name "customerRelationship" ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:propertyType :customer-relationship .
+
+:card-holding a ontouml:Class ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:isPowertype false ;
+    ontouml:name "CardHolding" ;
+    ontouml:order "1"^^xsd:nonNegativeInteger ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:stereotype ontouml:relator .
+
+:customer-relationship a ontouml:Class ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:isPowertype false ;
+    ontouml:name "CustomerRelationship" ;
+    ontouml:order "1"^^xsd:nonNegativeInteger ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:stereotype ontouml:relator .
+
+:organization-customer a ontouml:Class ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:isPowertype false ;
+    ontouml:name "OrganizationCustomer" ;
+    ontouml:order "1"^^xsd:nonNegativeInteger ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:stereotype ontouml:role .
+
+:person-customer a ontouml:Class ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:isPowertype false ;
+    ontouml:name "PersonCustomer" ;
+    ontouml:order "1"^^xsd:nonNegativeInteger ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:stereotype ontouml:role .
+
+:organization a ontouml:Class ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:isPowertype false ;
+    ontouml:name "Organization" ;
+    ontouml:order "1"^^xsd:nonNegativeInteger ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:stereotype ontouml:kind .
+
+:person a ontouml:Class ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:isPowertype false ;
+    ontouml:name "Person" ;
+    ontouml:order "1"^^xsd:nonNegativeInteger ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:stereotype ontouml:kind .
+
+:customer a ontouml:Class ;
+    ontouml:isAbstract false ;
+    ontouml:isDerived false ;
+    ontouml:isPowertype false ;
+    ontouml:name "Customer" ;
+    ontouml:order "1"^^xsd:nonNegativeInteger ;
+    ontouml:project :northmart-semantic-poc ;
+    ontouml:stereotype ontouml:roleMixin .
+
+:northmart-semantic-poc a ontouml:Project ;
+    ontouml:model :northmart-semantic-model ;
+    ontouml:name "NorthMart Semantic POC" .
+

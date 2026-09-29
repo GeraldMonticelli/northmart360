@@ -1,0 +1,1321 @@
+<http://www.w3.org/2002/07/owl#Nothing>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Nothing>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2002/07/owl#Nothing> .
+
+<http://www.w3.org/2002/07/owl#FunctionalProperty>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#affiliatedOrganizationOf>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#affiliatedOrganizationOf> .
+
+<http://www.w3.org/2000/01/rdf-schema#domain>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2000/01/rdf-schema#domain> .
+
+<http://www.w3.org/2000/01/rdf-schema#Resource>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> .
+
+<http://www.w3.org/2002/07/owl#imports>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> , <http://www.w3.org/2002/07/owl#OntologyProperty>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Ontology>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Ontology>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#imports> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#JournalArticle>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication> , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#JournalArticle>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#JournalArticle> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
+
+<http://www.w3.org/2000/01/rdf-schema#Literal>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Literal>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2000/01/rdf-schema#Literal> .
+
+<http://www.w3.org/2001/XMLSchema#float>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> , <http://www.w3.org/2002/07/owl#Class>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> , <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#byte> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#duration> .
+
+_:b0    a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                _:b0 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                _:b0 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationResearch>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationResearch> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Book>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Book>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Book> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#affiliateOf>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#affiliateOf> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#ConferencePaper>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication> , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#ConferencePaper>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#ConferencePaper> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#object> .
+
+<http://www.w3.org/2002/07/owl#DatatypeProperty>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#worksFor>
+        a       <http://www.w3.org/2002/07/owl#Property> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#worksFor> .
+
+<http://www.w3.org/2002/07/owl#onProperty>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Restriction>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#onProperty> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#UnofficialPublication>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#UnofficialPublication>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#UnofficialPublication> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Lecturer>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , _:b1 , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Lecturer>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Lecturer> .
+
+<http://www.w3.org/2001/XMLSchema#anyURI>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+
+<http://www.w3.org/2002/07/owl#inverseOf>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#inverseOf> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#telephone>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#telephone> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Student>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , _:b2 , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Student>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Student> .
+
+<http://www.w3.org/2001/XMLSchema#long>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Datatype>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#integer>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2001/XMLSchema#long> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#softwareDocumentation>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#softwareDocumentation> .
+
+<http://www.w3.org/2001/XMLSchema#unsignedInt>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Datatype>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#unsignedInt>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#float>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2001/XMLSchema#unsignedInt> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#orgPublication>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#orgPublication> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#listedCourse>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#listedCourse> .
+
+_:b3    a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                _:b3 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Dean> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor> , <http://www.w3.org/2000/01/rdf-schema#Resource> , _:b1 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                _:b3 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Dean> .
+
+<http://www.w3.org/2001/XMLSchema#unsignedByte>
+        a       <http://www.w3.org/2000/01/rdf-schema#Datatype> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#byte> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#unsignedInt>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#duration>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2001/XMLSchema#unsignedByte> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#teachingAssistantOf>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> , <http://www.w3.org/2002/07/owl#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , _:b0 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#teachingAssistantOf> .
+
+<http://www.w3.org/2001/XMLSchema#negativeInteger>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#age>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#age> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#ClericalStaff>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , _:b1 , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#ClericalStaff>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#ClericalStaff> .
+
+<http://www.w3.org/2001/XMLSchema#gDay>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , _:b1 , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course> .
+
+_:b1    a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2002/07/owl#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , _:b1 , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                _:b1 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> .
+
+[ a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> ] .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#University>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#University> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#University> .
+
+<http://www.w3.org/2001/XMLSchema#unsignedShort>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Datatype>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#long>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#boolean>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2001/XMLSchema#unsignedShort> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Director>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                _:b4 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Director> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , _:b1 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                _:b4 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Director> .
+
+<http://www.w3.org/2001/XMLSchema#gYear>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+
+_:b4    a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                _:b4 , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Director> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , _:b1;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                _:b4 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Director> .
+
+<http://www.w3.org/2002/07/owl#InverseFunctionalProperty>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#ObjectProperty> .
+
+<http://www.w3.org/2001/XMLSchema#decimal>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> , <http://www.w3.org/2002/07/owl#Class>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#date> .
+
+<http://www.w3.org/2001/XMLSchema#gMonth>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+
+[ a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> ] .
+
+<http://www.w3.org/2002/07/owl#Class>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2002/07/owl#Class> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                _:b1 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#emailAddress>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#emailAddress> .
+
+<http://www.w3.org/2000/01/rdf-schema#Class>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2000/01/rdf-schema#Class> .
+
+<http://www.w3.org/2002/07/owl#disjointWith>
+        a       <http://www.w3.org/2002/07/owl#ObjectProperty> , <http://www.w3.org/2002/07/owl#SymmetricProperty> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#disjointWith> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Container> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#AdministrativeStaff>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , _:b1 , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#AdministrativeStaff>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#AdministrativeStaff> .
+
+<http://www.w3.org/2002/07/owl#ObjectProperty>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+
+<http://www.w3.org/2002/07/owl#intersectionOf>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#intersectionOf> .
+
+<http://www.w3.org/2000/01/rdf-schema#Container>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class> .
+
+<http://www.w3.org/2002/07/owl#incompatibleWith>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Ontology>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Ontology>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#incompatibleWith> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> , <http://www.w3.org/2002/07/owl#FunctionalProperty>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> .
+
+<http://www.w3.org/2001/XMLSchema#nonNegativeInteger>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#integer>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#boolean>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+
+[ a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> ] .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Schedule>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Schedule> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Schedule> .
+
+<http://www.w3.org/2002/07/owl#versionInfo>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#AnnotationProperty> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#versionInfo> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Student> , _:b2 , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent> .
+
+<http://www.w3.org/2002/07/owl#TransitiveProperty>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#ObjectProperty> .
+
+<http://www.w3.org/2001/XMLSchema#boolean>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> , <http://www.w3.org/2002/07/owl#Class>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#byte> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#time> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> , <http://www.w3.org/2002/07/owl#FunctionalProperty>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , _:b2 , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent> .
+
+<http://www.w3.org/2001/XMLSchema#double>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationDate>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationDate> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , _:b1 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Specification>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Specification>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Specification> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#TechnicalReport>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication> , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#TechnicalReport>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#TechnicalReport> .
+
+<http://www.w3.org/2001/XMLSchema#byte>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#byte>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2001/XMLSchema#byte> .
+
+<http://www.w3.org/2001/XMLSchema#integer>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Datatype>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#integer>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#time>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2001/XMLSchema#integer> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#softwareVersion>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#softwareVersion> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#name>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#name> .
+
+<http://www.w3.org/2001/XMLSchema#positiveInteger>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+
+<http://www.w3.org/2002/07/owl#Property>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Property>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2002/07/owl#Property> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> .
+
+<http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+
+[ a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> ] .
+
+<http://www.w3.org/2001/XMLSchema#dateTime>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Datatype> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#byte> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#integer> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#officeNumber>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#officeNumber> .
+
+<http://www.w3.org/2001/XMLSchema#int>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Datatype>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#int>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#float>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2001/XMLSchema#int> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , _:b1 , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchGroup>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchGroup>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchGroup> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> .
+
+_:b5    a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor> , _:b5 , _:b1 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Chair>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                _:b5 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Chair> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#degreeFrom>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#degreeFrom> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#takesCourse>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> , <http://www.w3.org/2002/07/owl#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#takesCourse> .
+
+<http://www.w3.org/2002/07/owl#backwardCompatibleWith>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Ontology>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Ontology>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#backwardCompatibleWith> .
+
+[ a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> ] .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#hasAlumnus>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#hasAlumnus> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#researchProject>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#researchProject> .
+
+<http://www.w3.org/2001/XMLSchema#gMonthDay>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Container> .
+
+<http://www.w3.org/2002/07/owl#someValuesFrom>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#someValuesFrom> .
+
+<http://www.w3.org/2001/XMLSchema#nonPositiveInteger>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Datatype> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#date> .
+
+<http://www.w3.org/2002/07/owl#OntologyProperty>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+
+[ a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> ] .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#advisor>
+        a       <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , _:b1 , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#advisor> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> .
+
+<http://www.w3.org/2001/XMLSchema#time>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#byte> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#float> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Container> .
+
+<http://www.w3.org/2001/XMLSchema#gYearMonth>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Research>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Research> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Research> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Article>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Article>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Article> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#title>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#title> .
+
+<http://www.w3.org/2002/07/owl#equivalentClass>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2002/07/owl#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#equivalentClass> .
+
+[ a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> ] .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#subOrganizationOf>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#ObjectProperty> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#subOrganizationOf> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://www.w3.org/2002/07/owl#Thing> , _:b1 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor> .
+
+_:b2    a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , _:b2;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                _:b2 .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#member>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#member>;
+        <http://www.w3.org/2002/07/owl#inverseOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf> .
+
+<http://www.w3.org/2000/01/rdf-schema#comment>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2000/01/rdf-schema#comment> .
+
+_:b6    a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                _:b2 , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , _:b6;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                _:b6 .
+
+<http://www.w3.org/2002/07/owl#sameAs>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#ObjectProperty> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> , <http://www.w3.org/2002/07/owl#SymmetricProperty>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#sameAs> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#PostDoc>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , _:b1 , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#PostDoc>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#PostDoc> .
+
+[ a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> ] .
+
+<http://www.w3.org/2001/XMLSchema#short>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Datatype> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#int>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#float>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2001/XMLSchema#short> .
+
+<http://www.w3.org/2000/01/rdf-schema#Datatype>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Class> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#SystemsStaff>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , _:b1 , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#SystemsStaff>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#SystemsStaff> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Institute>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Institute>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Institute> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#tenured>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://www.w3.org/2000/01/rdf-schema#Resource> , _:b1 , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#tenured> .
+
+_:b7    a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                _:b1 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , _:b7;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                _:b7 .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Program>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Program>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Program> .
+
+<http://www.w3.org/2002/07/owl#Thing>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2002/07/owl#Thing> .
+
+[ a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> ] .
+
+<http://www.w3.org/2000/01/rdf-schema#seeAlso>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2000/01/rdf-schema#seeAlso> .
+
+<http://www.w3.org/2001/XMLSchema#date>
+        a       <http://www.w3.org/2000/01/rdf-schema#Datatype> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#byte> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#decimal> .
+
+<http://www.w3.org/2002/07/owl#oneOf>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#oneOf> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Software>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Software>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Software> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateCourse>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateCourse>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateCourse> .
+
+<http://www.w3.org/2001/XMLSchema#hexBinary>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor> .
+
+<http://www.w3.org/2002/07/owl#Ontology>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Ontology>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2002/07/owl#Ontology> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Dean>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                _:b1 , _:b3 , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Dean>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Dean> , _:b3 .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Chair>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , _:b5 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Chair> , <http://www.w3.org/2000/01/rdf-schema#Resource> , _:b1 , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Chair> , _:b5 .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchAssistant>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , _:b1 , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchAssistant>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchAssistant> .
+
+<http://www.w3.org/2000/01/rdf-schema#label>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2000/01/rdf-schema#label> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Manual>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Manual>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Manual> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#undergraduateDegreeFrom>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#undergraduateDegreeFrom> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> .
+
+<http://www.w3.org/2001/XMLSchema#base64Binary>
+        a       <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+
+[ a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> ] .
+
+<http://www.w3.org/2002/07/owl#differentFrom>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#ObjectProperty> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> , <http://www.w3.org/2002/07/owl#SymmetricProperty>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#differentFrom> .
+
+<http://www.w3.org/2002/07/owl#priorVersion>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Ontology>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Ontology>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2002/07/owl#priorVersion> .
+
+<http://www.w3.org/2000/01/rdf-schema#isDefinedBy>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> , <http://www.w3.org/2000/01/rdf-schema#seeAlso> .
+
+<http://www.w3.org/2000/01/rdf-schema#range>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2000/01/rdf-schema#range> .
+
+<http://www.w3.org/2000/01/rdf-schema#subClassOf>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2000/01/rdf-schema#subClassOf> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#mastersDegreeFrom>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#mastersDegreeFrom> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#VisitingProfessor>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty> , _:b1 , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#VisitingProfessor> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#VisitingProfessor> .
+
+<http://www.w3.org/2001/XMLSchema#unsignedLong>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Datatype> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#unsignedLong>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#time>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2001/XMLSchema#unsignedLong> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> .
+
+<http://www.w3.org/2002/07/owl#Restriction>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Restriction>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/2002/07/owl#Restriction> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , _:b1 , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , _:b0 , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant> , _:b0 .
+
+<http://www.w3.org/2001/XMLSchema#duration>
+        a       <http://www.w3.org/2000/01/rdf-schema#Datatype> , <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#byte> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#string> , <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> .
+
+<http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , _:b1 , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee> , _:b1 .
+
+<http://www.w3.org/2002/07/owl#AnnotationProperty>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class> .
+
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#List>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
+
+[ a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> ] .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#headOf>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> , <http://www.w3.org/2002/07/owl#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#domain>
+                <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2000/01/rdf-schema#range>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#headOf> .
+
+<http://www.w3.org/2001/XMLSchema#string>
+        a       <http://www.w3.org/2002/07/owl#Class> , <http://www.w3.org/2000/01/rdf-schema#Datatype> , <http://www.w3.org/2000/01/rdf-schema#Class> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2002/07/owl#disjointWith>
+                <http://www.w3.org/2001/XMLSchema#decimal> , <http://www.w3.org/2001/XMLSchema#boolean> , <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> , <http://www.w3.org/2001/XMLSchema#time> , <http://www.w3.org/2001/XMLSchema#byte> , <http://www.w3.org/2001/XMLSchema#date> , <http://www.w3.org/2001/XMLSchema#unsignedShort> , <http://www.w3.org/2001/XMLSchema#dateTime> , <http://www.w3.org/2001/XMLSchema#integer> , <http://www.w3.org/2001/XMLSchema#int> , <http://www.w3.org/2001/XMLSchema#float> , <http://www.w3.org/2001/XMLSchema#short> , <http://www.w3.org/2001/XMLSchema#unsignedInt> , <http://www.w3.org/2001/XMLSchema#duration> , <http://www.w3.org/2001/XMLSchema#unsignedLong> , <http://www.w3.org/2001/XMLSchema#unsignedByte> , <http://www.w3.org/2001/XMLSchema#long> , <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> .
+
+<http://www.w3.org/2002/07/owl#SymmetricProperty>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#ObjectProperty> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#researchInterest>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+        <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#researchInterest> .
+
+<http://swat.cse.lehigh.edu/onto/univ-bench.owl#College>
+        a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2000/01/rdf-schema#Class>;
+        <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#College>;
+        <http://www.w3.org/2002/07/owl#equivalentClass>
+                <http://swat.cse.lehigh.edu/onto/univ-bench.owl#College> .
+
+_:b8    a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Program>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b8 .
+
+_:b9    a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b9 .
+
+_:b10   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b10 .
+
+_:b11   a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b11 .
+
+_:b12   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b12 .
+
+_:b13   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Program> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b13 .
+
+_:b14   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b14 .
+
+_:b15   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b15 .
+
+_:b16   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b16 .
+
+_:b17   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b17 .
+
+_:b18   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department> , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b18 .
+
+_:b19   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b19 .
+
+_:b20   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateCourse>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b20 .
+
+_:b21   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateCourse> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b21 .
+
+_:b22   a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchGroup>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b22 .
+
+_:b23   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b23 .
+
+_:b24   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b24 .
+
+_:b25   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b25 .
+
+_:b26   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b26 .
+
+_:b27   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b27 .
+
+_:b28   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b28 .
+
+_:b29   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b29 .
+
+_:b30   a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#College>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b30 .
+
+_:b31   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b31 .
+
+_:b32   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b32 .
+
+_:b33   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b33 .
+
+_:b34   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b34 .
+
+_:b35   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#College> , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b35 .
+
+_:b36   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b36 .
+
+_:b37   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b37 .
+
+_:b38   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b38 .
+
+_:b39   a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b39 .
+
+_:b40   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b40 .
+
+_:b41   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b41 .
+
+_:b42   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department> , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b42 .
+
+_:b43   a       <http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchGroup> , <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b43 .
+
+_:b44   a       <http://www.w3.org/2002/07/owl#Thing> , <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b44 .
+
+_:b45   a       <http://www.w3.org/2000/01/rdf-schema#Resource> , <http://www.w3.org/2002/07/owl#Thing> , <http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization>;
+        <http://www.w3.org/2002/07/owl#sameAs>
+                _:b45 .

@@ -1,14 +1,14 @@
 resource "azurerm_subnet" "fraud_producer" {
   name                 = "snet-fraud-producer"
-  resource_group_name  = azurerm_resource_group.northmart.name
-  virtual_network_name = azurerm_virtual_network.northmart_databricks.name
+  resource_group_name  = local.resource_group_name
+  virtual_network_name = local.vnet_name
   address_prefixes     = ["10.20.3.0/24"]
 }
 
 resource "azurerm_network_security_group" "fraud_producer" {
   name                = "nsg-fraud-producer"
   location            = var.location
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
 
   security_rule {
     name                   = "Allow-SSH-From-My-IP"
@@ -33,7 +33,7 @@ resource "azurerm_subnet_network_security_group_association" "fraud_producer" {
 resource "azurerm_public_ip" "fraud_producer" {
   name                = "pip-fraud-producer"
   location            = var.location
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
 
   allocation_method = "Static"
   sku               = "Standard"
@@ -44,7 +44,7 @@ resource "azurerm_network_interface" "fraud_producer" {
   # checkov:skip=CKV_AZURE_119:Public IP temporarily required for fraud producer lab administration
   name                = "nic-fraud-producer"
   location            = var.location
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
 
   ip_configuration {
     name                          = "internal"
@@ -58,7 +58,7 @@ resource "azurerm_network_interface" "fraud_producer" {
 resource "azurerm_linux_virtual_machine" "fraud_producer" {
   # checkov:skip=CKV_AZURE_50:VM extensions accepted for fraud producer learning workload
   name                = "vm-fraud-producer"
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
   location            = var.location
 
   size = "Standard_D2s_v6"
@@ -90,4 +90,3 @@ resource "azurerm_linux_virtual_machine" "fraud_producer" {
     version   = "latest"
   }
 }
-

@@ -1,0 +1,41 @@
+{
+  "@context": {
+    "crm": "https://northmart.example/crm/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "domain": {
+      "@id": "rdfs:domain",
+      "@type": "@id"
+    },
+    "range": {
+      "@id": "rdfs:range",
+      "@type": "@id"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "crm:Customer",
+      "@type": "owl:Class",
+      "rdfs:label": "CRM Customer"
+    },
+    {
+      "@id": "crm:customerId",
+      "@type": "owl:DatatypeProperty",
+      "domain": "crm:Customer",
+      "range": "xsd:string"
+    },
+    {
+      "@id": "crm:givenName",
+      "@type": "owl:DatatypeProperty",
+      "domain": "crm:Customer",
+      "range": "xsd:string"
+    },
+    {
+      "@id": "crm:birthDate",
+      "@type": "owl:DatatypeProperty",
+      "domain": "crm:Customer",
+      "range": "xsd:date"
+    }
+  ]
+}

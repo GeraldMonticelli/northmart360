@@ -1,0 +1,40 @@
+@prefix crm: <https://northmart.example/crm/> .
+@prefix ent: <https://northmart.example/enterprise/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+crm:birthDate a owl:DatatypeProperty ;
+    rdfs:domain crm:Customer ;
+    rdfs:range xsd:date ;
+    rdfs:subPropertyOf ent:birthDate .
+
+crm:customerId a owl:DatatypeProperty ;
+    rdfs:domain crm:Customer ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf ent:partyIdentifier .
+
+crm:givenName a owl:DatatypeProperty ;
+    rdfs:domain crm:Customer ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf ent:givenName .
+
+ent:birthDate a owl:DatatypeProperty ;
+    rdfs:domain ent:Party ;
+    rdfs:range xsd:date .
+
+ent:givenName a owl:DatatypeProperty ;
+    rdfs:domain ent:Party ;
+    rdfs:range xsd:string .
+
+ent:partyIdentifier a owl:DatatypeProperty ;
+    rdfs:domain ent:Party ;
+    rdfs:range xsd:string .
+
+crm:Customer a owl:Class ;
+    rdfs:label "CRM Customer" ;
+    rdfs:subClassOf ent:Party .
+
+ent:Party a owl:Class ;
+    rdfs:label "Party"@en .
+

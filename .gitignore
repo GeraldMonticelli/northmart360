@@ -64,3 +64,42 @@ northmart_dbt/dbt_packages/
 .coverage
 coverage.xml
 tflint_*.zip
+# Python
+__pycache__/
+*.py[cod]
+
+# Secrets
+**/.env
+!**/.env.example
+
+# Downloaded Ontop runtime
+**/ontop-cli-*/
+
+# Fuseki / TDB2 runtime state
+**/fuseki/databases/
+**/fuseki/logs/
+
+# External OntoUML corpora
+**/corpus/ontouml-models/
+**/corpus/ontouml-language/
+
+# Generated RAG indexes
+**/index/faiss.index
+**/index/chunks.json
+**/corpus.zip
+
+# Maven build artifacts
+**/target/
+
+# External source repositories
+**/ontouml-vocabulary/
+**/ontouml-validator/
+**/ontouml-schema/
+**/ontouml-metamodel/
+**/ontouml-language/
+**/jena-src/
+graph-rag/tests/datasets/lubm/lubm*/
+# External benchmark datasets/repos
+# Large local Graph-RAG test datasets / generated inference
+graph-rag/tests/datasets/mitre-attack/enterprise-attack.json
+graph-rag/tests/reasoner/lubm-inferred.nt

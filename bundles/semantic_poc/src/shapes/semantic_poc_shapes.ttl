@@ -1,0 +1,57 @@
+@prefix : <https://example.com#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AdultShape a sh:NodeShape ;
+    sh:targetClass :Adult .
+
+:CardHoldingShape a sh:NodeShape ;
+    sh:property [ sh:class :Card ;
+            sh:maxCount 1 ;
+            sh:message "CardHolding must mediate Card with cardinality 1..1." ;
+            sh:minCount 1 ;
+            sh:path [ sh:inversePath :cardParticipation ] ],
+        [ sh:class :Customer ;
+            sh:maxCount 1 ;
+            sh:message "CardHolding must mediate Customer with cardinality 1..1." ;
+            sh:minCount 1 ;
+            sh:path [ sh:inversePath :cardHolderParticipation ] ] ;
+    sh:targetClass :CardHolding .
+
+:CardShape a sh:NodeShape ;
+    sh:targetClass :Card .
+
+:CustomerRelationshipShape a sh:NodeShape ;
+    sh:property [ sh:class :Organization ;
+            sh:maxCount 1 ;
+            sh:message "CustomerRelationship must mediate Organization with cardinality 1..1." ;
+            sh:minCount 1 ;
+            sh:path [ sh:inversePath :providerParticipation ] ],
+        [ sh:class :Customer ;
+            sh:maxCount 1 ;
+            sh:message "CustomerRelationship must mediate Customer with cardinality 1..1." ;
+            sh:minCount 1 ;
+            sh:path [ sh:inversePath :customerParticipation ] ] ;
+    sh:targetClass :CustomerRelationship .
+
+:CustomerShape a sh:NodeShape ;
+    sh:targetClass :Customer .
+
+:MerchantShape a sh:NodeShape ;
+    sh:targetClass :Merchant .
+
+:MinorShape a sh:NodeShape ;
+    sh:targetClass :Minor .
+
+:OrganizationCustomerShape a sh:NodeShape ;
+    sh:targetClass :OrganizationCustomer .
+
+:OrganizationShape a sh:NodeShape ;
+    sh:targetClass :Organization .
+
+:PersonCustomerShape a sh:NodeShape ;
+    sh:targetClass :PersonCustomer .
+
+:PersonShape a sh:NodeShape ;
+    sh:targetClass :Person .
+

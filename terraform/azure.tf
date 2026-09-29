@@ -1,6 +1,12 @@
 resource "azurerm_resource_group" "northmart" {
+  count    = var.environment == "dev" ? 0 : 1
   name     = var.resource_group_name
   location = var.location
+}
+
+data "azurerm_resource_group" "northmart" {
+  count = var.environment == "dev" ? 1 : 0
+  name  = var.resource_group_name
 }
 
 
@@ -10,7 +16,7 @@ resource "azurerm_storage_account" "northmart" {
   # checkov:skip=CKV2_AZURE_1:Microsoft-managed encryption accepted for learning environment
   default_to_oauth_authentication = true
   name                            = var.storage_account_name
-  resource_group_name             = azurerm_resource_group.northmart.name
+  resource_group_name             = local.resource_group_name
   location                        = var.location
   min_tls_version                 = "TLS1_2"
   allow_nested_items_to_be_public = false
@@ -47,7 +53,7 @@ resource "azurerm_storage_container" "unity" {
 
 resource "azurerm_databricks_access_connector" "northmart" {
   name                = local.access_connector_name
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
   location            = var.location
   identity {
     type = "SystemAssigned"
@@ -64,7 +70,7 @@ resource "azurerm_key_vault" "northmart" {
   # checkov:skip=CKV_AZURE_109:Key Vault network hardening deferred for learning environment
   # checkov:skip=CKV2_AZURE_32:Private endpoint for Key Vault deferred for learning environment
   name                       = var.key_vault_name
-  resource_group_name        = azurerm_resource_group.northmart.name
+  resource_group_name        = local.resource_group_name
   location                   = var.location
   sku_name                   = "standard"
   rbac_authorization_enabled = false
@@ -72,18 +78,25 @@ resource "azurerm_key_vault" "northmart" {
   purge_protection_enabled   = true
 }
 
-resource "azurerm_virtual_network" "northmart_databricks" {
+resource "azurerm_virtual_network" "northmart" {
+  count               = var.environment == "dev" ? 0 : 1
   name                = local.vnet_name
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
   location            = var.location
 
   address_space = ["10.20.0.0/16"]
 }
 
+data "azurerm_virtual_network" "northmart" {
+  count               = var.environment == "dev" ? 1 : 0
+  name                = local.vnet_name
+  resource_group_name = local.resource_group_name
+}
+
 resource "azurerm_subnet" "databricks_public" {
   name                 = "snet-databricks-public"
-  resource_group_name  = azurerm_resource_group.northmart.name
-  virtual_network_name = azurerm_virtual_network.northmart_databricks.name
+  resource_group_name  = local.resource_group_name
+  virtual_network_name = local.vnet_name
   address_prefixes     = ["10.20.0.0/24"]
 
   delegation {
@@ -103,8 +116,8 @@ resource "azurerm_subnet" "databricks_public" {
 
 resource "azurerm_subnet" "databricks_private" {
   name                 = "snet-databricks-private"
-  resource_group_name  = azurerm_resource_group.northmart.name
-  virtual_network_name = azurerm_virtual_network.northmart_databricks.name
+  resource_group_name  = local.resource_group_name
+  virtual_network_name = local.vnet_name
   address_prefixes     = ["10.20.1.0/24"]
 
   delegation {
@@ -127,14 +140,14 @@ resource "azurerm_databricks_workspace" "northmart" {
   # checkov:skip=CKV_AZURE_158:Public workspace access intentionally retained for learning environment
   # checkov:skip=CKV2_AZURE_48:Customer-managed key for DBFS out of scope for learning environment 
   name                          = var.workspace_name
-  resource_group_name           = azurerm_resource_group.northmart.name
+  resource_group_name           = local.resource_group_name
   location                      = var.location
   public_network_access_enabled = true
   sku                           = "premium"
   managed_resource_group_name   = var.databricks_managed_resource_group_name
   custom_parameters {
     no_public_ip       = true
-    virtual_network_id = azurerm_virtual_network.northmart_databricks.id
+    virtual_network_id = local.vnet_id
 
     public_subnet_name  = azurerm_subnet.databricks_public.name
     private_subnet_name = azurerm_subnet.databricks_private.name
@@ -149,13 +162,13 @@ resource "azurerm_databricks_workspace" "northmart" {
 
 resource "azurerm_network_security_group" "databricks_public" {
   name                = "nsg-databricks-public"
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
   location            = var.location
 }
 
 resource "azurerm_network_security_group" "databricks_private" {
   name                = "nsg-databricks-private"
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
   location            = var.location
 }
 
@@ -173,8 +186,8 @@ resource "azurerm_subnet_network_security_group_association" "databricks_private
 resource "azurerm_subnet" "private_endpoints" {
   # checkov:skip=CKV2_AZURE_31:Dedicated private endpoint subnet intentionally has no NSG in this learning architecture
   name                 = "snet-private-endpoints"
-  resource_group_name  = azurerm_resource_group.northmart.name
-  virtual_network_name = azurerm_virtual_network.northmart_databricks.name
+  resource_group_name  = local.resource_group_name
+  virtual_network_name = local.vnet_name
   address_prefixes     = ["10.20.2.0/24"]
 }
 
@@ -186,17 +199,17 @@ resource "azurerm_subnet" "private_endpoints" {
 
 resource "azurerm_private_dns_zone" "adls_dfs" {
   name                = "privatelink.dfs.core.windows.net"
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
 }
 
 resource "azurerm_private_dns_zone" "adls_blob" {
   name                = "privatelink.blob.core.windows.net"
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
 }
 
 resource "azurerm_private_dns_zone" "sql" {
   name                = "privatelink.database.windows.net"
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
 }
 
 
@@ -207,7 +220,7 @@ resource "azurerm_private_dns_zone" "sql" {
 resource "azurerm_private_dns_zone_virtual_network_link" "adls_dfs" {
   name                = "link-northmart-dfs"
   private_dns_zone_id = azurerm_private_dns_zone.adls_dfs.id
-  virtual_network_id  = azurerm_virtual_network.northmart_databricks.id
+  virtual_network_id  = local.vnet_id
 
   registration_enabled = false
 }
@@ -215,7 +228,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "adls_dfs" {
 resource "azurerm_private_dns_zone_virtual_network_link" "adls_blob" {
   name                = "link-northmart-blob"
   private_dns_zone_id = azurerm_private_dns_zone.adls_blob.id
-  virtual_network_id  = azurerm_virtual_network.northmart_databricks.id
+  virtual_network_id  = local.vnet_id
 
   registration_enabled = false
 }
@@ -223,7 +236,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "adls_blob" {
 resource "azurerm_private_dns_zone_virtual_network_link" "sql" {
   name                = "link-northmart-sql"
   private_dns_zone_id = azurerm_private_dns_zone.sql.id
-  virtual_network_id  = azurerm_virtual_network.northmart_databricks.id
+  virtual_network_id  = local.vnet_id
 
   registration_enabled = false
 }
@@ -235,7 +248,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "sql" {
 resource "azurerm_private_endpoint" "northmart_adls_dfs" {
   name                = "pe-northmart-adls-dfs"
   location            = var.location
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
   subnet_id           = azurerm_subnet.private_endpoints.id
 
   private_service_connection {
@@ -262,7 +275,7 @@ resource "azurerm_private_endpoint" "northmart_adls_dfs" {
 resource "azurerm_private_endpoint" "northmart_adls_blob" {
   name                = "pe-northmart-adls-blob"
   location            = var.location
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
   subnet_id           = azurerm_subnet.private_endpoints.id
 
   private_service_connection {
@@ -289,7 +302,7 @@ resource "azurerm_private_endpoint" "northmart_adls_blob" {
 resource "azurerm_private_endpoint" "northmart_sql" {
   name                = "pe-northmart-sql"
   location            = var.location
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
   subnet_id           = azurerm_subnet.private_endpoints.id
 
   private_service_connection {

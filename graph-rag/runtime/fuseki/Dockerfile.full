@@ -1,0 +1,9 @@
+FROM eclipse-temurin:21-jre
+
+WORKDIR /fuseki
+
+COPY jena-src/jena-fuseki2/jena-fuseki-server/target/jena-fuseki-server-6.3.0-SNAPSHOT.jar /fuseki/fuseki-server.jar
+
+EXPOSE 3030
+
+ENTRYPOINT ["java", "-jar", "/fuseki/fuseki-server.jar"]

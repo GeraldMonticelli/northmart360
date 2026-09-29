@@ -1,0 +1,19 @@
+@prefix : <https://example.com#> .
+@prefix crm: <https://crm.example.com#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+crm:P100
+    rdf:type :Person ;
+    :firstName "Alice" ;
+    :lastName "Martin" .
+
+crm:CR100
+    rdf:type :CustomerRelationship .
+
+crm:P100
+    :customerParticipation crm:CR100 .
+
+crm:NorthMart
+    rdf:type :Organization ;
+    :providerParticipation crm:CR100 .
+    

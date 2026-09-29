@@ -1,0 +1,12 @@
+PREFIX crm: <https://northmart.example/crm/>
+PREFIX ent: <https://northmart.example/enterprise/>
+
+SELECT ?resource ?type
+WHERE {
+    ?resource a ?type .
+    FILTER (
+        ?type = crm:Customer ||
+        ?type = ent:Party
+    )
+}
+ORDER BY ?resource ?type

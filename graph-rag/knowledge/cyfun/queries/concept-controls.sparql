@@ -1,0 +1,17 @@
+PREFIX oscal: <https://example.org/oscal#>
+PREFIX poc:   <https://example.org/cyfun-poc#>
+
+SELECT ?concept ?control ?title ?prose
+WHERE {
+    ?control
+        a oscal:Control ;
+        oscal:title ?title ;
+        poc:concerns ?concept .
+
+    OPTIONAL {
+        ?control oscal:part ?part .
+        ?part oscal:name "statement" ;
+              oscal:prose ?prose .
+    }
+}
+ORDER BY ?concept ?control

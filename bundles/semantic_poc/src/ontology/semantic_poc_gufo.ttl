@@ -1,0 +1,63 @@
+@prefix : <https://example.com#>.
+@prefix gufo: <http://purl.org/nemo/gufo#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+<https://example.com> rdf:type owl:Ontology;
+    owl:imports gufo:.
+:Person rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:FunctionalComplex;
+    rdfs:label "Person"@en.
+:Customer rdf:type owl:Class, gufo:RoleMixin, owl:NamedIndividual;
+    rdfs:subClassOf gufo:FunctionalComplex;
+    rdfs:label "Customer"@en.
+:Organization rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:FunctionalComplex;
+    rdfs:label "Organization"@en.
+:Merchant rdf:type owl:Class, gufo:Role, owl:NamedIndividual;
+    rdfs:label "Merchant"@en.
+:PersonCustomer rdf:type owl:Class, gufo:Role, owl:NamedIndividual;
+    rdfs:label "PersonCustomer"@en.
+:OrganizationCustomer rdf:type owl:Class, gufo:Role, owl:NamedIndividual;
+    rdfs:label "OrganizationCustomer"@en.
+:Minor rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "Minor"@en.
+:Adult rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "Adult"@en.
+:Card rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:FunctionalComplex;
+    rdfs:label "Card"@en.
+:CardHolding rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:Relator;
+    rdfs:label "CardHolding"@en.
+:CustomerRelationship rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:Relator;
+    rdfs:label "CustomerRelationship"@en.
+:Merchant rdfs:subClassOf :Organization.
+:PersonCustomer rdfs:subClassOf :Person, :Customer.
+:OrganizationCustomer rdfs:subClassOf :Organization, :Customer.
+:Minor rdfs:subClassOf :Person.
+:Adult rdfs:subClassOf :Person.
+:customerParticipation rdf:type owl:ObjectProperty;
+    rdfs:domain :Customer;
+    rdfs:range :CustomerRelationship;
+    rdfs:label "customer participation"@en;
+    rdfs:subPropertyOf gufo:mediates.
+:providerParticipation rdf:type owl:ObjectProperty;
+    rdfs:domain :Organization;
+    rdfs:range :CustomerRelationship;
+    rdfs:label "provider participation"@en;
+    rdfs:subPropertyOf gufo:mediates.
+:cardHolderParticipation rdf:type owl:ObjectProperty;
+    rdfs:domain :Customer;
+    rdfs:range :CardHolding;
+    rdfs:label "card holder participation"@en;
+    rdfs:subPropertyOf gufo:mediates.
+:cardParticipation rdf:type owl:ObjectProperty;
+    rdfs:domain :Card;
+    rdfs:range :CardHolding;
+    rdfs:label "card participation"@en;
+    rdfs:subPropertyOf gufo:mediates.
+

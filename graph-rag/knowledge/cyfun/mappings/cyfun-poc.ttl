@@ -1,0 +1,1380 @@
+@prefix cyfun: <https://cyfun.eu/control/> .
+@prefix poc:   <https://example.org/cyfun-poc#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+# ---------------------------------------------------------------------------
+# CyFun ESSENTIAL semantic retrieval layer — PoC, NON-NORMATIVE.
+# Generated from the CyFun OSCAL catalog + ESSENTIAL profile.
+# poc:concerns / poc:hasAction are heuristic retrieval annotations derived
+# from CyFun IDs, hierarchy titles and control statements. They are NOT
+# official CyFun mappings or implementation requirements.
+# ---------------------------------------------------------------------------
+
+poc:SemanticConcept a owl:Class .
+poc:Action a owl:Class .
+poc:Domain a owl:Class .
+poc:concerns a owl:ObjectProperty ; rdfs:range poc:SemanticConcept .
+poc:hasAction a owl:ObjectProperty ; rdfs:range poc:Action .
+poc:inDomain a owl:ObjectProperty ; rdfs:range poc:Domain .
+poc:mappingMethod a owl:DatatypeProperty .
+
+poc:Governance a poc:Domain ; rdfs:label "Governance" .
+poc:Identify a poc:Domain ; rdfs:label "Identify" .
+poc:Protect a poc:Domain ; rdfs:label "Protect" .
+poc:Detect a poc:Domain ; rdfs:label "Detect" .
+poc:Respond a poc:Domain ; rdfs:label "Respond" .
+poc:Recover a poc:Domain ; rdfs:label "Recover" .
+
+poc:AnomalyDetection a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:Detection ; rdfs:label "Anomaly Detection" .
+poc:ApplicationSecurity a owl:Class, poc:SemanticConcept ; rdfs:label "Application Security" .
+poc:AssetInventory a owl:Class, poc:SemanticConcept ; rdfs:label "Asset Inventory" .
+poc:AuditAssessment a owl:Class, poc:SemanticConcept ; rdfs:label "Audit Assessment" .
+poc:Authentication a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:IdentityAccessManagement ; rdfs:label "Authentication" .
+poc:Authorization a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:IdentityAccessManagement ; rdfs:label "Authorization" .
+poc:AwarenessTraining a owl:Class, poc:SemanticConcept ; rdfs:label "Awareness Training" .
+poc:Backup a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:Recovery ; rdfs:label "Backup" .
+poc:BusinessContinuity a owl:Class, poc:SemanticConcept ; rdfs:label "Business Continuity" .
+poc:ChangeManagement a owl:Class, poc:SemanticConcept ; rdfs:label "Change Management" .
+poc:CloudSecurity a owl:Class, poc:SemanticConcept ; rdfs:label "Cloud Security" .
+poc:DataFlowMapping a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:InformationFlow ; rdfs:label "Data Flow Mapping" .
+poc:DataProtection a owl:Class, poc:SemanticConcept ; rdfs:label "Data Protection" .
+poc:Detection a owl:Class, poc:SemanticConcept ; rdfs:label "Detection" .
+poc:Encryption a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:DataProtection ; rdfs:label "Encryption" .
+poc:EvidenceRecords a owl:Class, poc:SemanticConcept ; rdfs:label "Evidence Records" .
+poc:Governance a owl:Class, poc:SemanticConcept ; rdfs:label "Governance" .
+poc:IdentityAccessManagement a owl:Class, poc:SemanticConcept ; rdfs:label "Identity Access Management" .
+poc:IncidentAnalysis a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:IncidentManagement ; rdfs:label "Incident Analysis" .
+poc:IncidentCommunication a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:IncidentManagement ; rdfs:label "Incident Communication" .
+poc:IncidentManagement a owl:Class, poc:SemanticConcept ; rdfs:label "Incident Management" .
+poc:IncidentResponse a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:IncidentManagement ; rdfs:label "Incident Response" .
+poc:InformationFlow a owl:Class, poc:SemanticConcept ; rdfs:label "Information Flow" .
+poc:LeastPrivilege a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:IdentityAccessManagement ; rdfs:label "Least Privilege" .
+poc:LifecycleManagement a owl:Class, poc:SemanticConcept ; rdfs:label "Lifecycle Management" .
+poc:Logging a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:Monitoring ; rdfs:label "Logging" .
+poc:MFA a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:Authentication ; rdfs:label "M F A" .
+poc:Maintenance a owl:Class, poc:SemanticConcept ; rdfs:label "Maintenance" .
+poc:MalwareProtection a owl:Class, poc:SemanticConcept ; rdfs:label "Malware Protection" .
+poc:Monitoring a owl:Class, poc:SemanticConcept ; rdfs:label "Monitoring" .
+poc:NetworkSecurity a owl:Class, poc:SemanticConcept ; rdfs:label "Network Security" .
+poc:NetworkSegmentation a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:NetworkSecurity ; rdfs:label "Network Segmentation" .
+poc:PatchManagement a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:VulnerabilityManagement ; rdfs:label "Patch Management" .
+poc:PenetrationTesting a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:VulnerabilityManagement ; rdfs:label "Penetration Testing" .
+poc:PhysicalSecurity a owl:Class, poc:SemanticConcept ; rdfs:label "Physical Security" .
+poc:PolicyManagement a owl:Class, poc:SemanticConcept ; rdfs:label "Policy Management" .
+poc:Recovery a owl:Class, poc:SemanticConcept ; rdfs:label "Recovery" .
+poc:RemoteAccess a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:NetworkSecurity ; rdfs:label "Remote Access" .
+poc:RiskManagement a owl:Class, poc:SemanticConcept ; rdfs:label "Risk Management" .
+poc:RolesResponsibilities a owl:Class, poc:SemanticConcept ; rdfs:label "Roles Responsibilities" .
+poc:SecureConfiguration a owl:Class, poc:SemanticConcept ; rdfs:label "Secure Configuration" .
+poc:SupplierSecurity a owl:Class, poc:SemanticConcept ; rdfs:label "Supplier Security" .
+poc:ThreatIntelligence a owl:Class, poc:SemanticConcept ; rdfs:subClassOf poc:ThreatManagement ; rdfs:label "Threat Intelligence" .
+poc:ThreatManagement a owl:Class, poc:SemanticConcept ; rdfs:label "Threat Management" .
+poc:VulnerabilityManagement a owl:Class, poc:SemanticConcept ; rdfs:label "Vulnerability Management" .
+
+poc:Assess a poc:Action ; rdfs:label "Assess" .
+poc:Audit a poc:Action ; rdfs:label "Audit" .
+poc:Authenticate a poc:Action ; rdfs:label "Authenticate" .
+poc:Authorise a poc:Action ; rdfs:label "Authorise" .
+poc:Backup a poc:Action ; rdfs:label "Backup" .
+poc:Communicate a poc:Action ; rdfs:label "Communicate" .
+poc:Define a poc:Action ; rdfs:label "Define" .
+poc:Detect a poc:Action ; rdfs:label "Detect" .
+poc:Dispose a poc:Action ; rdfs:label "Dispose" .
+poc:Document a poc:Action ; rdfs:label "Document" .
+poc:Encrypt a poc:Action ; rdfs:label "Encrypt" .
+poc:Identify a poc:Action ; rdfs:label "Identify" .
+poc:Implement a poc:Action ; rdfs:label "Implement" .
+poc:Inventory a poc:Action ; rdfs:label "Inventory" .
+poc:Log a poc:Action ; rdfs:label "Log" .
+poc:Map a poc:Action ; rdfs:label "Map" .
+poc:Monitor a poc:Action ; rdfs:label "Monitor" .
+poc:Protect a poc:Action ; rdfs:label "Protect" .
+poc:Recover a poc:Action ; rdfs:label "Recover" .
+poc:Remediate a poc:Action ; rdfs:label "Remediate" .
+poc:Respond a poc:Action ; rdfs:label "Respond" .
+poc:Restrict a poc:Action ; rdfs:label "Restrict" .
+poc:Review a poc:Action ; rdfs:label "Review" .
+poc:Test a poc:Action ; rdfs:label "Test" .
+poc:Train a poc:Action ; rdfs:label "Train" .
+poc:Update a poc:Action ; rdfs:label "Update" .
+
+cyfun:GV.OC-01.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentCommunication, poc:RiskManagement ;
+    poc:hasAction poc:Communicate, poc:Define .
+
+cyfun:GV.OC-02.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:RiskManagement .
+
+cyfun:GV.OC-03.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:hasAction poc:Identify, poc:Implement .
+
+cyfun:GV.OC-03.2
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" .
+
+cyfun:GV.OC-04.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:EvidenceRecords, poc:IncidentCommunication, poc:RiskManagement ;
+    poc:hasAction poc:Assess, poc:Communicate, poc:Document, poc:Identify .
+
+cyfun:GV.OC-04.2
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:EvidenceRecords, poc:IncidentCommunication ;
+    poc:hasAction poc:Audit, poc:Define, poc:Document, poc:Remediate, poc:Test, poc:Update .
+
+cyfun:GV.OC-04.3
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:BusinessContinuity, poc:IncidentCommunication ;
+    poc:hasAction poc:Define, poc:Implement .
+
+cyfun:GV.OC-04.4
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:BusinessContinuity, poc:IncidentCommunication, poc:Monitoring, poc:Recovery ;
+    poc:hasAction poc:Define, poc:Monitor, poc:Recover .
+
+cyfun:GV.OC-05.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:EvidenceRecords, poc:IncidentCommunication, poc:RolesResponsibilities, poc:SupplierSecurity ;
+    poc:hasAction poc:Communicate, poc:Document, poc:Identify .
+
+cyfun:GV.RM-01.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Governance, poc:RiskManagement ;
+    poc:hasAction poc:Authorise, poc:Identify .
+
+cyfun:GV.RM-02.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:EvidenceRecords, poc:Governance, poc:IncidentCommunication, poc:RiskManagement ;
+    poc:hasAction poc:Authorise, poc:Communicate, poc:Define, poc:Document, poc:Update .
+
+cyfun:GV.RM-03.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ChangeManagement, poc:RiskManagement ;
+    poc:hasAction poc:Update .
+
+cyfun:GV.RM-03.2
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ChangeManagement, poc:EvidenceRecords, poc:Governance, poc:RiskManagement ;
+    poc:hasAction poc:Authorise, poc:Document, poc:Update .
+
+cyfun:GV.RM-04.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentCommunication, poc:IncidentResponse, poc:RiskManagement ;
+    poc:hasAction poc:Communicate, poc:Define, poc:Identify .
+
+cyfun:GV.RM-05.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentCommunication, poc:RiskManagement, poc:SupplierSecurity ;
+    poc:hasAction poc:Communicate, poc:Define .
+
+cyfun:GV.RR-01.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Governance, poc:IdentityAccessManagement, poc:RiskManagement, poc:RolesResponsibilities .
+
+cyfun:GV.RR-02.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authorization, poc:EvidenceRecords, poc:IncidentCommunication, poc:RiskManagement, poc:RolesResponsibilities, poc:SupplierSecurity ;
+    poc:hasAction poc:Authorise, poc:Communicate, poc:Document, poc:Review .
+
+cyfun:GV.RR-02.2
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentCommunication, poc:RiskManagement, poc:RolesResponsibilities .
+
+cyfun:GV.RR-03-1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:PolicyManagement, poc:RiskManagement, poc:RolesResponsibilities .
+
+cyfun:GV.RR-03-2
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ChangeManagement, poc:IncidentResponse, poc:PolicyManagement, poc:Recovery, poc:RiskManagement, poc:RolesResponsibilities ;
+    poc:hasAction poc:Recover, poc:Respond, poc:Review .
+
+cyfun:GV.RR-04.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authentication, poc:IdentityAccessManagement, poc:RolesResponsibilities ;
+    poc:hasAction poc:Authenticate .
+
+cyfun:GV.RR-04.2
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:LifecycleManagement, poc:RolesResponsibilities ;
+    poc:hasAction poc:Update .
+
+cyfun:GV.PO-01.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ChangeManagement, poc:EvidenceRecords, poc:IncidentCommunication, poc:PolicyManagement ;
+    poc:hasAction poc:Authorise, poc:Communicate, poc:Define, poc:Document, poc:Review, poc:Update .
+
+cyfun:GV.PO-01.2
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ChangeManagement, poc:Encryption, poc:Governance, poc:IncidentCommunication, poc:PolicyManagement, poc:RolesResponsibilities, poc:ThreatManagement ;
+    poc:hasAction poc:Authorise, poc:Encrypt, poc:Implement .
+
+cyfun:GV.OV-02.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:RiskManagement ;
+    poc:hasAction poc:Review .
+
+cyfun:GV.OV-03.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:RiskManagement ;
+    poc:hasAction poc:Assess, poc:Review .
+
+cyfun:GV.SC-01.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ChangeManagement, poc:EvidenceRecords, poc:PolicyManagement, poc:RiskManagement, poc:SupplierSecurity ;
+    poc:hasAction poc:Authorise, poc:Document, poc:Review, poc:Update .
+
+cyfun:GV.SC-02.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IdentityAccessManagement, poc:IncidentCommunication, poc:LifecycleManagement, poc:PhysicalSecurity, poc:RiskManagement, poc:RolesResponsibilities, poc:SupplierSecurity ;
+    poc:hasAction poc:Communicate .
+
+cyfun:GV.SC-03.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:RiskManagement, poc:SupplierSecurity ;
+    poc:hasAction poc:Assess .
+
+cyfun:GV.SC-05.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:DataProtection, poc:RiskManagement, poc:SupplierSecurity ;
+    poc:hasAction poc:Define .
+
+cyfun:GV.SC-05.2
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:EvidenceRecords, poc:RiskManagement, poc:SupplierSecurity ;
+    poc:hasAction poc:Assess, poc:Identify, poc:Implement, poc:Test .
+
+cyfun:GV.SC-05.3
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:RiskManagement, poc:SupplierSecurity ;
+    poc:hasAction poc:Define, poc:Implement, poc:Review .
+
+cyfun:GV.SC-06.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:RiskManagement, poc:SupplierSecurity .
+
+cyfun:GV.SC-07.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ChangeManagement, poc:EvidenceRecords, poc:IncidentResponse, poc:Monitoring, poc:RiskManagement, poc:SupplierSecurity ;
+    poc:hasAction poc:Assess, poc:Document, poc:Identify .
+
+cyfun:GV.SC-07.2
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:DataProtection, poc:EvidenceRecords, poc:IncidentManagement, poc:IncidentResponse, poc:Monitoring, poc:RiskManagement, poc:SupplierSecurity ;
+    poc:hasAction poc:Define, poc:Document .
+
+cyfun:GV.SC-07.3
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:IncidentResponse, poc:Monitoring, poc:RiskManagement, poc:SupplierSecurity ;
+    poc:hasAction poc:Audit .
+
+cyfun:GV.SC-07.4
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:IncidentResponse, poc:Monitoring, poc:RiskManagement, poc:SupplierSecurity ;
+    poc:hasAction poc:Assess, poc:Audit, poc:Review .
+
+cyfun:GV.SC-08.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:EvidenceRecords, poc:IncidentManagement, poc:IncidentResponse, poc:Recovery, poc:RiskManagement, poc:SupplierSecurity ;
+    poc:hasAction poc:Document, poc:Identify, poc:Recover, poc:Respond .
+
+cyfun:GV.SC-09.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:LifecycleManagement, poc:Monitoring, poc:RiskManagement, poc:SupplierSecurity ;
+    poc:hasAction poc:Monitor .
+
+cyfun:GV.SC-10.1
+    poc:inDomain poc:Governance ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:RiskManagement, poc:RolesResponsibilities, poc:SupplierSecurity .
+
+cyfun:ID.AM-01.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:ChangeManagement, poc:CloudSecurity, poc:EvidenceRecords, poc:NetworkSecurity, poc:PhysicalSecurity ;
+    poc:hasAction poc:Document, poc:Inventory, poc:Review, poc:Update .
+
+cyfun:ID.AM-01.2
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:ChangeManagement, poc:IdentityAccessManagement, poc:PhysicalSecurity, poc:RolesResponsibilities ;
+    poc:hasAction poc:Inventory .
+
+cyfun:ID.AM-01.3
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Detection ;
+    poc:hasAction poc:Detect, poc:Inventory, poc:Update .
+
+cyfun:ID.AM-01.4
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Detection ;
+    poc:hasAction poc:Detect, poc:Identify .
+
+cyfun:ID.AM-02.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:ChangeManagement, poc:EvidenceRecords ;
+    poc:hasAction poc:Document, poc:Inventory, poc:Review, poc:Update .
+
+cyfun:ID.AM-02.2
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:ChangeManagement, poc:IdentityAccessManagement, poc:RolesResponsibilities ;
+    poc:hasAction poc:Inventory .
+
+cyfun:ID.AM-02.3
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ApplicationSecurity, poc:AssetInventory, poc:IdentityAccessManagement, poc:RolesResponsibilities ;
+    poc:hasAction poc:Identify .
+
+cyfun:ID.AM-02.4
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Detection ;
+    poc:hasAction poc:Detect, poc:Inventory, poc:Update .
+
+cyfun:ID.AM-02.5
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Detection ;
+    poc:hasAction poc:Detect, poc:Identify .
+
+cyfun:ID.AM-03-2
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authorization, poc:ChangeManagement, poc:DataFlowMapping, poc:DataProtection, poc:EvidenceRecords, poc:IncidentCommunication, poc:InformationFlow, poc:NetworkSecurity ;
+    poc:hasAction poc:Authorise, poc:Communicate, poc:Document, poc:Map, poc:Update .
+
+cyfun:ID.AM-03-3
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authorization, poc:ChangeManagement, poc:DataFlowMapping, poc:DataProtection, poc:EvidenceRecords, poc:IncidentCommunication, poc:InformationFlow, poc:NetworkSecurity ;
+    poc:hasAction poc:Authorise, poc:Communicate, poc:Document, poc:Map, poc:Update .
+
+cyfun:ID.AM-04.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:ChangeManagement, poc:SupplierSecurity ;
+    poc:hasAction poc:Authorise, poc:Review, poc:Update .
+
+cyfun:ID.AM-04.2
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authorization, poc:ChangeManagement, poc:DataFlowMapping, poc:EvidenceRecords, poc:InformationFlow, poc:SupplierSecurity ;
+    poc:hasAction poc:Authorise, poc:Document, poc:Map, poc:Update .
+
+cyfun:ID.AM-5.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory .
+
+cyfun:ID.AM-07.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection ;
+    poc:hasAction poc:Identify .
+
+cyfun:ID.AM-07.2
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection ;
+    poc:hasAction poc:Inventory, poc:Update .
+
+cyfun:ID.AM-08.2
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection, poc:LifecycleManagement, poc:PatchManagement ;
+    poc:hasAction poc:Update .
+
+cyfun:ID.AM-08.3
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection, poc:IdentityAccessManagement, poc:LifecycleManagement, poc:RolesResponsibilities ;
+    poc:hasAction poc:Dispose .
+
+cyfun:ID.AM-08.4
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection, poc:LifecycleManagement .
+
+cyfun:ID.AM-08.5
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection, poc:EvidenceRecords, poc:LifecycleManagement ;
+    poc:hasAction poc:Authorise, poc:Dispose, poc:Document .
+
+cyfun:ID.AM-08.6
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection, poc:EvidenceRecords, poc:LifecycleManagement, poc:Maintenance ;
+    poc:hasAction poc:Authorise, poc:Document .
+
+cyfun:ID.AM-08.7
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection, poc:LifecycleManagement, poc:Maintenance .
+
+cyfun:ID.AM-08.8
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection, poc:LifecycleManagement, poc:Maintenance, poc:Monitoring ;
+    poc:hasAction poc:Authorise, poc:Monitor .
+
+cyfun:ID.AM-08.9
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ApplicationSecurity, poc:AssetInventory, poc:DataProtection, poc:LifecycleManagement, poc:Maintenance, poc:MalwareProtection, poc:PhysicalSecurity ;
+    poc:hasAction poc:Protect .
+
+cyfun:ID.AM-08.10
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection, poc:EvidenceRecords, poc:LifecycleManagement, poc:Maintenance, poc:PatchManagement .
+
+cyfun:ID.AM-08.11
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection, poc:LifecycleManagement, poc:Logging, poc:Maintenance, poc:RemoteAccess ;
+    poc:hasAction poc:Authorise, poc:Log .
+
+cyfun:ID.AM-08.12
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:DataProtection, poc:LifecycleManagement, poc:Maintenance, poc:NetworkSecurity, poc:RemoteAccess ;
+    poc:hasAction poc:Authenticate .
+
+cyfun:ID.AM-08.13
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection, poc:LifecycleManagement, poc:Maintenance, poc:RemoteAccess ;
+    poc:hasAction poc:Implement .
+
+cyfun:ID.RA-01.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:AuditAssessment, poc:NetworkSecurity, poc:PhysicalSecurity, poc:RiskManagement, poc:ThreatManagement, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Identify .
+
+cyfun:ID.RA-01.2
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:AuditAssessment, poc:EvidenceRecords, poc:Monitoring, poc:RiskManagement, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Define, poc:Document, poc:Identify, poc:Monitor .
+
+cyfun:ID.RA-01.3
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:AuditAssessment, poc:EvidenceRecords, poc:IncidentAnalysis, poc:RiskManagement, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Define, poc:Document, poc:Remediate, poc:Review, poc:Update .
+
+cyfun:ID.RA-01.4
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:AuditAssessment, poc:PenetrationTesting, poc:RiskManagement, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Test .
+
+cyfun:ID.RA-01.5
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:AuditAssessment, poc:RiskManagement, poc:VulnerabilityManagement .
+
+cyfun:ID.RA-01.6
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:AuditAssessment, poc:NetworkSecurity, poc:PhysicalSecurity, poc:RiskManagement, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Identify .
+
+cyfun:ID.RA-02.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:AwarenessTraining, poc:RiskManagement, poc:ThreatIntelligence, poc:ThreatManagement, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Implement, poc:Train .
+
+cyfun:ID.RA-02.2
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:RiskManagement, poc:ThreatIntelligence, poc:ThreatManagement ;
+    poc:hasAction poc:Implement .
+
+cyfun:ID.RA-03.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:AuditAssessment, poc:NetworkSecurity, poc:PhysicalSecurity, poc:RiskManagement, poc:ThreatManagement ;
+    poc:hasAction poc:Assess, poc:Identify .
+
+cyfun:ID.RA-05.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:AuditAssessment, poc:IncidentResponse, poc:RiskManagement, poc:ThreatManagement, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Assess .
+
+cyfun:ID.RA-05.2
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:AuditAssessment, poc:EvidenceRecords, poc:IncidentResponse, poc:RiskManagement, poc:ThreatManagement, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Assess, poc:Document .
+
+cyfun:ID.RA-05.3
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:IncidentResponse, poc:RiskManagement, poc:ThreatManagement, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Assess .
+
+cyfun:ID.RA-06.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:IncidentCommunication, poc:RiskManagement ;
+    poc:hasAction poc:Communicate, poc:Identify, poc:Respond .
+
+cyfun:ID.RA-08.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:IncidentAnalysis, poc:IncidentCommunication, poc:IncidentResponse, poc:RiskManagement, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Assess, poc:Communicate, poc:Define, poc:Identify, poc:Implement .
+
+cyfun:ID.RA-08.2
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:DataProtection, poc:IdentityAccessManagement, poc:IncidentAnalysis, poc:IncidentCommunication, poc:IncidentResponse, poc:Monitoring, poc:RiskManagement, poc:RolesResponsibilities, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Communicate, poc:Implement, poc:Monitor .
+
+cyfun:ID.IM-02.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:SupplierSecurity ;
+    poc:hasAction poc:Identify, poc:Test .
+
+cyfun:ID.IM-03.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:AuditAssessment, poc:PolicyManagement, poc:RiskManagement, poc:ThreatManagement, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Assess .
+
+cyfun:ID.IM-03.2
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:AwarenessTraining, poc:IncidentManagement, poc:PolicyManagement ;
+    poc:hasAction poc:Review, poc:Test, poc:Train, poc:Update .
+
+cyfun:ID.IM-03.3
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:Monitoring, poc:PolicyManagement ;
+    poc:hasAction poc:Assess, poc:Identify, poc:Monitor .
+
+cyfun:ID.IM-03.4
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentManagement, poc:PolicyManagement .
+
+cyfun:ID.IM-03.5
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentCommunication, poc:PolicyManagement ;
+    poc:hasAction poc:Communicate, poc:Protect .
+
+cyfun:ID.IM-03.6
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:PhysicalSecurity, poc:PolicyManagement ;
+    poc:hasAction poc:Implement .
+
+cyfun:ID.IM-03.7
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:PolicyManagement ;
+    poc:hasAction poc:Assess, poc:Implement .
+
+cyfun:ID.IM-03.8
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:PhysicalSecurity, poc:PolicyManagement ;
+    poc:hasAction poc:Protect, poc:Review, poc:Test .
+
+cyfun:ID.IM-03.9
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:EvidenceRecords, poc:Monitoring, poc:PolicyManagement, poc:ThreatManagement, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Assess, poc:Monitor, poc:Test .
+
+cyfun:ID.IM-04.1
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:BusinessContinuity, poc:IncidentCommunication, poc:IncidentManagement, poc:IncidentResponse ;
+    poc:hasAction poc:Communicate, poc:Define, poc:Test, poc:Update .
+
+cyfun:ID.IM-04.2
+    poc:inDomain poc:Identify ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:IncidentCommunication, poc:IncidentManagement, poc:IncidentResponse ;
+    poc:hasAction poc:Respond, poc:Test .
+
+cyfun:PR.AA-01.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:Authorization, poc:IdentityAccessManagement ;
+    poc:hasAction poc:Authorise .
+
+cyfun:PR.AA-01.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:Authorization, poc:IdentityAccessManagement ;
+    poc:hasAction poc:Authorise .
+
+cyfun:PR.AA-01.3
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:Authorization, poc:IdentityAccessManagement .
+
+cyfun:PR.AA-01.4
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:Authorization, poc:Encryption, poc:IdentityAccessManagement, poc:MFA ;
+    poc:hasAction poc:Authenticate, poc:Implement .
+
+cyfun:PR.AA-01.5
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:Authorization, poc:IdentityAccessManagement, poc:Monitoring, poc:RiskManagement ;
+    poc:hasAction poc:Monitor .
+
+cyfun:PR.AA-02.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authentication, poc:EvidenceRecords, poc:IdentityAccessManagement, poc:PolicyManagement ;
+    poc:hasAction poc:Document, poc:Implement .
+
+cyfun:PR.AA-02.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authentication, poc:EvidenceRecords, poc:IdentityAccessManagement, poc:Logging, poc:PolicyManagement ;
+    poc:hasAction poc:Authenticate, poc:Identify, poc:Log, poc:Review .
+
+cyfun:PR.AA-03.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:IdentityAccessManagement, poc:Monitoring, poc:NetworkSecurity, poc:SecureConfiguration ;
+    poc:hasAction poc:Monitor, poc:Protect .
+
+cyfun:PR.AA-03.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:IdentityAccessManagement, poc:MFA ;
+    poc:hasAction poc:Authenticate .
+
+cyfun:PR.AA-03.3
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:Authorization, poc:EvidenceRecords, poc:IdentityAccessManagement, poc:PolicyManagement, poc:RemoteAccess, poc:RolesResponsibilities ;
+    poc:hasAction poc:Authorise, poc:Define, poc:Document, poc:Implement, poc:Protect, poc:Restrict .
+
+cyfun:PR.AA-03.4
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:Encryption, poc:IdentityAccessManagement, poc:Monitoring, poc:RemoteAccess ;
+    poc:hasAction poc:Implement, poc:Monitor .
+
+cyfun:PR.AA-03.5
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:EvidenceRecords, poc:IdentityAccessManagement ;
+    poc:hasAction poc:Document .
+
+cyfun:PR.AA-04.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authentication, poc:EvidenceRecords, poc:IdentityAccessManagement ;
+    poc:hasAction poc:Protect .
+
+cyfun:PR.AA-05.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authentication, poc:Authorization, poc:IdentityAccessManagement, poc:LeastPrivilege, poc:PolicyManagement ;
+    poc:hasAction poc:Authorise, poc:Define, poc:Review .
+
+cyfun:PR.AA-05.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authentication, poc:Authorization, poc:DataProtection, poc:IdentityAccessManagement, poc:LeastPrivilege, poc:PolicyManagement .
+
+cyfun:PR.AA-05.3
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authentication, poc:Authorization, poc:DataProtection, poc:IdentityAccessManagement, poc:LeastPrivilege, poc:PolicyManagement ;
+    poc:hasAction poc:Authorise, poc:Restrict .
+
+cyfun:PR.AA-05.4
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authentication, poc:Authorization, poc:IdentityAccessManagement, poc:LeastPrivilege, poc:PolicyManagement .
+
+cyfun:PR.AA-05.5
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:Authentication, poc:Authorization, poc:IdentityAccessManagement, poc:LeastPrivilege, poc:PolicyManagement, poc:RiskManagement ;
+    poc:hasAction poc:Assess, poc:Implement .
+
+cyfun:PR.AA-05.6
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authentication, poc:Authorization, poc:IdentityAccessManagement, poc:LeastPrivilege, poc:PolicyManagement .
+
+cyfun:PR.AA-05.7
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authentication, poc:Authorization, poc:IdentityAccessManagement, poc:LeastPrivilege, poc:Monitoring, poc:PolicyManagement ;
+    poc:hasAction poc:Monitor .
+
+cyfun:PR.AA-05.8
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authentication, poc:Authorization, poc:IdentityAccessManagement, poc:LeastPrivilege, poc:PolicyManagement ;
+    poc:hasAction poc:Restrict .
+
+cyfun:PR.AA-05.9
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:Authentication, poc:Authorization, poc:IdentityAccessManagement, poc:LeastPrivilege, poc:Monitoring, poc:PolicyManagement ;
+    poc:hasAction poc:Audit, poc:Monitor .
+
+cyfun:PR.AA-06.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:IdentityAccessManagement, poc:Monitoring, poc:PhysicalSecurity, poc:RiskManagement ;
+    poc:hasAction poc:Monitor .
+
+cyfun:PR.AA-06.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:IdentityAccessManagement, poc:Monitoring, poc:PhysicalSecurity, poc:PolicyManagement, poc:RiskManagement ;
+    poc:hasAction poc:Protect .
+
+cyfun:PR.AA-06.3
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:IdentityAccessManagement, poc:Monitoring, poc:PhysicalSecurity, poc:RiskManagement .
+
+cyfun:PR.AA-06.4
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authentication, poc:IdentityAccessManagement, poc:Monitoring, poc:PhysicalSecurity, poc:RiskManagement ;
+    poc:hasAction poc:Protect .
+
+cyfun:PR.AT-01.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AwarenessTraining ;
+    poc:hasAction poc:Define, poc:Protect, poc:Train, poc:Update .
+
+cyfun:PR.AT-01.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AwarenessTraining, poc:IncidentCommunication, poc:IncidentResponse, poc:ThreatManagement ;
+    poc:hasAction poc:Communicate, poc:Respond, poc:Train .
+
+cyfun:PR.AT-01.3
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AwarenessTraining, poc:DataProtection, poc:IncidentManagement, poc:IncidentResponse, poc:RolesResponsibilities ;
+    poc:hasAction poc:Respond, poc:Train .
+
+cyfun:PR.AT-01.4
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:AwarenessTraining ;
+    poc:hasAction poc:Assess, poc:Train .
+
+cyfun:PR.AT-02.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AwarenessTraining, poc:DataProtection, poc:RiskManagement, poc:RolesResponsibilities ;
+    poc:hasAction poc:Assess, poc:Train .
+
+cyfun:PR.AT-02.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AwarenessTraining, poc:IdentityAccessManagement, poc:RolesResponsibilities ;
+    poc:hasAction poc:Train .
+
+cyfun:PR.AT-02.3
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AwarenessTraining, poc:IdentityAccessManagement, poc:RolesResponsibilities .
+
+cyfun:PR.DS-01.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:BusinessContinuity, poc:ChangeManagement, poc:DataProtection, poc:Detection ;
+    poc:hasAction poc:Detect, poc:Implement .
+
+cyfun:PR.DS-01.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:BusinessContinuity, poc:DataProtection, poc:EvidenceRecords, poc:IncidentCommunication ;
+    poc:hasAction poc:Implement .
+
+cyfun:PR.DS-01.3
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:BusinessContinuity, poc:DataProtection, poc:Detection ;
+    poc:hasAction poc:Define, poc:Detect, poc:Implement, poc:Respond .
+
+cyfun:PR.DS-01.4
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:BusinessContinuity, poc:DataProtection, poc:IdentityAccessManagement, poc:MalwareProtection, poc:PolicyManagement, poc:RiskManagement ;
+    poc:hasAction poc:Define, poc:Restrict .
+
+cyfun:PR.DS-01.5
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:BusinessContinuity, poc:DataProtection .
+
+cyfun:PR.DS-01.6
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:BusinessContinuity, poc:DataProtection ;
+    poc:hasAction poc:Protect .
+
+cyfun:PR.DS-01.9
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:BusinessContinuity, poc:DataProtection ;
+    poc:hasAction poc:Dispose .
+
+cyfun:PR.DS-02.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:BusinessContinuity, poc:DataProtection ;
+    poc:hasAction poc:Protect .
+
+cyfun:PR.DS-02.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:BusinessContinuity, poc:DataProtection ;
+    poc:hasAction poc:Protect .
+
+cyfun:PR.DS-10.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:BusinessContinuity, poc:DataProtection ;
+    poc:hasAction poc:Protect, poc:Restrict .
+
+cyfun:PR.DS-11.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:Backup, poc:DataProtection ;
+    poc:hasAction poc:Backup .
+
+cyfun:PR.DS-11.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:Backup, poc:DataProtection, poc:EvidenceRecords ;
+    poc:hasAction poc:Backup, poc:Test .
+
+cyfun:PR.DS-11.3
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:Backup, poc:BusinessContinuity, poc:DataProtection ;
+    poc:hasAction poc:Backup, poc:Protect, poc:Update .
+
+cyfun:PR.DS-11.4
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:Backup, poc:BusinessContinuity, poc:DataProtection, poc:EvidenceRecords, poc:IncidentManagement, poc:IncidentResponse, poc:Recovery ;
+    poc:hasAction poc:Backup, poc:Recover, poc:Respond, poc:Test .
+
+cyfun:PR.DS-11.5
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ApplicationSecurity, poc:AuditAssessment, poc:Backup, poc:DataProtection, poc:EvidenceRecords, poc:Recovery, poc:SecureConfiguration ;
+    poc:hasAction poc:Backup, poc:Document, poc:Recover .
+
+cyfun:PR.PS-01.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:EvidenceRecords, poc:SecureConfiguration ;
+    poc:hasAction poc:Document, poc:Update .
+
+cyfun:PR.PS-01.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:SecureConfiguration ;
+    poc:hasAction poc:Review .
+
+cyfun:PR.PS-01.3
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:SecureConfiguration ;
+    poc:hasAction poc:Identify .
+
+cyfun:PR.PS-01.4
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Authorization, poc:PolicyManagement, poc:SecureConfiguration ;
+    poc:hasAction poc:Authorise, poc:Implement .
+
+cyfun:PR.PS-01.5
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ChangeManagement, poc:Monitoring, poc:SecureConfiguration ;
+    poc:hasAction poc:Monitor .
+
+cyfun:PR.PS-02.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:RiskManagement ;
+    poc:hasAction poc:Restrict, poc:Update .
+
+cyfun:PR.PS-03.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:RiskManagement ;
+    poc:hasAction poc:Update .
+
+cyfun:PR.PS-04.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:EvidenceRecords, poc:Logging, poc:Monitoring ;
+    poc:hasAction poc:Document, poc:Update .
+
+cyfun:PR.PS-04.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:EvidenceRecords, poc:Logging, poc:Monitoring .
+
+cyfun:PR.PS-04.3
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:DataProtection, poc:EvidenceRecords, poc:Logging, poc:Monitoring ;
+    poc:hasAction poc:Audit .
+
+cyfun:PR.PS-04.4
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:EvidenceRecords, poc:Logging, poc:Monitoring ;
+    poc:hasAction poc:Audit, poc:Define, poc:Respond .
+
+cyfun:PR.PS-04.5
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:Authorization, poc:EvidenceRecords, poc:IncidentManagement, poc:IncidentResponse, poc:Logging, poc:Monitoring ;
+    poc:hasAction poc:Audit, poc:Authorise, poc:Log, poc:Monitor, poc:Respond .
+
+cyfun:PR.PS-05.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory .
+
+cyfun:PR.PS-05.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory .
+
+cyfun:PR.PS-06.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ApplicationSecurity, poc:AssetInventory, poc:LifecycleManagement, poc:Monitoring .
+
+cyfun:PR.PS-06.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ApplicationSecurity, poc:AssetInventory, poc:AuditAssessment, poc:ChangeManagement, poc:LifecycleManagement, poc:Monitoring ;
+    poc:hasAction poc:Implement, poc:Test .
+
+cyfun:PR.PS-06.3
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ApplicationSecurity, poc:AssetInventory, poc:LifecycleManagement, poc:Monitoring ;
+    poc:hasAction poc:Monitor, poc:Protect .
+
+cyfun:PR.PS-06-4
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ApplicationSecurity, poc:AssetInventory, poc:AuditAssessment, poc:ChangeManagement, poc:IncidentAnalysis, poc:LifecycleManagement, poc:Monitoring ;
+    poc:hasAction poc:Implement, poc:Test .
+
+cyfun:PR.IR-01.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IdentityAccessManagement, poc:NetworkSecurity, poc:SecureConfiguration, poc:ThreatManagement ;
+    poc:hasAction poc:Protect, poc:Update .
+
+cyfun:PR.IR-01.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:IdentityAccessManagement, poc:NetworkSecurity, poc:NetworkSegmentation, poc:ThreatManagement ;
+    poc:hasAction poc:Implement, poc:Restrict .
+
+cyfun:PR.IR-01.3
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:EvidenceRecords, poc:IdentityAccessManagement ;
+    poc:hasAction poc:Document, poc:Identify .
+
+cyfun:PR.IR-01.4
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IdentityAccessManagement, poc:IncidentCommunication, poc:Monitoring ;
+    poc:hasAction poc:Communicate, poc:Implement, poc:Monitor, poc:Protect .
+
+cyfun:PR.IR-01.5
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authentication, poc:IdentityAccessManagement, poc:IncidentCommunication, poc:NetworkSecurity, poc:ThreatIntelligence, poc:ThreatManagement ;
+    poc:hasAction poc:Authenticate, poc:Communicate, poc:Define, poc:Implement .
+
+cyfun:PR.IR-01.6
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IdentityAccessManagement ;
+    poc:hasAction poc:Protect .
+
+cyfun:PR.IR-01.7
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:IdentityAccessManagement ;
+    poc:hasAction poc:Test .
+
+cyfun:PR.IR-01.8
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authorization, poc:DataProtection, poc:IdentityAccessManagement, poc:InformationFlow, poc:Monitoring, poc:NetworkSecurity ;
+    poc:hasAction poc:Authorise, poc:Define, poc:Monitor, poc:Protect .
+
+cyfun:PR.IR-01.9
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:DataProtection, poc:EvidenceRecords, poc:IdentityAccessManagement, poc:NetworkSecurity, poc:PolicyManagement ;
+    poc:hasAction poc:Define, poc:Document, poc:Review .
+
+cyfun:PR.IR-02.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:PolicyManagement, poc:ThreatManagement ;
+    poc:hasAction poc:Define, poc:Implement, poc:Protect, poc:Update .
+
+cyfun:PR.IR-02.2
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:Detection, poc:ThreatManagement ;
+    poc:hasAction poc:Communicate, poc:Detect, poc:Implement .
+
+cyfun:PR.IR-03.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Recovery ;
+    poc:hasAction poc:Implement, poc:Recover .
+
+cyfun:PR.IR-04.1
+    poc:inDomain poc:Protect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:BusinessContinuity, poc:DataProtection ;
+    poc:hasAction poc:Update .
+
+cyfun:DE.CM-01.1
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:Monitoring, poc:NetworkSecurity .
+
+cyfun:DE.CM-01.2
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:MalwareProtection, poc:Monitoring, poc:NetworkSecurity ;
+    poc:hasAction poc:Update .
+
+cyfun:DE.CM-01.3
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:Monitoring, poc:NetworkSecurity, poc:RemoteAccess ;
+    poc:hasAction poc:Detect, poc:Identify, poc:Monitor .
+
+cyfun:DE.CM-01.4
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:IncidentManagement, poc:Monitoring, poc:NetworkSecurity, poc:ThreatManagement ;
+    poc:hasAction poc:Define, poc:Monitor .
+
+cyfun:DE.CM-02.1
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:Monitoring, poc:PhysicalSecurity ;
+    poc:hasAction poc:Monitor .
+
+cyfun:DE.CM-02.2
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:IdentityAccessManagement, poc:Monitoring, poc:PhysicalSecurity ;
+    poc:hasAction poc:Monitor .
+
+cyfun:DE.CM-03-1
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:Monitoring, poc:NetworkSecurity ;
+    poc:hasAction poc:Implement, poc:Monitor, poc:Protect .
+
+cyfun:DE.CM-03.2
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:Monitoring, poc:NetworkSecurity ;
+    poc:hasAction poc:Monitor, poc:Protect .
+
+cyfun:DE.CM-06.1
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:Monitoring ;
+    poc:hasAction poc:Monitor, poc:Protect .
+
+cyfun:DE.CM-06.2
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:Monitoring, poc:PolicyManagement ;
+    poc:hasAction poc:Monitor .
+
+cyfun:DE.CM-09.1
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection, poc:Detection, poc:Monitoring ;
+    poc:hasAction poc:Detect, poc:Monitor .
+
+cyfun:DE.CM-09.2
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection, poc:Detection, poc:Monitoring, poc:RiskManagement ;
+    poc:hasAction poc:Detect, poc:Implement .
+
+cyfun:DE.CM-09.3
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:DataProtection, poc:Detection, poc:IncidentManagement, poc:IncidentResponse, poc:Monitoring ;
+    poc:hasAction poc:Detect, poc:Respond .
+
+cyfun:DE.CM-09.4
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:ApplicationSecurity, poc:AssetInventory, poc:DataProtection, poc:Detection, poc:MalwareProtection, poc:Monitoring ;
+    poc:hasAction poc:Define, poc:Detect .
+
+cyfun:DE.AE-02.1
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:IncidentAnalysis, poc:PolicyManagement ;
+    poc:hasAction poc:Identify, poc:Review .
+
+cyfun:DE.AE-02.2
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:IncidentAnalysis ;
+    poc:hasAction poc:Detect, poc:Implement, poc:Review .
+
+cyfun:DE.AE-03.1
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:IncidentAnalysis, poc:Logging ;
+    poc:hasAction poc:Detect, poc:Identify, poc:Log, poc:Protect, poc:Review .
+
+cyfun:DE.AE-03.2
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:DataProtection, poc:Detection, poc:IncidentAnalysis .
+
+cyfun:DE.AE-03.3
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:DataProtection, poc:Detection, poc:IncidentAnalysis, poc:Monitoring, poc:PhysicalSecurity, poc:VulnerabilityManagement ;
+    poc:hasAction poc:Monitor .
+
+cyfun:DE.AE-04.1
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:AuditAssessment, poc:Detection, poc:IncidentAnalysis, poc:RiskManagement ;
+    poc:hasAction poc:Assess, poc:Detect .
+
+cyfun:DE.AE-06.1
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Authorization, poc:Detection, poc:IncidentAnalysis, poc:IncidentResponse ;
+    poc:hasAction poc:Authorise, poc:Detect, poc:Respond .
+
+cyfun:DE.AE-08.1
+    poc:inDomain poc:Detect ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:Detection, poc:EvidenceRecords, poc:IncidentAnalysis, poc:IncidentCommunication, poc:IncidentManagement ;
+    poc:hasAction poc:Communicate, poc:Define, poc:Document .
+
+cyfun:RS.MA-01.1
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentManagement, poc:IncidentResponse, poc:RolesResponsibilities, poc:SupplierSecurity ;
+    poc:hasAction poc:Define, poc:Respond .
+
+cyfun:RS.MA-01.2
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentManagement, poc:IncidentResponse, poc:SupplierSecurity ;
+    poc:hasAction poc:Respond .
+
+cyfun:RS.MA-02.1
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentCommunication, poc:IncidentManagement, poc:IncidentResponse, poc:PolicyManagement ;
+    poc:hasAction poc:Communicate, poc:Respond .
+
+cyfun:RS.MA-02.2
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AuditAssessment, poc:IncidentCommunication, poc:IncidentManagement, poc:IncidentResponse ;
+    poc:hasAction poc:Assess .
+
+cyfun:RS.MA-03.1
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentManagement, poc:IncidentResponse ;
+    poc:hasAction poc:Respond .
+
+cyfun:RS.MA-05.1
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentManagement, poc:IncidentResponse, poc:Recovery ;
+    poc:hasAction poc:Define, poc:Recover .
+
+cyfun:RS.AN-03.1
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentAnalysis, poc:IncidentManagement, poc:IncidentResponse ;
+    poc:hasAction poc:Identify .
+
+cyfun:RS.AN-06.1
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:EvidenceRecords, poc:IncidentAnalysis, poc:IncidentManagement, poc:IncidentResponse .
+
+cyfun:RS.AN-07.1
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:DataProtection, poc:IncidentAnalysis, poc:IncidentManagement, poc:IncidentResponse ;
+    poc:hasAction poc:Protect .
+
+cyfun:RS.AN-08.1
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentAnalysis, poc:IncidentManagement, poc:IncidentResponse .
+
+cyfun:RS.CO-02.1
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentCommunication, poc:IncidentManagement, poc:IncidentResponse ;
+    poc:hasAction poc:Communicate .
+
+cyfun:RS.CO-02.2
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentCommunication, poc:IncidentManagement, poc:IncidentResponse ;
+    poc:hasAction poc:Communicate, poc:Define, poc:Respond .
+
+cyfun:RS.MI-01.1
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:EvidenceRecords, poc:IncidentManagement, poc:IncidentResponse ;
+    poc:hasAction poc:Document .
+
+cyfun:RS.MI-01.2
+    poc:inDomain poc:Respond ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:DataProtection, poc:Detection, poc:IdentityAccessManagement, poc:IncidentManagement, poc:IncidentResponse, poc:Monitoring ;
+    poc:hasAction poc:Detect, poc:Monitor .
+
+cyfun:RC.RP-01.1
+    poc:inDomain poc:Recover ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentManagement, poc:IncidentResponse, poc:Recovery ;
+    poc:hasAction poc:Recover .
+
+cyfun:RC.RP-02.1
+    poc:inDomain poc:Recover ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:BusinessContinuity, poc:IncidentManagement, poc:Recovery ;
+    poc:hasAction poc:Recover, poc:Update .
+
+cyfun:RC.RP-05.1
+    poc:inDomain poc:Recover ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:AssetInventory, poc:EvidenceRecords, poc:IncidentManagement, poc:Recovery ;
+    poc:hasAction poc:Recover .
+
+cyfun:RC.RP-06.1
+    poc:inDomain poc:Recover ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:EvidenceRecords, poc:IncidentManagement, poc:Recovery ;
+    poc:hasAction poc:Document, poc:Recover, poc:Review .
+
+cyfun:RC.CO-03.1
+    poc:inDomain poc:Recover ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentCommunication, poc:IncidentManagement, poc:PolicyManagement, poc:Recovery ;
+    poc:hasAction poc:Communicate, poc:Define, poc:Recover .
+
+cyfun:RC.CO-04.1
+    poc:inDomain poc:Recover ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentCommunication, poc:IncidentManagement, poc:PolicyManagement, poc:Recovery ;
+    poc:hasAction poc:Authorise, poc:Communicate, poc:Define, poc:Recover, poc:Update .
+
+cyfun:RC.CO-04.2
+    poc:inDomain poc:Recover ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:DataProtection, poc:IncidentCommunication, poc:IncidentManagement, poc:Recovery ;
+    poc:hasAction poc:Communicate, poc:Recover, poc:Update .
+
+cyfun:RC.CO-04.3
+    poc:inDomain poc:Recover ;
+    poc:mappingMethod "heuristic-poc-v1" ;
+    poc:concerns poc:IncidentCommunication, poc:IncidentManagement, poc:Recovery ;
+    poc:hasAction poc:Communicate, poc:Implement, poc:Recover .

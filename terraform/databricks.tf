@@ -14,7 +14,7 @@ resource "databricks_external_location" "northmart" {
   enable_file_events = true
   file_event_queue {
     managed_aqs {
-      resource_group  = azurerm_resource_group.northmart.name
+      resource_group  = local.resource_group_name
       subscription_id = "60b97edd-4189-44b0-92bd-5ba7c24dadc5"
     }
   }

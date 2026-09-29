@@ -1,0 +1,2013 @@
+@prefix ok: <https://w3id.org/ontouml/knowledge#> .
+@prefix ontouml: <https://w3id.org/ontouml#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/ontouml/knowledge#element/category> a ok:LanguageElement ;
+    rdfs:label "Category" ;
+    ok:abstract true ;
+    ok:category "class_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/2dd8ba4fdfdbed330d89> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/f823bf2f2541de3bbc06> ;
+    ok:dependency "optional" ;
+    ok:describes ontouml:category ;
+    ok:forbidden-associations "Structuration" ;
+    ok:identity-principle "multiple" ;
+    ok:parent "RigidNonSortal" ;
+    ok:provides-identity false ;
+    ok:rigidity "rigid" ;
+    ok:source "classes/nonsortals/category/meta.yml" ;
+    ok:subtypes "Category",
+        "Collective",
+        "Kind",
+        "Mixin",
+        "Mode",
+        "Phase",
+        "PhaseMixin",
+        "Quality",
+        "Quantity",
+        "Relator",
+        "Role",
+        "RoleMixin",
+        "Subkind" ;
+    ok:supertypes "Category",
+        "Mixin" .
+
+<https://w3id.org/ontouml/knowledge#element/characterization> a ok:LanguageElement ;
+    rdfs:label "characterization" ;
+    ok:binary-properties <https://w3id.org/ontouml/knowledge#node/531dd2952105cd7e12c3> ;
+    ok:category "relationship_stereotype" ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/c89835812be08dbeacc6> ;
+    ok:describes ontouml:characterization ;
+    ok:directed true ;
+    ok:source "relationships/characterization/meta.yml" ;
+    ok:source-end <https://w3id.org/ontouml/knowledge#node/43b8cbd99154c7d8d6a6> ;
+    ok:target-end <https://w3id.org/ontouml/knowledge#node/1193ff5cbf62cd4820d7> .
+
+<https://w3id.org/ontouml/knowledge#element/collective> a ok:LanguageElement ;
+    rdfs:label "Collective" ;
+    ok:abstract "undefined" ;
+    ok:category "class_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/dbf57af0e9c1b1070ad0> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/1a9a564b3cea57ab21b7> ;
+    ok:dependency "optional" ;
+    ok:describes ontouml:collective ;
+    ok:forbidden-associations "ComponentOf",
+        "Derivation",
+        "Structuration",
+        "SubQuantityOf" ;
+    ok:identity-principle "simple" ;
+    ok:parent "UltimateSortal" ;
+    ok:provides-identity true ;
+    ok:rigidity "rigid" ;
+    ok:source "classes/sortals/collective/meta.yml" ;
+    ok:subtypes "Phase",
+        "Role",
+        "Subkind" ;
+    ok:supertypes "Category",
+        "Mixin" .
+
+<https://w3id.org/ontouml/knowledge#element/componentof> a ok:LanguageElement ;
+    rdfs:label "componentOf" ;
+    ok:binary-properties <https://w3id.org/ontouml/knowledge#node/e6aca3e1cecc0c9a6475> ;
+    ok:category "aggregation_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/44d498dc01e57cd279ef> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/79340e42149321367fac> ;
+    ok:describes ontouml:componentOf ;
+    ok:directed true ;
+    ok:source "relationships/aggregations/componentOf/meta.yml" ;
+    ok:source-end <https://w3id.org/ontouml/knowledge#node/01e763e622cdd33e4afe> ;
+    ok:target-end <https://w3id.org/ontouml/knowledge#node/39246b6ce4ef09df2703> .
+
+<https://w3id.org/ontouml/knowledge#element/containment> a ok:LanguageElement ;
+    rdfs:label "containment" ;
+    ok:binary-properties <https://w3id.org/ontouml/knowledge#node/94235637ae86dbcf85f9> ;
+    ok:category "aggregation_stereotype" ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/5088d9544894a35147f4> ;
+    ok:describes ontouml:containment ;
+    ok:directed true ;
+    ok:source "relationships/aggregations/containment/meta.yml" ;
+    ok:source-end <https://w3id.org/ontouml/knowledge#node/6ebf35b75584cfeaed0d> ;
+    ok:target-end <https://w3id.org/ontouml/knowledge#node/1f6b29b24853f8d59235> .
+
+<https://w3id.org/ontouml/knowledge#element/derivation> a ok:LanguageElement ;
+    rdfs:label "derivation" ;
+    ok:binary-properties <https://w3id.org/ontouml/knowledge#node/1ff4e0da0355df62708b> ;
+    ok:category "relationship_stereotype" ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/30413832937ac9d9a823> ;
+    ok:describes ontouml:derivation ;
+    ok:directed true ;
+    ok:source "relationships/derivation/meta.yml" ;
+    ok:source-end <https://w3id.org/ontouml/knowledge#node/2a6a087c47f190a663b0> ;
+    ok:target-end <https://w3id.org/ontouml/knowledge#node/dca9162c0805eb804900> .
+
+<https://w3id.org/ontouml/knowledge#element/formal> a ok:LanguageElement ;
+    rdfs:label "formal" ;
+    ok:binary-properties <https://w3id.org/ontouml/knowledge#node/67c84a3219858f7eacfc> ;
+    ok:category "relationship_stereotype" ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/cfebc43a6ea90da6bea9> ;
+    ok:describes ontouml:formal ;
+    ok:directed false ;
+    ok:source "relationships/formal/meta.yml" ;
+    ok:source-end <https://w3id.org/ontouml/knowledge#node/6288b0c27be5c600481c> ;
+    ok:target-end <https://w3id.org/ontouml/knowledge#node/394ee93e358e15bea149> .
+
+<https://w3id.org/ontouml/knowledge#element/kind> a ok:LanguageElement ;
+    rdfs:label "Kind" ;
+    ok:abstract "undefined" ;
+    ok:category "class_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/22bb4e9586521e264f7e> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/e8870f2cb228dc6ae746> ;
+    ok:dependency "optional" ;
+    ok:describes ontouml:kind ;
+    ok:forbidden-associations "Derivation",
+        "Structuration",
+        "SubCollectionOf",
+        "SubQuantityOf" ;
+    ok:identity-principle "simple" ;
+    ok:parent "UltimateSortal" ;
+    ok:provides-identity true ;
+    ok:rigidity "rigid" ;
+    ok:source "classes/sortals/kind/meta.yml" ;
+    ok:subtypes "Phase",
+        "Role",
+        "Subkind" ;
+    ok:supertypes "Category",
+        "Mixin" .
+
+<https://w3id.org/ontouml/knowledge#element/material> a ok:LanguageElement ;
+    rdfs:label "material" ;
+    ok:binary-properties <https://w3id.org/ontouml/knowledge#node/17216b58eb513edc031f> ;
+    ok:category "relationship_stereotype" ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/6251b0534f11121f39c2> ;
+    ok:describes ontouml:material ;
+    ok:directed false ;
+    ok:source "relationships/material/meta.yml" ;
+    ok:source-end <https://w3id.org/ontouml/knowledge#node/9cc75428f8b7be25f828> ;
+    ok:target-end <https://w3id.org/ontouml/knowledge#node/71543e549e3992f28b16> .
+
+<https://w3id.org/ontouml/knowledge#element/mediation> a ok:LanguageElement ;
+    rdfs:label "mediation" ;
+    ok:binary-properties <https://w3id.org/ontouml/knowledge#node/cc18d9ea47637ab159c7> ;
+    ok:category "relationship_stereotype" ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/107f91b775142570cbff> ;
+    ok:describes ontouml:mediation ;
+    ok:directed true ;
+    ok:source "relationships/mediation/meta.yml" ;
+    ok:source-end <https://w3id.org/ontouml/knowledge#node/ad648837084c07da0b87> ;
+    ok:target-end <https://w3id.org/ontouml/knowledge#node/c280fa9de0ca44f7718e> .
+
+<https://w3id.org/ontouml/knowledge#element/memberof> a ok:LanguageElement ;
+    rdfs:label "memberOf" ;
+    ok:binary-properties <https://w3id.org/ontouml/knowledge#node/4f8f77715400ee4b8522> ;
+    ok:category "aggregation_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/100ee6496fb1dd03592f> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/658a3f90121f216f91a7> ;
+    ok:describes ontouml:memberOf ;
+    ok:directed true ;
+    ok:source "relationships/aggregations/memberOf/meta.yml" ;
+    ok:source-end <https://w3id.org/ontouml/knowledge#node/abf29901d2b1521aafae> ;
+    ok:target-end <https://w3id.org/ontouml/knowledge#node/de2ffa8fa6d15aa3af87> .
+
+<https://w3id.org/ontouml/knowledge#element/mixin> a ok:LanguageElement ;
+    rdfs:label "Mixin" ;
+    ok:abstract true ;
+    ok:category "class_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/6d05846cd92894b49cf0> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/6e9780ea29670c1c1dd1> ;
+    ok:dependency "optional" ;
+    ok:describes ontouml:mixin ;
+    ok:forbidden-associations "Structuration" ;
+    ok:identity-principle "multiple" ;
+    ok:parent "SemiRigidNonSortal" ;
+    ok:provides-identity false ;
+    ok:rigidity "semirigid" ;
+    ok:source "classes/nonsortals/mixin/meta.yml" ;
+    ok:subtypes "Category",
+        "Collective",
+        "Kind",
+        "Mixin",
+        "Mode",
+        "Phase",
+        "PhaseMixin",
+        "Quality",
+        "Quantity",
+        "Relator",
+        "Role",
+        "RoleMixin",
+        "Subkind" ;
+    ok:supertypes "Category",
+        "Mixin" .
+
+<https://w3id.org/ontouml/knowledge#element/mode> a ok:LanguageElement ;
+    rdfs:label "Mode" ;
+    ok:abstract true ;
+    ok:category "class_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/8ce18734be26f522ca64> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/66f9b5663be8e0e287b7> ;
+    ok:dependency "mandatory" ;
+    ok:describes ontouml:mode ;
+    ok:forbidden-associations "ComponentOf",
+        "Derivation",
+        "MemberOf",
+        "Structuration",
+        "SubCollectionOf",
+        "SubQuantityOf" ;
+    ok:identity-principle "single" ;
+    ok:parent "Aspect" ;
+    ok:provides-identity true ;
+    ok:rigidity "rigid" ;
+    ok:source "classes/aspects/mode/meta.yml" ;
+    ok:subtypes "Phase",
+        "Role",
+        "Subkind" ;
+    ok:supertypes "Category",
+        "Mixin" .
+
+<https://w3id.org/ontouml/knowledge#element/phase> a ok:LanguageElement ;
+    rdfs:label "Phase" ;
+    ok:abstract "undefined" ;
+    ok:category "class_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/a5eb5515568818d5e23b> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/545fb7f606e4480a159d> ;
+    ok:dependency "optional" ;
+    ok:describes ontouml:phase ;
+    ok:forbidden-associations "Structuration" ;
+    ok:identity-principle "simple" ;
+    ok:parent "AntiRigidSortal" ;
+    ok:provides-identity false ;
+    ok:rigidity "antirigid" ;
+    ok:source "classes/sortals/phase/meta.yml" ;
+    ok:subtypes "Phase",
+        "Role" ;
+    ok:supertypes "Category",
+        "Collective",
+        "Kind",
+        "Mixin",
+        "Mode",
+        "Phase",
+        "PhaseMixin",
+        "Quality",
+        "Quantity",
+        "Relator",
+        "Subkind" .
+
+<https://w3id.org/ontouml/knowledge#element/phasemixin> a ok:LanguageElement ;
+    rdfs:label "PhaseMixin" ;
+    ok:abstract true ;
+    ok:category "class_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/34e2b517be309177fb94> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/7049f92e7326a49565d7> ;
+    ok:dependency "mandatory" ;
+    ok:describes ontouml:phaseMixin ;
+    ok:forbidden-associations "Structuration" ;
+    ok:identity-principle "multiple" ;
+    ok:parent "AntiRigidNonSortal" ;
+    ok:provides-identity false ;
+    ok:rigidity "antirigid" ;
+    ok:source "classes/nonsortals/phasemixin/meta.yml" ;
+    ok:subtypes "Phase",
+        "PhaseMixin",
+        "Role",
+        "RoleMixin" ;
+    ok:supertypes "Category",
+        "Mixin",
+        "PhaseMixin" .
+
+<https://w3id.org/ontouml/knowledge#element/quality> a ok:LanguageElement ;
+    rdfs:label "Quality" ;
+    ok:abstract true ;
+    ok:category "class_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/d6326e92554da4fc6eb0> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/d5428df16143bad1eeb6> ;
+    ok:dependency "mandatory" ;
+    ok:describes ontouml:quality ;
+    ok:forbidden-associations "ComponentOf",
+        "Derivation",
+        "MemberOf",
+        "SubCollectionOf",
+        "SubQuantityOf" ;
+    ok:identity-principle "single" ;
+    ok:parent "Aspect" ;
+    ok:provides-identity true ;
+    ok:rigidity "rigid" ;
+    ok:source "classes/aspects/quality/meta.yml" ;
+    ok:subtypes "Phase",
+        "Role",
+        "Subkind" ;
+    ok:supertypes "Category",
+        "Mixin" .
+
+<https://w3id.org/ontouml/knowledge#element/quantity> a ok:LanguageElement ;
+    rdfs:label "Quantity" ;
+    ok:abstract "undefined" ;
+    ok:category "class_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/7afaa421e52a059bcd00> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/8355bcec1353e765ad4d> ;
+    ok:dependency "optional" ;
+    ok:describes ontouml:quantity ;
+    ok:forbidden-associations "ComponentOf",
+        "Derivation",
+        "Structuration",
+        "SubCollectionOf" ;
+    ok:identity-principle "simple" ;
+    ok:parent "UltimateSortal" ;
+    ok:provides-identity true ;
+    ok:rigidity "rigid" ;
+    ok:source "classes/sortals/quantity/meta.yml" ;
+    ok:subtypes "Phase",
+        "Role",
+        "Subkind" ;
+    ok:supertypes "Category",
+        "Mixin" .
+
+<https://w3id.org/ontouml/knowledge#element/relator> a ok:LanguageElement ;
+    rdfs:label "Relator" ;
+    ok:abstract "undefined" ;
+    ok:category "class_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/3b030e70095a378113ef> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/db6a1950c1142b016543> ;
+    ok:dependency "mandatory" ;
+    ok:describes ontouml:relator ;
+    ok:forbidden-associations "ComponentOf",
+        "Structuration",
+        "SubCollectionOf",
+        "SubQuantityOf" ;
+    ok:identity-principle "simple" ;
+    ok:parent "UltimateSortal" ;
+    ok:provides-identity true ;
+    ok:rigidity "rigid" ;
+    ok:source "classes/sortals/relator/meta.yml" ;
+    ok:subtypes "Phase",
+        "Role",
+        "Subkind" ;
+    ok:supertypes "Category",
+        "Mixin" .
+
+<https://w3id.org/ontouml/knowledge#element/role> a ok:LanguageElement ;
+    rdfs:label "Role" ;
+    ok:abstract "undefined" ;
+    ok:category "class_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/10808661e79fc4cb1505> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/d658871ea6b82298119d> ;
+    ok:dependency "mandatory" ;
+    ok:describes ontouml:role ;
+    ok:forbidden-associations "Structuration" ;
+    ok:identity-principle "simple" ;
+    ok:parent "AntiRigidSortal" ;
+    ok:provides-identity false ;
+    ok:rigidity "antirigid" ;
+    ok:source "classes/sortals/role/meta.yml" ;
+    ok:subtypes "Role" ;
+    ok:supertypes "Category",
+        "Collective",
+        "Kind",
+        "Mixin",
+        "Mode",
+        "Phase",
+        "PhaseMixin",
+        "Quality",
+        "Quantity",
+        "Relator",
+        "Role",
+        "RoleMixin",
+        "Subkind" .
+
+<https://w3id.org/ontouml/knowledge#element/rolemixin> a ok:LanguageElement ;
+    rdfs:label "RoleMixin" ;
+    ok:abstract true ;
+    ok:category "class_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/01f86174496aba18c550> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/ff1579f9a9517ac0939f> ;
+    ok:dependency "mandatory" ;
+    ok:describes ontouml:roleMixin ;
+    ok:forbidden-associations "Structuration" ;
+    ok:identity-principle "multiple" ;
+    ok:parent "AntiRigidNonSortal" ;
+    ok:provides-identity false ;
+    ok:rigidity "antirigid" ;
+    ok:source "classes/nonsortals/rolemixin/meta.yml" ;
+    ok:subtypes "Role",
+        "RoleMixin" ;
+    ok:supertypes "Category",
+        "Mixin",
+        "PhaseMixin",
+        "RoleMixin" .
+
+<https://w3id.org/ontouml/knowledge#element/structuration> a ok:LanguageElement ;
+    rdfs:label "structuration" ;
+    ok:binary-properties <https://w3id.org/ontouml/knowledge#node/bdeb7c8d2d2203c1282f> ;
+    ok:category "relationship_stereotype" ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/91fe17a9adcb47e39357> ;
+    ok:describes ontouml:structuration ;
+    ok:directed true ;
+    ok:source "relationships/structuration/meta.yml" ;
+    ok:source-end <https://w3id.org/ontouml/knowledge#node/45f2299ed2025ed61fc8> ;
+    ok:target-end <https://w3id.org/ontouml/knowledge#node/3ab4b899343efb1c7f6e> .
+
+<https://w3id.org/ontouml/knowledge#element/subcollectionof> a ok:LanguageElement ;
+    rdfs:label "subCollectionOf" ;
+    ok:binary-properties <https://w3id.org/ontouml/knowledge#node/412f20012ad50dd2a5bc> ;
+    ok:category "aggregation_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/bd405f774473ba7383f1> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/7a7c85847127107a7e7d> ;
+    ok:describes ontouml:subCollectionOf ;
+    ok:directed true ;
+    ok:source "relationships/aggregations/subCollectionOf/meta.yml" ;
+    ok:source-end <https://w3id.org/ontouml/knowledge#node/dedca1dca66850a0d96d> ;
+    ok:target-end <https://w3id.org/ontouml/knowledge#node/9af17566afc9edab0f3a> .
+
+<https://w3id.org/ontouml/knowledge#element/subkind> a ok:LanguageElement ;
+    rdfs:label "Subkind" ;
+    ok:abstract "undefined" ;
+    ok:category "class_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/4500f4b9fad303719cf8> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/14716957fb59995ef19d> ;
+    ok:dependency "optional" ;
+    ok:describes ontouml:subkind ;
+    ok:forbidden-associations "Structuration" ;
+    ok:identity-principle "simple" ;
+    ok:parent "RigidSortal" ;
+    ok:provides-identity false ;
+    ok:rigidity "rigid" ;
+    ok:source "classes/sortals/subkind/meta.yml" ;
+    ok:subtypes "Phase",
+        "Role",
+        "Subkind" ;
+    ok:supertypes "Category",
+        "Collective",
+        "Kind",
+        "Mixin",
+        "Mode",
+        "Quality",
+        "Quantity",
+        "Relator",
+        "Subkind" .
+
+<https://w3id.org/ontouml/knowledge#element/subquantityof> a ok:LanguageElement ;
+    rdfs:label "subQuantityOf" ;
+    ok:binary-properties <https://w3id.org/ontouml/knowledge#node/b2fe7a1984f6380b7ea9> ;
+    ok:category "aggregation_stereotype" ;
+    ok:constraint <https://w3id.org/ontouml/knowledge#document/38d80d876ed2f4e0bca6> ;
+    ok:definition <https://w3id.org/ontouml/knowledge#document/87aca5d94a81ce018864> ;
+    ok:describes ontouml:subQuantityOf ;
+    ok:directed true ;
+    ok:source "relationships/aggregations/subQuantityOf/meta.yml" ;
+    ok:source-end <https://w3id.org/ontouml/knowledge#node/34c13e79064d16fa6a54> ;
+    ok:target-end <https://w3id.org/ontouml/knowledge#node/ee8746df76fa489af711> .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_aib> a ok:ValidationRule ;
+    rdfs:label "R_CL_AIB" ;
+    ok:description "Enumeration classes cannot be specialized by other classes." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_alx> a ok:ValidationRule ;
+    rdfs:label "R_CL_ALX" ;
+    ok:description "Every class decorated with a ULTIMATE SORTAL or a NON-SORTAL stereotype cannot specialize classes decorated with a SORTAL or an ABSTRACT stereotype." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_any> a ok:ValidationRule ;
+    rdfs:label "R_CL_ANY" ;
+    ok:description "No class representing a powertype (i.e., whose tagged value 'isPowertype' is set to 'true') can be the target of more than one non-derived instantiation relation." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_asz> a ok:ValidationRule ;
+    rdfs:label "R_CL_ASZ" ;
+    ok:description "Every class decorated with a non-sortal stereotype and the tagged value 'order' set to '1' must have the tagged value 'restrictedTo' set to an array containing one or more of the values in the list [ 'functional-complex', 'collective', 'quantity', 'relator', 'intrinsic-mode', 'extrinsic-mode', 'quality' ]." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_bfo> a ok:ValidationRule ;
+    rdfs:label "R_CL_BFO" ;
+    ok:description "Every class whose tagged value 'restrictedTo' is [ 'collective' ] must have the tagged value 'isExtensional' set to either 'true' or 'false'." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_ble> a ok:ValidationRule ;
+    rdfs:label "R_CL_BLE" ;
+    ok:description "Every class decorated with a RIGID or SEMI-RIGID stereotype cannot specialize classes decorated with an ANTI-RIGID stereotype." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_bqi> a ok:ValidationRule ;
+    rdfs:label "R_CL_BQI" ;
+    ok:description "Every class with the tagged value 'restrictedTo' set to [ 'type' ] must have the have the tagged 'order' set to a number greater than '1'." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_bwz> a ok:ValidationRule ;
+    rdfs:label "R_CL_BWZ" ;
+    ok:description "Every class must be decorated with stereotypes of the OntoUML profile." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_cms> a ok:ValidationRule ;
+    rdfs:label "R_CL_CMS" ;
+    ok:description "Every class decorated with a «phase» must be part of a disjoint and complete generalization set including only classes decorated with «phase» as the generalizations' specific classes." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_eda> a ok:ValidationRule ;
+    rdfs:label "R_CL_EDA" ;
+    ok:description "Enumeration classes can only be generalized by classes with stereotype Abstract." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_egt> a ok:ValidationRule ;
+    rdfs:label "R_CL_EGT" ;
+    ok:description "No class can have one of its subclasses as its superclasses." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_emv> a ok:ValidationRule ;
+    rdfs:label "R_CL_EMV" ;
+    ok:description "Every class must have the tagged value 'restrictedTo' set to one or more values in the list [ 'functional-complex', 'collective', 'quantity', 'relator', 'intrinsic-mode', 'extrinsic-mode', 'quality', 'event', 'situation', 'abstract', 'type' ]." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_gaz> a ok:ValidationRule ;
+    rdfs:label "R_CL_GAZ" ;
+    ok:description "Every class with the tagged value 'restrictedTo' set to [ 'type' ] and some other value must have the have the tagged 'order' set to '*'." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_gju> a ok:ValidationRule ;
+    rdfs:label "R_CL_GJU" ;
+    ok:description "Every class must be decorated with exactly one stereotype." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_jfw> a ok:ValidationRule ;
+    rdfs:label "R_CL_JFW" ;
+    ok:description "Every class representing a powertype (i.e., whose tagged value 'isPowertype' is set to 'true') must only have types as instances (i.e., its tagged value 'restrictedTo' must be set to [ 'type' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_jmq> a ok:ValidationRule ;
+    rdfs:label "R_CL_JMQ" ;
+    ok:description "Every class must have the tagged value 'order' set to a number greater than '0' or set to '*'." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_joj> a ok:ValidationRule ;
+    rdfs:label "R_CL_JOJ" ;
+    ok:description "Every class having enumeration literals must be decorated with the stereotype enumeration." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_lax> a ok:ValidationRule ;
+    rdfs:label "R_CL_LAX" ;
+    ok:description "Every class decorated with a base sortal stereotype and the tagged value 'order' set to '1' must have the tagged value 'restrictedTo' set to an array containing one of the values in the list [ 'functional-complex', 'collective', 'quantity', 'relator', 'intrinsic-mode', 'extrinsic-mode', 'quality' ]." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_nbg> a ok:ValidationRule ;
+    rdfs:label "R_CL_NBG" ;
+    ok:description "Every class decorated with a «phaseMixin» must be part of a disjoint and complete generalization set including only classes decorated with «phaseMixin» as the generalizations' specific classes." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_oev> a ok:ValidationRule ;
+    rdfs:label "R_CL_OEV" ;
+    ok:description "Every non-derived class decorated with a «role» must be connected directly or indirectly to some relation decorated with the stereotype «mediation» where the opposited end has a cardinality with lower bound '1'." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_ppz> a ok:ValidationRule ;
+    rdfs:label "R_CL_PPZ" ;
+    ok:description "Every abstract class should be specialized by some concrete class or have a super class that is specialized by a concrete class." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_psq> a ok:ValidationRule ;
+    rdfs:label "R_CL_PSQ" ;
+    ok:description "Every class decorated with a stereotype «type» must have the have the tagged 'order' set to a number greater than '1' or set to '*'." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_qjc> a ok:ValidationRule ;
+    rdfs:label "R_CL_QJC" ;
+    ok:description "Each class with one of the following stereotypes must exclusively map to the corresponding 'restrictedTo' value: collective to collective, event to event, kind to functional-complex, quality to quality, quantity to quantity, relator to relator, situation to situation, abstract to abstract, enumeration to abstract, and datatype to abstract." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_qov> a ok:ValidationRule ;
+    rdfs:label "R_CL_QOV" ;
+    ok:description "Every class representing a powertype (i.e., whose tagged value 'isPowertype' is set to 'true') must be decorated with a RIGID stereotype (i.e., either «category», «type», or «subkind»)." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_squ> a ok:ValidationRule ;
+    rdfs:label "R_CL_SQU" ;
+    ok:description "Every class decorated with a stereotype from the set «kind», «collective», «quantity», «relator», «mode», «quality», «event», «situation», «abstract», «datatype», or «enumeration», must have the have the tagged 'order' set to '1'." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_umc> a ok:ValidationRule ;
+    rdfs:label "R_CL_UMC" ;
+    ok:description "Every enumeration class must have at least two literals." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_utl> a ok:ValidationRule ;
+    rdfs:label "R_CL_UTL" ;
+    ok:description "Every class whose tagged value 'restrictedTo' does includes the value [ 'type' ] must have the tagged value 'isPowertype' set to either 'true' or 'false'." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_voq> a ok:ValidationRule ;
+    rdfs:label "R_CL_VOQ" ;
+    ok:description "Every class whose tagged value 'restrictedTo' is not [ 'collective' ] must have the tagged value 'isExtensional' set to 'null'." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_vpe> a ok:ValidationRule ;
+    rdfs:label "R_CL_VPE" ;
+    ok:description "Every class whose tagged value 'restrictedTo' does not include the value [ 'type' ] must have the tagged value 'isPowertype' set to 'null'." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_xjz> a ok:ValidationRule ;
+    rdfs:label "R_CL_XJZ" ;
+    ok:description "Every class decorated with the stereotype «enumeration» must not have attributes." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_yok> a ok:ValidationRule ;
+    rdfs:label "R_CL_YOK" ;
+    ok:description "Every class decorated with a non-sortal stereotype must be abstract." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_zef> a ok:ValidationRule ;
+    rdfs:label "R_CL_ZEF" ;
+    ok:description "Every class decorated with a stereotype «mode» must have the tagged value 'restrictedTo' set to an array containing one of or both the values [ 'intrinsic-mode', 'extrinsic-mode' ]." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_cl_zgt> a ok:ValidationRule ;
+    rdfs:label "R_CL_ZGT" ;
+    ok:description "Every class decorated with a base sortal stereotype must specialize a unique class decorated with a ULTIMATE SORTAL stereotype ." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_ge_bak> a ok:ValidationRule ;
+    rdfs:label "R_GE_BAK" ;
+    ok:description "No generalization can connect a general class decorated with «abstract» to a specific class that is not decorated with some abstract stereotype (i.e., «abstract», «datatype», or «enumeration»)." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_ge_epg> a ok:ValidationRule ;
+    rdfs:label "R_GE_EPG" ;
+    ok:description "No generalization can connect a general class decorated with a ULTIMATE SORTAL stereotype to a specific class decorated with a ULTIMATE SORTAL stereotype." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_ge_hgq> a ok:ValidationRule ;
+    rdfs:label "R_GE_HGQ" ;
+    ok:description "No generalization can connect a general class decorated with a sortal stereotype to a specific class decorated with a non-sortal stereotype." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_ge_hpz> a ok:ValidationRule ;
+    rdfs:label "R_GE_HPZ" ;
+    ok:description "No generalization can connect a general class to an specific class where the specific class has in its tagged value 'restrictedTo' values that are not present in the same tagged value of the general class." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_ge_ijm> a ok:ValidationRule ;
+    rdfs:label "R_GE_IJM" ;
+    ok:description "No generalization can connect a general class decorated with «event» to a specific class decorated with a different stereotype." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_ge_jlw> a ok:ValidationRule ;
+    rdfs:label "R_GE_JLW" ;
+    ok:description "No generalization can connect a general class decorated with «datatype» to a specific class decorated with a different stereotype." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_ge_mdr> a ok:ValidationRule ;
+    rdfs:label "R_GE_MDR" ;
+    ok:description "Every generalization connected to a general class with its tagged value 'order' set to a number can only connect a specific class whose tagged value 'order' is set to the same number." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_ge_mxi> a ok:ValidationRule ;
+    rdfs:label "R_GE_MXI" ;
+    ok:description "No generalization can connect a general class decorated with an ANTI-RIGID stereotype to a specific class decorated with a RIGID or SEMI-RIGID stereotype." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_ge_uxr> a ok:ValidationRule ;
+    rdfs:label "R_GE_UXR" ;
+    ok:description "No generalization can connect a general class decorated with «situation» to a specific class decorated with a different stereotype." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_ge_vez> a ok:ValidationRule ;
+    rdfs:label "R_GE_VEZ" ;
+    ok:description "No generalization can connect a general class decorated with «enumeration» to a specific class decorated with a different stereotype." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_ge_xrs> a ok:ValidationRule ;
+    rdfs:label "R_GE_XRS" ;
+    ok:description "Every generalization connected to a general class with its tagged value 'isExtensional' set to 'true' can only connect a specific class whose tagged value 'isExtensional' is set to 'true' as well." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_gs_lhd> a ok:ValidationRule ;
+    rdfs:label "R_GS_LHD" ;
+    ok:description "Every categorizer in a generalization set must be a high-order type whose instances are types (i.e., whose tagged value 'restrictedTo' is set to [ 'type' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_gs_pqp> a ok:ValidationRule ;
+    rdfs:label "R_GS_PQP" ;
+    ok:description "Every categorizer in a generalization set must be the target of an instantiation relation (i.e., a relation decorated with a stereotype «instantiation») whose source is the generalization set's general class." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_gs_utw> a ok:ValidationRule ;
+    rdfs:label "R_GS_UTW" ;
+    ok:description "Every categorizer in a generalization set must have the tagged value 'isPowertype' set to 'false'." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_gs_xxb> a ok:ValidationRule ;
+    rdfs:label "R_GS_XXB" ;
+    ok:description "The target's cardinality of the instantiation relation between the general class and the categorizer must not have a lower bound '0' if the generalization set is complete." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_gs_ykw> a ok:ValidationRule ;
+    rdfs:label "R_GS_YKW" ;
+    ok:description "Every generalization in a generalization set must share the same general class." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_gs_zmq> a ok:ValidationRule ;
+    rdfs:label "R_GS_ZMQ" ;
+    ok:description "The target's cardinality of the instantiation relation between the general class and the categorizer must not have an upper bound '1' if the generalization set is overlapping (or covering)." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_pr_bwy> a ok:ValidationRule ;
+    rdfs:label "R_PR_BWY" ;
+    ok:description "Every property decorated with a stereotype «begin» must be defined within a class representing an event (i.e., whose tagged value is set to [ 'event' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_pr_lci> a ok:ValidationRule ;
+    rdfs:label "R_PR_LCI" ;
+    ok:description "Every property decorated with a stereotype «end» must be defined within a class representing an event (i.e., whose tagged value is set to [ 'event' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_alr> a ok:ValidationRule ;
+    rdfs:label "R_RE_ALR" ;
+    ok:description "Every relation decorated with a stereotype «historicalDepedence» must connect source class and target class where either both represent endurants (i.e., whose tagged value is set to one or more values in the list [ 'functional-complex', 'collective', 'quantity', 'relator', 'intrinsic-mode', 'extrinsic-mode', 'quality', 'type' ]) or both represent events (i.e., whose tagged value 'restrictedTo' is set to [ 'event' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_azo> a ok:ValidationRule ;
+    rdfs:label "R_RE_AZO" ;
+    ok:description "Every relation decorated with a stereotype «bringsAbout» must connect a source class representing an event (i.e., whose tagged value is set to [ 'event' ]) to a target class representing a situation (i.e., whose tagged value 'restrictedTo' is set to [ 'situation' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_cdj> a ok:ValidationRule ;
+    rdfs:label "R_RE_CDJ" ;
+    ok:description "Every relation decorated with a stereotype «mediation» must connect a source class representing a relator (i.e., whose tagged value 'restrictedTo' set to [ 'relator' ]) to a target class representing an endurant (i.e., whose tagged value is set to one or more values in the list [ 'functional-complex', 'collective', 'quantity', 'relator', 'intrinsic-mode', 'extrinsic-mode', 'quality', 'type' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_eaq> a ok:ValidationRule ;
+    rdfs:label "R_RE_EAQ" ;
+    ok:description "Every relation decorated with a stereotype «manifestation» must connect a source class representing a moment (i.e., whose tagged value is set to one or more values in the list [ 'relator', 'intrinsic-mode', 'extrinsic-mode', 'quality' ]) to a target class representing an event (i.e., whose tagged value 'restrictedTo' is set to [ 'event' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_ecp> a ok:ValidationRule ;
+    rdfs:label "R_RE_ECP" ;
+    ok:description "Every relation decorated with a stereotype «characterization» must connect a source class representing mode or quality (i.e., whose tagged value 'restrictedTo' set to one or more values in the list [ 'intrinsic-mode', 'extrinsic-mode', 'quality' ]) to a target class representing an endurant (i.e., whose tagged value is set to one or more values in the list [ 'functional-complex', 'collective', 'quantity', 'relator', 'intrinsic-mode', 'extrinsic-mode', 'quality', 'type' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_fix> a ok:ValidationRule ;
+    rdfs:label "R_RE_FIX" ;
+    ok:description "Every relation decorated with a stereotype «componentOf» must connect a source class and a target class representing functional-complexes (i.e., whose tagged value 'restrictedTo' is set to [ 'functional-complex' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_gzf> a ok:ValidationRule ;
+    rdfs:label "R_RE_GZF" ;
+    ok:description "No relation decorated with a stereotype «instantiation» can connect an ordered source class (i.e., whose tagged value 'order' is set to a number 'x') to a target class that is not an orderless (i.e., whose tagged value 'order' is set to '*') or in the order immediately above (i.e., whose tagged value 'order' is set to a number 'x+1')." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_gzn> a ok:ValidationRule ;
+    rdfs:label "R_RE_GZN" ;
+    ok:description "Every relation decorated with a stereotype «triggers» must connect a source class representing a situation (i.e., whose tagged value is set to [ 'situation' ]) to a target class representing an event (i.e., whose tagged value 'restrictedTo' is set to [ 'event' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_hgg> a ok:ValidationRule ;
+    rdfs:label "R_RE_HGG" ;
+    ok:description "Every relation decorated with a stereotype «creation» must connect a source class representing an endurant (i.e., whose tagged value is set to one or more values in the list [ 'functional-complex', 'collective', 'quantity', 'relator', 'intrinsic-mode', 'extrinsic-mode', 'quality', 'type' ]) to a target class representing an event (i.e., whose tagged value 'restrictedTo' is set to [ 'event' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_jnd> a ok:ValidationRule ;
+    rdfs:label "R_RE_JND" ;
+    ok:description "No relation decorated with a stereotype «instantiation» can connect an orderless source class (i.e., whose tagged value 'order' is set to '*') to a target class that is not an orderless as well." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_kpg> a ok:ValidationRule ;
+    rdfs:label "R_RE_KPG" ;
+    ok:description "Every relation must be decorated with at most one stereotype." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_kzc> a ok:ValidationRule ;
+    rdfs:label "R_RE_KZC" ;
+    ok:description "Every relation decorated with a stereotype «participation» must connect a source class representing an endurant (i.e., whose tagged value is set to one or more values in the list [ 'functional-complex', 'collective', 'quantity', 'relator', 'intrinsic-mode', 'extrinsic-mode', 'quality', 'type' ]) to a target class representing an event (i.e., whose tagged value 'restrictedTo' is set to [ 'event' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_lqf> a ok:ValidationRule ;
+    rdfs:label "R_RE_LQF" ;
+    ok:description "Every relation decorated with a stereotype «termination» must connect a source class representing an endurant (i.e., whose tagged value is set to one or more values in the list [ 'functional-complex', 'collective', 'quantity', 'relator', 'intrinsic-mode', 'extrinsic-mode', 'quality', 'type' ]) to a target class representing an event (i.e., whose tagged value 'restrictedTo' is set to [ 'event' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_nty> a ok:ValidationRule ;
+    rdfs:label "R_RE_NTY" ;
+    ok:description "Every relation decorated with a stereotype «participational» must connect a source class and a target class representing events (i.e., whose tagged value 'restrictedTo' is set to [ 'event' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_ron> a ok:ValidationRule ;
+    rdfs:label "R_RE_RON" ;
+    ok:description "Every relation decorated with a stereotype «memberOf» must connect a source class representing a functional-complex (i.e., whose tagged value 'restrictedTo' is set to [ 'functional-complex' ]) to a target class representing a collective (i.e., whose tagged value 'restrictedTo' is set to [ 'collective' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_sei> a ok:ValidationRule ;
+    rdfs:label "R_RE_SEI" ;
+    ok:description "Every relation decorated with a stereotype «instantiation» must connect a target class representing a high-order type whose instances are types (i.e., whose tagged value 'restrictedTo' is set to [ 'type' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_uch> a ok:ValidationRule ;
+    rdfs:label "R_RE_UCH" ;
+    ok:description "Every relation decorated with a stereotype «subCollectionOf» must connect a source class and a target class representing collectives (i.e., whose tagged value 'restrictedTo' is set to [ 'collective' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_vdq> a ok:ValidationRule ;
+    rdfs:label "R_RE_VDQ" ;
+    ok:description "Every relation decorated with a stereotype «derivation» must connect a source relation to a target class." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#rule/r_re_vmi> a ok:ValidationRule ;
+    rdfs:label "R_RE_VMI" ;
+    ok:description "Every relation decorated with a stereotype «externalDependence» must connect a source class representing extrinsic mode (i.e., whose tagged value 'restrictedTo' set to [ 'extrinsic-mode' ]) to a target class representing an endurant (i.e., whose tagged value is set to one or more values in the list [ 'functional-complex', 'collective', 'quantity', 'relator', 'intrinsic-mode', 'extrinsic-mode', 'quality', 'type' ])." ;
+    ok:source "validator/validations/rules_definitions.py" ;
+    ok:sourceType "ontouml-validator" .
+
+<https://w3id.org/ontouml/knowledge#document/01f86174496aba18c550> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "classes/nonsortals/rolemixin/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _rolemixin-contraints-c1:
+**C1:** A «:ref:`rolemixin`» is always abstract. Notice that abstract classes
+are represented with an *italic* label.
+
+.. container:: figure
+
+   |RoleMixin application 3|
+
+.. _rolemixin-contraints-c2:
+**C2:** A «:ref:`rolemixin`» aggregate individuals that follow :ref:`different identity principles <identity>`, therefore it may not have a sortal type as ancestor. «:ref:`kind`», «:ref:`quantity`», «:ref:`collective`», «:ref:`subkind`», «:ref:`role`», «:ref:`phase`», «:ref:`relator`», «:ref:`mode`», «:ref:`quality`» are all forbidden. 
+
+.. _rolemixin-contraints-c3:
+**C3:** A «:ref:`rolemixin`» is a :ref:`anti-rigid <rigidity>` construct, therefore it cannot have as descendent any :ref:`rigid <rigidity>` or :ref:`semi-rigid <rigidity>` type, as: «:ref:`Kind`», «:ref:`Quantity`», «:ref:`Collective`», «:ref:`Subkind`», «:ref:`Category`», «:ref:`Mixin`», «:ref:`Relator`», «:ref:`Mode`», «:ref:`Quality`».
+
+.. container:: figure
+
+   |RoleMixin forbidden 1|
+
+.. |RoleMixin application 3| image:: _images/ontouml_rolemixin-application-3.png
+.. |RoleMixin forbidden 1| image:: _images/ontouml_rolemixin-forbidden-1.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/100ee6496fb1dd03592f> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "relationships/aggregations/memberOf/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _memberOf-constraints-c1:
+**C1:** This relation can only represent **essential** parthood if the object representing the whole is **extensional** (i.e. provided that adding or removing of any member changes the identity of the collective). In this case, all parthood relations in which the whole is extensional are constrained as **{essential}** parthood relations.
+
+.. _memberOf-constraints-c2:
+**C2:** The classifier connected to the whole end must be a «:ref:`collective`». The classifier connected to the part end can be either a «:ref:`collective`» or **functional complex**.""" .
+
+<https://w3id.org/ontouml/knowledge#document/107f91b775142570cbff> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "relationships/mediation/definition.rst" ;
+    ok:text """Definition
+----------
+
+We define a relation of «:ref:`mediation`» between a «:ref:`relator`» and the entities it connects. Mediation is a type of :ref:`existential dependence <dependency>` relation (a form of nonfunctional inherence). It can be derived from the relation between the **relata** and the *qua individiuals* that compose the relator and that inhere in the relata. A «:ref:`relator`» must mediate at least two distinct individuals.""" .
+
+<https://w3id.org/ontouml/knowledge#document/10808661e79fc4cb1505> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "classes/sortals/role/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _role-constraints-c1:
+**C1:** A «:ref:`role`» must always have **exactly one** :ref:`identity provider <identity>`
+(«:ref:`kind`», «:ref:`collective`», «:ref:`quantity`», «:ref:`relator`», «:ref:`mode`», «:ref:`quantity`») as an ancestor (a direct or indirect super-type). To model our list of roles
+presented above, we should given them :ref:`identity providers <identity>`:
+
+.. container:: figure
+
+   |Role application 1|
+
+.. _role-constraints-c2:
+**C2:** Every «:ref:`role`» must be connected, directly or indirectly, to a
+relation stereotyped as «:ref:`mediation`», «:ref:`material`», «:ref:`componentOf`», «:ref:`memberOf`» or «:ref:`subCollectionOf`», since it is a :ref:`relationally dependent <dependency>` construct.
+Continuing our example above, we should do the following:
+
+.. container:: figure
+
+   |Role application 2|
+
+Remember that you can't defined a :ref:`relational dependency <dependency>` with a minimum
+cardinality of zero. Therefore, the fragment below is wrong!
+
+.. container:: figure
+
+   |Role forbidden 1|
+
+.. _role-constraints-c3:
+**C3:** A «:ref:`role`» cannot be a supertype of a rigid type («:ref:`kind`»,
+«:ref:`subkind`», «:ref:`collective`», «:ref:`quantity`», «:ref:`relator`», «:ref:`category`»).
+
+.. container:: figure
+
+   |Role forbidden 2|
+
+.. _role-constraints-c4:
+**C4:** A «:ref:`role`» cannot be a supertype of a mixin types («:ref:`category`»,
+«:ref:`rolemixin`», «:ref:`mixin`»).
+
+.. container:: figure
+
+   |Role forbidden 3|
+
+.. |Role application 1| image:: _images/ontouml_role-application-1.png
+.. |Role application 2| image:: _images/ontouml_role-application-2.png
+.. |Role forbidden 1| image:: _images/ontouml_role-forbidden-1.png
+.. |Role forbidden 2| image:: _images/ontouml_role-forbidden-2.png
+.. |Role forbidden 3| image:: _images/ontouml_role-forbidden-3.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/14716957fb59995ef19d> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "classes/sortals/subkind/definition.rst" ;
+    ok:text """Definition
+----------
+
+A «:ref:`subkind`» is a construct used to represent :ref:`rigid <rigidity>`
+specializations of :ref:`identity providers <identity>` («:ref:`kind`», «:ref:`collective`», «:ref:`quantity`», «:ref:`relator`», «:ref:`mode`» and «:ref:`quantity`»). By default, its usage do not require a :ref:`relational dependency <dependency>`. Let's see some examples:
+
+.. container:: figure
+
+   |Example|
+
+.. |Example| image:: _images/ontouml_subkind-examples.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/1a9a564b3cea57ab21b7> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "classes/sortals/collective/definition.rst" ;
+    ok:text """Definition
+----------
+
+The «:ref:`collective`» construct is used to represent :ref:`rigid <rigidity>` concepts that provide an :ref:`identity principle <identity>` for their instances. The main characteristic of a «:ref:`collective`» is that it has an homogenous internal structure, i.e., all parts are perceived in the same way by the whole (see the «:ref:`memberOf`» relation for more details about members of collections).
+
+.. container:: figure
+
+   |Collective examples|
+
+To decide whether or not to classify a concept as a collective, think about the relation between it has towards its parts (or members). Do all members are "equally perceived" by the whole (the collective)? In other words, do all members contribute in the same way to the functionality of the whole? If the answers are yes, you have a collective. It is important to keep in mind that some concepts, like Family or Fleet could be classified as both collectives and functional complexes. For instance, if we understand a family as a group of people with equal roles and responsibilities towards the family, we would say it is a collective. However, if we distinguish a person as the head of the family, and another as being responsible for the family's income, we would say that a family is a functional complex.
+
+.. container:: figure
+
+   |Family|
+
+As the other identity provider stereotypes («:ref:`kind`», «:ref:`quality`», «:ref:`relator`» and «:ref:`mode`»), a «:ref:`collective`» can be specialized by :ref:`subkinds <subkind>`, :ref:`phases <phase>` and :ref:`roles <role>`, as well as generalized by :ref:`mixins <mixin>` and :ref:`categories <category>`.
+
+.. container:: figure
+
+   |Relator application 1|
+
+.. |Collective examples| image:: _images/ontouml_collective-examples.png
+.. |Family| image:: https://upload.wikimedia.org/wikipedia/commons/d/df/Family_Portrait.jpg
+.. |Relator application 1| image:: _images/ontouml_relator-application-1.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/22bb4e9586521e264f7e> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "classes/sortals/kind/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _kind-constraints-c1:
+**C1:** A «:ref:`kind`» cannot have an :ref:`identity <identity>` provider («:ref:`kind`», «:ref:`collective`», «:ref:`quality`», «:ref:`relator`», «:ref:`mode`» and «:ref:`quantity`») as its direct or indirect super-type.
+
+.. container:: figure
+
+   |Kind forbidden 1|
+
+.. _kind-constraints-c2:
+**C2:** A «:ref:`kind`» cannot have types that inherit :ref:`identity <identity>` («:ref:`subkind`», «:ref:`role`» and «:ref:`phase`») as its direct or indirect super-type.
+
+.. container:: figure
+
+   |Kind forbidden 2|
+
+.. _kind-constraints-c3:
+**C3:** A «:ref:`kind`» cannot have types that aggregate individuals with :ref:`different identity principles <identity>` («:ref:`category`», «:ref:`rolemixin`», «:ref:`phasemixin`» and «:ref:`mixin`») as its direct or indirect subtypes.
+
+.. _kind-constraints-c4:
+**C4:** As a :ref:`rigid <rigidity>` type, a «:ref:`Kind`» cannot have any :ref:`anti-rigid <rigidity>` type («:ref:`role`», «:ref:`rolemixin`», «:ref:`phase`» and «:ref:`phasemixin`») as its direct or indirect super-type.
+
+
+.. |Kind forbidden 1| image:: _images/ontouml_kind-forbidden-1.png
+.. |Kind forbidden 2| image:: _images/ontouml_kind-forbidden-2.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/2dd8ba4fdfdbed330d89> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "classes/nonsortals/category/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _category-constraints-c1:
+**C1:** A «:ref:`category`» is always abstract. Notice that abstract classes are represented with an *italic* label.
+
+.. container:: figure
+
+   |Category application 1|
+
+.. _category-constraints-c2:
+**C2:** A «:ref:`category`» aggregate individuals that follow :ref:`different identity principles <identity>`, therefore it may not have a sortal type as ancestor. «:ref:`kind`», «:ref:`quantity`», «:ref:`collective`», «:ref:`subkind`», «:ref:`role`», «:ref:`phase`», «:ref:`relator`», «:ref:`mode`», «:ref:`quality`» are all forbidden. 
+
+.. container:: figure
+
+   |Category forbidden 1|
+
+.. _category-constraints-c3:
+**C3:** A «:ref:`category`» is a :ref:`rigid <rigidity>` construct, therefore it cannot have as ancestor an :ref:`anti-rigid <rigidity>` type, as: «:ref:`role`», «:ref:`rolemixin`», «:ref:`phase`» and «:ref:`phasemixin`».
+
+.. container:: figure
+
+   |Category forbidden 2|
+
+.. |Category application 1| image:: _images/ontouml_category-application-1.png
+.. |Category forbidden 1| image:: _images/ontouml_category-forbidden-1.png
+.. |Category forbidden 2| image:: _images/ontouml_category-forbidden-3.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/30413832937ac9d9a823> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "relationships/derivation/definition.rst" ;
+    ok:text """Definition
+----------
+
+«:ref:`material`» relation can be completely **derived** (via «:ref:`derivation`») from the «:ref:`relator`» and the corresponding «:ref:`mediation`» relations. Derivation makes the cardinality constraints of the mediation relations collapse (see «:ref:`material`» relation, example 2).
+
+Also, several «:ref:`material`» relations can be derived from a single «:ref:`relator`» and «:ref:`mediation`» relations (see «:ref:`material`» relation, example 1).""" .
+
+<https://w3id.org/ontouml/knowledge#document/34e2b517be309177fb94> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "classes/nonsortals/phasemixin/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _phasemixin-contraints-c1:
+**C1:** A «:ref:`phasemixin`» is always abstract. Notice that abstract classes
+are represented with an *italic* label.
+
+.. _phasemixin-contraints-c2:
+**C2:** A «:ref:`phasemixin`» aggregate individuals that follow :ref:`different identity principles <identity>`, therefore it may not have a sortal type as ancestor. «:ref:`kind`», «:ref:`quantity`», «:ref:`collective`», «:ref:`subkind`», «:ref:`role`», «:ref:`phase`», «:ref:`relator`», «:ref:`mode`», «:ref:`quality`» are all forbidden. 
+
+.. _phasemixin-contraints-c3:
+**C3:** A «:ref:`phasemixin`» is a :ref:`anti-rigid <rigidity>` construct, therefore it cannot have as descendent any :ref:`rigid <rigidity>` or :ref:`semi-rigid <rigidity>` type, as: «:ref:`Kind`», «:ref:`Quantity`», «:ref:`Collective`», «:ref:`Subkind`», «:ref:`Category`», «:ref:`Mixin`», «:ref:`Relator`», «:ref:`Mode`», «:ref:`Quality`».
+
+.. _phasemixin-contraints-c4:
+**C4:** A «:ref:`phasemixin`» should be solely dependant on intrinsic properties of its supertype, therefore it cannot have  :ref:`rolemixin <rolemixin>` as its supertype.""" .
+
+<https://w3id.org/ontouml/knowledge#document/38d80d876ed2f4e0bca6> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "relationships/aggregations/subQuantityOf/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _subQuantityOf-constraints-c1:
+**C1:** The «:ref:`subQuantityOf`» relation is always non-shareable.
+
+.. _subQuantityOf-constraints-c2:
+**C2:** A sub-quantity is always an **essential part** of its super-quantity (marked with {essential} constraint).
+
+.. _subQuantityOf-constraints-c3:
+**C3:** The cardinality in the part-end must be exactly one.
+
+.. _subQuantityOf-constraints-c4:
+**C4:** The «:ref:`subQuantityOf`» **quantities** at its both ends. Quantities are types as defined in the overview table above.""" .
+
+<https://w3id.org/ontouml/knowledge#document/3b030e70095a378113ef> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "classes/sortals/relator/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _relator-constraints-c1:
+**C1:** A «:ref:`relator`» must always be connected (directly or indirectly) to at least one relation stereotyped as «:ref:`mediation`»
+
+.. container:: figure
+
+   |Relator forbidden 1|
+
+.. _relator-constraints-c2:
+**C2:** The sum of the minimum cardinalities of the opposite ends of the :ref:`mediations <mediation>` connected (directly or indirectly) to the «:ref:`relator`» must be greater or equal to 2.
+
+.. container:: figure
+
+   |Relator application 2|
+
+.. _relator-constraints-c3:
+**C3:** A «:ref:`relator`» cannot have an :ref:`identity provider <identity>` («:ref:`kind`», «:ref:`collective`», «:ref:`quantity`», «:ref:`relator`», «:ref:`mode`» and «:ref:`quantity`») as its direct or indirect super-type.
+
+.. container:: figure
+
+   |Relator forbidden 2|
+
+.. _relator-constraints-c4:
+**C4:** A «:ref:`relator`» cannot have types that inherit :ref:`identity <identity>` («:ref:`subkind`», «:ref:`role`» and «:ref:`phase`») as its direct or indirect super-type.
+
+.. container:: figure
+
+   |Relator forbidden 3|
+
+.. _relator-constraints-c5:
+**C5:** A «:ref:`relator`» cannot have types that aggregate individuals with different :ref:`identity principles <identity>` («:ref:`category`», «:ref:`rolemixin`», «:ref:`phasemixin`» and «:ref:`mixin`») as its direct or indirect subtypes.
+
+.. container:: figure
+
+   |Relator forbidden 5|
+
+.. _relator-constraints-c6:
+**C6:** As a :ref:`rigid <rigidity>` type, a «:ref:`relator`» cannot have any :ref:`anti-rigid <rigidity>` type («:ref:`role`», «:ref:`rolemixin`», «:ref:`phase`» and «:ref:`phasemixin`») as its direct or indirect super-type.
+
+.. container:: figure
+
+   |Relator forbidden 4|
+
+.. |Relator forbidden 1| image:: _images/ontouml_relator-forbidden-1.png
+.. |Relator application 2| image:: _images/ontouml_relator-application-2.png
+.. |Relator forbidden 2| image:: _images/ontouml_relator-forbidden-2.png
+.. |Relator forbidden 3| image:: _images/ontouml_relator-forbidden-3.png
+.. |Relator forbidden 5| image:: _images/ontouml_relator-forbidden-5.png
+.. |Relator forbidden 4| image:: _images/ontouml_relator-forbidden-4.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/44d498dc01e57cd279ef> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "relationships/aggregations/componentOf/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _componentOf-constraints-c1:
+**C1:** The classes connected to both association ends of this relation must represent universals whose instances are **functional complexes**.""" .
+
+<https://w3id.org/ontouml/knowledge#document/4500f4b9fad303719cf8> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "classes/sortals/subkind/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _subkind-constraints-c1:
+**C1:** A «:ref:`subkind`» must **always** have exactly one :ref:`identity provider <identity>`
+(«:ref:`kind`», «:ref:`collective`», «:ref:`quantity`», «:ref:`relator`», «:ref:`mode`», «:ref:`quantity`») as an ancestor (a direct or indirect super-type). Therefore, our examples in
+the first figure should be modelled as:
+
+.. container:: figure
+
+   |Subkind application 1|
+
+.. _subkind-constraints-c2:
+**C2:** Because it is a :ref:`rigid <rigidity>` type, a «:ref:`subkind`» cannot have an
+:ref:`anti-rigid <rigidity>` type («:ref:`role`», «:ref:`phase`», «:ref:`rolemixin`» and «:ref:`phasemixin`») as an ancestor.
+Therefore, the following fragments would not be allowed:
+
+.. container:: figure
+
+   |Subkind forbidden 1|
+
+.. _subkind-constraints-c3:
+**C3:** Since every instance of a «:ref:`subkind`» follows the same :ref:`identity
+principle <identity>`, a «:ref:`subkind`» cannot have an :ref:`non-sortal type <identity>` («:ref:`category`», «:ref:`mixin`», «:ref:`rolemixin`» and «:ref:`phasemixin`») as a descendant, i.e., a direct or indirect subtype.
+Fragments like the ones below are not allowed:
+
+.. container:: figure
+
+   |Subkind forbidden 2|
+
+.. |Subkind application 1| image:: _images/ontouml_subkind-application-1.png
+.. |Subkind forbidden 1| image:: _images/ontouml_subkind-forbidden-2.png
+.. |Subkind forbidden 2| image:: _images/ontouml_subkind-forbidden-3.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/5088d9544894a35147f4> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "relationships/aggregations/containment/definition.rst" ;
+    ok:text """Definition
+----------
+
+«:ref:`containment`» is a relation between a container and its contents -- a «:ref:`quantity`», e.g., a barrel contains beer.
+
+Multiplicities of the containment relation **must be exactly one** for the same reason as those of the «:ref:`subQuantityOf`» relation.""" .
+
+<https://w3id.org/ontouml/knowledge#document/545fb7f606e4480a159d> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "classes/sortals/phase/definition.rst" ;
+    ok:text """Definition
+----------
+
+The «:ref:`phase`» stereotype is used to represent :ref:`anti-rigid <rigidity>` subtypes of :ref:`identity providers <identity>` («:ref:`kind`», «:ref:`collective`», «:ref:`quantity`», «:ref:`relator`», «:ref:`mode`» and «:ref:`quantity`») that are instantiated by changes in intrinsic properties (e.g. the age of a person, the color of an object, the condition of a car). All instances of a particular «:ref:`phase`» must follow the same :ref:`identity principle <identity>`. Phases always come in :ref:`partitions <phase-partition-pattern>`.
+
+
+.. note::
+
+   *Tip*: When defining a phase :ref:`partition <phase-partition-pattern>`, think about which property (or properties) variation is causing the instantiation of the phases and include it in your model. For instance, when defining the phases Child, Adult and Elder for Person, you should include an age property for the type Person.
+
+Here are some examples of phases:
+
+.. container:: figure
+
+   |Phase examples|
+
+.. |Phase examples| image:: _images/ontouml_phase-examples.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/6251b0534f11121f39c2> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "relationships/material/definition.rst" ;
+    ok:text """Definition
+----------
+
+«:ref:`material`» relations have material structure on their own and include examples such as employments, kisses, enrollments, flight, connections and commitments. The **relata** of a material relation are mediated by individuals that are called relators. Relators («:ref:`relator`») are individuals with the power of connecting entities; a flight connection, for example, founds a relator that connects airports, an enrollment is a relator that connects a student with an educational institution. Relators play an important role in answering questions of the sort: what does it mean to say that John is married to Mary? Why is it true to say that Bill works for Company X but not for Company Y?.
+
+**Material relations** are derived (via «:ref:`derivation`») from relators and the mediation relations that connect them to the corresponding relata. Cardinality constraints of mediation relations collapse by derivation. Material relations are always affected by collapsed cardinality). Also, several «:ref:`material`» relations can be derived from a single «:ref:`relator`» and «:ref:`mediation`» relations.""" .
+
+<https://w3id.org/ontouml/knowledge#document/658a3f90121f216f91a7> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "relationships/aggregations/memberOf/definition.rst" ;
+    ok:text """Definition
+----------
+
+«:ref:`memberOf`» is a parthood relation between a **functional complex** or a «:ref:`collective`» (as a part) and a «:ref:`collective`» (as a whole).
+
+Examples include:
+
+A. a tree is part of forest;
+B. a card is part of a deck of cards;
+C. a fork is part of cutlery set;
+D. a club member is part of a club.
+
+«:ref:`memberOf`» relation obeys *weak supplementation principle* (at least 2 parts are required, may be of different types). The memberOf relation is **intransitive.**
+
+For example, Kazi, Bobek, Nemo and others are members of the *TJ Sokol Zizkov* Youth Tourist Club. The TJ Sokol Zizkov Youth Tourist Club is the member of the Association of the Youth Tourist Clubs. But Kazi, Bobek, Nemo and others are not members of the Association of the Youth Tourist Clubs, since not persons but only clubs may be members of the association. Although transitivity does not hold across two «:ref:`memberOf`» relations, a «:ref:`memberOf`» relation followed by «:ref:`subCollectionOf`» is transitive.""" .
+
+<https://w3id.org/ontouml/knowledge#document/66f9b5663be8e0e287b7> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "classes/aspects/mode/definition.rst" ;
+    ok:text """Definition
+----------
+
+A «:ref:`mode`» is a particular type of intrinsic property that has no structured value. Like :ref:`qualities <quality>`, modes are also individuals that :ref:`existentially depend <dependency>` on their **bearers**. Types stereotyped as «:ref:`mode`» are also :ref:`rigid <rigidity>`. You can find some examples of modes below:
+
+.. container:: figure
+
+   |Mode examples|
+
+.. |Mode examples| image:: _images/ontouml_mode-examples.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/6d05846cd92894b49cf0> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "classes/nonsortals/mixin/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _mixin-constraints-c1:
+**C1:** A «:ref:`mixin`» is always abstract. Note that abstract classes are represented with *italic* labels.
+
+.. container:: figure
+
+   |Mixin application 2|
+
+.. _mixin-constraints-c2:
+**C2:** A «:ref:`mixin`» is a :ref:`semi-rigid <rigidity>` construct and because of that, it cannot have as ancestor either a :ref:`rigid <rigidity>` (other than «:ref:`category`») or an :ref:`anti-rigid <rigidity>` type. Therefore, only :ref:`mixins <mixin>>` and :ref:`categories <category>>` can be ancestor of other mixins.
+
+.. container:: figure
+
+   |Mixin forbidden 1|
+
+
+.. |Mixin application 2| image:: _images/ontouml_mixin-application-2.png
+.. |Mixin forbidden 1| image:: _images/ontouml_mixin-forbidden-1.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/6e9780ea29670c1c1dd1> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "classes/nonsortals/mixin/definition.rst" ;
+    ok:text """Definition
+----------
+
+A «:ref:`mixin`» is a semi-rigid type, i.e., it "behaves" as a :ref:`rigid <rigidity>` type for some individuals and as an :ref:`anti-rigid <rigidity>` one for others (it's the only stereotype with such feature in OntoUML). As the «:ref:`category`», «:ref:`rolemixin`» and the «:ref:`phasemixin`», the «:ref:`mixin`» meta-class characterizes individuals that follow :ref:`different identity principles <identity>`. Here are some examples of types that could be classified as «:ref:`mixin`»:
+
+.. container:: figure
+
+   |Mixin examples|
+
+As :ref:`categories <category>`, mixins are commonly applied during a refactoring process, in particular when we want to state that some properties are applied to both :ref:`rigid <rigidity>` and :ref:`anti-rigid <rigidity>` types. For instance, let's consider that we defined the following types in our model, Car and Jewellery, a general concept for Ring, Necklace, etc. Now we want to define the type Luxury Good. In our worldview, every jewellery is luxurious, but only cars that are worth more than 30k dollars are. Since the value of a car changes through the years, being a luxurious car is a temporary classification, whilst being a jewellery is a permanent one. The type Luxury Good, therefore, is :ref:`semi-rigid <rigidity>` or a «:ref:`mixin`».
+
+.. container:: figure
+
+   |Mixin application 1|
+
+.. |Mixin examples| image:: _images/ontouml_mixin-examples.png
+.. |Mixin application 1| image:: _images/ontouml_mixin-application-1.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/7049f92e7326a49565d7> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "classes/nonsortals/phasemixin/definition.rst" ;
+    ok:text """Definition
+----------
+
+A «:ref:`phasemixin`» is the equivalent of «:ref:`phase`» for types that aggregate instances with :ref:`different identity principles <identity>`. A class stereotyped as «:ref:`phasemixin`» is also an :ref:`anti-rigid <rigidity>` type. «:ref:`phasemixin`» is similar semantically to «:ref:`rolemixin`» with the difference in relational dependency.""" .
+
+<https://w3id.org/ontouml/knowledge#document/79340e42149321367fac> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "relationships/aggregations/componentOf/definition.rst" ;
+    ok:text """Definition
+----------
+
+«:ref:`componentOf`» is a parthood relation between two complexes. Examples include:
+
+A. my hand is part of my arm;
+B. a car engine is part of a car;
+C. an Arithmetic and Logic Unit (ALU) is part of a Central Process Unit (CPU);
+D. a heart is part of a circulatory system.
+
+**Transitivity** holds for certain cases but not for others, it depends on context. «:ref:`componentOf`» relation obeys *weak supplementation principle* (at least 2 parts are required, may be of different types).""" .
+
+<https://w3id.org/ontouml/knowledge#document/7a7c85847127107a7e7d> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "relationships/aggregations/subCollectionOf/definition.rst" ;
+    ok:text """Definition
+----------
+
+«:ref:`subCollectionOf`» is a parthood relation between two collectives. Examples include:
+
+A. the north part of the Black Forest is part of the Black Forest;
+B. the collection of Jokers in a deck of cards is part of that deck of cards;
+C. the collection of forks in cutlery set is part of that cutlery set;
+D. the collection of male individuals in a crowd is part of that crowd.
+
+The subCollectionOf relation can be **shareable** in some cases while **non-shareable** in others. For example, the Kulik siblings is a collection of three members: Marie, Vaclav, and Karel. The same Kulik siblings are sub-collection of the Kulik family, as well as a sub-collection of the FC Bilsko football team, as well as a sub-collection of the Voluntary Firefighter Unit in Bilsko. On contrary, the local organization of the Agrarian Party in Borovno is a sub-collection of the Agrarian Party, but must not be a sub-collection of any other political party, because the statutes prohibit it. «:ref:`collective`» is a type of collections (and collections are instances of collectives). Collection is an *integral whole,* or closure defined by a *unifying relation.* Closure means that no more parts or members can be added to the collection by its unifying relation.
+
+Unlike «:ref:`quantity`», «:ref:`collective`» have members and their members may not be placed together (or connected *topologically*), but unified *intentionally* e.g. by the common role, or purpose, or social connection. Closure of the unifying relation makes the collective *maximal,* e.g. the football team is made up of all its members and no subset of its members can make up the same team. For this reason, the «:ref:`subQuantityOf`» relation is **irreflexive**. Moreover, for the same reason, any super-collective can have at maximum one sub-collective of a given type. Finally, since every sub-collective of a super-collective is obtained by refining the unifying relation of the latter, the subCollectionOf relation is always **transitive**. Since collections are *maximal*, the «:ref:`subCollectionOf`» parthood must have a **cardinality constraint of one and exactly one** in the sub-collection side. Addition or removal of a sub-collection (or even a member) of a collection may or may not change identity of the collection. E.g. new firefighter units are taken in the National Rescue System and some of the existing units cease to exist without changing identity of the National Rescue System. Similarly, the Voluntary Firefighter Unit in Karlik consists of three members: Velebil, Strasirybka, and Jech. Then Veselik applies for membership and is taken in the firefighter unit. It is still the same unit, its identity does not change. On contrary, imagine: Jarmila and Jaroslav are spouses. If Jaroslav died, the spousal will cease to exist. And the unifying relation of spousal does not even admit changing Jaroslav for Karel -- such a change would change the identity of the spousal, as well. This means that collectives are not *extensional* (but *intentional*). That is why only the **weak supplementation axiom** holds for the subCollectionOf relation (unlike the «:ref:`subQuantityOf`» relation, where the *strong supplementation axiom* holds). This axiom means among others that every super-collection must have at least two different types of sub-collections.""" .
+
+<https://w3id.org/ontouml/knowledge#document/7afaa421e52a059bcd00> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "classes/sortals/quantity/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _quantity-constraints-c1:
+**C1:** A «:ref:`quantity`» cannot have an :ref:`identity provider <identity>` («:ref:`kind`», «:ref:`collective`», «:ref:`quantity`», «:ref:`relator`», «:ref:`mode`» and «:ref:`quantity`») as its direct or indirect super-type.
+
+.. container:: figure
+
+   |Quantity forbidden 1|
+
+.. _quantity-constraints-c2:
+**C2:** A «:ref:`quantity`» cannot have types that inherit :ref:`identity <identity>` («:ref:`subkind`», «:ref:`role`» and «:ref:`phase`») as its direct or indirect super-types.
+
+.. container:: figure
+
+   |Quantity forbidden 2|
+
+.. _quantity-constraints-c3:
+**C3:** A «:ref:`quantity`» cannot have types that aggregate individuals with different :ref:`identity principles <identity>` («:ref:`category`», «:ref:`rolemixin`», «:ref:`phasemixin`» and «:ref:`mixin`») as its direct or indirect subtypes.
+
+.. container:: figure
+
+   |Quantity forbidden 3|
+
+.. _quantity-constraints-c4:
+**C4:** As a :ref:`rigid <rigidity>` type, a «:ref:`quantity`» cannot have any :ref:`anti-rigid <rigidity>` type («:ref:`role`», «:ref:`rolemixin`», «:ref:`phase`» and «:ref:`phasemixin`») as its direct or indirect super-type.
+
+.. container:: figure
+
+   |Quantity forbidden 4|
+
+.. |Quantity forbidden 1| image:: _images/ontouml_quantity-forbidden-1.png
+.. |Quantity forbidden 2| image:: _images/ontouml_quantity-forbidden-2.png
+.. |Quantity forbidden 3| image:: _images/ontouml_quantity-forbidden-4.png
+.. |Quantity forbidden 4| image:: _images/ontouml_quantity-forbidden-3.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/8355bcec1353e765ad4d> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "classes/sortals/quantity/definition.rst" ;
+    ok:text """Definition
+----------
+
+The «:ref:`quantity`» construct is used to represent :ref:`rigid <rigidity>` concepts that provide an :ref:`identity principle <identity>` for their instances. A «:ref:`quantity`» represent uncountable things, like Water, Clay, or Beer. It represents a maximally topologically connected amount of matter. Quantities only have other quantities as parts (see the «:ref:`subQuantityOf`» relation for more details about members of collections). Here are some examples:
+
+.. container:: figure
+
+   |Quantity examples|
+
+An easy way to decide whether a concept is a quantity or not, as yourself this: if you physically divide an instance of 'x' in two parts, are the resulting individuals two new instances of x? What if you divide another 5 or 10 times? If the answer is always yes, 'x' is a Quantity. To exemplify, let's think about an pile of sand. If you divide the pile in two, you now have to new piles of sand, right? What if you do that again for each remaining part? We would have 4 piles of sand.
+
+.. container:: figure
+
+   |Tannin heap|
+
+As the other identity provider stereotypes («:ref:`kind`», «:ref:`collective`», «:ref:`relator`», «:ref:`quality`» and «:ref:`mode`»), a Quantity can be specialized by :ref:`subkinds <subkind>`, :ref:`phases <phase>` and :ref:`roles <role>`, as well as generalized by :ref:`mixins <mixin>` and :ref:`categories <category>`.
+
+.. container:: figure
+
+   |Quantity application 1|
+
+Be careful not to confuse «:ref:`quantity`» and «:ref:`quality`».
+
+
+.. |Quantity examples| image:: _images/ontouml_quantity-examples.png
+.. |Tannin heap| image:: _images/Tannin_heap.jpeg
+.. |Quantity application 1| image:: _images/ontouml_quantity-application-1.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/87aca5d94a81ce018864> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "relationships/aggregations/subQuantityOf/definition.rst" ;
+    ok:text """Definition
+----------
+
+«:ref:`subQuantityOf`» is a parthood relation between two quantities, e.g.:
+
+A. alcohol is part of wine;
+B. plasma is part of blood;
+C. sugar is part of ice cream.
+
+:ref:`Quantities <quantity>` have not elements (or members). Since their members cannot be enumerated, they must be defined by a relation that unifies them into a connected whole (self-connectedness). Quantities are connected *topologically* (unlike e.g. collectives, which parts and members may not be placed together). *Topological connection* is characteristic for quantities and because of *topological connection,* sub-quantities cannot be shared among several super-quantities. For this reason, a subQuantityOf relation is always **non-sharable.** Since quantities do not have elements, they can be arbitrarily divided, like e.g. water. That´s why any quantity is defined to be *maximal portion* and can not be part of itself (water cannot be part of water). Since every part of a quantity is maximal (and self-connected), the SubQuantityOf parthood must have a **cardinality constraint of one and exactly one** in the sub-quantity side. E.g. since alcohol is a quantity (and, hence, maximal), there is exactly one quantity of alcohol which is part of a specific quantity of wine. Since quantity is *maximal,* it cannot have a quantity of the same kind as its part -- i.e. the «:ref:`subQuantityOf`» relation is **irreflexive**.
+
+Nevertheless, a quantity can be part of another quantity (like glucose in wine) using the «:ref:`subQuantityOf`» relation. The change of any of parts of the quantity changes the identity of the whole (i.e. quantities are *extensional* entities). That is why **the strong supplementation axiom** holds for the the «:ref:`subQuantityOf`» relations (unlike «:ref:`subCollectionOf`» relation, which on contrary holds only weaker axiom). For the same reason, all parts of a quantity are **essential** and «:ref:`subQuantityOf`» relations are essential parthood relations. Further, since essential parthood relations are always transitive, «:ref:`subQuantityOf`» is always **transitive**.""" .
+
+<https://w3id.org/ontouml/knowledge#document/8ce18734be26f522ca64> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "classes/aspects/mode/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _mode-constraints-c1:
+**C1:** Every «:ref:`mode`» must be (directly or indirectly) connected to an association end of at least one «:ref:`characterization`» relation.
+
+.. container:: figure
+
+   |Mode application 1|
+
+.. _mode-constraints-c2:
+**C2:** The multiplicity of the characterized end (opposite to the «:ref:`mode`») must be exactly one. Therefore, the following examples are forbidden.
+
+.. container:: figure
+
+   |Mode forbidden 3|
+
+.. _mode-constraints-c3:
+**C3:** A «:ref:`mode`» cannot have an :ref:`identity <identity>` provider («:ref:`kind`», «:ref:`collective`», «:ref:`quality`», «:ref:`relator`», «:ref:`mode`» and «:ref:`quantity`») as its direct or indirect super-type.
+
+.. container:: figure
+
+   |Mode forbidden 2|
+
+.. _mode-constraints-c4:
+**C4:** A «:ref:`mode`» cannot have types that inherit :ref:`identity <identity>` («:ref:`subkind`», «:ref:`role`» and «:ref:`phase`») as its direct or indirect super-type.
+
+.. container:: figure
+
+   |Mode forbidden 1|
+
+.. _mode-constraints-c5:
+**C5:** A «:ref:`mode`» cannot have types that aggregate individuals with :ref:`different identity principles <identity>` («:ref:`category`», «:ref:`rolemixin`», «:ref:`phasemixin`» and «:ref:`mixin`») as its direct or indirect subtypes.
+
+.. _mode-constraints-c6:
+**C6:** As a :ref:`rigid <rigidity>` type, a «:ref:`mode`» cannot have any :ref:`anti-rigid <rigidity>` type («:ref:`role`», «:ref:`rolemixin`», «:ref:`phase`» and «:ref:`phasemixin`») as its direct or indirect super-type.
+
+.. |Mode application 1| image:: _images/ontouml_mode-application-1.png
+.. |Mode forbidden 3| image:: _images/ontouml_mode-forbidden-3.png
+.. |Mode forbidden 2| image:: _images/ontouml_mode-forbidden-2.png
+.. |Mode forbidden 1| image:: _images/ontouml_mode-forbidden-1.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/91fe17a9adcb47e39357> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "relationships/structuration/definition.rst" ;
+    ok:text """Definition
+----------
+
+«:ref:`structuration`» relation allows structuring «:ref:`Quality`».""" .
+
+<https://w3id.org/ontouml/knowledge#document/a5eb5515568818d5e23b> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "classes/sortals/phase/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _phase-constraints-c1:
+**C1:** A «:ref:`phase`» must always have **exactly one identity provider** («:ref:`kind`», «:ref:`collective`», «:ref:`quantity`», «:ref:`relator`», «:ref:`mode`», «:ref:`quantity`») as an ancestor (a direct or indirect super-type). Our examples above should be modelled as:
+
+.. container:: figure
+
+   |Phase application 1|
+
+.. _phase-constraints-c2:
+**C2:** A «:ref:`phase`» must always be part of a partition (a generalization set disjoint and complete). Modeling a «:ref:`phase`» as in example below is forbidden:
+
+.. container:: figure
+
+   |Phase forbidden 2|
+
+.. _phase-constraints-c3:
+**C3:** A «:ref:`phase`» cannot be a direct subtype of a «:ref:`role`» or «:ref:`rolemixin`».
+
+.. container:: figure
+
+   |Phase forbidden 3|
+
+.. _phase-constraints-c4:
+**C4:** A «:ref:`phase`» cannot be a super-type of a :ref:`rigid <rigidity>` type («:ref:`kind`», «:ref:`collective`», «:ref:`quantity`», «:ref:`relator`», «:ref:`mode`», «:ref:`quantity`», «:ref:`subkind`», «:ref:`category`»).
+
+.. container:: figure
+
+   |Phase forbidden 1|
+
+.. _phase-constraints-c5:
+**C5:** A «:ref:`phase`» cannot be a super-type of a :ref:`non-sortal <identity>` type («:ref:`category`», «:ref:`rolemixin`», «:ref:`phasemixin`» and «:ref:`mixin`»).
+
+.. container:: figure
+
+   |Phase forbidden 4|
+
+.. |Phase application 1| image:: _images/ontouml_phase-application-1.png
+.. |Phase forbidden 2| image:: _images/ontouml_phase-forbidden-2.png
+.. |Phase forbidden 3| image:: _images/ontouml_phase-forbidden-3.png
+.. |Phase forbidden 1| image:: _images/ontouml_phase-forbidden-1.png
+.. |Phase forbidden 4| image:: _images/ontouml_phase-forbidden-4.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/bd405f774473ba7383f1> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "relationships/aggregations/subCollectionOf/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _subCollectionOf-constraints-c1:
+**C1:** The classes connected to both association ends of this relation must represent universals whose instances are :ref:`collectives <collective>`. :ref:`Collectives <collective>` are types as defined in the overview table above.
+
+.. _subCollectionOf-constraints-c2:
+**C2:** The maximum cardinality constraint in the association end connected to the part must be one.""" .
+
+<https://w3id.org/ontouml/knowledge#document/c89835812be08dbeacc6> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "relationships/characterization/definition.rst" ;
+    ok:text """Definition
+----------
+
+«:ref:`characterization`» is a relation between a *bearer type* and its *feature*. Feature is intrinsic (inherent) moment of its bearer type, and thus *existentially dependent* on the bearer. Feature may be stereotyped as «:ref:`quality`» or «:ref:`mode`». Feature *characterizes* a bearer type iff every instance of bearer exemplifies the feature.""" .
+
+<https://w3id.org/ontouml/knowledge#document/cfebc43a6ea90da6bea9> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "relationships/formal/definition.rst" ;
+    ok:text """Definition
+----------
+
+The name «:ref:`formal`» is short for :ref:`Domain Comparative Formal Relation <relations>`. This construct is used to represent relations that can be reduced to the comparison of the quality values that characterize the related individuals, like heavier-then, younger-then or cheaper-then. Here are some examples in OntoUML:
+
+.. container:: figure
+
+   |Formal examples|
+
+To specify how the relation can be reduced, use an OCL derivation rule:
+
+::
+
+   context Person::lighter : Set(Person)
+   derive : Person.allInstances()->select(x | self.weight > x.weight)
+
+*Tip*: Due to its ontological, the «:ref:`formal`» relations have no constraints in OntoUML. Nonetheless, make sure the relation you are modeling is indeed a comparative one. Think about how to reduce the relation to a comparison between values and represent the necessary properties.
+
+.. |Formal examples| image:: _images/ontouml_formal-examples.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/d5428df16143bad1eeb6> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "classes/aspects/quality/definition.rst" ;
+    ok:text """Definition
+----------
+
+A «:ref:`quality`» is a particular type of intrinsic property which has a
+structured value. Qualities are things that are :ref:`existentially dependent <dependency>`
+on the things they characterize, called their **bearers**. Types stereotyped
+as «:ref:`quality`» are also :ref:`rigid <rigidity>`. OntoUML differentiates
+between three types of qualities:
+
+-  **Perceivable**, which capture qualities that could be measured by an
+   agent with the appropriate instrument, like weight, height, color and
+   speed.
+-  **Non-Perceivable**, which represent properties which cannot be
+   directly measured by an instrument, like currency.
+-  **Nominal**, which are used to make reference to an individual, like
+   one's name, a book's ISBN or a credit card number.
+
+Notice some examples of qualities in the next figure:
+
+.. container:: figure
+
+   |Quality examples|
+
+You can define different types of geometrical structures for a quality
+value using dimensions and domains. Here is an example:
+
+.. container:: figure
+
+   |Quality application 2|
+
+.. |Quality examples| image:: _images/ontouml_quality-examples.png
+.. |Quality application 2| image:: _images/ontouml_quality-application-2.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/d6326e92554da4fc6eb0> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "classes/aspects/quality/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _quality-constraints-c1:
+**C1:** A «:ref:`quality`» must always be connected, through a «:ref:`characterization`» to another type.
+
+.. container:: figure
+
+   |Quality application 1|
+
+.. _quality-constraints-c2:
+**C2:** The multiplicity of the characterized end (opposite to the quality) must be exactly one. Therefore, the following examples are forbidden.
+
+.. container:: figure
+
+   |Quality forbidden 1|
+
+.. _quality-constraints-c3:
+**C3:** A «:ref:`quality`» cannot have an :ref:`identity <identity>` provider («:ref:`kind`», «:ref:`collective`», «:ref:`quality`», «:ref:`relator`», «:ref:`mode`» and «:ref:`quantity`») as its direct or indirect super-type.
+
+.. container:: figure
+
+   |Quality forbidden 2|
+
+.. _quality-constraints-c4:
+**C4:** A «:ref:`quality`» cannot have types that inherit :ref:`identity <identity>` («:ref:`subkind`», «:ref:`role`» and «:ref:`phase`») as its direct or indirect super-type.
+
+.. container:: figure
+
+   |Quality forbidden 3|
+
+.. _quality-constraints-c5:
+**C5:** A «:ref:`quality`» cannot have types that aggregate individuals with :ref:`different identity principles <identity>` («:ref:`category`», «:ref:`rolemixin`», «:ref:`phasemixin`» and «:ref:`mixin`») as its direct or indirect subtypes.
+
+.. _quality-constraints-c6:
+**C6:** As a :ref:`rigid <rigidity>` type, a «:ref:`quality`» cannot have any :ref:`anti-rigid <rigidity>` type («:ref:`role`», «:ref:`rolemixin`», «:ref:`phase`» and «:ref:`phasemixin`») as its direct or indirect super-type.
+
+
+
+.. |Quality application 1| image:: _images/ontouml_quality-application-1.png
+.. |Quality forbidden 1| image:: _images/ontouml_quality-forbidden-1.png
+.. |Quality forbidden 2| image:: _images/ontouml_quality-forbidden-2.png
+.. |Quality forbidden 3| image:: _images/ontouml_quality-forbidden-3.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/d658871ea6b82298119d> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "classes/sortals/role/definition.rst" ;
+    ok:text """Definition
+----------
+
+A «:ref:`role`» is a construct used to represent :ref:`anti-rigid <rigidity>`
+specializations of :ref:`identity providers <identity>` («:ref:`kind`», «:ref:`collective`», «:ref:`quantity`», «:ref:`relator`», «:ref:`mode`» and «:ref:`quantity`») that are instantiated in :ref:`relational contexts <dependency>`. All instances of a particular «:ref:`role`» must follow the same
+:ref:`identity principle <identity>`. Here are some examples of roles:
+
+.. container:: figure
+
+   |Examples 0|
+
+.. |Examples 0| image:: _images/ontouml_role-examples.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/db6a1950c1142b016543> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "classes/sortals/relator/definition.rst" ;
+    ok:text """Definition
+----------
+
+The «:ref:`relator`» construct is used to represent **truth-makers** of :ref:`material relations <material>`, i.e., the "things" that must exist in order for two or more individuals to be connected by :ref:`material relations <material>`. Because of this nature, relators are always :ref:`dependent <dependency>` on other individuals to exist. Here are some examples of concepts classified as relators:
+
+.. container:: figure
+
+   |Relator examples|
+
+Note that the «:ref:`relator`» meta-class is analogous to the «:ref:`kind`», «:ref:`collective`» and «:ref:`quantity`» meta-classes, in the sense that it is :ref:`rigid <rigidity>` and provides an :ref:`identity principle <identity>` for its instances. The difference is that, instead of representing functional complexes, quantities or collections, a «:ref:`relator`» represents the objectification of relational properties. The direct consequence is that relators can also be specialised by :ref:`subkinds <subkind>`, :ref:`phases <phase>` and :ref:`roles <role>`, and generalised by :ref:`categories <category>` and :ref:`mixins <mixin>`.
+
+.. container:: figure
+
+   |Relator application 1|
+
+.. |Relator examples| image:: _images/ontouml_relator-examples.png
+.. |Relator application 1| image:: _images/ontouml_relator-application-1.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/dbf57af0e9c1b1070ad0> a ok:DocumentationFragment ;
+    ok:documentType "constraint" ;
+    ok:source "classes/sortals/collective/constraints.rst" ;
+    ok:text """Constraints
+-----------
+
+.. _collective-constraints-c1:
+**C1:** A «:ref:`collective`» cannot have an :ref:`identity <identity>` provider («:ref:`kind`», «:ref:`collective`», «:ref:`quantity`», «:ref:`relator`», «:ref:`mode`» and «:ref:`quantity`») as its direct or indirect super-type.
+
+.. container:: figure
+
+   |Collective forbidden 1|
+
+.. _collective-constraints-c2:
+**C2:** A «:ref:`collective`» cannot have types that inherit :ref:`identity <identity>`  («:ref:`subkind`», «:ref:`role`» and «:ref:`phase`») as its direct or indirect super-types.
+
+.. container:: figure
+
+   |Collective forbidden 2|
+
+.. _collective-constraints-c3:
+**C3:** A «:ref:`collective`» cannot have types that aggregate individuals with :ref:`different identity principles <identity>` («:ref:`category`», «:ref:`rolemixin`» and «:ref:`mixin`») as its direct or indirect subtypes.
+
+.. container:: figure
+
+   |Collective forbidden 3|
+
+.. _collective-constraints-c4:
+**C4:** As a :ref:`rigid <rigidity>` type, a «:ref:`collective`» cannot have any :ref:`anti-rigid <rigidity>` type («:ref:`role`», «:ref:`rolemixin`» and «:ref:`phase`») as its direct or indirect super-type.
+
+.. container:: figure
+
+   |Collective forbidden 4|
+
+.. |Collective forbidden 1| image:: _images/ontouml_collective-forbidden-1.png
+.. |Collective forbidden 2| image:: _images/ontouml_collective-forbidden-2.png
+.. |Collective forbidden 3| image:: _images/ontouml_collective-forbidden-3.png
+.. |Collective forbidden 4| image:: _images/ontouml_collective-forbidden-4.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/e8870f2cb228dc6ae746> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "classes/sortals/kind/definition.rst" ;
+    ok:text """Definition
+----------
+
+A «:ref:`kind`» is construct you are going to use in most of your models. It is used to represent :ref:`rigid <rigidity>` concepts that provide an :ref:`identity principle <identity>` for their instances and do not require a :ref:`relational dependency <dependency>`. A «:ref:`kind`» represent a **Functional Complex**, i.e., a whole that has parts contributing in different ways for its functionality (see the :ref:`componentOf <componentOf>` relation for more details about functional parts). Let's see some examples:
+
+.. container:: figure
+
+   |Kind examples|
+
+.. |Kind examples| image:: _images/ontouml_kind-examples.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/f823bf2f2541de3bbc06> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "classes/nonsortals/category/definition.rst" ;
+    ok:text """Definition
+----------
+
+A «:ref:`category`» is a :ref:`rigid <rigidity>` :ref:`non-sortal <identity>` that does not require a dependency to be specified. It is used to aggregate essential properties to individuals which following :ref:`different identity principles <identity>`. Let's see some examples:
+
+.. container:: figure
+
+   |Category examples|
+
+Categories are usually used in a refactoring process. For example, let's suppose that you defined two classes in your model, Person and Animal. Now you want to state that either people and animals have a weight. You than create a «:ref:`category`», which has weight, and generalize the existing classes into it.
+
+.. |Category examples| image:: _images/ontouml_category-examples.png""" .
+
+<https://w3id.org/ontouml/knowledge#document/ff1579f9a9517ac0939f> a ok:DocumentationFragment ;
+    ok:documentType "definition" ;
+    ok:source "classes/nonsortals/rolemixin/definition.rst" ;
+    ok:text """Definition
+----------
+
+A «:ref:`rolemixin`» is the equivalent of «:ref:`role`» for types that aggregate instances with :ref:`different identity principles <identity>`. A class stereotyped as «:ref:`rolemixin`» is also an :ref:`anti-rigid <rigidity>` type whose instantiation :ref:`depends on a relational property <dependency>`. Here are some examples:
+
+.. container:: figure
+
+   |RoleMixin examples|
+
+RoleMixins usually occur in one of the two patterns:
+
+- **Pattern 1:** «:ref:`rolemixin`» defined by roles
+
+.. container:: figure
+
+   |RoleMixin application 1|
+
+- **Pattern 2:** «:ref:`rolemixin`» as a role of a «:ref:`category`»
+
+.. container:: figure
+
+   |RoleMixin application 2|
+
+The second pattern is a more concise form of the first. They are semantically equivalent.
+
+.. |RoleMixin examples| image:: _images/ontouml_rolemixin-examples.png
+.. |RoleMixin application 1| image:: _images/ontouml_rolemixin-application-1.png
+.. |RoleMixin application 2| image:: _images/ontouml_rolemixin-application-2.png""" .
+
+<https://w3id.org/ontouml/knowledge#node/01e763e622cdd33e4afe> ok:allowed "*" ;
+    ok:max "*" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/1193ff5cbf62cd4820d7> ok:allowed "Mode",
+        "Quality" ;
+    ok:max "*" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/17216b58eb513edc031f> ok:cyclicity "undefined" ;
+    ok:reflexivity "undefined" ;
+    ok:symmetry "undefined" ;
+    ok:transitivity false .
+
+<https://w3id.org/ontouml/knowledge#node/1f6b29b24853f8d59235> ok:allowed "Quantity" ;
+    ok:max "1" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/1ff4e0da0355df62708b> ok:cyclicity false ;
+    ok:reflexivity false ;
+    ok:symmetry false ;
+    ok:transitivity false .
+
+<https://w3id.org/ontouml/knowledge#node/2a6a087c47f190a663b0> ok:allowed "Relator" ;
+    ok:max "1" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/34c13e79064d16fa6a54> ok:allowed "Quantity" ;
+    ok:max "1" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/39246b6ce4ef09df2703> ok:allowed "*" ;
+    ok:max "*" ;
+    ok:min "0" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/394ee93e358e15bea149> ok:allowed "*" ;
+    ok:max "*" ;
+    ok:min "0" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/3ab4b899343efb1c7f6e> ok:allowed "Mode",
+        "Quality" ;
+    ok:max "1" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/412f20012ad50dd2a5bc> ok:cyclicity false ;
+    ok:reflexivity false ;
+    ok:symmetry false ;
+    ok:transitivity true .
+
+<https://w3id.org/ontouml/knowledge#node/43b8cbd99154c7d8d6a6> ok:allowed "*" ;
+    ok:max "1" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/45f2299ed2025ed61fc8> ok:allowed "Quality" ;
+    ok:max "*" ;
+    ok:min "0" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/4f8f77715400ee4b8522> ok:cyclicity false ;
+    ok:reflexivity false ;
+    ok:symmetry false ;
+    ok:transitivity false .
+
+<https://w3id.org/ontouml/knowledge#node/531dd2952105cd7e12c3> ok:cyclicity false ;
+    ok:reflexivity false ;
+    ok:symmetry false ;
+    ok:transitivity false .
+
+<https://w3id.org/ontouml/knowledge#node/6288b0c27be5c600481c> ok:allowed "*" ;
+    ok:max "*" ;
+    ok:min "0" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/67c84a3219858f7eacfc> ok:cyclicity "undefined" ;
+    ok:reflexivity "undefined" ;
+    ok:symmetry "undefined" ;
+    ok:transitivity "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/6ebf35b75584cfeaed0d> ok:allowed "*" ;
+    ok:max "1" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/71543e549e3992f28b16> ok:allowed "*" ;
+    ok:max "*" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/94235637ae86dbcf85f9> ok:cyclicity false ;
+    ok:reflexivity false ;
+    ok:symmetry false ;
+    ok:transitivity false .
+
+<https://w3id.org/ontouml/knowledge#node/9af17566afc9edab0f3a> ok:allowed "Collective" ;
+    ok:max "1" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/9cc75428f8b7be25f828> ok:allowed "*" ;
+    ok:max "*" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/abf29901d2b1521aafae> ok:allowed "Collective" ;
+    ok:max "*" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/ad648837084c07da0b87> ok:allowed "*" ;
+    ok:max "*" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/b2fe7a1984f6380b7ea9> ok:cyclicity false ;
+    ok:reflexivity false ;
+    ok:symmetry false ;
+    ok:transitivity true .
+
+<https://w3id.org/ontouml/knowledge#node/bdeb7c8d2d2203c1282f> ok:cyclicity "undefined" ;
+    ok:reflexivity false ;
+    ok:symmetry false ;
+    ok:transitivity false .
+
+<https://w3id.org/ontouml/knowledge#node/c280fa9de0ca44f7718e> ok:allowed "*" ;
+    ok:max "*" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/cc18d9ea47637ab159c7> ok:cyclicity false ;
+    ok:reflexivity false ;
+    ok:symmetry false ;
+    ok:transitivity false .
+
+<https://w3id.org/ontouml/knowledge#node/dca9162c0805eb804900> ok:allowed "material" ;
+    ok:max "1" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/de2ffa8fa6d15aa3af87> ok:allowed "Collective",
+        "Functional complex" ;
+    ok:max "*" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/dedca1dca66850a0d96d> ok:allowed "Collective" ;
+    ok:max "1" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+
+<https://w3id.org/ontouml/knowledge#node/e6aca3e1cecc0c9a6475> ok:cyclicity false ;
+    ok:reflexivity false ;
+    ok:symmetry false ;
+    ok:transitivity false .
+
+<https://w3id.org/ontouml/knowledge#node/ee8746df76fa489af711> ok:allowed "Quantity" ;
+    ok:max "1" ;
+    ok:min "1" ;
+    ok:readonly "undefined" .
+

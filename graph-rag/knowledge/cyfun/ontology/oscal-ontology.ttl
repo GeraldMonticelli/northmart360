@@ -1,0 +1,1703 @@
+@prefix oscal: <https://csrc.nist.gov/ns/oscal/semantic/1.0#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+oscal:Ontology a owl:Ontology ;
+    rdfs:label "OSCAL semantic projection generated from NIST Metaschema" .
+
+oscal:action a owl:ObjectProperty ;
+    rdfs:label "action" ;
+    rdfs:domain oscal:Metadata ;
+    rdfs:range oscal:Action .
+
+oscal:activity a owl:ObjectProperty ;
+    rdfs:label "activity" ;
+    rdfs:domain oscal:AssessmentPlan,
+        oscal:AssessmentResults ;
+    rdfs:range oscal:Activity .
+
+oscal:actor-uuid a owl:DatatypeProperty ;
+    rdfs:label "Actor Universally Unique Identifier Reference" ;
+    rdfs:comment "A machine-oriented identifier reference to the tool or person based on the associated type." ;
+    rdfs:domain oscal:OriginActor ;
+    rdfs:range xsd:string .
+
+oscal:addr-line a owl:DatatypeProperty ;
+    rdfs:label "Address line" ;
+    rdfs:comment "A single line of an address." ;
+    rdfs:domain oscal:Address ;
+    rdfs:range xsd:string .
+
+oscal:address a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain oscal:Metadata ;
+    rdfs:range oscal:Address .
+
+oscal:adjustment-justification a owl:DatatypeProperty ;
+    rdfs:label "Adjustment Justification" ;
+    rdfs:comment "If the selected security level is different from the base security level, this contains the justification for the change." ;
+    rdfs:domain oscal:Impact ;
+    rdfs:range rdf:HTML .
+
+oscal:assessment-assets a owl:ObjectProperty ;
+    rdfs:label "assessment-assets" ;
+    rdfs:domain oscal:AssessmentPlan,
+        oscal:LocalDefinitions,
+        oscal:Result ;
+    rdfs:range oscal:AssessmentAssets .
+
+oscal:assessment-part a owl:ObjectProperty ;
+    rdfs:label "assessment-part" ;
+    rdfs:domain oscal:AssessmentMethod,
+        oscal:AssessmentPart,
+        oscal:AssessmentPlan,
+        oscal:Result ;
+    rdfs:range oscal:AssessmentPart .
+
+oscal:assessment-subject a owl:ObjectProperty ;
+    rdfs:label "assessment-subject" ;
+    rdfs:domain oscal:AssessmentPlan,
+        oscal:RelatedTask,
+        oscal:Task ;
+    rdfs:range oscal:AssessmentSubject .
+
+oscal:associated-risk a owl:ObjectProperty ;
+    rdfs:label "associated-risk" ;
+    rdfs:domain oscal:Finding,
+        oscal:PoamItem ;
+    rdfs:range oscal:AssociatedRisk .
+
+oscal:authorization-boundary a owl:ObjectProperty ;
+    rdfs:label "authorization-boundary" ;
+    rdfs:domain oscal:SystemCharacteristics ;
+    rdfs:range oscal:AuthorizationBoundary .
+
+oscal:authorized-privilege a owl:ObjectProperty ;
+    rdfs:label "authorized-privilege" ;
+    rdfs:domain oscal:SystemUser ;
+    rdfs:range oscal:AuthorizedPrivilege .
+
+oscal:back-matter a owl:ObjectProperty ;
+    rdfs:label "back-matter" ;
+    rdfs:domain oscal:AssessmentPlan,
+        oscal:AssessmentResults,
+        oscal:Catalog,
+        oscal:ComponentDefinition,
+        oscal:MappingCollection,
+        oscal:PlanOfActionAndMilestones,
+        oscal:Profile,
+        oscal:SystemSecurityPlan ;
+    rdfs:range oscal:BackMatter .
+
+oscal:base a owl:DatatypeProperty ;
+    rdfs:label "Base Level (Confidentiality, Integrity, or Availability)" ;
+    rdfs:comment "The prescribed base (Confidentiality, Integrity, or Availability) security impact level." ;
+    rdfs:domain oscal:Impact ;
+    rdfs:range xsd:string .
+
+oscal:capability a owl:ObjectProperty ;
+    rdfs:label "capability" ;
+    rdfs:domain oscal:ComponentDefinition ;
+    rdfs:range oscal:Capability .
+
+oscal:category a owl:DatatypeProperty ;
+    rdfs:label "Category" ;
+    rdfs:comment "The category expresses the resolvable nature of the predicate." ;
+    rdfs:domain oscal:QualifierItem ;
+    rdfs:range xsd:string .
+
+oscal:characterization a owl:ObjectProperty ;
+    rdfs:label "characterization" ;
+    rdfs:domain oscal:Risk ;
+    rdfs:range oscal:Characterization .
+
+oscal:class a owl:DatatypeProperty ;
+    rdfs:label "Control Class",
+        "Group Class",
+        "Parameter Class",
+        "Part Class",
+        "Property Class" ;
+    rdfs:comment "A textual label that provides a characterization of the type, purpose, use or scope of the parameter.",
+        "A textual label that provides a sub-type or characterization of the control.",
+        "A textual label that provides a sub-type or characterization of the group.",
+        "A textual label that provides a sub-type or characterization of the part's name. This can be used to further distinguish or discriminate between the semantics of multiple parts of the same control with the same name and ns.",
+        "A textual label that provides a sub-type or characterization of the property's name.",
+        "An optional textual providing a sub-type or characterization of the part's name, or a category to which the part belongs." ;
+    rdfs:domain oscal:AssessmentPart,
+        oscal:Control,
+        oscal:Group,
+        oscal:Parameter,
+        oscal:Part,
+        oscal:Property ;
+    rdfs:range xsd:token .
+
+oscal:component-uuid a owl:DatatypeProperty ;
+    rdfs:label "Component Reference",
+        "Component Universally Unique Identifier Reference" ;
+    rdfs:comment "A machine-oriented identifier reference to a component.",
+        "A machine-oriented identifier reference to the component that is implementing a given control." ;
+    rdfs:domain oscal:ByComponent,
+        oscal:IncorporatesComponent ;
+    rdfs:range xsd:string .
+
+oscal:confidence-score a owl:ObjectProperty ;
+    rdfs:label "confidence-score" ;
+    rdfs:domain oscal:Map,
+        oscal:Mapping,
+        oscal:MappingProvenance ;
+    rdfs:range oscal:ConfidenceScore .
+
+oscal:control a owl:ObjectProperty ;
+    rdfs:label "control" ;
+    rdfs:domain oscal:Catalog,
+        oscal:Control,
+        oscal:Group ;
+    rdfs:range oscal:Control .
+
+oscal:control-id a owl:DatatypeProperty ;
+    rdfs:label "control-id" ;
+    rdfs:domain oscal:ImplementedRequirement,
+        oscal:LocalObjective ;
+    rdfs:range xsd:string .
+
+oscal:control-implementation a owl:ObjectProperty ;
+    rdfs:label "control-implementation" ;
+    rdfs:domain oscal:Capability,
+        oscal:DefinedComponent,
+        oscal:SystemSecurityPlan ;
+    rdfs:range oscal:ControlImplementation .
+
+oscal:coverage a owl:DatatypeProperty ;
+    rdfs:label "Coverage" ;
+    rdfs:comment "A decimal value from 0-1, representing the percentage coverage of the targets by the sources." ;
+    rdfs:domain oscal:Map,
+        oscal:Mapping,
+        oscal:MappingProvenance ;
+    rdfs:range xsd:decimal .
+
+oscal:data-flow a owl:ObjectProperty ;
+    rdfs:label "data-flow" ;
+    rdfs:domain oscal:SystemCharacteristics ;
+    rdfs:range oscal:DataFlow .
+
+oscal:date a owl:DatatypeProperty ;
+    rdfs:label "Action Occurrence Date" ;
+    rdfs:comment "The date and time when the action occurred." ;
+    rdfs:domain oscal:Action ;
+    rdfs:range xsd:dateTime .
+
+oscal:date-authorized a owl:DatatypeProperty ;
+    rdfs:label "System Authorization Date",
+        "date-authorized" ;
+    rdfs:comment "The date the system received its authorization." ;
+    rdfs:domain oscal:SystemCharacteristics,
+        oscal:SystemImplementation ;
+    rdfs:range xsd:date .
+
+oscal:defined-component a owl:ObjectProperty ;
+    rdfs:label "defined-component" ;
+    rdfs:domain oscal:ComponentDefinition ;
+    rdfs:range oscal:DefinedComponent .
+
+oscal:defined-component-type a owl:DatatypeProperty ;
+    rdfs:label "defined-component-type" ;
+    rdfs:domain oscal:DefinedComponent ;
+    rdfs:range xsd:string .
+
+oscal:depends-on a owl:DatatypeProperty ;
+    rdfs:label "Depends on" ;
+    rdfs:comment "(deprecated) Another parameter invoking this one. This construct has been deprecated and should not be used." ;
+    rdfs:domain oscal:Parameter ;
+    rdfs:range xsd:token .
+
+oscal:diagram a owl:ObjectProperty ;
+    rdfs:label "diagram" ;
+    rdfs:domain oscal:AuthorizationBoundary,
+        oscal:DataFlow,
+        oscal:NetworkArchitecture ;
+    rdfs:range oscal:Diagram .
+
+oscal:document-id a owl:DatatypeProperty ;
+    rdfs:label "Document Identifier",
+        "document-id" ;
+    rdfs:comment "A document identifier qualified by an identifier scheme." ;
+    rdfs:domain oscal:BackMatter,
+        oscal:Metadata ;
+    rdfs:range xsd:string .
+
+oscal:email-address a owl:DatatypeProperty ;
+    rdfs:label "email-address" ;
+    rdfs:domain oscal:Metadata ;
+    rdfs:range xsd:string .
+
+oscal:end a owl:DatatypeProperty ;
+    rdfs:label "End" ;
+    rdfs:comment "Indicates the ending port number in a port range for a transport layer protocol" ;
+    rdfs:domain oscal:PortRange ;
+    rdfs:range xsd:nonNegativeInteger .
+
+oscal:finding a owl:ObjectProperty ;
+    rdfs:label "finding" ;
+    rdfs:domain oscal:PlanOfActionAndMilestones,
+        oscal:Result ;
+    rdfs:range oscal:Finding .
+
+oscal:finding-target a owl:ObjectProperty ;
+    rdfs:label "finding-target" ;
+    rdfs:domain oscal:Finding ;
+    rdfs:range oscal:FindingTarget .
+
+oscal:function-performed a owl:DatatypeProperty ;
+    rdfs:label "Functions Performed" ;
+    rdfs:comment "Describes a function performed for a given authorized privilege by this user class." ;
+    rdfs:domain oscal:AuthorizedPrivilege ;
+    rdfs:range xsd:string .
+
+oscal:gap-summary a owl:ObjectProperty ;
+    rdfs:label "gap-summary" ;
+    rdfs:domain oscal:Mapping ;
+    rdfs:range oscal:GapSummary .
+
+oscal:group a owl:DatatypeProperty,
+        owl:ObjectProperty ;
+    rdfs:label "Property Group",
+        "group" ;
+    rdfs:comment "An identifier for relating distinct sets of properties." ;
+    rdfs:domain oscal:Catalog,
+        oscal:Group,
+        oscal:Merge,
+        oscal:Property ;
+    rdfs:range xsd:token,
+        oscal:Group .
+
+oscal:hash a owl:DatatypeProperty ;
+    rdfs:label "hash" ;
+    rdfs:domain oscal:BackMatter ;
+    rdfs:range xsd:string .
+
+oscal:how-many a owl:DatatypeProperty ;
+    rdfs:label "Parameter Cardinality" ;
+    rdfs:comment "Describes the number of selections that must occur. Without this setting, only one value should be assumed to be permitted." ;
+    rdfs:domain oscal:ParameterSelection ;
+    rdfs:range xsd:token .
+
+oscal:href a owl:DatatypeProperty ;
+    rdfs:label "Assessment Plan Reference",
+        "Catalog or Profile Reference",
+        "Hyperlink Reference",
+        "Hypertext Reference",
+        "Profile Reference",
+        "System Security Plan Reference" ;
+    rdfs:comment "A link to a resource that defines a set of components and/or capabilities to import into this collection.",
+        "A resolvable URL reference to a resource.",
+        "A resolvable URL reference to the assessment plan governing the assessment activities.",
+        "A resolvable URL reference to the base catalog or profile that this profile is tailoring.",
+        "A resolvable URL reference to the profile or catalog to use as the system's control baseline.",
+        "A resolvable URL reference to the system security plan for the system being assessed." ;
+    rdfs:domain oscal:Import,
+        oscal:ImportAp,
+        oscal:ImportComponentDefinition,
+        oscal:ImportProfile,
+        oscal:ImportSsp,
+        oscal:Link,
+        oscal:MappingResourceReference ;
+    rdfs:range xsd:anyURI .
+
+oscal:id a owl:DatatypeProperty ;
+    rdfs:label "Control Identifier",
+        "Group Identifier",
+        "Parameter Identifier",
+        "Part Identifier" ;
+    rdfs:comment "A unique identifier for the parameter.",
+        "A unique identifier for the part.",
+        "Identifies a control such that it can be referenced in the defining catalog and other OSCAL instances (e.g., profiles).",
+        "Identifies the group for the purpose of cross-linking within the defining instance or from other instances that reference the catalog." ;
+    rdfs:domain oscal:Control,
+        oscal:Group,
+        oscal:Parameter,
+        oscal:Part ;
+    rdfs:range xsd:token .
+
+oscal:id-ref a owl:DatatypeProperty ;
+    rdfs:label "Subject Identifier Reference" ;
+    rdfs:comment "A reference to an identified subject that is of the specified type ." ;
+    rdfs:domain oscal:MappingItem ;
+    rdfs:range xsd:string .
+
+oscal:impact a owl:ObjectProperty ;
+    rdfs:label "impact" ;
+    rdfs:domain oscal:SystemInformation ;
+    rdfs:range oscal:Impact .
+
+oscal:implementation-status a owl:ObjectProperty ;
+    rdfs:label "implementation-status" ;
+    rdfs:domain oscal:ByComponent,
+        oscal:FindingTarget ;
+    rdfs:range oscal:ImplementationStatus .
+
+oscal:implemented-requirement a owl:ObjectProperty ;
+    rdfs:label "implemented-requirement" ;
+    rdfs:domain oscal:ControlImplementation ;
+    rdfs:range oscal:ImplementedRequirement .
+
+oscal:import a owl:ObjectProperty ;
+    rdfs:label "import" ;
+    rdfs:domain oscal:Profile ;
+    rdfs:range oscal:Import .
+
+oscal:import-ap a owl:ObjectProperty ;
+    rdfs:label "import-ap" ;
+    rdfs:domain oscal:AssessmentResults ;
+    rdfs:range oscal:ImportAp .
+
+oscal:import-component-definition a owl:ObjectProperty ;
+    rdfs:label "import-component-definition" ;
+    rdfs:domain oscal:ComponentDefinition ;
+    rdfs:range oscal:ImportComponentDefinition .
+
+oscal:import-profile a owl:ObjectProperty ;
+    rdfs:label "import-profile" ;
+    rdfs:domain oscal:SystemSecurityPlan ;
+    rdfs:range oscal:ImportProfile .
+
+oscal:import-ssp a owl:ObjectProperty ;
+    rdfs:label "import-ssp" ;
+    rdfs:domain oscal:AssessmentPlan,
+        oscal:PlanOfActionAndMilestones ;
+    rdfs:range oscal:ImportSsp .
+
+oscal:include-all a owl:ObjectProperty ;
+    rdfs:label "include-all" ;
+    rdfs:domain oscal:AssessmentSubject,
+        oscal:Import,
+        oscal:InsertControls,
+        oscal:ReviewedControls ;
+    rdfs:range oscal:IncludeAll .
+
+oscal:incorporates-component a owl:ObjectProperty ;
+    rdfs:label "incorporates-component" ;
+    rdfs:domain oscal:Capability ;
+    rdfs:range oscal:IncorporatesComponent .
+
+oscal:insert-controls a owl:ObjectProperty ;
+    rdfs:label "insert-controls" ;
+    rdfs:domain oscal:Merge ;
+    rdfs:range oscal:InsertControls .
+
+oscal:inventory-item a owl:ObjectProperty ;
+    rdfs:label "inventory-item" ;
+    rdfs:domain oscal:AssessmentPlan,
+        oscal:LocalDefinitions,
+        oscal:Result,
+        oscal:SystemImplementation ;
+    rdfs:range oscal:InventoryItem .
+
+oscal:last-modified a owl:DatatypeProperty ;
+    rdfs:label "Last Modified Timestamp",
+        "last-modified" ;
+    rdfs:comment "The date and time the document was last stored for later retrieval." ;
+    rdfs:domain oscal:Metadata ;
+    rdfs:range xsd:dateTime .
+
+oscal:lifecycle a owl:DatatypeProperty ;
+    rdfs:label "Remediation Intent" ;
+    rdfs:comment "Identifies whether this is a recommendation, such as from an assessor or tool, or an actual plan accepted by the system owner." ;
+    rdfs:domain oscal:Response ;
+    rdfs:range xsd:token .
+
+oscal:link a owl:ObjectProperty ;
+    rdfs:label "link" ;
+    rdfs:domain oscal:Action,
+        oscal:Activity,
+        oscal:AssessmentAssets,
+        oscal:AssessmentMethod,
+        oscal:AssessmentPart,
+        oscal:AssessmentSubject,
+        oscal:AssessmentSubjectPlaceholder,
+        oscal:AuthorizationBoundary,
+        oscal:BackMatter,
+        oscal:ByComponent,
+        oscal:Capability,
+        oscal:Characterization,
+        oscal:Control,
+        oscal:ControlImplementation,
+        oscal:DataFlow,
+        oscal:DefinedComponent,
+        oscal:Diagram,
+        oscal:Finding,
+        oscal:FindingTarget,
+        oscal:Group,
+        oscal:Impact,
+        oscal:ImplementedRequirement,
+        oscal:InventoryItem,
+        oscal:LocalObjective,
+        oscal:Map,
+        oscal:Mapping,
+        oscal:MappingItem,
+        oscal:MappingProvenance,
+        oscal:MappingResourceReference,
+        oscal:Metadata,
+        oscal:Modify,
+        oscal:NetworkArchitecture,
+        oscal:Observation,
+        oscal:OriginActor,
+        oscal:Parameter,
+        oscal:Part,
+        oscal:PoamItem,
+        oscal:RelatedTask,
+        oscal:Response,
+        oscal:ResponsibleParty,
+        oscal:ResponsibleRole,
+        oscal:Result,
+        oscal:ReviewedControls,
+        oscal:Risk,
+        oscal:SelectSubjectById,
+        oscal:Statement,
+        oscal:SubjectReference,
+        oscal:SystemCharacteristics,
+        oscal:SystemComponent,
+        oscal:SystemImplementation,
+        oscal:SystemInformation,
+        oscal:SystemUser,
+        oscal:Task ;
+    rdfs:range oscal:Link .
+
+oscal:local-definitions a owl:ObjectProperty ;
+    rdfs:label "local-definitions" ;
+    rdfs:domain oscal:PlanOfActionAndMilestones ;
+    rdfs:range oscal:LocalDefinitions .
+
+oscal:local-objective a owl:ObjectProperty ;
+    rdfs:label "local-objective" ;
+    rdfs:domain oscal:AssessmentPlan,
+        oscal:AssessmentResults ;
+    rdfs:range oscal:LocalObjective .
+
+oscal:location-type a owl:DatatypeProperty ;
+    rdfs:label "location-type" ;
+    rdfs:domain oscal:Address ;
+    rdfs:range xsd:string .
+
+oscal:location-uuid a owl:DatatypeProperty ;
+    rdfs:label "location-uuid" ;
+    rdfs:domain oscal:Metadata ;
+    rdfs:range xsd:string .
+
+oscal:logged-by a owl:ObjectProperty ;
+    rdfs:label "logged-by" ;
+    rdfs:domain oscal:Result,
+        oscal:Risk ;
+    rdfs:range oscal:LoggedBy .
+
+oscal:map a owl:ObjectProperty ;
+    rdfs:label "map" ;
+    rdfs:domain oscal:Mapping ;
+    rdfs:range oscal:Map .
+
+oscal:mapping a owl:ObjectProperty ;
+    rdfs:label "mapping" ;
+    rdfs:domain oscal:MappingCollection ;
+    rdfs:range oscal:Mapping .
+
+oscal:mapping-description a owl:DatatypeProperty ;
+    rdfs:label "Mapping Description" ;
+    rdfs:comment "Description of the context and intended use of the mapping set." ;
+    rdfs:domain oscal:Mapping,
+        oscal:MappingProvenance ;
+    rdfs:range rdf:HTML .
+
+oscal:mapping-item a owl:ObjectProperty ;
+    rdfs:label "mapping-item" ;
+    rdfs:domain oscal:Map ;
+    rdfs:range oscal:MappingItem .
+
+oscal:mapping-provenance a owl:ObjectProperty ;
+    rdfs:label "mapping-provenance" ;
+    rdfs:domain oscal:MappingCollection ;
+    rdfs:range oscal:MappingProvenance .
+
+oscal:mapping-resource-reference a owl:ObjectProperty ;
+    rdfs:label "mapping-resource-reference" ;
+    rdfs:domain oscal:Mapping ;
+    rdfs:range oscal:MappingResourceReference .
+
+oscal:matching a owl:ObjectProperty ;
+    rdfs:label "matching" ;
+    rdfs:domain oscal:SelectControlById ;
+    rdfs:range oscal:Matching .
+
+oscal:matching-rationale a owl:DatatypeProperty ;
+    rdfs:label "matching-rationale" ;
+    rdfs:domain oscal:Map,
+        oscal:Mapping,
+        oscal:MappingProvenance ;
+    rdfs:range xsd:string .
+
+oscal:media-type a owl:DatatypeProperty ;
+    rdfs:label "media-type" ;
+    rdfs:domain oscal:Link ;
+    rdfs:range xsd:string .
+
+oscal:merge a owl:ObjectProperty ;
+    rdfs:label "merge" ;
+    rdfs:domain oscal:Profile ;
+    rdfs:range oscal:Merge .
+
+oscal:metadata a owl:ObjectProperty ;
+    rdfs:label "metadata" ;
+    rdfs:domain oscal:AssessmentPlan,
+        oscal:AssessmentResults,
+        oscal:Catalog,
+        oscal:ComponentDefinition,
+        oscal:MappingCollection,
+        oscal:PlanOfActionAndMilestones,
+        oscal:Profile,
+        oscal:SystemSecurityPlan ;
+    rdfs:range oscal:Metadata .
+
+oscal:method a owl:DatatypeProperty ;
+    rdfs:label "method" ;
+    rdfs:domain oscal:Mapping,
+        oscal:MappingProvenance ;
+    rdfs:range xsd:string .
+
+oscal:modify a owl:ObjectProperty ;
+    rdfs:label "modify" ;
+    rdfs:domain oscal:Profile ;
+    rdfs:range oscal:Modify .
+
+oscal:name a owl:DatatypeProperty ;
+    rdfs:label "Capability Name",
+        "Part Name",
+        "Property Name",
+        "Protocol Name" ;
+    rdfs:comment "A textual label that uniquely identifies the part's semantic type, which exists in a value space qualified by the ns.",
+        "A textual label that uniquely identifies the part's semantic type.",
+        "A textual label, within a namespace, that identifies a specific attribute, characteristic, or quality of the property's containing object.",
+        "The capability's human-readable name.",
+        "The common name of the protocol, which should be the appropriate \"service name\" from the IANA Service Name and Transport Protocol Port Number Registry." ;
+    rdfs:domain oscal:AssessmentPart,
+        oscal:Capability,
+        oscal:Part,
+        oscal:Property,
+        oscal:Protocol ;
+    rdfs:range xsd:string,
+        xsd:token .
+
+oscal:network-architecture a owl:ObjectProperty ;
+    rdfs:label "network-architecture" ;
+    rdfs:domain oscal:SystemCharacteristics ;
+    rdfs:range oscal:NetworkArchitecture .
+
+oscal:ns a owl:DatatypeProperty ;
+    rdfs:label "Part Namespace",
+        "Property Namespace",
+        "Relationship Value Namespace",
+        "Resource Type Namespace" ;
+    rdfs:comment "A namespace qualifying the part's name. This allows different organizations to associate distinct semantics with the same name.",
+        "A namespace qualifying the property's name. This allows different organizations to associate distinct semantics with the same name.",
+        "A namespace qualifying the relationship's value. This allows different organizations to associate distinct semantics for relationships with the same name.",
+        "An optional namespace qualifying the part's name. This allows different organizations to associate distinct semantics with the same name.",
+        "An optional namespace qualifying the resource's type." ;
+    rdfs:domain oscal:AssessmentPart,
+        oscal:Map,
+        oscal:MappingResourceReference,
+        oscal:Part,
+        oscal:Property ;
+    rdfs:range xsd:anyURI .
+
+oscal:objective-id a owl:DatatypeProperty ;
+    rdfs:label "objective-id" ;
+    rdfs:domain oscal:SelectObjectiveById ;
+    rdfs:range xsd:string .
+
+oscal:observation a owl:ObjectProperty ;
+    rdfs:label "observation" ;
+    rdfs:domain oscal:PlanOfActionAndMilestones,
+        oscal:Result ;
+    rdfs:range oscal:Observation .
+
+oscal:observation-uuid a owl:DatatypeProperty ;
+    rdfs:label "Observation Universally Unique Identifier Reference" ;
+    rdfs:comment "A machine-oriented identifier reference to an observation defined in the list of observations." ;
+    rdfs:domain oscal:RelatedObservation ;
+    rdfs:range xsd:string .
+
+oscal:order a owl:DatatypeProperty ;
+    rdfs:label "Order" ;
+    rdfs:comment "A designation of how a selection of controls in a profile is to be ordered." ;
+    rdfs:domain oscal:InsertControls ;
+    rdfs:range xsd:token .
+
+oscal:origin a owl:ObjectProperty ;
+    rdfs:label "origin" ;
+    rdfs:domain oscal:Characterization,
+        oscal:Finding,
+        oscal:Observation,
+        oscal:Response,
+        oscal:Risk ;
+    rdfs:range oscal:Origin .
+
+oscal:origin-actor a owl:ObjectProperty ;
+    rdfs:label "origin-actor" ;
+    rdfs:domain oscal:Origin,
+        oscal:PoamItem ;
+    rdfs:range oscal:OriginActor .
+
+oscal:oscal-version a owl:DatatypeProperty ;
+    rdfs:label "OSCAL Version",
+        "oscal-version" ;
+    rdfs:comment "The OSCAL model version the document was authored against and will conform to as valid." ;
+    rdfs:domain oscal:Metadata ;
+    rdfs:range xsd:string .
+
+oscal:param-id a owl:DatatypeProperty ;
+    rdfs:label "param-id" ;
+    rdfs:domain oscal:SetParameter ;
+    rdfs:range xsd:string .
+
+oscal:parameter a owl:ObjectProperty ;
+    rdfs:label "parameter" ;
+    rdfs:domain oscal:Catalog,
+        oscal:Control,
+        oscal:Group,
+        oscal:Modify ;
+    rdfs:range oscal:Parameter .
+
+oscal:parameter-constraint a owl:ObjectProperty ;
+    rdfs:label "parameter-constraint" ;
+    rdfs:domain oscal:Modify,
+        oscal:Parameter ;
+    rdfs:range oscal:ParameterConstraint .
+
+oscal:parameter-guideline a owl:ObjectProperty ;
+    rdfs:label "parameter-guideline" ;
+    rdfs:domain oscal:Modify,
+        oscal:Parameter ;
+    rdfs:range oscal:ParameterGuideline .
+
+oscal:parameter-selection a owl:ObjectProperty ;
+    rdfs:label "parameter-selection" ;
+    rdfs:domain oscal:Modify,
+        oscal:Parameter ;
+    rdfs:range oscal:ParameterSelection .
+
+oscal:parameter-value a owl:DatatypeProperty ;
+    rdfs:label "parameter-value" ;
+    rdfs:domain oscal:Modify,
+        oscal:Parameter ;
+    rdfs:range xsd:string .
+
+oscal:part a owl:ObjectProperty ;
+    rdfs:label "part" ;
+    rdfs:domain oscal:Control,
+        oscal:Group,
+        oscal:LocalObjective,
+        oscal:Modify,
+        oscal:Part ;
+    rdfs:range oscal:Part .
+
+oscal:party-uuid a owl:DatatypeProperty ;
+    rdfs:label "Party UUID Reference",
+        "Party Universally Unique Identifier Reference" ;
+    rdfs:comment "A machine-oriented identifier reference to the party who is making the log entry.",
+        "Reference to a party by UUID." ;
+    rdfs:domain oscal:LoggedBy,
+        oscal:ResponsibleParty,
+        oscal:ResponsibleRole ;
+    rdfs:range xsd:string .
+
+oscal:pattern a owl:DatatypeProperty ;
+    rdfs:label "pattern" ;
+    rdfs:domain oscal:Matching ;
+    rdfs:range xsd:string .
+
+oscal:percentage a owl:DatatypeProperty ;
+    rdfs:label "percentage" ;
+    rdfs:domain oscal:ConfidenceScore ;
+    rdfs:range xsd:decimal .
+
+oscal:poam-item a owl:ObjectProperty ;
+    rdfs:label "poam-item" ;
+    rdfs:domain oscal:PlanOfActionAndMilestones ;
+    rdfs:range oscal:PoamItem .
+
+oscal:port-range a owl:ObjectProperty ;
+    rdfs:label "port-range" ;
+    rdfs:domain oscal:Protocol ;
+    rdfs:range oscal:PortRange .
+
+oscal:predicate a owl:DatatypeProperty ;
+    rdfs:label "Predicate" ;
+    rdfs:comment "The predicate describes how the qualifer applies to the subject." ;
+    rdfs:domain oscal:QualifierItem ;
+    rdfs:range xsd:string .
+
+oscal:property a owl:ObjectProperty ;
+    rdfs:label "property" ;
+    rdfs:domain oscal:Action,
+        oscal:Activity,
+        oscal:AssessmentAssets,
+        oscal:AssessmentMethod,
+        oscal:AssessmentPart,
+        oscal:AssessmentSubject,
+        oscal:AssessmentSubjectPlaceholder,
+        oscal:AuthorizationBoundary,
+        oscal:BackMatter,
+        oscal:ByComponent,
+        oscal:Capability,
+        oscal:Characterization,
+        oscal:Control,
+        oscal:ControlImplementation,
+        oscal:DataFlow,
+        oscal:DefinedComponent,
+        oscal:Diagram,
+        oscal:Finding,
+        oscal:FindingTarget,
+        oscal:Group,
+        oscal:Impact,
+        oscal:ImplementedRequirement,
+        oscal:InventoryItem,
+        oscal:LocalObjective,
+        oscal:Map,
+        oscal:Mapping,
+        oscal:MappingItem,
+        oscal:MappingProvenance,
+        oscal:MappingResourceReference,
+        oscal:Metadata,
+        oscal:Modify,
+        oscal:NetworkArchitecture,
+        oscal:Observation,
+        oscal:OriginActor,
+        oscal:Parameter,
+        oscal:Part,
+        oscal:PoamItem,
+        oscal:RelatedTask,
+        oscal:Response,
+        oscal:ResponsibleParty,
+        oscal:ResponsibleRole,
+        oscal:Result,
+        oscal:ReviewedControls,
+        oscal:Risk,
+        oscal:SelectSubjectById,
+        oscal:Statement,
+        oscal:SubjectReference,
+        oscal:SystemCharacteristics,
+        oscal:SystemComponent,
+        oscal:SystemImplementation,
+        oscal:SystemInformation,
+        oscal:SystemUser,
+        oscal:Task ;
+    rdfs:range oscal:Property .
+
+oscal:protocol a owl:ObjectProperty ;
+    rdfs:label "protocol" ;
+    rdfs:domain oscal:DefinedComponent,
+        oscal:SystemComponent ;
+    rdfs:range oscal:Protocol .
+
+oscal:published a owl:DatatypeProperty ;
+    rdfs:label "Publication Timestamp",
+        "published" ;
+    rdfs:comment "The date and time the document was last made available." ;
+    rdfs:domain oscal:Metadata ;
+    rdfs:range xsd:dateTime .
+
+oscal:qualifier-item a owl:ObjectProperty ;
+    rdfs:label "qualifier-item" ;
+    rdfs:domain oscal:Map ;
+    rdfs:range oscal:QualifierItem .
+
+oscal:rel a owl:DatatypeProperty ;
+    rdfs:label "Link Relation Type" ;
+    rdfs:comment "Describes the type of relationship provided by the link's hypertext reference. This can be an indicator of the link's purpose." ;
+    rdfs:domain oscal:Link ;
+    rdfs:range xsd:token .
+
+oscal:related-observation a owl:ObjectProperty ;
+    rdfs:label "related-observation" ;
+    rdfs:domain oscal:Finding,
+        oscal:PoamItem,
+        oscal:Risk ;
+    rdfs:range oscal:RelatedObservation .
+
+oscal:related-task a owl:ObjectProperty ;
+    rdfs:label "related-task" ;
+    rdfs:domain oscal:Origin,
+        oscal:Result,
+        oscal:Risk ;
+    rdfs:range oscal:RelatedTask .
+
+oscal:remarks a owl:DatatypeProperty ;
+    rdfs:label "Remarks",
+        "remarks" ;
+    rdfs:comment "Additional commentary about the containing object." ;
+    rdfs:domain oscal:Action,
+        oscal:Activity,
+        oscal:AssessmentAssets,
+        oscal:AssessmentMethod,
+        oscal:AssessmentPlan,
+        oscal:AssessmentResults,
+        oscal:AssessmentSubject,
+        oscal:AssessmentSubjectPlaceholder,
+        oscal:AssociatedRisk,
+        oscal:AuthorizationBoundary,
+        oscal:BackMatter,
+        oscal:ByComponent,
+        oscal:Capability,
+        oscal:Characterization,
+        oscal:DataFlow,
+        oscal:DefinedComponent,
+        oscal:Diagram,
+        oscal:Finding,
+        oscal:FindingTarget,
+        oscal:ImplementationStatus,
+        oscal:ImplementedRequirement,
+        oscal:ImportAp,
+        oscal:ImportComponentDefinition,
+        oscal:ImportProfile,
+        oscal:ImportSsp,
+        oscal:InventoryItem,
+        oscal:LocalDefinitions,
+        oscal:LocalObjective,
+        oscal:LoggedBy,
+        oscal:Map,
+        oscal:Mapping,
+        oscal:MappingItem,
+        oscal:MappingProvenance,
+        oscal:MappingResourceReference,
+        oscal:Matching,
+        oscal:Metadata,
+        oscal:Modify,
+        oscal:NetworkArchitecture,
+        oscal:Observation,
+        oscal:Parameter,
+        oscal:ParameterConstraint,
+        oscal:PoamItem,
+        oscal:PortRange,
+        oscal:Property,
+        oscal:QualifierItem,
+        oscal:RelatedObservation,
+        oscal:RelatedTask,
+        oscal:Response,
+        oscal:ResponsibleParty,
+        oscal:ResponsibleRole,
+        oscal:Result,
+        oscal:ReviewedControls,
+        oscal:Risk,
+        oscal:SelectObjectiveById,
+        oscal:SelectSubjectById,
+        oscal:SetParameter,
+        oscal:Statement,
+        oscal:Status,
+        oscal:SubjectReference,
+        oscal:SystemCharacteristics,
+        oscal:SystemComponent,
+        oscal:SystemImplementation,
+        oscal:SystemUser,
+        oscal:Task ;
+    rdfs:range rdf:HTML .
+
+oscal:resource-fragment a owl:DatatypeProperty ;
+    rdfs:label "Resource Fragment" ;
+    rdfs:comment "In case where the href points to a back-matter/resource, this value will indicate the URI fragment to append to any rlink associated with the resource. This value MUST be URI encoded." ;
+    rdfs:domain oscal:Link ;
+    rdfs:range xsd:string .
+
+oscal:response a owl:ObjectProperty ;
+    rdfs:label "response" ;
+    rdfs:domain oscal:Risk ;
+    rdfs:range oscal:Response .
+
+oscal:responsible-party a owl:ObjectProperty ;
+    rdfs:label "responsible-party" ;
+    rdfs:domain oscal:Action,
+        oscal:AssessmentAssets,
+        oscal:InventoryItem,
+        oscal:MappingProvenance,
+        oscal:Metadata,
+        oscal:RelatedTask,
+        oscal:Result,
+        oscal:SystemCharacteristics ;
+    rdfs:range oscal:ResponsibleParty .
+
+oscal:responsible-role a owl:ObjectProperty ;
+    rdfs:label "responsible-role" ;
+    rdfs:domain oscal:Activity,
+        oscal:ByComponent,
+        oscal:DefinedComponent,
+        oscal:ImplementedRequirement,
+        oscal:Statement,
+        oscal:SystemComponent,
+        oscal:Task ;
+    rdfs:range oscal:ResponsibleRole .
+
+oscal:result a owl:ObjectProperty ;
+    rdfs:label "result" ;
+    rdfs:domain oscal:AssessmentResults ;
+    rdfs:range oscal:Result .
+
+oscal:reviewed-controls a owl:ObjectProperty ;
+    rdfs:label "reviewed-controls" ;
+    rdfs:domain oscal:Activity,
+        oscal:AssessmentPlan,
+        oscal:Result ;
+    rdfs:range oscal:ReviewedControls .
+
+oscal:risk a owl:ObjectProperty ;
+    rdfs:label "risk" ;
+    rdfs:domain oscal:PlanOfActionAndMilestones,
+        oscal:Result ;
+    rdfs:range oscal:Risk .
+
+oscal:risk-status a owl:DatatypeProperty ;
+    rdfs:label "Risk Status",
+        "risk-status" ;
+    rdfs:comment "Describes the status of the associated risk." ;
+    rdfs:domain oscal:Risk ;
+    rdfs:range xsd:token .
+
+oscal:risk-uuid a owl:DatatypeProperty ;
+    rdfs:label "Risk Universally Unique Identifier Reference" ;
+    rdfs:comment "A machine-oriented identifier reference to a risk defined in the list of risks." ;
+    rdfs:domain oscal:AssociatedRisk ;
+    rdfs:range xsd:string .
+
+oscal:role-id a owl:DatatypeProperty ;
+    rdfs:label "Actor Role",
+        "Responsible Role",
+        "Responsible Role ID",
+        "Role Identifier Reference" ;
+    rdfs:comment "A human-oriented identifier reference to a role performed.",
+        "A point to the role-id of the role in which the party is making the log entry.",
+        "A reference to a role performed by a party.",
+        "For a party, this can optionally be used to specify the role the actor was performing.",
+        "Reference to a role by UUID." ;
+    rdfs:domain oscal:LoggedBy,
+        oscal:OriginActor,
+        oscal:ResponsibleParty,
+        oscal:ResponsibleRole,
+        oscal:SystemUser ;
+    rdfs:range xsd:token .
+
+oscal:security-impact-level a owl:ObjectProperty ;
+    rdfs:label "security-impact-level" ;
+    rdfs:domain oscal:SystemCharacteristics ;
+    rdfs:range oscal:SecurityImpactLevel .
+
+oscal:select-control-by-id a owl:ObjectProperty ;
+    rdfs:label "select-control-by-id" ;
+    rdfs:domain oscal:GapSummary,
+        oscal:Import,
+        oscal:InsertControls,
+        oscal:ReviewedControls ;
+    rdfs:range oscal:SelectControlById .
+
+oscal:select-objective-by-id a owl:ObjectProperty ;
+    rdfs:label "select-objective-by-id" ;
+    rdfs:domain oscal:ReviewedControls ;
+    rdfs:range oscal:SelectObjectiveById .
+
+oscal:select-subject-by-id a owl:ObjectProperty ;
+    rdfs:label "select-subject-by-id" ;
+    rdfs:domain oscal:AssessmentSubject ;
+    rdfs:range oscal:SelectSubjectById .
+
+oscal:selected a owl:DatatypeProperty ;
+    rdfs:label "Selected Level (Confidentiality, Integrity, or Availability)" ;
+    rdfs:comment "The selected (Confidentiality, Integrity, or Availability) security impact level." ;
+    rdfs:domain oscal:Impact ;
+    rdfs:range xsd:string .
+
+oscal:set-parameter a owl:ObjectProperty ;
+    rdfs:label "set-parameter" ;
+    rdfs:domain oscal:ByComponent,
+        oscal:ControlImplementation,
+        oscal:ImplementedRequirement ;
+    rdfs:range oscal:SetParameter .
+
+oscal:source a owl:DatatypeProperty ;
+    rdfs:label "Source Resource Reference" ;
+    rdfs:comment "A reference to an OSCAL catalog or profile providing the referenced control or subcontrol definition." ;
+    rdfs:domain oscal:ControlImplementation ;
+    rdfs:range xsd:anyURI .
+
+oscal:start a owl:DatatypeProperty ;
+    rdfs:label "Start" ;
+    rdfs:comment "Indicates the starting port number in a port range for a transport layer protocol" ;
+    rdfs:domain oscal:PortRange ;
+    rdfs:range xsd:nonNegativeInteger .
+
+oscal:state a owl:DatatypeProperty ;
+    rdfs:label "Implementation State",
+        "State" ;
+    rdfs:comment "Identifies the implementation status of the control or control objective.",
+        "The current operating status." ;
+    rdfs:domain oscal:ImplementationStatus,
+        oscal:Status ;
+    rdfs:range xsd:string,
+        xsd:token .
+
+oscal:statement a owl:ObjectProperty ;
+    rdfs:label "statement" ;
+    rdfs:domain oscal:ImplementedRequirement ;
+    rdfs:range oscal:Statement .
+
+oscal:statement-id a owl:DatatypeProperty ;
+    rdfs:label "statement-id" ;
+    rdfs:domain oscal:Statement ;
+    rdfs:range xsd:string .
+
+oscal:status a owl:DatatypeProperty,
+        owl:ObjectProperty ;
+    rdfs:label "status" ;
+    rdfs:domain oscal:Mapping,
+        oscal:MappingProvenance,
+        oscal:SystemCharacteristics ;
+    rdfs:range xsd:string,
+        oscal:Status .
+
+oscal:subject a owl:DatatypeProperty ;
+    rdfs:label "Subject" ;
+    rdfs:comment "The focus of the qualifier." ;
+    rdfs:domain oscal:QualifierItem ;
+    rdfs:range xsd:string .
+
+oscal:subject-reference a owl:ObjectProperty ;
+    rdfs:label "subject-reference" ;
+    rdfs:domain oscal:Observation,
+        oscal:Response,
+        oscal:Risk ;
+    rdfs:range oscal:SubjectReference .
+
+oscal:subject-type a owl:DatatypeProperty ;
+    rdfs:label "subject-type" ;
+    rdfs:domain oscal:SelectSubjectById,
+        oscal:SubjectReference ;
+    rdfs:range xsd:string .
+
+oscal:subject-uuid a owl:DatatypeProperty ;
+    rdfs:label "subject-uuid" ;
+    rdfs:domain oscal:SelectSubjectById,
+        oscal:SubjectReference ;
+    rdfs:range xsd:string .
+
+oscal:system a owl:DatatypeProperty ;
+    rdfs:label "Action Type System" ;
+    rdfs:comment "Specifies the action type system used." ;
+    rdfs:domain oscal:Action ;
+    rdfs:range xsd:anyURI .
+
+oscal:system-characteristics a owl:ObjectProperty ;
+    rdfs:label "system-characteristics" ;
+    rdfs:domain oscal:SystemSecurityPlan ;
+    rdfs:range oscal:SystemCharacteristics .
+
+oscal:system-component a owl:ObjectProperty ;
+    rdfs:label "system-component" ;
+    rdfs:domain oscal:AssessmentAssets,
+        oscal:AssessmentPlan,
+        oscal:LocalDefinitions,
+        oscal:Result,
+        oscal:SystemImplementation ;
+    rdfs:range oscal:SystemComponent .
+
+oscal:system-component-type a owl:DatatypeProperty ;
+    rdfs:label "system-component-type" ;
+    rdfs:domain oscal:SystemComponent ;
+    rdfs:range xsd:string .
+
+oscal:system-id a owl:DatatypeProperty ;
+    rdfs:label "System Identification" ;
+    rdfs:comment "A human-oriented, globally unique identifier with cross-instance scope that can be used to reference this system identification property elsewhere in this or other OSCAL instances. When referencing an externally defined system identification, the system identification must be used in the context of the external / imported OSCAL instance (e.g., uri-reference). This string should be assigned per-subject, which means it should be consistently used to identify the same system across revisions of the document." ;
+    rdfs:domain oscal:PlanOfActionAndMilestones,
+        oscal:SystemCharacteristics ;
+    rdfs:range xsd:string .
+
+oscal:system-implementation a owl:ObjectProperty ;
+    rdfs:label "system-implementation" ;
+    rdfs:domain oscal:SystemSecurityPlan ;
+    rdfs:range oscal:SystemImplementation .
+
+oscal:system-information a owl:ObjectProperty ;
+    rdfs:label "system-information" ;
+    rdfs:domain oscal:SystemCharacteristics ;
+    rdfs:range oscal:SystemInformation .
+
+oscal:system-user a owl:ObjectProperty ;
+    rdfs:label "system-user" ;
+    rdfs:domain oscal:AssessmentPlan,
+        oscal:Result,
+        oscal:SystemImplementation ;
+    rdfs:range oscal:SystemUser .
+
+oscal:target-id a owl:DatatypeProperty ;
+    rdfs:label "Finding Target Identifier Reference" ;
+    rdfs:comment "A machine-oriented identifier reference for a specific target qualified by the type." ;
+    rdfs:domain oscal:FindingTarget ;
+    rdfs:range xsd:token .
+
+oscal:task a owl:ObjectProperty ;
+    rdfs:label "task" ;
+    rdfs:domain oscal:AssessmentPlan,
+        oscal:Response,
+        oscal:Result,
+        oscal:Task ;
+    rdfs:range oscal:Task .
+
+oscal:task-uuid a owl:DatatypeProperty ;
+    rdfs:label "Task Universally Unique Identifier Reference" ;
+    rdfs:comment "A machine-oriented identifier reference to a unique task." ;
+    rdfs:domain oscal:RelatedTask ;
+    rdfs:range xsd:string .
+
+oscal:telephone-number a owl:DatatypeProperty ;
+    rdfs:label "telephone-number" ;
+    rdfs:domain oscal:Metadata ;
+    rdfs:range xsd:string .
+
+oscal:threat-id a owl:DatatypeProperty ;
+    rdfs:label "Threat ID" ;
+    rdfs:comment "A pointer, by ID, to an externally-defined threat." ;
+    rdfs:domain oscal:Risk ;
+    rdfs:range xsd:anyURI .
+
+oscal:transport a owl:DatatypeProperty ;
+    rdfs:label "Transport" ;
+    rdfs:comment "Indicates the transport type." ;
+    rdfs:domain oscal:PortRange ;
+    rdfs:range xsd:token .
+
+oscal:type a owl:DatatypeProperty ;
+    rdfs:label "Action Type",
+        "Actor Type",
+        "Finding Target Type",
+        "Resource Type",
+        "Subject Type",
+        "Task Type" ;
+    rdfs:comment "Identifies the type of the target.",
+        "Indicates the type of assessment subject, such as a component, inventory, item, location, or party represented by this selection statement.",
+        "The kind of actor.",
+        "The semantic type of the resource.",
+        "The semantic type of the subject.",
+        "The type of action documented by the assembly, such as an approval.",
+        "The type of task." ;
+    rdfs:domain oscal:Action,
+        oscal:AssessmentSubject,
+        oscal:FindingTarget,
+        oscal:MappingItem,
+        oscal:MappingResourceReference,
+        oscal:OriginActor,
+        oscal:Task ;
+    rdfs:range xsd:string,
+        xsd:token .
+
+oscal:uuid a owl:DatatypeProperty ;
+    rdfs:label "Action Universally Unique Identifier",
+        "Assessment Activity Universally Unique Identifier",
+        "Assessment Method Universally Unique Identifier",
+        "Assessment Plan Universally Unique Identifier",
+        "Assessment Results Universally Unique Identifier",
+        "Assessment Subject Placeholder Universally Unique Identifier",
+        "By-Component Universally Unique Identifier",
+        "Capability Identifier",
+        "Catalog Universally Unique Identifier",
+        "Component Definition Universally Unique Identifier",
+        "Component Identifier",
+        "Control Implementation Identifier",
+        "Control Implementation Set Identifier",
+        "Control Statement Reference Universally Unique Identifier",
+        "Diagram ID",
+        "Finding Universally Unique Identifier",
+        "Gap Summary Universally Unique Identifier",
+        "Inventory Item Universally Unique Identifier",
+        "Mapping Collection Universally Unique Identifier",
+        "Mapping Entry Identifier",
+        "Mapping Universally Unique Identifier",
+        "Observation Universally Unique Identifier",
+        "POA&M Item Universally Unique Identifier",
+        "POA&M Universally Unique Identifier",
+        "Part Identifier",
+        "Profile Universally Unique Identifier",
+        "Property Universally Unique Identifier",
+        "Remediation Universally Unique Identifier",
+        "Results Universally Unique Identifier",
+        "Risk Universally Unique Identifier",
+        "Service Protocol Information Universally Unique Identifier",
+        "System Security Plan Universally Unique Identifier",
+        "Task Universally Unique Identifier",
+        "User Universally Unique Identifier" ;
+    rdfs:comment "A globally unique identifier with cross-instance scope for this catalog instance. This UUID should be changed when this document is revised.",
+        "A machine-oriented, globally unique identifier for a set of assessment subjects that will be identified by a task or an activity that is part of a task. The locally defined UUID of the assessment subject placeholder can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this assessment activity elsewhere in this or other OSCAL instances. The locally defined UUID of the activity can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this assessment method elsewhere in this or other OSCAL instances. The locally defined UUID of the assessment method can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this assessment plan in this or other OSCAL instances. The locally defined UUID of the assessment plan can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this assessment results instance in this or other OSCAL instances. The locally defined UUID of the assessment result can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this by-component entry elsewhere in this or other OSCAL instances. The locally defined UUID of the by-component entry can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this component elsewhere in this or other OSCAL instances. The locally defined UUID of the component can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this control statement elsewhere in this or other OSCAL instances. The UUID of the control statement in the source OSCAL instance is sufficient to reference the data item locally or globally (e.g., in an imported OSCAL instance).",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this diagram elsewhere in this or other OSCAL instances. The locally defined UUID of the diagram can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this finding in this or other OSCAL instances. The locally defined UUID of the finding can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this inventory item elsewhere in this or other OSCAL instances. The locally defined UUID of the inventory item can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this mapping definition elsewhere in this or other OSCAL instances. The locally defined UUID of the mapping can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same mapping across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this mapping gap summary elsewhere in this or other OSCAL instances. The locally defined UUID of the SSP can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance).This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this observation elsewhere in this or other OSCAL instances. The locally defined UUID of the observation can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this part elsewhere in this or other OSCAL instances. The locally defined UUID of the part can be used to reference the data item locally or globally (e.g., in an ported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this remediation elsewhere in this or other OSCAL instances. The locally defined UUID of the risk response can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this risk elsewhere in this or other OSCAL instances. The locally defined UUID of the risk can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this service protocol information elsewhere in this or other OSCAL instances. The locally defined UUID of the service protocol can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this set of results in this or other OSCAL instances. The locally defined UUID of the assessment result can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this system security plan (SSP) elsewhere in this or other OSCAL instances. The locally defined UUID of the SSP can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance).This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this task elsewhere in this or other OSCAL instances. The locally defined UUID of the task can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with cross-instance scope that can be used to reference this user class elsewhere in this or other OSCAL instances. The locally defined UUID of the system user can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with instance scope that can be used to reference this POA&M item entry in this OSCAL instance. This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A machine-oriented, globally unique identifier with instancescope that can be used to reference this POA&M instance in this OSCAL instance. This UUID should be assigned per-subject, which means it should be consistently used to identify the same subject across revisions of the document.",
+        "A unique identifier for a property.",
+        "A unique identifier that can be used to reference this defined action elsewhere in an OSCAL document. A UUID should be consistently used for a given location across revisions of the document.",
+        "Provides a globally unique means to identify a given capability.",
+        "Provides a globally unique means to identify a given catalog instance.",
+        "Provides a globally unique means to identify a given component definition instance.",
+        "Provides a globally unique means to identify a given component.",
+        "Provides a globally unique means to identify a given control implementation by a component.",
+        "Provides a globally unique means to identify a given profile instance.",
+        "Provides a means to identify a set of control implementations that are supported by a given component or capability.",
+        "The unique identifier for the mapping entry." ;
+    rdfs:domain oscal:Action,
+        oscal:Activity,
+        oscal:AssessmentMethod,
+        oscal:AssessmentPart,
+        oscal:AssessmentPlan,
+        oscal:AssessmentResults,
+        oscal:AssessmentSubjectPlaceholder,
+        oscal:ByComponent,
+        oscal:Capability,
+        oscal:Catalog,
+        oscal:ComponentDefinition,
+        oscal:ControlImplementation,
+        oscal:DefinedComponent,
+        oscal:Diagram,
+        oscal:Finding,
+        oscal:GapSummary,
+        oscal:ImplementedRequirement,
+        oscal:InventoryItem,
+        oscal:Map,
+        oscal:Mapping,
+        oscal:MappingCollection,
+        oscal:Observation,
+        oscal:PlanOfActionAndMilestones,
+        oscal:PoamItem,
+        oscal:Profile,
+        oscal:Property,
+        oscal:Protocol,
+        oscal:Response,
+        oscal:Result,
+        oscal:Risk,
+        oscal:Statement,
+        oscal:SystemComponent,
+        oscal:SystemSecurityPlan,
+        oscal:SystemUser,
+        oscal:Task ;
+    rdfs:range xsd:string .
+
+oscal:value a owl:DatatypeProperty ;
+    rdfs:label "Property Value" ;
+    rdfs:comment "Indicates the value of the attribute, characteristic, or quality." ;
+    rdfs:domain oscal:Property ;
+    rdfs:range xsd:string .
+
+oscal:version a owl:DatatypeProperty ;
+    rdfs:label "Document Version",
+        "version" ;
+    rdfs:comment "Used to distinguish a specific revision of an OSCAL document from other previous and future versions." ;
+    rdfs:domain oscal:Metadata ;
+    rdfs:range xsd:string .
+
+oscal:with-child-controls a owl:DatatypeProperty ;
+    rdfs:label "with-child-controls" ;
+    rdfs:domain oscal:SelectControlById ;
+    rdfs:range xsd:string .
+
+oscal:with-id a owl:DatatypeProperty ;
+    rdfs:label "Match Controls by Identifier" ;
+    rdfs:comment "Selecting a control by its ID given as a literal." ;
+    rdfs:domain oscal:SelectControlById ;
+    rdfs:range xsd:token .
+
+oscal:IncludeAll a owl:Class ;
+    rdfs:label "Include All" ;
+    rdfs:comment "Include all controls from the imported catalog or profile resources." .
+
+oscal:ParameterGuideline a owl:Class ;
+    rdfs:label "Guideline" ;
+    rdfs:comment "A prose statement that provides a recommendation for the use of a parameter." .
+
+oscal:SecurityImpactLevel a owl:Class ;
+    rdfs:label "Security Impact Level" ;
+    rdfs:comment "The overall level of expected impact resulting from unauthorized disclosure, modification, or loss of access to information." .
+
+oscal:AuthorizedPrivilege a owl:Class ;
+    rdfs:label "Privilege" ;
+    rdfs:comment "Identifies a specific system privilege held by the user, along with an associated description and/or rationale for the privilege." .
+
+oscal:ConfidenceScore a owl:Class ;
+    rdfs:label "Confidence Score" ;
+    rdfs:comment "This records either a string category or a decimal value from 0-1 representing a percentage. Both of these values describe an estimation of the author's confidence that this mapping is correct and accurate." .
+
+oscal:IncorporatesComponent a owl:Class ;
+    rdfs:label "Incorporates Component" ;
+    rdfs:comment "The collection of components comprising this capability." .
+
+oscal:ParameterConstraint a owl:Class ;
+    rdfs:label "Constraint" ;
+    rdfs:comment "A formal or informal expression of a constraint or test." .
+
+oscal:ParameterSelection a owl:Class ;
+    rdfs:label "Selection" ;
+    rdfs:comment "Presenting a choice among alternatives." .
+
+oscal:Address a owl:Class ;
+    rdfs:label "Address" ;
+    rdfs:comment "A postal address for the location." .
+
+oscal:AssociatedRisk a owl:Class ;
+    rdfs:label "Associated Risk" ;
+    rdfs:comment "Relates the finding to a set of referenced risks that were used to determine the finding." .
+
+oscal:GapSummary a owl:Class ;
+    rdfs:label "Gap Summary" ;
+    rdfs:comment "A by-id collection of all controls that were not mapped at all in this mapping-collection. If a control is partially mapped, the parts of the control are not mappable, the gap and discrepancies should be documented in the relationship-gal." .
+
+oscal:ImplementationStatus a owl:Class ;
+    rdfs:label "Implementation Status" ;
+    rdfs:comment "Indicates the degree to which the a given control is implemented." .
+
+oscal:ImportAp a owl:Class ;
+    rdfs:label "Import Assessment Plan" ;
+    rdfs:comment "Used by assessment-results to import information about the original plan for assessing the system." .
+
+oscal:ImportComponentDefinition a owl:Class ;
+    rdfs:label "Import Component Definition" ;
+    rdfs:comment "Loads a component definition from another resource." .
+
+oscal:ImportProfile a owl:Class ;
+    rdfs:label "Import Profile" ;
+    rdfs:comment "Used to import the OSCAL profile representing the system's control baseline." .
+
+oscal:ImportSsp a owl:Class ;
+    rdfs:label "Import System Security Plan" ;
+    rdfs:comment "Used by the assessment plan and POA&M to import information about the system." .
+
+oscal:Matching a owl:Class ;
+    rdfs:label "Match Controls by Pattern" ;
+    rdfs:comment "Selecting a set of controls by matching their IDs with a wildcard pattern." .
+
+oscal:Merge a owl:Class ;
+    rdfs:label "Merge Controls" ;
+    rdfs:comment "Provides structuring directives that instruct how controls are organized after profile resolution." .
+
+oscal:Origin a owl:Class ;
+    rdfs:label "Origin" ;
+    rdfs:comment "Identifies the source of the finding, such as a tool, interviewed person, or activity." .
+
+oscal:RelatedObservation a owl:Class ;
+    rdfs:label "Related Observation" ;
+    rdfs:comment "Relates the identified element to a set of referenced observations that were used to support its determination." .
+
+oscal:SelectObjectiveById a owl:Class ;
+    rdfs:label "Select Objective" ;
+    rdfs:comment "Used to select a control objective for inclusion/exclusion based on the control objective's identifier." .
+
+oscal:SetParameter a owl:Class ;
+    rdfs:label "Set Parameter Value" ;
+    rdfs:comment "Identifies the parameter that will be set by the enclosed value." .
+
+oscal:Status a owl:Class ;
+    rdfs:label "Status" ;
+    rdfs:comment "Describes the operational status of the system." .
+
+oscal:AssessmentSubjectPlaceholder a owl:Class ;
+    rdfs:label "Assessment Subject Placeholder" ;
+    rdfs:comment "Used when the assessment subjects will be determined as part of one or more other assessment activities. These assessment subjects will be recorded in the assessment results in the assessment log." .
+
+oscal:Import a owl:Class ;
+    rdfs:label "Import Resource" ;
+    rdfs:comment "Designates a referenced source catalog or profile that provides a source of control information for use in creating a new overlay or baseline." .
+
+oscal:InsertControls a owl:Class ;
+    rdfs:label "Insert Controls" ;
+    rdfs:comment "Specifies which controls to use in the containing context." .
+
+oscal:LoggedBy a owl:Class ;
+    rdfs:label "Logged By" ;
+    rdfs:comment "Used to indicate who created a log entry in what role." .
+
+oscal:Protocol a owl:Class ;
+    rdfs:label "Service Protocol Information" ;
+    rdfs:comment "Information about the protocol used to provide a service." .
+
+oscal:SelectControlById a owl:Class ;
+    rdfs:label "Select Control" ;
+    rdfs:comment "Select a control or controls from an imported control set." .
+
+oscal:SystemInformation a owl:Class ;
+    rdfs:label "System Information" ;
+    rdfs:comment "Contains details about all information types that are stored, processed, or transmitted by the system, such as privacy information, and those defined in NIST SP 800-60." .
+
+oscal:AssessmentMethod a owl:Class ;
+    rdfs:label "Assessment Method" ;
+    rdfs:comment "A local definition of a control objective. Uses catalog syntax for control objective and assessment activities." .
+
+oscal:AuthorizationBoundary a owl:Class ;
+    rdfs:label "Authorization Boundary" ;
+    rdfs:comment "A description of this system's authorization boundary, optionally supplemented by diagrams that illustrate the authorization boundary." .
+
+oscal:Characterization a owl:Class ;
+    rdfs:label "Characterization" ;
+    rdfs:comment "A collection of descriptive data about the containing object from a specific origin." .
+
+oscal:DataFlow a owl:Class ;
+    rdfs:label "Data Flow" ;
+    rdfs:comment "A description of the logical flow of information within the system and across its boundaries, optionally supplemented by diagrams that illustrate these flows." .
+
+oscal:Diagram a owl:Class ;
+    rdfs:label "Diagram" ;
+    rdfs:comment "A graphic that provides a visual representation the system, or some aspect of it." .
+
+oscal:Link a owl:Class ;
+    rdfs:label "Link" ;
+    rdfs:comment "A reference to a local or remote resource, that has a specific relation to the containing object." .
+
+oscal:LocalDefinitions a owl:Class ;
+    rdfs:label "Local Definitions" ;
+    rdfs:comment "Allows components, and inventory-items to be defined within the POA&M for circumstances where no OSCAL-based SSP exists, or is not delivered with the POA&M." .
+
+oscal:MappingCollection a owl:Class ;
+    rdfs:label "Mapping Collection" ;
+    rdfs:comment "A collection of relationship-based control and/or control statement mappings." .
+
+oscal:NetworkArchitecture a owl:Class ;
+    rdfs:label "Network Architecture" ;
+    rdfs:comment "A description of the system's network architecture, optionally supplemented by diagrams that illustrate the network architecture." .
+
+oscal:PortRange a owl:Class ;
+    rdfs:label "Port Range" ;
+    rdfs:comment "Where applicable this is the transport layer protocol port range an IPv4-based or IPv6-based service uses." .
+
+oscal:QualifierItem a owl:Class ;
+    rdfs:label "Relationship Qualifier" ;
+    rdfs:comment "Describes requirements, incompatibilities and gaps that are identified between a target and source in a mapping item." .
+
+oscal:AssessmentAssets a owl:Class ;
+    rdfs:label "Assessment Assets" ;
+    rdfs:comment "Identifies the assets used to perform this assessment, such as the assessment team, scanning tools, and assumptions." .
+
+oscal:BackMatter a owl:Class ;
+    rdfs:label "Back matter" ;
+    rdfs:comment "A collection of resources that may be referenced from within the OSCAL document instance." .
+
+oscal:Catalog a owl:Class ;
+    rdfs:label "Catalog" ;
+    rdfs:comment "A structured, organized collection of control information." .
+
+oscal:ComponentDefinition a owl:Class ;
+    rdfs:label "Component Definition" ;
+    rdfs:comment "A collection of component descriptions, which may optionally be grouped by capability." .
+
+oscal:Impact a owl:Class ;
+    rdfs:label "Impact Level" ;
+    rdfs:comment "The expected level of impact resulting from the described information." .
+
+oscal:InventoryItem a owl:Class ;
+    rdfs:label "Inventory Item" ;
+    rdfs:comment "A single managed inventory item within the system." .
+
+oscal:LocalObjective a owl:Class ;
+    rdfs:label "Assessment-Specific Control Objective" ;
+    rdfs:comment "A local definition of a control objective for this assessment. Uses catalog syntax for control objective and assessment actions." .
+
+oscal:MappingItem a owl:Class ;
+    rdfs:label "Mapping Entry Item (source or target)" ;
+    rdfs:comment "A specific edge within a source or target that is the subject of a mapping." .
+
+oscal:OriginActor a owl:Class ;
+    rdfs:label "Originating Actor" ;
+    rdfs:comment "The actor that produces an observation, a finding, or a risk. One or more actor type can be used to specify a person that is using a tool." .
+
+oscal:Profile a owl:Class ;
+    rdfs:label "Profile" ;
+    rdfs:comment "Each OSCAL profile is defined by a profile element." .
+
+oscal:ResponsibleParty a owl:Class ;
+    rdfs:label "Responsible Party" ;
+    rdfs:comment "A reference to a set of persons and/or organizations that have responsibility for performing the referenced role in the context of the containing object." .
+
+oscal:ResponsibleRole a owl:Class ;
+    rdfs:label "Responsible Role" ;
+    rdfs:comment "A reference to a role with responsibility for performing a function relative to the containing object, optionally associated with a set of persons and/or organizations that perform that role." .
+
+oscal:SelectSubjectById a owl:Class ;
+    rdfs:label "Select Assessment Subject" ;
+    rdfs:comment "Identifies a set of assessment subjects to include/exclude by UUID." .
+
+oscal:SubjectReference a owl:Class ;
+    rdfs:label "Identifies the Subject" ;
+    rdfs:comment "A human-oriented identifier reference to a resource. Use type to indicate whether the identified resource is a component, inventory item, location, user, or something else." .
+
+oscal:Activity a owl:Class ;
+    rdfs:label "Activity" ;
+    rdfs:comment "Identifies an assessment or related process that can be performed. In the assessment plan, this is an intended activity which may be associated with an assessment task. In the assessment results, this an activity that was actually performed as part of an assessment." .
+
+oscal:AssessmentSubject a owl:Class ;
+    rdfs:label "Subject of Assessment" ;
+    rdfs:comment "Identifies system elements being assessed, such as components, inventory items, and locations. In the assessment plan, this identifies a planned assessment subject. In the assessment results this is an actual assessment subject, and reflects any changes from the plan. exactly what will be the focus of this assessment. Any subjects not identified in this way are out-of-scope." .
+
+oscal:ControlImplementation a owl:Class ;
+    rdfs:label "Control Implementation Set" ;
+    rdfs:comment "Defines how the component or capability supports a set of controls." .
+
+oscal:FindingTarget a owl:Class ;
+    rdfs:label "Objective Status" ;
+    rdfs:comment "Captures an assessor's conclusions regarding the degree to which an objective is satisfied." .
+
+oscal:MappingResourceReference a owl:Class ;
+    rdfs:label "Mapped Resource Reference" ;
+    rdfs:comment "A reference to a resource that is either the source or the target of a mapping." .
+
+oscal:Observation a owl:Class ;
+    rdfs:label "Observation" ;
+    rdfs:comment "Describes an individual observation." .
+
+oscal:RelatedTask a owl:Class ;
+    rdfs:label "Task Reference" ;
+    rdfs:comment "Identifies an individual task for which the containing object is a consequence of." .
+
+oscal:ReviewedControls a owl:Class ;
+    rdfs:label "Reviewed Controls and Control Objectives" ;
+    rdfs:comment "Identifies the controls being assessed and their control objectives." .
+
+oscal:Statement a owl:Class ;
+    rdfs:label "Control Statement Implementation" ;
+    rdfs:comment "Identifies which statements within a control are addressed." .
+
+oscal:SystemSecurityPlan a owl:Class ;
+    rdfs:label "System Security Plan (SSP)" ;
+    rdfs:comment "A system security plan, such as those described in NIST SP 800-18." .
+
+oscal:SystemUser a owl:Class ;
+    rdfs:label "System User" ;
+    rdfs:comment "A type of user that interacts with the system based on an associated role." .
+
+oscal:AssessmentPart a owl:Class ;
+    rdfs:label "Assessment Part" ;
+    rdfs:comment "A partition of an assessment plan or results or a child of another part." .
+
+oscal:AssessmentResults a owl:Class ;
+    rdfs:label "Security Assessment Results (SAR)" ;
+    rdfs:comment "Security assessment results, such as those provided by a FedRAMP assessor in the FedRAMP Security Assessment Report." .
+
+oscal:ByComponent a owl:Class ;
+    rdfs:label "Component Control Implementation" ;
+    rdfs:comment "Defines how the referenced component implements a set of controls." .
+
+oscal:Capability a owl:Class ;
+    rdfs:label "Capability" ;
+    rdfs:comment "A grouping of other components and/or capabilities." .
+
+oscal:Control a owl:Class ;
+    rdfs:label "Control" ;
+    rdfs:comment "A structured object representing a requirement or guideline, which when implemented will reduce an aspect of risk related to an information system and its information." .
+
+oscal:Part a owl:Class ;
+    rdfs:label "Part" ;
+    rdfs:comment "An annotated, markup-based textual element of a control's or catalog group's definition, or a child of another part." .
+
+oscal:PoamItem a owl:Class ;
+    rdfs:label "POA&M Item" ;
+    rdfs:comment "Describes an individual POA&M item." .
+
+oscal:Property a owl:Class ;
+    rdfs:label "Property" ;
+    rdfs:comment "An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair." .
+
+oscal:SystemComponent a owl:Class ;
+    rdfs:label "Component" ;
+    rdfs:comment "A defined component that can be part of an implemented system." .
+
+oscal:SystemImplementation a owl:Class ;
+    rdfs:label "System Implementation" ;
+    rdfs:comment "Provides information as to how the system is implemented." .
+
+oscal:Action a owl:Class ;
+    rdfs:label "Action" ;
+    rdfs:comment "An action applied by a role within a given party to the content." .
+
+oscal:DefinedComponent a owl:Class ;
+    rdfs:label "Component" ;
+    rdfs:comment "A defined component that can be part of an implemented system." .
+
+oscal:Finding a owl:Class ;
+    rdfs:label "Finding" ;
+    rdfs:comment "Describes an individual finding." .
+
+oscal:Group a owl:Class ;
+    rdfs:label "Control Group" ;
+    rdfs:comment "A group of controls, or of groups of controls." .
+
+oscal:ImplementedRequirement a owl:Class ;
+    rdfs:label "Control Implementation" ;
+    rdfs:comment "Describes how the containing component or capability implements an individual control." .
+
+oscal:Response a owl:Class ;
+    rdfs:label "Risk Response" ;
+    rdfs:comment "Describes either recommended or an actual plan for addressing the risk." .
+
+oscal:Task a owl:Class ;
+    rdfs:label "Task" ;
+    rdfs:comment "Represents a scheduled event or milestone, which may be associated with a series of assessment actions." .
+
+oscal:Modify a owl:Class ;
+    rdfs:label "Modify Controls" ;
+    rdfs:comment "Set parameters or amend controls in resolution." .
+
+oscal:PlanOfActionAndMilestones a owl:Class ;
+    rdfs:label "Plan of Action and Milestones (POA&M)" ;
+    rdfs:comment "A plan of action and milestones which identifies initial and residual risks, deviations, and disposition, such as those required by FedRAMP." .
+
+oscal:Map a owl:Class ;
+    rdfs:label "Mapping Entry" ;
+    rdfs:comment "A relationship-based mapping between a source and target set consisting of members (i.e., controls, control statements) from the respective source and target." .
+
+oscal:MappingProvenance a owl:Class ;
+    rdfs:label "Mapping Provenance" ;
+    rdfs:comment "Describes requirements, incompatibilities and gaps that are identified between a target and source in a mapping item." .
+
+oscal:Parameter a owl:Class ;
+    rdfs:label "Parameter" ;
+    rdfs:comment "Parameters provide a mechanism for the dynamic assignment of value(s) in a control." .
+
+oscal:SystemCharacteristics a owl:Class ;
+    rdfs:label "System Characteristics" ;
+    rdfs:comment "Contains the characteristics of the system, such as its name, purpose, and security impact level." .
+
+oscal:Mapping a owl:Class ;
+    rdfs:label "Control Mapping" ;
+    rdfs:comment "A mapping between two target resources." .
+
+oscal:Risk a owl:Class ;
+    rdfs:label "Identified Risk" ;
+    rdfs:comment "An identified risk." .
+
+oscal:AssessmentPlan a owl:Class ;
+    rdfs:label "Security Assessment Plan (SAP)" ;
+    rdfs:comment "An assessment plan, such as those provided by a FedRAMP assessor." .
+
+oscal:Metadata a owl:Class ;
+    rdfs:label "Document Metadata" ;
+    rdfs:comment "Provides information about the containing document, and defines concepts that are shared across the document." .
+
+oscal:Result a owl:Class ;
+    rdfs:label "Assessment Result" ;
+    rdfs:comment "Used by the assessment results and POA&M. In the assessment results, this identifies all of the assessment observations and findings, initial and residual risks, deviations, and disposition. In the POA&M, this identifies initial and residual risks, deviations, and disposition." .
+

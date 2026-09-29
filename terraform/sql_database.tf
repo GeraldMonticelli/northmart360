@@ -6,7 +6,7 @@ resource "azurerm_mssql_server" "northmart" {
   # checkov:skip=CKV2_AZURE_2:SQL vulnerability assessment deferred for learning environment
   # checkov:skip=CKV_AZURE_23:SQL auditing deferred for learning environment
   name                = local.sql_server_name
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
   location            = var.location
   version             = "12.0"
 

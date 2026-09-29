@@ -1,0 +1,8 @@
+PREFIX crm: <https://northmart.example/crm/>
+
+SELECT ?customer ?name
+WHERE {
+    ?customer a crm:Customer ;
+              crm:givenName ?name .
+}
+ORDER BY ?customer

@@ -1,0 +1,115 @@
+@prefix fuseki: <http://jena.apache.org/fuseki#> .
+@prefix tdb2:   <http://jena.apache.org/2016/tdb#> .
+
+# ============================================================
+# NORTHMART
+# ============================================================
+
+<#northmart-service> a fuseki:Service ;
+    fuseki:name "northmart" ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:query
+    ] ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:query ;
+        fuseki:name "query"
+    ] ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:update ;
+        fuseki:name "update"
+    ] ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:gsp_rw ;
+        fuseki:name "data"
+    ] ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:upload ;
+        fuseki:name "upload"
+    ] ;
+
+    fuseki:dataset <#northmart-dataset> .
+
+
+<#northmart-dataset> a tdb2:DatasetTDB2 ;
+    tdb2:location "/fuseki/databases/northmart" .
+
+
+# ============================================================
+# LUBM
+# ============================================================
+
+<#lubm-service> a fuseki:Service ;
+    fuseki:name "lubm" ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:query
+    ] ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:query ;
+        fuseki:name "query"
+    ] ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:update ;
+        fuseki:name "update"
+    ] ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:gsp_rw ;
+        fuseki:name "data"
+    ] ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:upload ;
+        fuseki:name "upload"
+    ] ;
+
+    fuseki:dataset <#lubm-dataset> .
+
+
+<#lubm-dataset> a tdb2:DatasetTDB2 ;
+    tdb2:location "/fuseki/databases/lubm" .
+
+
+# ============================================================
+# LUBM
+# ============================================================
+
+<#ontouml-service> a fuseki:Service ;
+    fuseki:name "ontouml" ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:query
+    ] ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:query ;
+        fuseki:name "query"
+    ] ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:update ;
+        fuseki:name "update"
+    ] ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:gsp_rw ;
+        fuseki:name "data"
+    ] ;
+
+    fuseki:endpoint [
+        fuseki:operation fuseki:upload ;
+        fuseki:name "upload"
+    ] ;
+
+    fuseki:dataset <#ontouml-dataset> .
+
+
+<#ontouml-dataset> a tdb2:DatasetTDB2 ;
+    tdb2:location "/fuseki/databases/ontouml" .

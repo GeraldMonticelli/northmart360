@@ -1,0 +1,1900 @@
+@prefix cis: <https://example.org/cis-controls-v8.1/> .
+@prefix ciso: <https://example.org/cis-controls-v8.1/ontology#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cis:1.1 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain Detailed Enterprise Asset Inventory" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:1 ;
+    ciso:description "Establish and maintain an accurate, detailed, and up-to-date inventory of all enterprise assets with the potential to store or process data, to include: end-user devices (including portable and mobile), network devices, non-computing/IoT devices, and servers. Ensure the inventory records the network address (if static), hardware address, machine name, enterprise asset owner, department for each asset, and whether the asset has been approved to connect to the network. For mobile end-user devices, MDM type tools can support this process, where appropriate. This inventory includes assets connected to the infrastructure physically, virtually, remotely, and those within cloud environments. Additionally, it includes assets that are regularly connected to the enterprise’s network infrastructure, even if they are not under control of the enterprise. Review and update the inventory of all enterprise assets bi-annually, or more frequently." ;
+    ciso:identifier "1.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:1.2 a ciso:Safeguard ;
+    rdfs:label "Address Unauthorized Assets" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:1 ;
+    ciso:description "Ensure that a process exists to address unauthorized assets on a weekly basis. The enterprise may choose to remove the asset from the network, deny the asset from connecting remotely to the network, or quarantine the asset." ;
+    ciso:identifier "1.2" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-respond .
+
+cis:1.3 a ciso:Safeguard ;
+    rdfs:label "Utilize an Active Discovery Tool" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:1 ;
+    ciso:description "Utilize an active discovery tool to identify assets connected to the enterprise’s network. Configure the active discovery tool to execute daily, or more frequently." ;
+    ciso:identifier "1.3" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:1.4 a ciso:Safeguard ;
+    rdfs:label "Use Dynamic Host Configuration Protocol (DHCP) Logging to Update" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:1 ;
+    ciso:description "Use DHCP logging on all DHCP servers or Internet Protocol (IP) address management tools to update the enterprise’s asset inventory. Review and use logs to update the enterprise’s asset inventory weekly, or more frequently." ;
+    ciso:identifier "1.4" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:1.5 a ciso:Safeguard ;
+    rdfs:label "Use a Passive Asset Discovery Tool" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:1 ;
+    ciso:description "Use a passive discovery tool to identify assets connected to the enterprise’s network. Review and use scans to update the enterprise’s asset inventory at least weekly, or more frequently." ;
+    ciso:identifier "1.5" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:10.1 a ciso:Safeguard ;
+    rdfs:label "Deploy and Maintain Anti-Malware Software" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:10 ;
+    ciso:description "Deploy and maintain anti-malware software on all enterprise assets." ;
+    ciso:identifier "10.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:10.2 a ciso:Safeguard ;
+    rdfs:label "Configure Automatic Anti-Malware Signature Updates" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:10 ;
+    ciso:description "Configure automatic updates for anti-malware signature files on all enterprise assets." ;
+    ciso:identifier "10.2" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:10.3 a ciso:Safeguard ;
+    rdfs:label "Disable Autorun and Autoplay for Removable Media" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:10 ;
+    ciso:description "Disable autorun and autoplay auto-execute functionality for removable media." ;
+    ciso:identifier "10.3" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:10.4 a ciso:Safeguard ;
+    rdfs:label "Configure Automatic Anti-Malware Scanning of Removable Media" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:10 ;
+    ciso:description "Configure anti-malware software to automatically scan removable media." ;
+    ciso:identifier "10.4" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:10.5 a ciso:Safeguard ;
+    rdfs:label "Enable Anti-Exploitation Features" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:10 ;
+    ciso:description "Enable anti-exploitation features on enterprise assets and software, where possible, such as Microsoft® Data Execution Prevention (DEP), Windows® Defender Exploit Guard (WDEG), or Apple® System Integrity Protection (SIP) and Gatekeeper™." ;
+    ciso:identifier "10.5" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:10.6 a ciso:Safeguard ;
+    rdfs:label "Centrally Manage Anti-Malware Software" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:10 ;
+    ciso:description "Centrally manage anti-malware software." ;
+    ciso:identifier "10.6" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:10.7 a ciso:Safeguard ;
+    rdfs:label "Use Behavior-Based Anti-Malware Software" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:10 ;
+    ciso:description "Use behavior-based anti-malware software." ;
+    ciso:identifier "10.7" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:11.1 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Data Recovery Process" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:11 ;
+    ciso:description "Establish and maintain a documented data recovery process that includes detailed backup procedures. In the process, address the scope of data recovery activities, recovery prioritization, and the security of backup data. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "11.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:11.2 a ciso:Safeguard ;
+    rdfs:label "Perform Automated Backups" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:11 ;
+    ciso:description "Perform automated backups of in-scope enterprise assets. Run backups weekly, or more frequently, based on the sensitivity of the data." ;
+    ciso:identifier "11.2" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-recover .
+
+cis:11.3 a ciso:Safeguard ;
+    rdfs:label "Protect Recovery Data" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:11 ;
+    ciso:description "Protect recovery data with equivalent controls to the original data. Reference encryption or data separation, based on requirements." ;
+    ciso:identifier "11.3" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:11.4 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain an Isolated Instance of Recovery Data" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:11 ;
+    ciso:description "Establish and maintain an isolated instance of recovery data. Example implementations include, version controlling backup destinations through offline, cloud, or off-site systems or services." ;
+    ciso:identifier "11.4" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-recover .
+
+cis:11.5 a ciso:Safeguard ;
+    rdfs:label "Test Data Recovery" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:11 ;
+    ciso:description "Test backup recovery quarterly, or more frequently, for a sampling of in-scope enterprise assets." ;
+    ciso:identifier "11.5" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-recover .
+
+cis:12.1 a ciso:Safeguard ;
+    rdfs:label "Ensure Network Infrastructure is Up-to-Date" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:12 ;
+    ciso:description "Ensure network infrastructure is kept up-to-date. Example implementations include running the latest stable release of software and/or using currently supported network as a service (NaaS) offerings. Review software versions monthly, or more frequently, to verify software support." ;
+    ciso:identifier "12.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:12.2 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Secure Network Architecture" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:12 ;
+    ciso:description "Design and maintain a secure network architecture. A secure network architecture must address segmentation, least privilege, and availability, at a minimum. Example implementations may include documentation, policy, and design components." ;
+    ciso:identifier "12.2" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:12.3 a ciso:Safeguard ;
+    rdfs:label "Securely Manage Network Infrastructure" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:12 ;
+    ciso:description "Securely manage network infrastructure. Example implementations include version-controlled- infrastructure-as-code, and the use of secure network protocols, such as SSH and HTTPS." ;
+    ciso:identifier "12.3" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:12.4 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain Architecture Diagram(s)" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:12 ;
+    ciso:description "Establish and maintain architecture diagram(s) and/or other network system documentation. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "12.4" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:12.5 a ciso:Safeguard ;
+    rdfs:label "Centralize Network Authentication, Authorization, and Auditing (AAA)" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:12 ;
+    ciso:description "Centralize network AAA." ;
+    ciso:identifier "12.5" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:12.6 a ciso:Safeguard ;
+    rdfs:label "Use of Secure Network Management and Communication Protocols" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:12 ;
+    ciso:description "Adopt secure network management protocols (e.g., 802.1X) and secure communication protocols (e.g., Wi-Fi Protected Access 2 (WPA2) Enterprise or more secure alternatives)." ;
+    ciso:identifier "12.6" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:12.7 a ciso:Safeguard ;
+    rdfs:label "Ensure Remote Devices Utilize a VPN and are Connecting to an" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:12 ;
+    ciso:description "Require users to authenticate to enterprise-managed VPN and authentication services prior to accessing enterprise resources on end-user devices." ;
+    ciso:identifier "12.7" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:12.8 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain Dedicated Computing Resources for All" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:12 ;
+    ciso:description "Establish and maintain dedicated computing resources, either physically or logically separated, for all administrative tasks or tasks requiring administrative access. The computing resources should be segmented from the enterprise’s primary network and not be allowed internet access." ;
+    ciso:identifier "12.8" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:13.1 a ciso:Safeguard ;
+    rdfs:label "Centralize Security Event Alerting" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:13 ;
+    ciso:description "Centralize security event alerting across enterprise assets for log correlation and analysis. Best practice implementation requires the use of a SIEM, which includes vendor-defined event correlation alerts. A log analytics platform configured with security-relevant correlation alerts also satisfies this Safeguard." ;
+    ciso:identifier "13.1" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:13.10 a ciso:Safeguard ;
+    rdfs:label "Perform Application Layer Filtering" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:13 ;
+    ciso:description "Perform application layer filtering. Example implementations include a filtering proxy, application layer firewall, or gateway." ;
+    ciso:identifier "13.10" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:13.11 a ciso:Safeguard ;
+    rdfs:label "Tune Security Event Alerting Thresholds" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:13 ;
+    ciso:description "Tune security event alerting thresholds monthly, or more frequently." ;
+    ciso:identifier "13.11" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:13.2 a ciso:Safeguard ;
+    rdfs:label "Deploy a Host-Based Intrusion Detection Solution" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:13 ;
+    ciso:description "Deploy a host-based intrusion detection solution on enterprise assets, where appropriate and/ or supported." ;
+    ciso:identifier "13.2" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:13.3 a ciso:Safeguard ;
+    rdfs:label "Deploy a Network Intrusion Detection Solution" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:13 ;
+    ciso:description "Deploy a network intrusion detection solution on enterprise assets, where appropriate. Example implementations include the use of a Network Intrusion Detection System (NIDS) or equivalent cloud service provider (CSP) service." ;
+    ciso:identifier "13.3" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:13.4 a ciso:Safeguard ;
+    rdfs:label "Perform Traffic Filtering Between Network Segments" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:13 ;
+    ciso:description "Perform traffic filtering between network segments, where appropriate." ;
+    ciso:identifier "13.4" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:13.5 a ciso:Safeguard ;
+    rdfs:label "Manage Access Control for Remote Assets" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:13 ;
+    ciso:description "Manage access control for assets remotely connecting to enterprise resources. Determine amount of access to enterprise resources based on: up-to-date anti-malware software installed, configuration compliance with the enterprise’s secure configuration process, and ensuring the operating system and applications are up-to-date." ;
+    ciso:identifier "13.5" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:13.6 a ciso:Safeguard ;
+    rdfs:label "Collect Network Traffic Flow Logs" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:13 ;
+    ciso:description "Collect network traffic flow logs and/or network traffic to review and alert upon from network devices." ;
+    ciso:identifier "13.6" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:13.7 a ciso:Safeguard ;
+    rdfs:label "Deploy a Host-Based Intrusion Prevention Solution" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:13 ;
+    ciso:description "Deploy a host-based intrusion prevention solution on enterprise assets, where appropriate and/or supported. Example implementations include use of an Endpoint Detection and Response (EDR) client or host-based IPS agent." ;
+    ciso:identifier "13.7" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:13.8 a ciso:Safeguard ;
+    rdfs:label "Deploy a Network Intrusion Prevention Solution" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:13 ;
+    ciso:description "Deploy a network intrusion prevention solution, where appropriate. Example implementations include the use of a Network Intrusion Prevention System (NIPS) or equivalent CSP service." ;
+    ciso:identifier "13.8" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:13.9 a ciso:Safeguard ;
+    rdfs:label "Deploy Port-Level Access Control" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:13 ;
+    ciso:description "Deploy port-level access control. Port-level access control utilizes 802.1x, or similar network access control protocols, such as certificates, and may incorporate user and/or device authentication." ;
+    ciso:identifier "13.9" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:14.1 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Security Awareness Program" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:14 ;
+    ciso:description "Establish and maintain a security awareness program. The purpose of a security awareness program is to educate the enterprise’s workforce on how to interact with enterprise assets and data in a secure manner. Conduct training at hire and, at a minimum, annually. Review and update content annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "14.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:14.2 a ciso:Safeguard ;
+    rdfs:label "Train Workforce Members to Recognize Social Engineering Attacks" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:14 ;
+    ciso:description "Train workforce members to recognize social engineering attacks, such as phishing, business email compromise (BEC), pretexting, and tailgating." ;
+    ciso:identifier "14.2" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:14.3 a ciso:Safeguard ;
+    rdfs:label "Train Workforce Members on Authentication Best Practices" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:14 ;
+    ciso:description "Train workforce members on authentication best practices. Example topics include MFA, password composition, and credential management." ;
+    ciso:identifier "14.3" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:14.4 a ciso:Safeguard ;
+    rdfs:label "Train Workforce on Data Handling Best Practices" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:14 ;
+    ciso:description "Train workforce members on how to identify and properly store, transfer, archive, and destroy sensitive data. This also includes training workforce members on clear screen and desk best practices, such as locking their screen when they step away from their enterprise asset, erasing physical and virtual whiteboards at the end of meetings, and storing data and assets securely." ;
+    ciso:identifier "14.4" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:14.5 a ciso:Safeguard ;
+    rdfs:label "Train Workforce Members on Causes of Unintentional Data Exposure" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:14 ;
+    ciso:description "Train workforce members to be aware of causes for unintentional data exposure. Example topics include mis-delivery of sensitive data, losing a portable end-user device, or publishing data to unintended audiences." ;
+    ciso:identifier "14.5" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:14.6 a ciso:Safeguard ;
+    rdfs:label "Train Workforce Members on Recognizing and Reporting" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:14 ;
+    ciso:description "Train workforce members to be able to recognize a potential incident and be able to report such an incident." ;
+    ciso:identifier "14.6" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:14.7 a ciso:Safeguard ;
+    rdfs:label "Train Workforce on How to Identify and Report if Their Enterprise" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:14 ;
+    ciso:description "Train workforce to understand how to verify and report out-of-date software patches or any failures in automated processes and tools. Part of this training should include notifying IT personnel of any failures in automated processes and tools." ;
+    ciso:identifier "14.7" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:14.8 a ciso:Safeguard ;
+    rdfs:label "Train Workforce on the Dangers of Connecting to and Transmitting" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:14 ;
+    ciso:description "Train workforce members on the dangers of connecting to, and transmitting data over, insecure networks for enterprise activities. If the enterprise has remote workers, training must include guidance to ensure that all users securely configure their home network infrastructure." ;
+    ciso:identifier "14.8" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:14.9 a ciso:Safeguard ;
+    rdfs:label "Conduct Role-Specific Security Awareness and Skills Training" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:14 ;
+    ciso:description "Conduct role-specific security awareness and skills training. Example implementations include secure system administration courses for IT professionals, OWASP® Top 10 vulnerability awareness and prevention training for web application developers, and advanced social engineering awareness training for high-profile roles." ;
+    ciso:identifier "14.9" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:15.1 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain an Inventory of Service Providers" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:15 ;
+    ciso:description "Establish and maintain an inventory of service providers. The inventory is to list all known service providers, include classification(s), and designate an enterprise contact for each service provider. Review and update the inventory annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "15.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:15.2 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Service Provider Management Policy" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:15 ;
+    ciso:description "Establish and maintain a service provider management policy. Ensure the policy addresses the classification, inventory, assessment, monitoring, and decommissioning of service providers. Review and update the policy annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "15.2" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:15.3 a ciso:Safeguard ;
+    rdfs:label "Classify Service Providers" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:15 ;
+    ciso:description "Classify service providers. Classification consideration may include one or more characteristics, such as data sensitivity, data volume, availability requirements, applicable regulations, inherent risk, and mitigated risk. Update and review classifications annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "15.3" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:15.4 a ciso:Safeguard ;
+    rdfs:label "Ensure Service Provider Contracts Include Security Requirements" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:15 ;
+    ciso:description "Ensure service provider contracts include security requirements. Example requirements may include minimum security program requirements, security incident and/or data breach notification and response, data encryption requirements, and data disposal commitments. These security requirements must be consistent with the enterprise’s service provider management policy. Review service provider contracts annually to ensure contracts are not missing security requirements." ;
+    ciso:identifier "15.4" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:15.5 a ciso:Safeguard ;
+    rdfs:label "Assess Service Providers" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:15 ;
+    ciso:description "Assess service providers consistent with the enterprise’s service provider management policy. Assessment scope may vary based on classification(s), and may include review of standardized assessment reports, such as Service Organization Control 2 (SOC 2) and Payment Card Industry (PCI) Attestation of Compliance (AoC), customized questionnaires, or other appropriately rigorous processes. Reassess service providers annually, at a minimum, or with new and renewed contracts." ;
+    ciso:identifier "15.5" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:15.6 a ciso:Safeguard ;
+    rdfs:label "Monitor Service Providers" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:15 ;
+    ciso:description "Monitor service providers consistent with the enterprise’s service provider management policy. Monitoring may include periodic reassessment of service provider compliance, monitoring service provider release notes, and dark web monitoring." ;
+    ciso:identifier "15.6" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:15.7 a ciso:Safeguard ;
+    rdfs:label "Securely Decommission Service Providers" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:15 ;
+    ciso:description "Securely decommission service providers. Example considerations include user and service account deactivation, termination of data flows, and secure disposal of enterprise data within service provider systems." ;
+    ciso:identifier "15.7" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:16.1 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Secure Application Development Process" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Establish and maintain a secure application development process. In the process, address such items as: secure application design standards, secure coding practices, developer training, vulnerability management, security of third-party code, and application security testing procedures. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "16.1" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:16.10 a ciso:Safeguard ;
+    rdfs:label "Apply Secure Design Principles in Application Architectures" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Apply secure design principles in application architectures. Secure design principles include the concept of least privilege and enforcing mediation to validate every operation that the user makes, promoting the concept of “never trust user input.” Examples include ensuring that explicit error checking is performed and documented for all input, including for size, data type, and acceptable ranges or formats. Secure design also means minimizing the application infrastructure attack surface, such as turning off unprotected ports and services, removing unnecessary programs and files, and renaming or removing default accounts." ;
+    ciso:identifier "16.10" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:16.11 a ciso:Safeguard ;
+    rdfs:label "Leverage Vetted Modules or Services for Application" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Leverage vetted modules or services for application security components, such as identity management, encryption, auditing, and logging. Using platform features in critical security functions will reduce developers’ workload and minimize the likelihood of design or implementation errors. Modern operating systems provide effective mechanisms for identification, authentication, and authorization and make those mechanisms available to applications. Use only standardized, currently accepted, and extensively reviewed encryption algorithms. Operating systems also provide mechanisms to create and maintain secure audit logs." ;
+    ciso:identifier "16.11" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:16.12 a ciso:Safeguard ;
+    rdfs:label "Implement Code-Level Security Checks" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Apply static and dynamic analysis tools within the application life cycle to verify that secure coding practices are being followed." ;
+    ciso:identifier "16.12" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:16.13 a ciso:Safeguard ;
+    rdfs:label "Conduct Application Penetration Testing" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Conduct application penetration testing. For critical applications, authenticated penetration testing is better suited to finding business logic vulnerabilities than code scanning and automated security testing. Penetration testing relies on the skill of the tester to manually manipulate an application as an authenticated and unauthenticated user." ;
+    ciso:identifier "16.13" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:16.14 a ciso:Safeguard ;
+    rdfs:label "Conduct Threat Modeling" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Conduct threat modeling. Threat modeling is the process of identifying and addressing application security design flaws within a design, before code is created. It is conducted through specially trained individuals who evaluate the application design and gauge security risks for each entry point and access level. The goal is to map out the application, architecture, and infrastructure in a structured way to understand its weaknesses." ;
+    ciso:identifier "16.14" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:16.2 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Process to Accept and Address Software" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Establish and maintain a process to accept and address reports of software vulnerabilities, including providing a means for external entities to report. The process is to include such items as: a vulnerability handling policy that identifies reporting process, responsible party for handling vulnerability reports, and a process for intake, assignment, remediation, and remediation testing. As part of the process, use a vulnerability tracking system that includes severity ratings and metrics for measuring timing for identification, analysis, and remediation of vulnerabilities. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard. Third-party application developers need to consider this an externally-facing policy that helps to set expectations for outside stakeholders." ;
+    ciso:identifier "16.2" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:16.3 a ciso:Safeguard ;
+    rdfs:label "Perform Root Cause Analysis on Security Vulnerabilities" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Perform root cause analysis on security vulnerabilities. When reviewing vulnerabilities, root cause analysis is the task of evaluating underlying issues that create vulnerabilities in code, and allows development teams to move beyond just fixing individual vulnerabilities as they arise." ;
+    ciso:identifier "16.3" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:16.4 a ciso:Safeguard ;
+    rdfs:label "Establish and Manage an Inventory of Third-Party" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Establish and manage an updated inventory of third-party components used in development, often referred to as a “bill of materials,” as well as components slated for future use. This inventory is to include any risks that each third-party component could pose. Evaluate the list at least monthly to identify any changes or updates to these components, and validate that the component is still supported." ;
+    ciso:identifier "16.4" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:16.5 a ciso:Safeguard ;
+    rdfs:label "Use Up-to-Date and Trusted Third-Party Software Components" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Use up-to-date and trusted third-party software components. When possible, choose established and proven frameworks and libraries that provide adequate security. Acquire these components from trusted sources or evaluate the software for vulnerabilities before use." ;
+    ciso:identifier "16.5" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:16.6 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Severity Rating System and Process for" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Establish and maintain a severity rating system and process for application vulnerabilities that facilitates prioritizing the order in which discovered vulnerabilities are fixed. This process includes setting a minimum level of security acceptability for releasing code or applications. Severity ratings bring a systematic way of triaging vulnerabilities that improves risk management and helps ensure the most severe bugs are fixed first. Review and update the system and process annually." ;
+    ciso:identifier "16.6" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:16.7 a ciso:Safeguard ;
+    rdfs:label "Use Standard Hardening Configuration Templates for Application" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Use standard, industry-recommended hardening configuration templates for application infrastructure components. This includes underlying servers, databases, and web servers, and applies to cloud containers, Platform as a Service (PaaS) components, and SaaS components. Do not allow in-house developed software to weaken configuration hardening." ;
+    ciso:identifier "16.7" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:16.8 a ciso:Safeguard ;
+    rdfs:label "Separate Production and Non-Production Systems" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Maintain separate environments for production and non-production systems." ;
+    ciso:identifier "16.8" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:16.9 a ciso:Safeguard ;
+    rdfs:label "Train Developers in Application Security Concepts and Secure Coding" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:16 ;
+    ciso:description "Ensure that all software development personnel receive training in writing secure code for their specific development environment and responsibilities. Training can include general security principles and application security standard practices. Conduct training at least annually and design in a way to promote security within the development team, and build a culture of security among the developers." ;
+    ciso:identifier "16.9" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:17.1 a ciso:Safeguard ;
+    rdfs:label "Designate Personnel to Manage Incident Handling" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:17 ;
+    ciso:description "Designate one key person, and at least one backup, who will manage the enterprise’s incident handling process. Management personnel are responsible for the coordination and documentation of incident response and recovery efforts and can consist of employees internal to the enterprise, service providers, or a hybrid approach. If using a service provider, designate at least one person internal to the enterprise to oversee any third-party work. Review annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "17.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-respond .
+
+cis:17.2 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain Contact Information for Reporting" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:17 ;
+    ciso:description "Establish and maintain contact information for parties that need to be informed of security incidents. Contacts may include internal staff, service providers, law enforcement, cyber insurance providers, relevant government agencies, Information Sharing and Analysis Center (ISAC) partners, or other stakeholders. Verify contacts annually to ensure that information is up-to-date." ;
+    ciso:identifier "17.2" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:17.3 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain an Enterprise Process for Reporting Incidents" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:17 ;
+    ciso:description "Establish and maintain an documented enterprise process for the workforce to report security incidents. The process includes reporting timeframe, personnel to report to, mechanism for reporting, and the minimum information to be reported. Ensure the process is publicly available to all of the workforce. Review annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "17.3" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:17.4 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain an Incident Response Process" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:17 ;
+    ciso:description "Establish and maintain a documented incident response process that addresses roles and responsibilities, compliance requirements, and a communication plan. Review annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "17.4" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:17.5 a ciso:Safeguard ;
+    rdfs:label "Assign Key Roles and Responsibilities" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:17 ;
+    ciso:description "Assign key roles and responsibilities for incident response, including staff from legal, IT, information security, facilities, public relations, human resources, incident responders, analysts, and relevant third parties. Review annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "17.5" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-respond .
+
+cis:17.6 a ciso:Safeguard ;
+    rdfs:label "Define Mechanisms for Communicating During Incident Response" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:17 ;
+    ciso:description "Determine which primary and secondary mechanisms will be used to communicate and report during a security incident. Mechanisms can include phone calls, emails, secure chat, or notification letters. Keep in mind that certain mechanisms, such as emails, can be affected during a security incident. Review annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "17.6" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-respond .
+
+cis:17.7 a ciso:Safeguard ;
+    rdfs:label "Conduct Routine Incident Response Exercises" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:17 ;
+    ciso:description "Plan and conduct routine incident response exercises and scenarios for key personnel involved in the incident response process to prepare for responding to real-world incidents. Exercises need to test communication channels, decision making, and workflows. Conduct testing on an annual basis, at a minimum." ;
+    ciso:identifier "17.7" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-recover .
+
+cis:17.8 a ciso:Safeguard ;
+    rdfs:label "Conduct Post-Incident Reviews" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:17 ;
+    ciso:description "Conduct post-incident reviews. Post-incident reviews help prevent incident recurrence through identifying lessons learned and follow-up action." ;
+    ciso:identifier "17.8" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-recover .
+
+cis:17.9 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain Security Incident Thresholds" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:17 ;
+    ciso:description "Establish and maintain security incident thresholds, including, at a minimum, differentiating between an incident and an event. Examples can include: abnormal activity, security vulnerability, security weakness, data breach, privacy incident, etc. Review annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "17.9" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-recover .
+
+cis:18.1 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Penetration Testing Program" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:18 ;
+    ciso:description "Establish and maintain a penetration testing program appropriate to the size, complexity, industry, and maturity of the enterprise. Penetration testing program characteristics include scope, such as network, web application, Application Programming Interface (API), hosted services, and physical premise controls; frequency; limitations, such as acceptable hours, and excluded attack types; point of contact information; remediation, such as how findings will be routed internally; and retrospective requirements." ;
+    ciso:identifier "18.1" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:18.2 a ciso:Safeguard ;
+    rdfs:label "Perform Periodic External Penetration Tests" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:18 ;
+    ciso:description "Perform periodic external penetration tests based on program requirements, no less than annually. External penetration testing must include enterprise and environmental reconnaissance to detect exploitable information. Penetration testing requires specialized skills and experience and must be conducted through a qualified party. The testing may be clear box or opaque box." ;
+    ciso:identifier "18.2" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:18.3 a ciso:Safeguard ;
+    rdfs:label "Remediate Penetration Test Findings" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:18 ;
+    ciso:description "Remediate penetration test findings based on the enterprise’s documented vulnerability remediation process. This should include determining a timeline and level of effort based on the impact and prioritization of each identified finding." ;
+    ciso:identifier "18.3" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:18.4 a ciso:Safeguard ;
+    rdfs:label "Validate Security Measures" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:18 ;
+    ciso:description "Validate security measures after each penetration test. If deemed necessary, modify rulesets and capabilities to detect the techniques used during testing." ;
+    ciso:identifier "18.4" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:18.5 a ciso:Safeguard ;
+    rdfs:label "Perform Periodic Internal Penetration Tests" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:18 ;
+    ciso:description "Perform periodic internal penetration tests based on program requirements, no less than annually. The testing may be clear box or opaque box. Appendix Acronyms and Abbreviations AAA Authentication, Authorization, and Auditing DNS Domain Name System ACL Access Control List DPI Deep Packet Inspection AD Active Directory EDR Endpoint Detection and Response AoC Attestation of Compliance EOL End of Life API Application Programming Interface FFIEC Federal Financial Institutions Examination Council BEC Business Email Compromise FIRST Forum of Incident Response and C2 Command and Control Security Teams, Inc. CCE Common Configuration Enumeration FISMA Federal Information Security Modernization Act CDM Community Defense Model GRC Governance Risk and Compliance CIA Confidentiality, Integrity, and Availability HECVAT Higher Education Community Vendor CIS Center for Internet Security Assessment Toolkit CIS-CAT CIS Configuration Assessment Tool HIPAA Health Insurance Portability and Accountability Act COTS Commercial off-the-Shelf HTTP Hypertext Transfer Protocol CPE Common Platform Enumeration HTTPS Hypertext Transfer Protocol Secure CREST Council of Registered Security Testers IaaS Infrastructure as a Service CSA Cloud Security Alliance IaC Infrastructure as Code CSP Cloud Service Provider IAM Identity and Access Management CVE Common Vulnerabilities and Exposures IDS Intrusion Detection System CVSS Common Vulnerability Scoring System IG Implementation Group DBIR Data Breach Investigations Report IOCs Indicators of Compromise DEP Data Execution Prevention IoT Internet of Things DG Development Group IP Internet Protocol DHCP Dynamic Host Configuration Protocol IPS Intrusion Prevention System DKIM DomainKeys Identified Mail ISAC Information Sharing and Analysis DLP Data Loss Prevention Center DMARC Domain-based Message Authentication, ISO International Organization for Reporting, and Conformance Standardization DMS Database Management System IT Information Technology SQL Structured Query Language LotL Living off the Land SSDF Secure Software Development Framework MDM Mobile Device Management SSH Secure Shell MFA Multi-Factor Authentication SSO Single Sign-On MITRE MITRE Adversarial Tactics, Techniques, and Telnet Teletype Network ATT&CK Common Knowledge® TLS Transport Layer Security MS-ISAC Multi-State Information Sharing and Analysis Center TTPs Tactics, Techniques, and Procedures NaaS Network as a Service U.K. United Kingdom NCSA National Cyber Security Alliance URL Uniform Resource Locator NIDS Network Intrusion Detection System USB Universal Serial Bus NIST National Institute of Standards VPN Virtual Private Network and Technology WDEG Windows Defender Exploit Guard OS Operating System WPA2 Wi-Fi Protected Access 2 OSS Open Source Software XCCDF Extensible Configuration Checklist OVAL Open Vulnerability and Description Format Assessment Language OWASP Open Web Application Security Project PaaS Platform as a Service PAM Privileged Access Management PCI Payment Card Industry SaaS Software as a Service SAFECode Software Assurance Forum for Excellence in Code SCADA Supervisory Control and Data Acquisition SIEM Security Information and Event Management SIP System Integrity Protection SMS Short Messaging Service SOC Security Operations Center SOC 2 Service Organization Control 2 SPF Sender Policy Framework A2 Acronyms and Abbreviations CIS Controls v8.1.2 Change Log Two minor releases (v8.1.1 – August 2024 and v8.1.2 – March 2025) have resulted in the following changes: • Correction of some minor typos in our Asset Class section (pg. 8) and Glossary (Appendix A3) • Update of hyperlinks throughout the document, based on the recent release of the CIS Controls Resources webpage • Correction of two Security Function typos – Safeguards 16.11 (Protect) and 16.13 (Detect) • Correction of some minor typos for Safeguards 5.1, 8.9, 11.1, 16.11, and 17.5. Glossary Accounts Authentication systems Accounts are a profile, identity, or membership created A system or mechanism used to identify a user through for a person, group, or machine entity that grant access to associating an incoming request with a set of identifying resources or functionalities within a computer system or credentials. The credentials provided are compared to network. A system of accounts is important for managing those on a file in a database of the authorized user’s permissions and security levels across an enterprise, information on a local operating system, user directory and an individual may have access to multiple accounts service, or within an authentication server. Examples of depending on job roles and security requirements. User authentication systems can include active directory, Multi- accounts are for individual users and are tailored for the Factor Authentication (MFA), biometrics, and tokens. specific tasks their roles and responsibilities require. User accounts, administrator accounts, and service accounts Authorization systems are subsets of accounts. A system or mechanism used to determine access levels or user/client privileges related to system resources including Administrator accounts files, services, computer programs, data, and application Accounts for users requiring escalated privileges. The features. An authorization system grants or denies access accounts are used for managing aspects of a computer, to a resource based on the user’s identity. Examples of domain, or the whole enterprise information technology authorization systems can include active directory, access infrastructure. Each administrator account should be control lists, and role-based access control lists. assigned to a single user. Common administrator account subtypes include root accounts, local administrator, Bi-annually domain administrator accounts, and network or security Every six months. Any tasks that should be done bi- appliance administrator accounts. annually should also be repeated whenever significant change has occurred that would affect the network or Application Programming Interface (API) devices in question, including changes such as hardware A set of rules and interfaces for software components to upgrades or mergers and acquisitions. interact with each other in a standardized way. APIs allow applications to access and communicate with both internal Breach and external resources.1 The loss of control, compromise, unauthorized disclosure, unauthorized acquisition, or any similar occurrence where: Applications a person other than an authorized user accesses or A program, or a group of programs, running on top of an potentially accesses sensitive or confidential information; operating system hosted on an enterprise asset. Example or an authorized user accesses sensitive or confidential application types include web, database, cloud-based, and information for other than authorized purposes. mobile. Applications are considered a software asset in this document. Cloud environment A virtualized environment that provides convenient, on- Asset Class demand network access to a shared pool of configurable A group of information assets that are evaluated as one set resources such as network, computing, storage, based on their similarity. Devices, Software, Data, Users, applications, and services. There are five essential Network, and Documentation are examples. characteristics to a cloud environment: on-demand self- service, broad network access, resource pooling, rapid elasticity, and measured service. Some services offered through cloud environments include Software as a Service (SaaS), Platform as a Service (PaaS), and Infrastructure as a Service (IaaS). 1 NIST: https://csrc.nist.gov/glossary/term/application_programming_interface A4 Glossary CIS Controls v8.1.2 Data Enterprise assets A collection of facts that can be examined, considered, and Assets with the potential to store or process data. For the used for decision-making. Although data may be physical, purpose of this document, enterprise assets include end- the CIS Controls primarily provide protection for digital user devices, network devices, non-computing/Internet of data that may be stored, transferred, and processed by Things (IoT) devices, and servers, in virtual, cloud-based, enterprise assets. and physical environments. Data Exposure Externally-exposed applications An unintentional data breach. Refers to applications that are public facing and discoverable through reconnaissance and network Database scanning from the public internet outside of the enterprise’s network. Organized collection of data, generally stored and accessed electronically from a computer system. Externally-exposed enterprise assets Databases can reside remotely or on-site. Database Management Systems (DMSs) are used to administer Refers to enterprise assets that are public facing databases, and are not considered part of a database for and discoverable through domain name system this document. reconnaissance and network scanning from the public internet outside of the enterprise’s network. Devices Firmware Devices are enterprise assets (data processing and storage assets), end-user devices, portable devices, mobile Software stored within a device’s non-volatile memory, devices, servers, Internet of Things and non-computing such as ROM or flash memory, used to allow different types devices, network devices, and removable media. Devices of hardware to communicate with the operating system. may exist in physical spaces, virtual infrastructure, or Firmware is often updated outside of the enterprise’s cloud-based environments. Devices can remotely connect operating system and application software update process. to these systems. Govern Documentation NIST CSF 2.0 Security Function Govern is defined as the Policies, processes, procedures, plans, diagrams, and other organization’s cybersecurity risk management strategy, written material (e.g., compliance reports) either physical expectations, and policy are established, communicated, or digital. Examples include methods of governance for an and monitored. The Govern Function provides outcomes enterprise, processes that users follow, or describe network to inform what an organization may do to achieve and architecture. prioritize the outcomes of the other five Functions in the context of its mission and stakeholder expectations. Dwell Time Governance activities are critical for incorporating cybersecurity into an organization’s broader enterprise The period of time between an initial attack and risk management (ERM) strategy. GOVERN addresses an the detection of an intrusion when an attacker has understanding of organizational context; the establishment unauthorized access to the data and the environment. of cybersecurity strategy and cybersecurity supply chain risk management; roles, responsibilities, and authorities; End-user devices policy; and the oversight of cybersecurity strategy.2 Information technology (IT) assets used among members of an enterprise during work or off-hours. End-user devices Internal enterprise assets include desktops and workstations, as well as portable and Refers to non-public facing enterprise assets that can only mobile devices such as laptops, smartphones, and tablets. be identified through network scans and reconnaissance For the purpose of this document, end-user devices are a from within an enterprise’s network through authorized subset of enterprise assets. authenticated or unauthenticated access. Enterprise An enterprise is any business or organization that uses computer systems, networks, and devices. 2 NIST Reference Format for NIST Publications: https://www.nist.gov/nist-research-library/reference-format-nist-publications Internet of Things (IoT) and Non- Network Architecture computing Devices Refers to how a network is designed, both physically and Devices embedded with sensors, software, and other logically. It defines how a network is organized, including technologies. These devices may connect, store, and the connections between devices and software as well exchange data with other devices and systems. The as the data that is transmitted between them. This should device’s connection to the internet can be intermittent, include network architecture diagrams and security non-existent, or persistent. Examples of these devices architecture diagrams. include smart watches and other wearables, printers, smart screens, smart home devices, speakers, industrial control Network Asset systems, and physical security sensors. For the purpose A group of interconnected devices that exchange data. of this document, IoT and non-computing devices are a Enterprises may operate one or more networks that are subset of enterprise assets. managed together or independently. Library Network Devices A shareable pre-compiled codebase to include classes, Electronic devices required for communication and procedures, scripts, configuration data, and more, used interaction between devices on a computer network. to develop software programs and applications. Libraries Network devices include wireless access points, firewalls, are designed to assist both the programmer and the physical/virtual gateways, routers, and switches. These programming language compiler in building and executing devices consist of physical hardware, as well as virtual and software more efficiently. cloud-based devices. For the purpose of this document, network devices are a subset of enterprise assets. Note Log Data that network devices are listed under Enterprise Assets A computer-generated data file that records the events because they are managed much like other devices, occurring within the enterprise. Examples of logs include: however, they also play a dual role in the Network Asset operating system, anti-malware detection, database, Class when related to the communication over a network. application, network, firewall, web server, or access control logs (e.g., electronic locks, alarm system). Network Infrastructure The collection of network resources that provide Mobile devices connectivity, management, business operations, and Small, enterprise-issued end-user devices with intrinsic communication. It consists of hardware and software, wireless capability, such as smartphones and tablets. For systems and devices, and it enables computing and the purpose of this document, mobile devices are a subset communication between users, services, applications, of portable devices. and processes. Network infrastructure can be in the cloud, physical, or virtual. Multi-factor authentication Authentication using two or more different factors to Non-computing/Internet of Things (IoT) devices achieve authentication. Factors include something you Devices embedded with sensors, software, and other know (e.g., PIN, password), something you have (e.g., technologies for the purpose of connecting, storing, cryptographic identification device, token), or something and exchanging data with other devices and systems you are (e.g., biometric). 3 over the internet. While these devices are not used for computational processes, they support an enterprise’s Network ability to conduct business processes. Examples of A network is a group of interconnected devices that these devices include printers, smart screens, physical exchange data. Network is a superset of network security sensors, industrial control systems, and infrastructure and network architecture. information technology sensors. For the purpose of this document, non-computing/IoT devices are a subset of enterprise assets. 3 https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf A6 Glossary CIS Controls v8.1.2 Operating system Procedure Software on enterprise assets that manages computer A procedure is an ordered set of steps that must be hardware and software resources and provides common followed to accomplish a specific task. It provides the services for programs. Example operating systems include approved way of performing an action in a specific Windows, Ubuntu, MacOS, Android, and z/OS. Operating technological and organizational environment. systems are considered a software asset. Process Phishing A set of general tasks and activities to achieve a series of A technique for attempting to acquire sensitive data, security-related goals. such as bank account numbers, through a fraudulent solicitation in email or on a website, in which the Remote devices perpetrator masquerades as a legitimate business or Any enterprise asset capable of connecting to a network reputable person.4 remotely, usually from public internet. This can include enterprise assets such as end-user devices, network Physical data devices, non-computing/Internet of Things (IoT) devices, Data that is stored in physical documents or stored on and servers. physical types of removable devices (e.g., USB drives, tape backups). Physical data may be sensitive or not. Remote file systems Enable an application that runs on an enterprise asset Physical environment to access files stored on a different asset. Remote file Physical hardware parts that make up a network, systems often make other resources, such as remote including cables and routers. The hardware is required non-computing devices, accessible from an asset. The for communication and interaction between devices remote file access takes place using some form of local on a network. area network, wide area network, point-to-point link, or other communication mechanism. These file systems are Plan often referred to as network file systems or distributed file systems. A plan implements policies and may include groups of policies, processes, and procedures. Removable media Policy Any type of storage device that can be removed from a computer while the system is running and allows data to be A policy is an official governance statement that outlines moved from one system to another. Examples of removable specific objectives of an information security program. media include CDs, DVDs, Blu‑ray Discs, external hard drives, SD cards, tape backups, diskettes, and USB drives. Portable devices Transportable, end-user devices that have the capability Script to wirelessly connect to a network. Portable devices can Uncompiled code that requires a software include laptops which may require external hardware for environment to execute. connectivity and mobile devices, such as smartphones and tablets. For the purpose of this document, portable devices are a subset of end-user devices. Sensitive Data Physical or digital data stored, processed, or managed by Pretexting the enterprise that must be kept private, accurate, reliable, and available. If released or destroyed in an unauthorized Part of a social engineering attack that involves inventing manner, it would cause harm to the enterprise or its a scenario to convince the victim to divulge information customers. These impacts may be due to a data breach or that should not be divulged. The purpose of pretexting is to a violation of a policy, contract, or regulation. convince the victim of the legitimacy of the communication. The method of this type of attack can be through any communication method or medium. 4 https://tools.ietf.org/html/rfc4949 Servers Software A device or system that provides resources, data, services, Sets of data and instructions used to direct a computer to or programs to other devices on either a local area network complete a specific task. Software assets include operating or wide area network. Servers can provide resources systems and applications. Both may contain services, and use them from another system at the same time. libraries, or Application Programming Interfaces (APIs). Servers can exist in datacenters, public/private/hybrid cloud environments, including temporal containers or Tailgating serverless workloads. Examples of servers include web servers, application servers, mail servers, and file servers. A physical security issue where an individual For the purpose of this document, servers are a subset of follows another into a secured area without properly enterprise assets. authenticating or following established protocols for entering the area. Service accounts A service account is created specifically to run Third-Party Provider applications, services, and automated tasks on an See Service Provider. operating system. Service accounts may also be created just to own data and configuration files. Each service Users account should be used for a specific service or function, Employees, third-party vendors, contractors, service and it should have an assigned owner who is responsible providers, consultants, or any other person who is for how the account is used. Service accounts should not authorized to access an enterprise asset. This also includes be used for general purpose computing. user, administrator, and service accounts. Services User accounts Specialized programs that perform well-defined critical An identity comprised of a set of credentials (e.g., tasks for the operating system. Services often start with username, password) that defines a user on a computer the operating system, run-in in the background, and or computing system. A user account keeps track of a can be stopped and started by users. Example services user’s information and settings, controls the files, folders, include managing network communications, users, file and resources a user is allowed to access, as well as the permissions, system security, and device interaction. tasks a user is allowed to perform. For the purpose of this document, user accounts refer to “standard” user accounts Service Provider with limited privileges and are used for general tasks. Entity that offers platforms, software, and services to other enterprises. Examples include IT consultants, Virtual environment managed service provider (MSPs), Software as a Service Simulates hardware to allow a software environment (SaaS) platforms, and cloud service providers. Third- to run without the need to use a lot of actual hardware. party providers and vendors are also considered Service Virtualized environments are used to make a small number Providers. These services may be paid or free. Some of resources act as many with plenty of processing, relationships may or may not require a contract or SLA in memory, storage, and network capacity. Virtualization place. Examples include data analysis, traffic blocking, and is a fundamental technology that allows cloud similar services. computing to work. Social engineering Workforce Refers to a broad range of malicious activities All individuals who are employed or engaged by an accomplished through human interactions on various organization and have access to its information systems, platforms, such as email or phone. It relies on psychological assets, or resources. It includes all employees both on-site manipulation to trick users into making security mistakes and remote, excluding service providers and consultants. or giving away sensitive information. A8 Glossary CIS Controls v8.1.2 Resources and References A Roadmap to the CIS Critical Security Controls: https://www.cisecurity.org/insights/ white-papers/roadmap-cis-critical-security-controls CIS Benchmarks®: http://www.cisecurity.org/cis-benchmarks/ CIS Controls Cloud Companion Guide: https://www.cisecurity.org/ insights/white-papers/cis-controls-v8-1-cloud-companion-guide CIS Controls Mappings: https://www.cisecurity.org/controls/ resources?crc=other-security-frameworks CIS Controls Navigator: https://www.cisecurity.org/controls/cis-controls-navigator CIS Controls Policy Templates: https://www.cisecurity.org/controls/ resources?crc=implementation-tools-guidance CIS Controls Resources: https://www.cisecurity.org/controls/resources?crc=about-the-cis- critical-security-controls CIS Community Defense Model (CDM): https://www.cisecurity.org/insights/white-papers/cis-community-defense-model-2-0 CIS Configuration Assessment Tool (CIS-CAT®): https://learn.cisecurity.org/cis-cat/ CIS Controls Assessment Specification: https://cas.docs.cisecurity.org/en/latest/ CIS Controls Industrial Control Systems Implementation Guide: https://www.cisecurity.org/ insights/white-papers/cis-critical-security-controls-v8-1-industrial-control-systems-ics-guide CIS Controls Internet of Things Companion Guide: https://www.cisecurity.org/controls/resources?crc=environment-specific-guidance CIS Controls Mobile Companion Guide: https://www.cisecurity.org/controls/resources?crc=environment-specific-guidance CIS Controls Self Assessment Tool (CSAT): https://www.cisecurity.org/controls/cis-controls- self-assessment-tool-cis-csat/ CIS Controls Telework and Small Office Network Security Guide: https://www.cisecurity.org/controls/resources?crc=environment-specific-guidance CIS CSAT Ransomware Business Impact Analysis (BIA) Tool: https://www.cisecurity.org/ cis-securesuite/business-impact-analysis-tool CIS WorkBench: https://www.cisecurity.org/insights/blog/ how-to-get-up-and-running-with-cis-workbench CIS Password Policy Guide: https://www.cisecurity.org/white-papers/cis- password-policy-guide CIS Risk Assessment Method (RAM): https://www.cisecurity.org/insights/white-papers/cis-ram-risk-assessment-method Cloud Security Alliance (CSA): https://cloudsecurityalliance.org/ Cost of Cyber Defense for IG1: https://www.cisecurity.org/controls/ resources?crc=assess-and-measure Council of Registered Security Testers (CREST) Cyber Security Incident Response Guide: https://www.crest-approved.org/wp-content/uploads/2022/04/CSIR-Procurement-Guide-1.pdf EDUCAUSE: https://www.educause.edu/focus-areas-and-initiatives/policy-and-security/ cybersecurity-program/awareness-campaigns Establishing Essential Cyber Hygiene (v8.1): https://www.cisecurity.org/insights/ white-papers/establishing-essential-cyber-hygiene-version-8-1 Guide to Asset Classes: https://www.cisecurity.org/insights/white-papers/ guide-to-asset-classes-cis-critical-security-controls-v8-1 Guide to Implementation Groups (IG) - CIS Critical Security Controls v8.1: https://www.cisecurity.org/insights/white-papers/guide-implementation-groups-ig-cis-critical- security-controls-v8-1 International Organization for Standardization: https://www.iso.org/home.html National Cyber Security Alliance (NCSA): https://staysafeonline.org/ National Cyber Security Centre (U.K.): https://www.ncsc.gov.uk/guidance/10-steps-user- education-and-awareness A10 Resources and References CIS Controls v8.1.2 National Institute of Standards and Technology (NIST®): https://www.nist.gov/ National Institute of Standards and Technology (NIST®) Cybersecurity Framework (CSF) 2.0: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf National Institute of Standards and Technology (NIST®) Digital Identity Guidelines: https://pages.nist.gov/800-63-3/ National Institute of Standards and Technology (NIST®) FIPS 140-2: https://nvlpubs.nist.gov/ nistpubs/FIPS/NIST.FIPS.140-2.pdf National Institute of Standards and Technology (NIST®) FIPS 140-3: https://nvlpubs.nist.gov/ nistpubs/FIPS/NIST.FIPS.140-3.pdf National Institute of Standards and Technology (NIST®) National Checklist Program Repository: https://nvd.nist.gov/ncp/repository National Institute of Standards and Technology (NIST®) SP 800-50 Infosec Awareness Training: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-50r1.pdf National Institute of Standards and Technology (NIST®) SP 800-88r1—Guidelines for Media Sanitization: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf National Institute of Standards and Technology (NIST®) SP 800-126r3 The Technical Specification for the Security Content Automation Protocol (SCAP): https://nvlpubs.nist.gov/ nistpubs/SpecialPublications/NIST.SP.800-126r3.pdf National Institute of Standards and Technology (NIST®) SSDF: https://csrc.nist.gov/ News/2020/mitigating-risk-of-software-vulns-ssdf OWASP®: https://owasp.org/ OWASP® Penetration Testing Methodologies: https://www.owasp.org/index.php/Penetration_ testing_methodologies PCI Security Standards Council: https://www.pcisecuritystandards.org/documents/ Penetration-Testing-Guidance-v1_1.pdf Privacy Companion Guide for Controls v8: https://www.cisecurity.org/insights/white-papers/ cis-controls-v8-privacy-companion-guide SAFECode Application Security Addendum: https://safecode.org/cis-controls/ SANS: https://www.sans.org/security-awareness-training/resources SME Guide for Controls v8: https://www.cisecurity.org/insights/white-papers/implementation- guide-for-small-and-medium-sized-enterprises-cis-controls-ig1 The Software Alliance: https://www.bsa.org/reports/updated-bsa-framework-for- secure-software Trailhead Training Courses for CIS Controls: https://www.cisecurity.org/controls/trailhead- training-courses Verizon Data Breach Investigations Report: https://www.verizon.com/business/resources/reports/dbir/ A12 Resources and References CIS Controls v8.1.2 Controls and Safeguards Index" ;
+    ciso:identifier "18.5" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:2.1 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Software Inventory" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:2 ;
+    ciso:description "Establish and maintain a detailed inventory of all licensed software installed on enterprise assets. The software inventory must document the title, publisher, initial install/use date, and business purpose for each entry; where appropriate, include the Uniform Resource Locator (URL), app store(s), version(s), deployment mechanism, decommission date, and number of licenses. Review and update the software inventory bi-annually, or more frequently." ;
+    ciso:identifier "2.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:2.2 a ciso:Safeguard ;
+    rdfs:label "Ensure Authorized Software is Currently Supported" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:2 ;
+    ciso:description "Ensure that only currently supported software is designated as authorized in the software inventory for enterprise assets. If software is unsupported, yet necessary for the fulfillment of the enterprise’s mission, document an exception detailing mitigating controls and residual risk acceptance. For any unsupported software without an exception documentation, designate as unauthorized. Review the software list to verify software support at least monthly, or more frequently." ;
+    ciso:identifier "2.2" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:2.3 a ciso:Safeguard ;
+    rdfs:label "Address Unauthorized Software" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:2 ;
+    ciso:description "Ensure that unauthorized software is either removed from use on enterprise assets or receives a documented exception. Review monthly, or more frequently." ;
+    ciso:identifier "2.3" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-respond .
+
+cis:2.4 a ciso:Safeguard ;
+    rdfs:label "Utilize Automated Software Inventory Tools" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:2 ;
+    ciso:description "Utilize software inventory tools, when possible, throughout the enterprise to automate the discovery and documentation of installed software." ;
+    ciso:identifier "2.4" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:2.5 a ciso:Safeguard ;
+    rdfs:label "Allowlist Authorized Software" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:2 ;
+    ciso:description "Use technical controls, such as application allowlisting, to ensure that only authorized software can execute or be accessed. Reassess bi-annually, or more frequently." ;
+    ciso:identifier "2.5" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:2.6 a ciso:Safeguard ;
+    rdfs:label "Allowlist Authorized Libraries" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:2 ;
+    ciso:description "Use technical controls to ensure that only authorized software libraries, such as specific .dll, .ocx, and .so files, are allowed to load into a system process. Block unauthorized libraries from loading into a system process. Reassess bi-annually, or more frequently." ;
+    ciso:identifier "2.6" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:2.7 a ciso:Safeguard ;
+    rdfs:label "Allowlist Authorized Scripts" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:2 ;
+    ciso:description "Use technical controls, such as digital signatures and version control, to ensure that only authorized scripts, such as specific .ps1, and .py files are allowed to execute. Block unauthorized scripts from executing. Reassess bi-annually, or more frequently." ;
+    ciso:identifier "2.7" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:3.1 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Data Management Process" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Establish and maintain a documented data management process. In the process, address data sensitivity, data owner, handling of data, data retention limits, and disposal requirements, based on sensitivity and retention standards for the enterprise. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "3.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:3.10 a ciso:Safeguard ;
+    rdfs:label "Encrypt Sensitive Data in Transit" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Encrypt sensitive data in transit. Example implementations can include: Transport Layer Security (TLS) and Open Secure Shell (OpenSSH)." ;
+    ciso:identifier "3.10" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:3.11 a ciso:Safeguard ;
+    rdfs:label "Encrypt Sensitive Data at Rest" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Encrypt sensitive data at rest on servers, applications, and databases. Storage-layer encryption, also known as server-side encryption, meets the minimum requirement of this Safeguard. Additional encryption methods may include application-layer encryption, also known as client-side encryption, where access to the data storage device(s) does not permit access to the plain-text data." ;
+    ciso:identifier "3.11" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:3.12 a ciso:Safeguard ;
+    rdfs:label "Segment Data Processing and Storage Based on Sensitivity" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Segment data processing and storage based on the sensitivity of the data. Do not process sensitive data on enterprise assets intended for lower sensitivity data." ;
+    ciso:identifier "3.12" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:3.13 a ciso:Safeguard ;
+    rdfs:label "Deploy a Data Loss Prevention Solution" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Implement an automated tool, such as a host-based Data Loss Prevention (DLP) tool to identify all sensitive data stored, processed, or transmitted through enterprise assets, including those located onsite or at a remote service provider, and update the enterprise’s data inventory." ;
+    ciso:identifier "3.13" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:3.14 a ciso:Safeguard ;
+    rdfs:label "Log Sensitive Data Access" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Log sensitive data access, including modification and disposal." ;
+    ciso:identifier "3.14" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:3.2 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Data Inventory" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Establish and maintain a data inventory based on the enterprise’s data management process. Inventory sensitive data, at a minimum. Review and update inventory annually, at a minimum, with a priority on sensitive data." ;
+    ciso:identifier "3.2" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:3.3 a ciso:Safeguard ;
+    rdfs:label "Configure Data Access Control Lists" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Configure data access control lists based on a user’s need to know. Apply data access control lists, also known as access permissions, to local and remote file systems, databases, and applications." ;
+    ciso:identifier "3.3" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:3.4 a ciso:Safeguard ;
+    rdfs:label "Enforce Data Retention" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Retain data according to the enterprise’s documented data management process. Data retention must include both minimum and maximum timelines." ;
+    ciso:identifier "3.4" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:3.5 a ciso:Safeguard ;
+    rdfs:label "Securely Dispose of Data" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Securely dispose of data as outlined in the enterprise’s documented data management process. Ensure the disposal process and method are commensurate with the data sensitivity." ;
+    ciso:identifier "3.5" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:3.6 a ciso:Safeguard ;
+    rdfs:label "Encrypt Data on End-User Devices" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Encrypt data on end-user devices containing sensitive data. Example implementations can include: Windows BitLocker®, Apple FileVault®, Linux® dm-crypt." ;
+    ciso:identifier "3.6" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:3.7 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Data Classification Scheme" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Establish and maintain an overall data classification scheme for the enterprise. Enterprises may use labels, such as “Sensitive,” “Confidential,” and “Public,” and classify their data according to those labels. Review and update the classification scheme annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "3.7" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:3.8 a ciso:Safeguard ;
+    rdfs:label "Document Data Flows" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Document data flows. Data flow documentation includes service provider data flows and should be based on the enterprise’s data management process. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "3.8" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:3.9 a ciso:Safeguard ;
+    rdfs:label "Encrypt Data on Removable Media" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:3 ;
+    ciso:description "Encrypt data on removable media." ;
+    ciso:identifier "3.9" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:4.1 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Secure Configuration Process" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:4 ;
+    ciso:description "Establish and maintain a documented secure configuration process for enterprise assets (end-user devices, including portable and mobile, non-computing/IoT devices, and servers) and software (operating systems and applications). Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "4.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:4.10 a ciso:Safeguard ;
+    rdfs:label "Enforce Automatic Device Lockout on Portable End-User Devices" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:4 ;
+    ciso:description "Enforce automatic device lockout following a predetermined threshold of local failed authentication attempts on portable end-user devices, where supported. For laptops, do not allow more than 20 failed authentication attempts; for tablets and smartphones, no more than 10 failed authentication attempts. Example implementations include Microsoft® InTune Device Lock and Apple® Configuration Profile maxFailedAttempts." ;
+    ciso:identifier "4.10" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:4.11 a ciso:Safeguard ;
+    rdfs:label "Enforce Remote Wipe Capability on Portable End-User Devices" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:4 ;
+    ciso:description "Remotely wipe enterprise data from enterprise-owned portable end-user devices when deemed appropriate such as lost or stolen devices, or when an individual no longer supports the enterprise." ;
+    ciso:identifier "4.11" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:4.12 a ciso:Safeguard ;
+    rdfs:label "Separate Enterprise Workspaces on Mobile End-User Devices" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:4 ;
+    ciso:description "Ensure separate enterprise workspaces are used on mobile end-user devices, where supported. Example implementations include using an Apple® Configuration Profile or Android™ Work Profile to separate enterprise applications and data from personal applications and data." ;
+    ciso:identifier "4.12" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:4.2 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Secure Configuration Process for Network" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:4 ;
+    ciso:description "Establish and maintain a documented secure configuration process for network devices. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "4.2" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:4.3 a ciso:Safeguard ;
+    rdfs:label "Configure Automatic Session Locking on Enterprise Assets" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:4 ;
+    ciso:description "Configure automatic session locking on enterprise assets after a defined period of inactivity. For general purpose operating systems, the period must not exceed 15 minutes. For mobile end-user devices, the period must not exceed 2 minutes." ;
+    ciso:identifier "4.3" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:4.4 a ciso:Safeguard ;
+    rdfs:label "Implement and Manage a Firewall on Servers" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:4 ;
+    ciso:description "Implement and manage a firewall on servers, where supported. Example implementations include a virtual firewall, operating system firewall, or a third-party firewall agent." ;
+    ciso:identifier "4.4" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:4.5 a ciso:Safeguard ;
+    rdfs:label "Implement and Manage a Firewall on End-User Devices" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:4 ;
+    ciso:description "Implement and manage a host-based firewall or port-filtering tool on end-user devices, with a default-deny rule that drops all traffic except those services and ports that are explicitly allowed." ;
+    ciso:identifier "4.5" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:4.6 a ciso:Safeguard ;
+    rdfs:label "Securely Manage Enterprise Assets and Software" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:4 ;
+    ciso:description "Securely manage enterprise assets and software. Example implementations include managing configuration through version-controlled Infrastructure-as-Code (IaC) and accessing administrative interfaces over secure network protocols, such as Secure Shell (SSH) and Hypertext Transfer Protocol Secure (HTTPS). Do not use insecure management protocols, such as Telnet (Teletype Network) and HTTP, unless operationally essential." ;
+    ciso:identifier "4.6" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:4.7 a ciso:Safeguard ;
+    rdfs:label "Manage Default Accounts on Enterprise Assets and Software" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:4 ;
+    ciso:description "Manage default accounts on enterprise assets and software, such as root, administrator, and other pre-configured vendor accounts. Example implementations can include: disabling default accounts or making them unusable." ;
+    ciso:identifier "4.7" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:4.8 a ciso:Safeguard ;
+    rdfs:label "Uninstall or Disable Unnecessary Services on Enterprise Assets" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:4 ;
+    ciso:description "Uninstall or disable unnecessary services on enterprise assets and software, such as an unused file sharing service, web application module, or service function." ;
+    ciso:identifier "4.8" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:4.9 a ciso:Safeguard ;
+    rdfs:label "Configure Trusted DNS Servers on Enterprise Assets" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:4 ;
+    ciso:description "Configure trusted DNS servers on network infrastructure. Example implementations include configuring network devices to use enterprise-controlled DNS servers and/or reputable externally accessible DNS servers." ;
+    ciso:identifier "4.9" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:5.1 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain an Inventory of Accounts" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:5 ;
+    ciso:description "Establish and maintain an inventory of all accounts managed in the enterprise. The inventory must at a minimum include user, administrator, and service accounts. The inventory, at a minimum, should contain the person’s name, username, start/stop dates, and department. Validate that all active accounts are authorized, on a recurring schedule at a minimum quarterly, or more frequently." ;
+    ciso:identifier "5.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:5.2 a ciso:Safeguard ;
+    rdfs:label "Use Unique Passwords" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:5 ;
+    ciso:description "Use unique passwords for all enterprise assets. Best practice implementation includes, at a minimum, an 8-character password for accounts using Multi-Factor Authentication (MFA) and a 14-character password for accounts not using MFA." ;
+    ciso:identifier "5.2" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:5.3 a ciso:Safeguard ;
+    rdfs:label "Disable Dormant Accounts" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:5 ;
+    ciso:description "Delete or disable any dormant accounts after a period of 45 days of inactivity, where supported." ;
+    ciso:identifier "5.3" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:5.4 a ciso:Safeguard ;
+    rdfs:label "Restrict Administrator Privileges to Dedicated Administrator Accounts" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:5 ;
+    ciso:description "Restrict administrator privileges to dedicated administrator accounts on enterprise assets. Conduct general computing activities, such as internet browsing, email, and productivity suite use, from the user’s primary, non-privileged account." ;
+    ciso:identifier "5.4" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:5.5 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain an Inventory of Service Accounts" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:5 ;
+    ciso:description "Establish and maintain an inventory of service accounts. The inventory, at a minimum, must contain department owner, review date, and purpose. Perform service account reviews to validate that all active accounts are authorized, on a recurring schedule at a minimum quarterly, or more frequently." ;
+    ciso:identifier "5.5" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:5.6 a ciso:Safeguard ;
+    rdfs:label "Centralize Account Management" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:5 ;
+    ciso:description "Centralize account management through a directory or identity service." ;
+    ciso:identifier "5.6" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:6.1 a ciso:Safeguard ;
+    rdfs:label "Establish an Access Granting Process" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:6 ;
+    ciso:description "Establish and follow a documented process, preferably automated, for granting access to enterprise assets upon new hire or role change of a user." ;
+    ciso:identifier "6.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:6.2 a ciso:Safeguard ;
+    rdfs:label "Establish an Access Revoking Process" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:6 ;
+    ciso:description "Establish and follow a process, preferably automated, for revoking access to enterprise assets, through disabling accounts immediately upon termination, rights revocation, or role change of a user. Disabling accounts, instead of deleting accounts, may be necessary to preserve audit trails." ;
+    ciso:identifier "6.2" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:6.3 a ciso:Safeguard ;
+    rdfs:label "Require MFA for Externally-Exposed Applications" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:6 ;
+    ciso:description "Require all externally-exposed enterprise or third-party applications to enforce MFA, where supported. Enforcing MFA through a directory service or SSO provider is a satisfactory implementation of this Safeguard." ;
+    ciso:identifier "6.3" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:6.4 a ciso:Safeguard ;
+    rdfs:label "Require MFA for Remote Network Access" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:6 ;
+    ciso:description "Require MFA for remote network access." ;
+    ciso:identifier "6.4" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:6.5 a ciso:Safeguard ;
+    rdfs:label "Require MFA for Administrative Access" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:6 ;
+    ciso:description "Require MFA for all administrative access accounts, where supported, on all enterprise assets, whether managed on-site or through a service provider." ;
+    ciso:identifier "6.5" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:6.6 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain an Inventory of Authentication and" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:6 ;
+    ciso:description "Establish and maintain an inventory of the enterprise’s authentication and authorization systems, including those hosted on-site or at a remote service provider. Review and update the inventory, at a minimum, annually, or more frequently." ;
+    ciso:identifier "6.6" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:6.7 a ciso:Safeguard ;
+    rdfs:label "Centralize Access Control" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:6 ;
+    ciso:description "Centralize access control for all enterprise assets through a directory service or SSO provider, where supported." ;
+    ciso:identifier "6.7" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:6.8 a ciso:Safeguard ;
+    rdfs:label "Define and Maintain Role-Based Access Control" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-users ;
+    ciso:belongsToControl cis:6 ;
+    ciso:description "Define and maintain role-based access control, through determining and documenting the access rights necessary for each role within the enterprise to successfully carry out its assigned duties. Perform access control reviews of enterprise assets to validate that all privileges are authorized, on a recurring schedule at a minimum annually, or more frequently." ;
+    ciso:identifier "6.8" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:7.1 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Vulnerability Management Process" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:7 ;
+    ciso:description "Establish and maintain a documented vulnerability management process for enterprise assets. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "7.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:7.2 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain a Remediation Process" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:7 ;
+    ciso:description "Establish and maintain a risk-based remediation strategy documented in a remediation process, with monthly, or more frequent, reviews." ;
+    ciso:identifier "7.2" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:7.3 a ciso:Safeguard ;
+    rdfs:label "Perform Automated Operating System Patch Management" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:7 ;
+    ciso:description "Perform operating system updates on enterprise assets through automated patch management on a monthly, or more frequent, basis." ;
+    ciso:identifier "7.3" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:7.4 a ciso:Safeguard ;
+    rdfs:label "Perform Automated Application Patch Management" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:7 ;
+    ciso:description "Perform application updates on enterprise assets through automated patch management on a monthly, or more frequent, basis." ;
+    ciso:identifier "7.4" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:7.5 a ciso:Safeguard ;
+    rdfs:label "Perform Automated Vulnerability Scans of Internal Enterprise Assets" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:7 ;
+    ciso:description "Perform automated vulnerability scans of internal enterprise assets on a quarterly, or more frequent, basis. Conduct both authenticated and unauthenticated scans." ;
+    ciso:identifier "7.5" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:7.6 a ciso:Safeguard ;
+    rdfs:label "Perform Automated Vulnerability Scans of Externally-Exposed" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:7 ;
+    ciso:description "Perform automated vulnerability scans of externally-exposed enterprise assets. Perform scans on a monthly, or more frequent, basis." ;
+    ciso:identifier "7.6" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-identify .
+
+cis:7.7 a ciso:Safeguard ;
+    rdfs:label "Remediate Detected Vulnerabilities" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:7 ;
+    ciso:description "Remediate detected vulnerabilities in software through processes and tooling on a monthly, or more frequent, basis, based on the remediation process." ;
+    ciso:identifier "7.7" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-respond .
+
+cis:8.1 a ciso:Safeguard ;
+    rdfs:label "Establish and Maintain an Audit Log Management Process" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-documentation ;
+    ciso:belongsToControl cis:8 ;
+    ciso:description "Establish and maintain a documented audit log management process that defines the enterprise’s logging requirements. At a minimum, address the collection, review, and retention of audit logs for enterprise assets. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard." ;
+    ciso:identifier "8.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-govern .
+
+cis:8.10 a ciso:Safeguard ;
+    rdfs:label "Retain Audit Logs" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:8 ;
+    ciso:description "Retain audit logs across enterprise assets for a minimum of 90 days." ;
+    ciso:identifier "8.10" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:8.11 a ciso:Safeguard ;
+    rdfs:label "Conduct Audit Log Reviews" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:8 ;
+    ciso:description "Conduct reviews of audit logs to detect anomalies or abnormal events that could indicate a potential threat. Conduct reviews on a weekly, or more frequent, basis." ;
+    ciso:identifier "8.11" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:8.12 a ciso:Safeguard ;
+    rdfs:label "Collect Service Provider Logs" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:8 ;
+    ciso:description "Collect service provider logs, where supported. Example implementations include collecting authentication and authorization events, data creation and disposal events, and user management events." ;
+    ciso:identifier "8.12" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:8.2 a ciso:Safeguard ;
+    rdfs:label "Collect Audit Logs" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:8 ;
+    ciso:description "Collect audit logs. Ensure that logging, per the enterprise’s audit log management process, has been enabled across enterprise assets." ;
+    ciso:identifier "8.2" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:8.3 a ciso:Safeguard ;
+    rdfs:label "Ensure Adequate Audit Log Storage" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:8 ;
+    ciso:description "Ensure that logging destinations maintain adequate storage to comply with the enterprise’s audit log management process." ;
+    ciso:identifier "8.3" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:8.4 a ciso:Safeguard ;
+    rdfs:label "Standardize Time Synchronization" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:8 ;
+    ciso:description "Standardize time synchronization. Configure at least two synchronized time sources across enterprise assets, where supported." ;
+    ciso:identifier "8.4" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:8.5 a ciso:Safeguard ;
+    rdfs:label "Collect Detailed Audit Logs" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:8 ;
+    ciso:description "Configure detailed audit logging for enterprise assets containing sensitive data. Include event source, date, username, timestamp, source addresses, destination addresses, and other useful elements that could assist in a forensic investigation." ;
+    ciso:identifier "8.5" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:8.6 a ciso:Safeguard ;
+    rdfs:label "Collect DNS Query Audit Logs" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:8 ;
+    ciso:description "Collect DNS query audit logs on enterprise assets, where appropriate and supported." ;
+    ciso:identifier "8.6" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:8.7 a ciso:Safeguard ;
+    rdfs:label "Collect URL Request Audit Logs" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:8 ;
+    ciso:description "Collect URL request audit logs on enterprise assets, where appropriate and supported." ;
+    ciso:identifier "8.7" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:8.8 a ciso:Safeguard ;
+    rdfs:label "Collect Command-Line Audit Logs" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:8 ;
+    ciso:description "Collect command-line audit logs. Example implementations include collecting audit logs from PowerShell®, BASH™, and remote administrative terminals." ;
+    ciso:identifier "8.8" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:8.9 a ciso:Safeguard ;
+    rdfs:label "Centralize Audit Logs" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-data ;
+    ciso:belongsToControl cis:8 ;
+    ciso:description "Centralize, to the extent possible, audit log collection and retention across enterprise assets in accordance with the documented audit log management process. Example implementations primarily include leveraging a SIEM tool to centralize multiple log sources." ;
+    ciso:identifier "8.9" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-detect .
+
+cis:9.1 a ciso:Safeguard ;
+    rdfs:label "Ensure Use of Only Fully Supported Browsers and Email Clients" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:9 ;
+    ciso:description "Ensure only fully supported browsers and email clients are allowed to execute in the enterprise, only using the latest version of browsers and email clients provided through the vendor." ;
+    ciso:identifier "9.1" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:9.2 a ciso:Safeguard ;
+    rdfs:label "Use DNS Filtering Services" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-devices ;
+    ciso:belongsToControl cis:9 ;
+    ciso:description "Use DNS filtering services on all end-user devices, including remote and on-premises assets, to block access to known malicious domains." ;
+    ciso:identifier "9.2" ;
+    ciso:implementationGroup cis:ig1,
+        cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:9.3 a ciso:Safeguard ;
+    rdfs:label "Maintain and Enforce Network-Based URL Filters" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:9 ;
+    ciso:description "Enforce and update network-based URL filters to limit an enterprise asset from connecting to potentially malicious or unapproved websites. Example implementations include category- based filtering, reputation-based filtering, or through the use of block lists. Enforce filters for all enterprise assets." ;
+    ciso:identifier "9.3" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:9.4 a ciso:Safeguard ;
+    rdfs:label "Restrict Unnecessary or Unauthorized Browser and Email" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-software ;
+    ciso:belongsToControl cis:9 ;
+    ciso:description "Restrict, either through uninstalling or disabling, any unauthorized or unnecessary browser or email client plugins, extensions, and add-on applications." ;
+    ciso:identifier "9.4" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:9.5 a ciso:Safeguard ;
+    rdfs:label "Implement DMARC" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:9 ;
+    ciso:description "To lower the chance of spoofed or modified emails from valid domains, implement DMARC policy and verification, starting with implementing the Sender Policy Framework (SPF) and the DomainKeys Identified Mail (DKIM) standards." ;
+    ciso:identifier "9.5" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:9.6 a ciso:Safeguard ;
+    rdfs:label "Block Unnecessary File Types" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:9 ;
+    ciso:description "Block unnecessary file types attempting to enter the enterprise’s email gateway." ;
+    ciso:identifier "9.6" ;
+    ciso:implementationGroup cis:ig2,
+        cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+cis:9.7 a ciso:Safeguard ;
+    rdfs:label "Deploy and Maintain Email Server Anti-Malware Protections" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:assetType cis:asset-type-network ;
+    ciso:belongsToControl cis:9 ;
+    ciso:description "Deploy and maintain email server anti-malware protections, such as attachment scanning and/ or sandboxing." ;
+    ciso:identifier "9.7" ;
+    ciso:implementationGroup cis:ig3 ;
+    ciso:securityFunction cis:security-function-protect .
+
+ciso:assetType a owl:ObjectProperty ;
+    rdfs:label "asset type" .
+
+ciso:belongsToControl a owl:ObjectProperty ;
+    rdfs:label "belongs to control" .
+
+ciso:description a owl:DatatypeProperty ;
+    rdfs:label "description" .
+
+ciso:identifier a owl:DatatypeProperty ;
+    rdfs:label "identifier" .
+
+ciso:implementationGroup a owl:ObjectProperty ;
+    rdfs:label "implementation group" .
+
+ciso:securityFunction a owl:ObjectProperty ;
+    rdfs:label "security function" .
+
+ciso:Framework a owl:Class ;
+    rdfs:label "CIS Controls Framework" .
+
+ciso:ImplementationGroup a owl:Class ;
+    rdfs:label "Implementation Group" .
+
+cis:1 a ciso:Control ;
+    rdfs:label "Inventory and Control of Enterprise Assets" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "1" .
+
+cis:11 a ciso:Control ;
+    rdfs:label "Data Recovery" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "11" .
+
+cis:18 a ciso:Control ;
+    rdfs:label "Penetration Testing" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "18" .
+
+cis:5 a ciso:Control ;
+    rdfs:label "Account Management" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "5" .
+
+ciso:AssetType a owl:Class ;
+    rdfs:label "Asset Type" .
+
+ciso:SecurityFunction a owl:Class ;
+    rdfs:label "Security Function" .
+
+cis:security-function-recover a ciso:SecurityFunction ;
+    rdfs:label "Recover" .
+
+cis:security-function-respond a ciso:SecurityFunction ;
+    rdfs:label "Respond" .
+
+cis:10 a ciso:Control ;
+    rdfs:label "Malware Defenses" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "10" .
+
+cis:15 a ciso:Control ;
+    rdfs:label "Service Provider Management" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "15" .
+
+cis:2 a ciso:Control ;
+    rdfs:label "Inventory and Control of Software Assets" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "2" .
+
+cis:7 a ciso:Control ;
+    rdfs:label "Continuous Vulnerability Management" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "7" .
+
+cis:9 a ciso:Control ;
+    rdfs:label "Email and Web Browser Protections" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "9" .
+
+cis:12 a ciso:Control ;
+    rdfs:label "Network Infrastructure Management" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "12" .
+
+cis:6 a ciso:Control ;
+    rdfs:label "Access Control Management" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "6" .
+
+cis:14 a ciso:Control ;
+    rdfs:label "Security Awareness and Skills Training" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "14" .
+
+cis:17 a ciso:Control ;
+    rdfs:label "Incident Response Management" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "17" .
+
+cis:13 a ciso:Control ;
+    rdfs:label "Network Monitoring and Defense" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "13" .
+
+cis:4 a ciso:Control ;
+    rdfs:label "Secure Configuration of Enterprise Assets and Software" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "4" .
+
+cis:8 a ciso:Control ;
+    rdfs:label "Audit Log Management" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "8" .
+
+cis:16 a ciso:Control ;
+    rdfs:label "Application Software Security" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "16" .
+
+cis:3 a ciso:Control ;
+    rdfs:label "Data Protection" ;
+    dcterms:isPartOf cis:framework ;
+    ciso:identifier "3" .
+
+cis:security-function-identify a ciso:SecurityFunction ;
+    rdfs:label "Identify" .
+
+ciso:Control a owl:Class ;
+    rdfs:label "CIS Control" .
+
+cis:asset-type-documentation a ciso:AssetType ;
+    rdfs:label "Documentation" .
+
+cis:asset-type-network a ciso:AssetType ;
+    rdfs:label "Network" .
+
+cis:asset-type-software a ciso:AssetType ;
+    rdfs:label "Software" .
+
+cis:security-function-detect a ciso:SecurityFunction ;
+    rdfs:label "Detect" .
+
+cis:asset-type-devices a ciso:AssetType ;
+    rdfs:label "Devices" .
+
+cis:security-function-govern a ciso:SecurityFunction ;
+    rdfs:label "Govern" .
+
+cis:asset-type-users a ciso:AssetType ;
+    rdfs:label "Users" .
+
+cis:asset-type-data a ciso:AssetType ;
+    rdfs:label "Data" .
+
+cis:ig1 a ciso:ImplementationGroup ;
+    rdfs:label "IG1" .
+
+cis:security-function-protect a ciso:SecurityFunction ;
+    rdfs:label "Protect" .
+
+cis:ig2 a ciso:ImplementationGroup ;
+    rdfs:label "IG2" .
+
+cis:ig3 a ciso:ImplementationGroup ;
+    rdfs:label "IG3" .
+
+ciso:Safeguard a owl:Class ;
+    rdfs:label "CIS Safeguard" .
+
+cis:framework a ciso:Framework ;
+    rdfs:label "CIS Critical Security Controls v8.1.2" ;
+    dcterms:issued "2025-03"^^xsd:gYearMonth ;
+    dcterms:license <https://creativecommons.org/licenses/by-nc-nd/4.0/> ;
+    dcterms:source <https://www.cisecurity.org/controls/v8-1> .
+

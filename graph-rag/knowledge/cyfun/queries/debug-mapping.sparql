@@ -1,0 +1,6 @@
+SELECT ?mapping ?p ?o
+WHERE {
+    ?mapping ?p ?o .
+    FILTER(CONTAINS(STR(?mapping), "mapping"))
+}
+LIMIT 30

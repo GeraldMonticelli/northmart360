@@ -1,0 +1,840 @@
+{
+  "schema_version": 1,
+  "source": {
+    "repository": "ontouml-language",
+    "path": "/Users/gerald/northmart360/bundles/semantic_contract/graph-rag/ontouml/ontouml-language",
+    "git_commit": "e48fde4fbb74d0df92419e056c85d794b85be02b"
+  },
+  "corpus": {
+    "built_at_utc": "2026-09-27T08:06:29.945545+00:00",
+    "included_roots": [
+      "theory",
+      "classes",
+      "relationships",
+      "patterns",
+      "anti-patterns"
+    ],
+    "document_count": 155,
+    "counts_by_domain": {
+      "theory": 4,
+      "classes": 66,
+      "relationships": 51,
+      "patterns": 13,
+      "anti-patterns": 21
+    },
+    "documents": [
+      {
+        "path": "theory/identity.rst",
+        "sha256": "279359389ec4dd294f57fbabe1a0dccddf5c2fb2bb74ada1678d1e8e84537fcf",
+        "bytes": 5387
+      },
+      {
+        "path": "theory/index.rst",
+        "sha256": "17f0689b31ff95abdd3d2753294549c5c4639c14117e3b3903c29c2ec941734f",
+        "bytes": 107
+      },
+      {
+        "path": "theory/individuals.rst",
+        "sha256": "7fa854ba296b91c31e438db6d741408556ee87b2823629fb3bc4e0d6aed1359e",
+        "bytes": 3493
+      },
+      {
+        "path": "theory/rigidity.rst",
+        "sha256": "48044b09bcdfa58c41765c857c2523b4fb489ca794f616db5c12238549d97539",
+        "bytes": 2231
+      },
+      {
+        "path": "classes/aspects/mode/constraints.rst",
+        "sha256": "c98ab16f85b67c912c965d4ede1d568b816e58f404acdd18d1b42848bc02ef42",
+        "bytes": 1843
+      },
+      {
+        "path": "classes/aspects/mode/definition.rst",
+        "sha256": "f9fcd1930e25ab23d33d9c69fe4f886e7e73527f750b503c5e2ea17bcc8059b1",
+        "bytes": 461
+      },
+      {
+        "path": "classes/aspects/mode/examples.rst",
+        "sha256": "19a9fd48afa0081c7a19f1e5687fdfeec83f727523a0eb8d5ffcc106d23bff8a",
+        "bytes": 551
+      },
+      {
+        "path": "classes/aspects/mode/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "classes/aspects/mode/index.rst",
+        "sha256": "940ed4f9e04894a4db8328bb68c94ca62b2401ababdd64bc057ca1df8c386bab",
+        "bytes": 252
+      },
+      {
+        "path": "classes/aspects/quality/constraints.rst",
+        "sha256": "a6eb08bdc3289cb68364b7d5d0ac70593f9559793fdb4103c95e534521e82851",
+        "bytes": 1864
+      },
+      {
+        "path": "classes/aspects/quality/definition.rst",
+        "sha256": "9950aec63769cb37e7e450ef5b4641c5575459628c83301dbdb5c048d9135ecc",
+        "bytes": 1212
+      },
+      {
+        "path": "classes/aspects/quality/examples.rst",
+        "sha256": "586099af9af72c04b223f3289f7ac20c8c8ebb9f4512930e6192602b84d71e6e",
+        "bytes": 40
+      },
+      {
+        "path": "classes/aspects/quality/faq.rst",
+        "sha256": "5094badce2c3745347615cd2d23d7399e0d479da49803963f836cdce513374ba",
+        "bytes": 680
+      },
+      {
+        "path": "classes/aspects/quality/index.rst",
+        "sha256": "6184c66013bca51e7145763dc84813c5826ab3b490f9a31f45a82997c2b7487a",
+        "bytes": 276
+      },
+      {
+        "path": "classes/index.rst",
+        "sha256": "09f0343b50d6bfce458e6c57dfcfe146b0174ce955fd9c3757512109c851e206",
+        "bytes": 556
+      },
+      {
+        "path": "classes/nonsortals/category/constraints.rst",
+        "sha256": "08ea8ba46387ffb7cc92d605c18ef555fba933059d929f45d1d55366f8058335",
+        "bytes": 1205
+      },
+      {
+        "path": "classes/nonsortals/category/definition.rst",
+        "sha256": "8aa679910e2cc2ff7cfd424da4723da83bd90e3c8af53fdbfdfb94024739bdcd",
+        "bytes": 737
+      },
+      {
+        "path": "classes/nonsortals/category/examples.rst",
+        "sha256": "1badfd97b8639fc2d781c1ec79a0d31c9ed1ccbbfebd7166e88d55b8e2b84237",
+        "bytes": 553
+      },
+      {
+        "path": "classes/nonsortals/category/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "classes/nonsortals/category/index.rst",
+        "sha256": "182843cdcb0bfd96e8d8ee7bbbaa54a05dd52fd35ddde086ccca48ae90012dc7",
+        "bytes": 284
+      },
+      {
+        "path": "classes/nonsortals/mixin/constraints.rst",
+        "sha256": "407a24821b8672f698429672257a41c0d866ffa85f7911bead50471334c7d37c",
+        "bytes": 762
+      },
+      {
+        "path": "classes/nonsortals/mixin/definition.rst",
+        "sha256": "eaa05d41f13c48ab73eb4158154f664fdc6b304086cdb5ca283ba9ad6730c33d",
+        "bytes": 1516
+      },
+      {
+        "path": "classes/nonsortals/mixin/examples.rst",
+        "sha256": "3c60e582258800d792ea2edd142ab3dce0b0fd4da2970d1d967241766f8a27b7",
+        "bytes": 714
+      },
+      {
+        "path": "classes/nonsortals/mixin/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "classes/nonsortals/mixin/index.rst",
+        "sha256": "e2fb38e58a7144a1b979070f6c7e8a26ecee7aaa55e9b79afd243df9f81179a9",
+        "bytes": 260
+      },
+      {
+        "path": "classes/nonsortals/phasemixin/constraints.rst",
+        "sha256": "90af63a8b452c60c3fae29f555db50c75b4d1f7cc2e0e7263c836deee7779ce7",
+        "bytes": 1166
+      },
+      {
+        "path": "classes/nonsortals/phasemixin/definition.rst",
+        "sha256": "1f8b85ae64c45a7a433e2393949718f855b9af565fa858617a6a369dfc4e100c",
+        "bytes": 381
+      },
+      {
+        "path": "classes/nonsortals/phasemixin/examples.rst",
+        "sha256": "72917fcd21b61746638828099230dd6101c1136ffc1ed073b99fcf9416f8d072",
+        "bytes": 80
+      },
+      {
+        "path": "classes/nonsortals/phasemixin/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "classes/nonsortals/phasemixin/index.rst",
+        "sha256": "962ede8a9759ecc6473b36f0528bc68df95dc5d45c3ef58fe135f6e2f57f9d15",
+        "bytes": 303
+      },
+      {
+        "path": "classes/nonsortals/rolemixin/constraints.rst",
+        "sha256": "b7a7bea7a3efba1fd43f6dd4ffc2cc9356bd5abc9f2912f3b4acd40d140de268",
+        "bytes": 1218
+      },
+      {
+        "path": "classes/nonsortals/rolemixin/definition.rst",
+        "sha256": "f3879d08df54836096d154ab689435ff1ea843c2797b1a5ef7ce8255a2e70afe",
+        "bytes": 1022
+      },
+      {
+        "path": "classes/nonsortals/rolemixin/examples.rst",
+        "sha256": "88e102fb980065bae223973ef138dd4ffe47aa2d66c0d0b13f6cda3b18e128b5",
+        "bytes": 574
+      },
+      {
+        "path": "classes/nonsortals/rolemixin/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "classes/nonsortals/rolemixin/index.rst",
+        "sha256": "8cfd6ca552979e190b518776ee54ff4032616eef86e6bc6a01a0a7e02717b45f",
+        "bytes": 291
+      },
+      {
+        "path": "classes/sortals/collective/constraints.rst",
+        "sha256": "74a8ffee7ef951c36750fc31a200f46bdae2ddbb014542d10db02d58d7d3305a",
+        "bytes": 1557
+      },
+      {
+        "path": "classes/sortals/collective/definition.rst",
+        "sha256": "b1ecf3ac7d34f46f45023d36395cd7daf4650b26410beeaf4e0545e7fd79f933",
+        "bytes": 1947
+      },
+      {
+        "path": "classes/sortals/collective/examples.rst",
+        "sha256": "f85aa39c323ed70f71b6910d266f6c423e312a767a0840461e28fc7a4c6ca020",
+        "bytes": 595
+      },
+      {
+        "path": "classes/sortals/collective/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "classes/sortals/collective/index.rst",
+        "sha256": "c0c0ab6e2dbc019bd7af30d74be0a8a12bd53116fb5b877c547bdecc3ec7c5b5",
+        "bytes": 300
+      },
+      {
+        "path": "classes/sortals/kind/constraints.rst",
+        "sha256": "5192933a518925bab01453e4d5eb59b83affad32637a1a8b2d483cc198dc43f8",
+        "bytes": 1255
+      },
+      {
+        "path": "classes/sortals/kind/definition.rst",
+        "sha256": "d223f148c73643d8646808405bea2567cdb904b6ff2be09054f053757171b341",
+        "bytes": 652
+      },
+      {
+        "path": "classes/sortals/kind/examples.rst",
+        "sha256": "b44197faf9dc6b2ff70aa36c06e665cf46ae9507fa869f95f918f70450b73d99",
+        "bytes": 572
+      },
+      {
+        "path": "classes/sortals/kind/faq.rst",
+        "sha256": "779d5bd2009fe2a9404dba4ea855c99de210934097454b432eb8e72abc7409ee",
+        "bytes": 749
+      },
+      {
+        "path": "classes/sortals/kind/index.rst",
+        "sha256": "1eb119ad4ad12310359f30879b9889fbcedb4c71ca2af5b2b6703384ee9abccb",
+        "bytes": 252
+      },
+      {
+        "path": "classes/sortals/phase/constraints.rst",
+        "sha256": "bd03c6cda77985efd75d41cfdca6c1ddb72311464b595b485e6328c8058f3e12",
+        "bytes": 1730
+      },
+      {
+        "path": "classes/sortals/phase/definition.rst",
+        "sha256": "17817eb048ae29fb2ac5c27c80f7c810ff62da9111a59729eba6d4706afb93bc",
+        "bytes": 1071
+      },
+      {
+        "path": "classes/sortals/phase/examples.rst",
+        "sha256": "7de9b1776ae02042f27976ce4656093e7ccb403567448ca61a1fdd90f8d01a65",
+        "bytes": 687
+      },
+      {
+        "path": "classes/sortals/phase/faq.rst",
+        "sha256": "43a610a0b4ec66b2085d56582ca7783cd2cab8c9afa270e889a2061acc88b811",
+        "bytes": 889
+      },
+      {
+        "path": "classes/sortals/phase/index.rst",
+        "sha256": "ef95a555ad90b951b6a2c4b3c6f9f69a17b6f32fc9e20b7fad71d172b2f9b535",
+        "bytes": 260
+      },
+      {
+        "path": "classes/sortals/quantity/constraints.rst",
+        "sha256": "7d9e3e147d5f60f700884727840b78c3c54d2e4132c4381f9d7a6ec05ca45ea6",
+        "bytes": 1562
+      },
+      {
+        "path": "classes/sortals/quantity/definition.rst",
+        "sha256": "09ee120e0edc055811f0cc721ecdf3cf146a2a3edd34e3581b31f06465ff7877",
+        "bytes": 1727
+      },
+      {
+        "path": "classes/sortals/quantity/examples.rst",
+        "sha256": "586099af9af72c04b223f3289f7ac20c8c8ebb9f4512930e6192602b84d71e6e",
+        "bytes": 40
+      },
+      {
+        "path": "classes/sortals/quantity/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "classes/sortals/quantity/index.rst",
+        "sha256": "7d2a1b7d8ce6e2d99dae6b76b7d4ac541ab3d75b191f77297440580239c2558b",
+        "bytes": 284
+      },
+      {
+        "path": "classes/sortals/relator/constraints.rst",
+        "sha256": "9d5794cc85fffc021a371f61ca125f4c196edee6ce5dc008e1787af04b0f4a81",
+        "bytes": 2184
+      },
+      {
+        "path": "classes/sortals/relator/definition.rst",
+        "sha256": "a20e283ea195135b8cb9da21dd90661b5d4f6a65b4fed0056795820c8fc573e7",
+        "bytes": 1323
+      },
+      {
+        "path": "classes/sortals/relator/examples.rst",
+        "sha256": "d6d7f3aa54b4a1bba7031935ab6115ddcddd9ccf5f3514c44c9c3f171da6dabc",
+        "bytes": 1219
+      },
+      {
+        "path": "classes/sortals/relator/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "classes/sortals/relator/index.rst",
+        "sha256": "493d837b988f26dde678aebb4806eaee7ce0e355c8bfd433d9bb6dd7b31e9862",
+        "bytes": 276
+      },
+      {
+        "path": "classes/sortals/role/constraints.rst",
+        "sha256": "3a4d5e77d37f55734b759982a15e7e0ff951964505181ea686db4f1e84b8d8dd",
+        "bytes": 1889
+      },
+      {
+        "path": "classes/sortals/role/definition.rst",
+        "sha256": "d52d39d8f5663132cf61cace75e7afc342628606e45d68efce5d2ce8a19622f3",
+        "bytes": 585
+      },
+      {
+        "path": "classes/sortals/role/examples.rst",
+        "sha256": "de0c7e0cba80d1aeff07f31cfdbd421f08ae7e1573451c1f282bedd8d16dce1c",
+        "bytes": 1136
+      },
+      {
+        "path": "classes/sortals/role/faq.rst",
+        "sha256": "682af1ea7305a7a12b81708efa66439343f3486f4496b1d462b41a1c7e1c4b86",
+        "bytes": 966
+      },
+      {
+        "path": "classes/sortals/role/index.rst",
+        "sha256": "59483057631ee54058fdf30c7e2bc6e478e6408878ff0cb9178bbbc0deae0608",
+        "bytes": 252
+      },
+      {
+        "path": "classes/sortals/subkind/constraints.rst",
+        "sha256": "8cf222f1edb9f58ee58f8ecd9039212d06520394e6daa753ab76ee480d1ee819",
+        "bytes": 1466
+      },
+      {
+        "path": "classes/sortals/subkind/definition.rst",
+        "sha256": "f4bfa8c2d958aea98dbdbdcc51509fbe1070ed22480f03abff9e5cf08247ef50",
+        "bytes": 484
+      },
+      {
+        "path": "classes/sortals/subkind/examples.rst",
+        "sha256": "82624adcec19a3390d8f786196565cdcefbfc5a40f86e7c078fdd191d12b8d53",
+        "bytes": 817
+      },
+      {
+        "path": "classes/sortals/subkind/faq.rst",
+        "sha256": "042dfd5b6b22a2c93bd6d6c0a588da46ca280a6ab8f34652db0006f2c6ee6e0d",
+        "bytes": 343
+      },
+      {
+        "path": "classes/sortals/subkind/index.rst",
+        "sha256": "257105d588b78cbcd7d8f8ae124c437452ec962198f64a9b3cc9f44049de7d00",
+        "bytes": 276
+      },
+      {
+        "path": "relationships/aggregations/componentOf/constraints.rst",
+        "sha256": "0d6d6f31c624c617b336a1b7c2aa4c4f1862e1d9115b84785287a6e126094d85",
+        "bytes": 201
+      },
+      {
+        "path": "relationships/aggregations/componentOf/definition.rst",
+        "sha256": "e30ba70c5c8dae89d5b5e293d9d5af97ab4311050359e66bc6ae6c2277bdb857",
+        "bytes": 514
+      },
+      {
+        "path": "relationships/aggregations/componentOf/examples.rst",
+        "sha256": "c60fcce0c298e8eb6d88e8aba50678b2c9df62c347c837750835045eff6f8ba4",
+        "bytes": 435
+      },
+      {
+        "path": "relationships/aggregations/componentOf/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "relationships/aggregations/componentOf/index.rst",
+        "sha256": "cb9ff29a1ede5b421a65caf62a8f1fcf4b4c7198536e71e05508f3c05d55e000",
+        "bytes": 308
+      },
+      {
+        "path": "relationships/aggregations/containment/definition.rst",
+        "sha256": "9184fe276b7bec22b1c63ed4138b95ee43128e5d0f223f7d929a0d847c8bed8f",
+        "bytes": 292
+      },
+      {
+        "path": "relationships/aggregations/containment/examples.rst",
+        "sha256": "be8e31c65edf6d179703b082fb5a2a61ce0d822b90b2b7f5e3607cc1213e044a",
+        "bytes": 735
+      },
+      {
+        "path": "relationships/aggregations/containment/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "relationships/aggregations/containment/index.rst",
+        "sha256": "7523fd00b91b8d736d089f5104d59d80f5a805713162d0c1a66cbfaca2c2b8cd",
+        "bytes": 249
+      },
+      {
+        "path": "relationships/aggregations/intro.rst",
+        "sha256": "4879cc2c003d7a1af957f2973b4b73ebf932b71d076b797c9b7e14ce41e8af21",
+        "bytes": 3100
+      },
+      {
+        "path": "relationships/aggregations/memberOf/constraints.rst",
+        "sha256": "0cdb6936173a67720b3d4a39ac3d74c99a1e0598da30b2cd303660ebbed71e3b",
+        "bytes": 614
+      },
+      {
+        "path": "relationships/aggregations/memberOf/definition.rst",
+        "sha256": "dd267cc2bb8dd03d385ffb88f5a6ea53d6ab32fa08ce5296576f75cdc93041e0",
+        "bytes": 1037
+      },
+      {
+        "path": "relationships/aggregations/memberOf/examples.rst",
+        "sha256": "7ae3396b8bb7ab9f3a9beacbf93f025309959b95824cecb94632359b54e99e99",
+        "bytes": 427
+      },
+      {
+        "path": "relationships/aggregations/memberOf/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "relationships/aggregations/memberOf/index.rst",
+        "sha256": "d707ab725c58f33ad1ffcdf7f032ea314f49dea75853490241a3d3964be32ab8",
+        "bytes": 284
+      },
+      {
+        "path": "relationships/aggregations/subCollectionOf/constraints.rst",
+        "sha256": "798d3f0c25ad79569d0f985abf090adef46fe144e7c1de5b5431ddd783281643",
+        "bytes": 432
+      },
+      {
+        "path": "relationships/aggregations/subCollectionOf/definition.rst",
+        "sha256": "fc99804c69d1c6b8410de1da6989fe1cdbdecd26d7e7d35f39ad2130dc481158",
+        "bytes": 3375
+      },
+      {
+        "path": "relationships/aggregations/subCollectionOf/examples.rst",
+        "sha256": "d52bc3a83960047296865782580e112b0ebf8058b5c630f365cd9d1e5cc78b51",
+        "bytes": 482
+      },
+      {
+        "path": "relationships/aggregations/subCollectionOf/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "relationships/aggregations/subCollectionOf/index.rst",
+        "sha256": "5a29fe994f888840b795656416f85ba138b74a4ce851b5a4ad003ff334ed2e2b",
+        "bytes": 340
+      },
+      {
+        "path": "relationships/aggregations/subQuantityOf/constraints.rst",
+        "sha256": "fbfd1e2e982a0e12a9c996ec6446f92adeaac8bad5aa72cf769262ef61af1d39",
+        "bytes": 543
+      },
+      {
+        "path": "relationships/aggregations/subQuantityOf/definition.rst",
+        "sha256": "855c885b902e83679359e6e3ed58367d95749738ee3c191a253085efde0cc4e6",
+        "bytes": 2122
+      },
+      {
+        "path": "relationships/aggregations/subQuantityOf/examples.rst",
+        "sha256": "0d1df9b67552e0e7dd24afb5b5f002cf24134a50280b4319881c309607d8aef2",
+        "bytes": 740
+      },
+      {
+        "path": "relationships/aggregations/subQuantityOf/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "relationships/aggregations/subQuantityOf/index.rst",
+        "sha256": "e7ae81d8aab4f8d9a8265cac2ac86a01cba896990fbc143970eb5c371999ea7e",
+        "bytes": 324
+      },
+      {
+        "path": "relationships/characterization/definition.rst",
+        "sha256": "c9d1ecf5a6f56f065ea90c306e7f4235f90daff12882ffb100b11ba193695eb6",
+        "bytes": 378
+      },
+      {
+        "path": "relationships/characterization/examples.rst",
+        "sha256": "ac488def09dc2f2a33692ba67d7fc8981e22ebf330b0ad190fcc44465d5917ee",
+        "bytes": 342
+      },
+      {
+        "path": "relationships/characterization/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "relationships/characterization/index.rst",
+        "sha256": "3ced31e675c66c12ce8553281ef0c9e5fa3d7ff3e4846b3d4257d440dace91bc",
+        "bytes": 284
+      },
+      {
+        "path": "relationships/derivation/definition.rst",
+        "sha256": "bcdb6929cb0cb2ad40a33fb33b6254e6dad4cb435a15f72e97d4cca29747df39",
+        "bytes": 495
+      },
+      {
+        "path": "relationships/derivation/examples.rst",
+        "sha256": "91350abcc35aea5e10d70a2f14b1908f095aed10cc95d3e4c5f11bf37ca2a9b6",
+        "bytes": 364
+      },
+      {
+        "path": "relationships/derivation/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "relationships/derivation/index.rst",
+        "sha256": "6deca57fafb52f264a812304f6766e933e067bfa084b405afe73451304c7bb0e",
+        "bytes": 242
+      },
+      {
+        "path": "relationships/formal/definition.rst",
+        "sha256": "f198088f405712c3780d2e4f4626a7ec4cb5fecfc4957d557a19ce2fc654665a",
+        "bytes": 939
+      },
+      {
+        "path": "relationships/formal/examples.rst",
+        "sha256": "dc758fd7fefd85d917ed19f453c2ab4a13580ba9e35c36dcee7e72efb7349edf",
+        "bytes": 319
+      },
+      {
+        "path": "relationships/formal/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "relationships/formal/index.rst",
+        "sha256": "b29842e4314c95ab2283c0366b354159449367c75644e79cb1a1df74891be080",
+        "bytes": 214
+      },
+      {
+        "path": "relationships/index.rst",
+        "sha256": "79f379d530b7266073b074c62ce06a9687e7c867cc1047eaf7339a7b74db4f47",
+        "bytes": 559
+      },
+      {
+        "path": "relationships/intro.rst",
+        "sha256": "1bc2a572342c2207307e8c77de7e9cd42c13883a5e4789f013f6045f3d9d0d91",
+        "bytes": 1937
+      },
+      {
+        "path": "relationships/material/definition.rst",
+        "sha256": "f9c8d0435b49accde2994c6bc9d1eab0e31fabd32d9425a43b0e1ca7fe1593ff",
+        "bytes": 1143
+      },
+      {
+        "path": "relationships/material/examples.rst",
+        "sha256": "9c64420cde3707fbfaf6529d7c1d5ea74f214b32724ffc32850652155c4bd18c",
+        "bytes": 683
+      },
+      {
+        "path": "relationships/material/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "relationships/material/index.rst",
+        "sha256": "f66d19e08fe884ee7f9e7ba502c4abe26cc85982aeab8431b1758394f76873d8",
+        "bytes": 228
+      },
+      {
+        "path": "relationships/mediation/definition.rst",
+        "sha256": "e7aa493a75f731d13d13ee1d15e626989dc5295a8fc571770ed3f867d7c2ca11",
+        "bytes": 455
+      },
+      {
+        "path": "relationships/mediation/examples.rst",
+        "sha256": "ffaf5be061dfa4ca445b22f9ff519b2f33c225f124d9c4bea1b81f610f9b2bdd",
+        "bytes": 397
+      },
+      {
+        "path": "relationships/mediation/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "relationships/mediation/index.rst",
+        "sha256": "35ece241b84d9179f4b4a332062ee22999ebf2993538d5e77fb691d4d750f55f",
+        "bytes": 235
+      },
+      {
+        "path": "relationships/structuration/definition.rst",
+        "sha256": "f22906836368f98b1dbb715bb0f418b8614e4c47478823fd6e07b6cf8e6a41f9",
+        "bytes": 96
+      },
+      {
+        "path": "relationships/structuration/examples.rst",
+        "sha256": "b1986902629a4ebb45405c04ff97da7c333034c5bb9537505f396e9514aca10a",
+        "bytes": 196
+      },
+      {
+        "path": "relationships/structuration/faq.rst",
+        "sha256": "99d1d758482158b95378ac6e82365b23d690ff406bb653d8f619739cda148c11",
+        "bytes": 86
+      },
+      {
+        "path": "relationships/structuration/index.rst",
+        "sha256": "c09150b2d767734d5511be16be3d4b41fbbe985f4d4d3552cd2a6466dbe3c069",
+        "bytes": 263
+      },
+      {
+        "path": "patterns/index.rst",
+        "sha256": "b7a183391f3d2c3f0cf88cc9733daa2c0f93e2b94343ec53a308398accdf72c4",
+        "bytes": 380
+      },
+      {
+        "path": "patterns/phase_partition/examples.rst",
+        "sha256": "645728cb6d81e63b3c6bba2e5c9743ee85469f34e01c19957ee68f7f41396c2a",
+        "bytes": 177
+      },
+      {
+        "path": "patterns/phase_partition/generic.rst",
+        "sha256": "7395498c68c47869e6c5c957539168d11822e999a984ab66d186f37bb5f7823a",
+        "bytes": 148
+      },
+      {
+        "path": "patterns/phase_partition/index.rst",
+        "sha256": "6caa862a17260fb6523fb3429c3effe0db77248087c7de98c316e4f2e770220a",
+        "bytes": 207
+      },
+      {
+        "path": "patterns/relator/examples.rst",
+        "sha256": "c21aca28f77986bffeb6d2df65be4a2ba4bdda53f2b46b347493f752d6558665",
+        "bytes": 243
+      },
+      {
+        "path": "patterns/relator/generic.rst",
+        "sha256": "cebe1582dbdf3f58f8235c0e681ee2f751a7cf76310e2729c459dc2cc14569e6",
+        "bytes": 135
+      },
+      {
+        "path": "patterns/relator/index.rst",
+        "sha256": "311c10610c88968f62b2e6f1730866d911680966da9e876c340ab04a676df000",
+        "bytes": 166
+      },
+      {
+        "path": "patterns/rolemixin/examples.rst",
+        "sha256": "b10b47bd17163ae8897509e99a4d028a845fcde0affd087b13576c74523fbd8e",
+        "bytes": 61
+      },
+      {
+        "path": "patterns/rolemixin/generic.rst",
+        "sha256": "4d88ecef3c3beae058e828d0a2247c950790db19f8d55136f3db37f1188eb9d2",
+        "bytes": 147
+      },
+      {
+        "path": "patterns/rolemixin/index.rst",
+        "sha256": "7dd4f4c6a2496d4b90ca32a6968dd7e27cfa8e65a12dc8cfdf1c31467941c124",
+        "bytes": 177
+      },
+      {
+        "path": "patterns/rolemixin_alt/examples.rst",
+        "sha256": "b10b47bd17163ae8897509e99a4d028a845fcde0affd087b13576c74523fbd8e",
+        "bytes": 61
+      },
+      {
+        "path": "patterns/rolemixin_alt/generic.rst",
+        "sha256": "658a6b8f517072142a194bd964c1bf4da5d9aeedd819d010b4456f3c24cfff17",
+        "bytes": 159
+      },
+      {
+        "path": "patterns/rolemixin_alt/index.rst",
+        "sha256": "1fc1c9b0ed4baa2101f78e286a368be21d4b3e4969ff3b652b499a75368636c5",
+        "bytes": 213
+      },
+      {
+        "path": "anti-patterns/BinOver/index.rst",
+        "sha256": "98313601c9dbe2dca51f32593402fdb3b6be5c1288e586ee9bb0baf170b2d599",
+        "bytes": 2666
+      },
+      {
+        "path": "anti-patterns/DecInt/index.rst",
+        "sha256": "63cfb279a6dd1b76662d5ef469f12cab3fd3484ef16fe7d430abbc9e3fe2a345",
+        "bytes": 2012
+      },
+      {
+        "path": "anti-patterns/DepPhase/index.rst",
+        "sha256": "74ca38b1dc2dfa5bf9374526c1ab4637d27ffc1d73d3788be84166b350fedd8c",
+        "bytes": 1022
+      },
+      {
+        "path": "anti-patterns/FreeRole/index.rst",
+        "sha256": "85f8ff140c615426c24d1f89895482dc06e78d3583e952aff3403ef5e4a29ae4",
+        "bytes": 2187
+      },
+      {
+        "path": "anti-patterns/GSRig/index.rst",
+        "sha256": "23e5adaacaecc8d0a203f4ffae3372d6a15899dc962638dae245be7aba865c61",
+        "bytes": 1266
+      },
+      {
+        "path": "anti-patterns/HetColl/index.rst",
+        "sha256": "ce1ac01b5db090a66fba480f694b958b267c929fbcbf9486b8038c449e663c5a",
+        "bytes": 2192
+      },
+      {
+        "path": "anti-patterns/HomoFunc/index.rst",
+        "sha256": "79de0a6d6d911b809660b36660ebf84aab9cb41d8c43ad9f00fa37cbdb4b4dd2",
+        "bytes": 1654
+      },
+      {
+        "path": "anti-patterns/ImpAbs/index.rst",
+        "sha256": "5ce787f4a7d9ad05ce45c9f1818ed5dfa62f7f76bbfbf0c69533bf0f1d0c331e",
+        "bytes": 3136
+      },
+      {
+        "path": "anti-patterns/MixIden/index.rst",
+        "sha256": "48872a965c754a4af375b786326bafbb7a895b2e682baadab279d783da63e8b7",
+        "bytes": 1256
+      },
+      {
+        "path": "anti-patterns/MixRig/index.rst",
+        "sha256": "bb5f3039184d8c8893b9618639cdb2c12c648e7a2c29888dabf09ab98d4832a1",
+        "bytes": 1913
+      },
+      {
+        "path": "anti-patterns/MultDep/index.rst",
+        "sha256": "00f0495cc66b450bd5d6ac8f2c8cdfa6d8baf6628fa40e3eedcb8007e6990d63",
+        "bytes": 1925
+      },
+      {
+        "path": "anti-patterns/PartOver/index.rst",
+        "sha256": "f479916b21d3f88d057d3c8806da34d1551d6bcb912335d840cd174f2ae9092a",
+        "bytes": 2061
+      },
+      {
+        "path": "anti-patterns/RelComp/index.rst",
+        "sha256": "4fefb26bb725079c91c3e1a0be37f2fb2c99a0ab306c666e2c4906901e1226c9",
+        "bytes": 3205
+      },
+      {
+        "path": "anti-patterns/RelOver/index.rst",
+        "sha256": "a3aaffe129fa07b690ac2f0f3e868a682183ce0bde04a4646275e675fe46d92a",
+        "bytes": 2018
+      },
+      {
+        "path": "anti-patterns/RelRig/index.rst",
+        "sha256": "0ebfe53fa20da287189ff38968e7e960f23bff6f42e08c62d201451c8979b9e0",
+        "bytes": 2684
+      },
+      {
+        "path": "anti-patterns/RelSpec/index.rst",
+        "sha256": "090927612e87f8d613c843a55794d8b9d1eeaa763a480e712f63fcc15fac06c0",
+        "bytes": 2895
+      },
+      {
+        "path": "anti-patterns/RepRel/index.rst",
+        "sha256": "63bd08a03d6c32243fd832f3afbaeb6000265e55a78c50f805eacce1fb0023c2",
+        "bytes": 2943
+      },
+      {
+        "path": "anti-patterns/UndefFormal/index.rst",
+        "sha256": "23206f8faf6cbffac76b1fecd2d69e560fe5125e3d02107f0b18b454c97afe9a",
+        "bytes": 1667
+      },
+      {
+        "path": "anti-patterns/UndefPhase/index.rst",
+        "sha256": "745c2390428f993e3f4547f0ce55b745a5083a3261c3e7531245bca5937b6be3",
+        "bytes": 1896
+      },
+      {
+        "path": "anti-patterns/WholeOver/index.rst",
+        "sha256": "2df01c12e1ba40c498194291782a7cf92412b22c6b29f9479e38b462b9a427e6",
+        "bytes": 2089
+      },
+      {
+        "path": "anti-patterns/index.rst",
+        "sha256": "0222b3922417d946de9e07369e03a60d84f4feba85ed11bf1aaa54abb9282e5e",
+        "bytes": 593
+      }
+    ]
+  },
+  "index": {
+    "built_at_utc": "2026-09-27T09:37:22.968931+00:00",
+    "engine": "faiss",
+    "index_type": "IndexFlatIP",
+    "similarity": "cosine",
+    "chunking_strategy": "structural-v2",
+    "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "embedding_dimension": 384,
+    "chunk_count": 408,
+    "chunks_by_domain": {
+      "anti-patterns": 221,
+      "classes": 109,
+      "patterns": 13,
+      "relationships": 58,
+      "theory": 7
+    },
+    "chunks_by_unit_type": {
+      "section": 138,
+      "full_name": 20,
+      "type": 20,
+      "feature": 20,
+      "description": 20,
+      "justification": 20,
+      "constraints": 2,
+      "refactoring_plan": 61,
+      "references": 19,
+      "contraints": 18,
+      "constraint": 63,
+      "faq": 7
+    },
+    "fallback_max_chars": 2200,
+    "fallback_overlap_chars": 250,
+    "files": {
+      "chunks": "index/chunks.jsonl",
+      "faiss": "index/faiss.index"
+    }
+  }
+}

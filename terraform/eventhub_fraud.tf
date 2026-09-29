@@ -6,7 +6,7 @@
 resource "azurerm_eventhub_namespace" "fraud" {
   name                = local.eventhub_namespace_name
   location            = var.location
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
 
   sku      = "Standard"
   capacity = 1
@@ -42,7 +42,7 @@ resource "azurerm_eventhub" "fraud_transactions" {
 ####
 resource "azurerm_private_dns_zone" "eventhub" {
   name                = "privatelink.servicebus.windows.net"
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
 }
 
 ####
@@ -51,7 +51,7 @@ resource "azurerm_private_dns_zone" "eventhub" {
 resource "azurerm_private_endpoint" "fraud_eventhub" {
   name                = "pe-northmart-eventhub-fraud"
   location            = var.location
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
 
   subnet_id = azurerm_subnet.private_endpoints.id
 
@@ -75,7 +75,7 @@ resource "azurerm_private_endpoint" "fraud_eventhub" {
 resource "azurerm_private_dns_zone_virtual_network_link" "eventhub" {
   name                = "link-northmart-eventhub"
   private_dns_zone_id = azurerm_private_dns_zone.eventhub.id
-  virtual_network_id  = azurerm_virtual_network.northmart_databricks.id
+  virtual_network_id  = local.vnet_id
 
   registration_enabled = false
 }
@@ -88,7 +88,7 @@ resource "azurerm_eventhub_consumer_group" "databricks_fraud" {
   name                = "databricks-fraud"
   namespace_name      = azurerm_eventhub_namespace.fraud.name
   eventhub_name       = azurerm_eventhub.fraud_transactions.name
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
 }
 
 
@@ -101,7 +101,7 @@ resource "azurerm_eventhub_authorization_rule" "fraud_producer" {
   name                = "fraud-producer"
   namespace_name      = azurerm_eventhub_namespace.fraud.name
   eventhub_name       = azurerm_eventhub.fraud_transactions.name
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
 
   send   = true
   listen = false
@@ -118,11 +118,10 @@ resource "azurerm_eventhub_authorization_rule" "fraud_databricks_consumer" {
   name                = "fraud-databricks-consumer"
   namespace_name      = azurerm_eventhub_namespace.fraud.name
   eventhub_name       = azurerm_eventhub.fraud_transactions.name
-  resource_group_name = azurerm_resource_group.northmart.name
+  resource_group_name = local.resource_group_name
 
   send   = false
   listen = true
   manage = false
 }
-
 

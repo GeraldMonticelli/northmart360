@@ -1,0 +1,33 @@
+{
+  "@context": {
+    "crm": "https://northmart.example/crm/",
+    "ent": "https://northmart.example/enterprise/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "subClassOf": {
+      "@id": "rdfs:subClassOf",
+      "@type": "@id"
+    },
+    "subPropertyOf": {
+      "@id": "rdfs:subPropertyOf",
+      "@type": "@id"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "crm:Customer",
+      "subClassOf": "ent:Party"
+    },
+    {
+      "@id": "crm:customerId",
+      "subPropertyOf": "ent:partyIdentifier"
+    },
+    {
+      "@id": "crm:givenName",
+      "subPropertyOf": "ent:givenName"
+    },
+    {
+      "@id": "crm:birthDate",
+      "subPropertyOf": "ent:birthDate"
+    }
+  ]
+}

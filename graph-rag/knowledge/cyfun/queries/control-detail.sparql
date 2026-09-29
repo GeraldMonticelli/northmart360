@@ -1,0 +1,25 @@
+PREFIX oscal: <https://example.org/oscal#>
+PREFIX cyfun: <https://cyfun.eu/control/>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?control ?title ?part ?partName ?prose ?property ?propertyName ?propertyValue
+WHERE {
+    BIND(cyfun:PR.IR-01.8 AS ?control)
+
+    ?control
+        rdf:type oscal:Control ;
+        oscal:title ?title .
+
+    OPTIONAL {
+        ?control oscal:part ?part .
+        OPTIONAL { ?part oscal:name ?partName }
+        OPTIONAL { ?part oscal:prose ?prose }
+    }
+
+    OPTIONAL {
+        ?control oscal:prop ?property .
+        OPTIONAL { ?property oscal:name ?propertyName }
+        OPTIONAL { ?property oscal:value ?propertyValue }
+    }
+}
+ORDER BY ?part ?property

@@ -1,0 +1,66 @@
+{
+  "@context": {
+    "dp": "https://northmart.example/ontology/dataproduct#",
+    "phys": "https://northmart.example/physical/",
+    "crm": "https://northmart.example/crm/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "hasColumn": {
+      "@id": "dp:hasColumn",
+      "@type": "@id"
+    },
+    "semanticBinding": {
+      "@id": "dp:semanticBinding",
+      "@type": "@id"
+    },
+    "nullable": {
+      "@id": "dp:nullable",
+      "@type": "xsd:boolean"
+    },
+    "primaryKey": {
+      "@id": "dp:primaryKey",
+      "@type": "xsd:boolean"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "phys:crm/customer",
+      "@type": "dp:Table",
+      "dp:catalog": "northmart_dev",
+      "dp:schema": "crm",
+      "dp:tableName": "customer",
+      "hasColumn": [
+        "phys:crm/customer/customer_id",
+        "phys:crm/customer/first_name",
+        "phys:crm/customer/birth_date"
+      ],
+      "semanticBinding": "crm:Customer"
+    },
+    {
+      "@id": "phys:crm/customer/customer_id",
+      "@type": "dp:Column",
+      "dp:columnName": "customer_id",
+      "dp:sqlType": "STRING",
+      "nullable": false,
+      "primaryKey": true,
+      "semanticBinding": "crm:customerId"
+    },
+    {
+      "@id": "phys:crm/customer/first_name",
+      "@type": "dp:Column",
+      "dp:columnName": "first_name",
+      "dp:sqlType": "STRING",
+      "nullable": false,
+      "primaryKey": false,
+      "semanticBinding": "crm:givenName"
+    },
+    {
+      "@id": "phys:crm/customer/birth_date",
+      "@type": "dp:Column",
+      "dp:columnName": "birth_date",
+      "dp:sqlType": "DATE",
+      "nullable": true,
+      "primaryKey": false,
+      "semanticBinding": "crm:birthDate"
+    }
+  ]
+}

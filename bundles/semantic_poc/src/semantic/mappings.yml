@@ -1,0 +1,40 @@
+physical:
+  catalog: northmart_dev
+  schema: silver
+
+concepts:
+
+  Transaction:
+    table: sem_transaction
+    key: transaction_id
+    attributes:
+      event_time: event_time
+      card_id: card_id
+
+  Card:
+    table: sem_card
+    key: card_id
+
+  CardHolding:
+    table: sem_card_holding
+    key: card_holding_id
+    attributes:
+      card_id: card_id
+      customer_id: customer_id
+      valid_from: valid_from
+      valid_to: valid_to
+
+  Customer:
+    table: sem_customer
+    key: customer_id
+    attributes:
+      person_id: person_id
+      valid_from: valid_from
+      valid_to: valid_to
+
+  Person:
+    table: sem_person
+    key: person_id
+    attributes:
+      first_name: first_name
+      last_name: last_name

@@ -1,0 +1,10 @@
+PREFIX cyfun: <https://cyfun.eu/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?requirement ?label
+WHERE {
+    ?requirement
+        a cyfun:Requirement ;
+        cyfun:assuranceLevel cyfun:Essential ;
+        rdfs:label ?label .
+}

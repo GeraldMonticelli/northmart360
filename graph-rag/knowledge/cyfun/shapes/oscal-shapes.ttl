@@ -1,0 +1,2085 @@
+@prefix oscal: <https://csrc.nist.gov/ns/oscal/semantic/1.0#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+oscal:ActionShape a sh:NodeShape ;
+    rdfs:label "Action shape" ;
+    sh:property [ sh:class oscal:ResponsibleParty ;
+            sh:path oscal:responsible-party ],
+        [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path oscal:date ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:system ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:type ] ;
+    sh:targetClass oscal:Action .
+
+oscal:ActivityShape a sh:NodeShape ;
+    rdfs:label "Activity shape" ;
+    sh:property [ sh:class oscal:ResponsibleRole ;
+            sh:path oscal:responsible-role ],
+        [ sh:class oscal:ResponsibleRole ;
+            sh:path oscal:responsible-role ],
+        [ sh:class oscal:ReviewedControls ;
+            sh:path oscal:reviewed-controls ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:ReviewedControls ;
+            sh:path oscal:reviewed-controls ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ] ;
+    sh:targetClass oscal:Activity .
+
+oscal:AddressShape a sh:NodeShape ;
+    rdfs:label "Address shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:location-type ],
+        [ sh:datatype xsd:string ;
+            sh:path oscal:addr-line ] ;
+    sh:targetClass oscal:Address .
+
+oscal:AssessmentAssetsShape a sh:NodeShape ;
+    rdfs:label "Assessment Assets shape" ;
+    sh:property [ sh:class oscal:SystemComponent ;
+            sh:minCount 0 ;
+            sh:path oscal:system-component ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:ResponsibleParty ;
+            sh:path oscal:responsible-party ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ] ;
+    sh:targetClass oscal:AssessmentAssets .
+
+oscal:AssessmentMethodShape a sh:NodeShape ;
+    rdfs:label "Assessment Method shape" ;
+    sh:property [ sh:class oscal:AssessmentPart ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:assessment-part ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ] ;
+    sh:targetClass oscal:AssessmentMethod .
+
+oscal:AssessmentPartShape a sh:NodeShape ;
+    rdfs:label "Assessment Part shape" ;
+    sh:property [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:path oscal:class ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:path oscal:ns ],
+        [ sh:class oscal:AssessmentPart ;
+            sh:path oscal:assessment-part ],
+        [ sh:datatype xsd:token ;
+            sh:in ( "asset" "method" "objective" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:name ] ;
+    sh:targetClass oscal:AssessmentPart .
+
+oscal:AssessmentPlanShape a sh:NodeShape ;
+    rdfs:label "Security Assessment Plan (SAP) shape" ;
+    sh:property [ sh:class oscal:AssessmentPart ;
+            sh:path oscal:assessment-part ],
+        [ sh:class oscal:AssessmentSubject ;
+            sh:minCount 0 ;
+            sh:path oscal:assessment-subject ],
+        [ sh:class oscal:AssessmentAssets ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:assessment-assets ],
+        [ sh:class oscal:ImportSsp ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:import-ssp ],
+        [ sh:class oscal:Metadata ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:metadata ],
+        [ sh:class oscal:ReviewedControls ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:reviewed-controls ],
+        [ sh:class oscal:BackMatter ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:back-matter ],
+        [ sh:class oscal:InventoryItem ;
+            sh:minCount 0 ;
+            sh:path oscal:inventory-item ],
+        [ sh:class oscal:SystemComponent ;
+            sh:minCount 0 ;
+            sh:path oscal:system-component ],
+        [ sh:class oscal:SystemUser ;
+            sh:minCount 0 ;
+            sh:path oscal:system-user ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Task ;
+            sh:minCount 0 ;
+            sh:path oscal:task ],
+        [ sh:class oscal:LocalObjective ;
+            sh:minCount 0 ;
+            sh:path oscal:local-objective ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:Activity ;
+            sh:minCount 0 ;
+            sh:path oscal:activity ] ;
+    sh:targetClass oscal:AssessmentPlan .
+
+oscal:AssessmentResultsShape a sh:NodeShape ;
+    rdfs:label "Security Assessment Results (SAR) shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:LocalObjective ;
+            sh:minCount 0 ;
+            sh:path oscal:local-objective ],
+        [ sh:class oscal:ImportAp ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:import-ap ],
+        [ sh:class oscal:Metadata ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:metadata ],
+        [ sh:class oscal:Activity ;
+            sh:minCount 0 ;
+            sh:path oscal:activity ],
+        [ sh:class oscal:BackMatter ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:back-matter ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Result ;
+            sh:minCount 1 ;
+            sh:path oscal:result ] ;
+    sh:targetClass oscal:AssessmentResults .
+
+oscal:AssessmentSubjectPlaceholderShape a sh:NodeShape ;
+    rdfs:label "Assessment Subject Placeholder shape" ;
+    sh:property [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ] ;
+    sh:targetClass oscal:AssessmentSubjectPlaceholder .
+
+oscal:AssessmentSubjectShape a sh:NodeShape ;
+    rdfs:label "Subject of Assessment shape" ;
+    sh:property [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:IncludeAll ;
+            sh:minCount 1 ;
+            sh:path oscal:include-all ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype xsd:token ;
+            sh:in ( "component" "inventory-item" "location" "party" "user" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:type ],
+        [ sh:class oscal:SelectSubjectById ;
+            sh:minCount 1 ;
+            sh:path oscal:select-subject-by-id ],
+        [ sh:class oscal:SelectSubjectById ;
+            sh:minCount 0 ;
+            sh:path oscal:select-subject-by-id ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:AssessmentSubject .
+
+oscal:AssociatedRiskShape a sh:NodeShape ;
+    rdfs:label "Associated Risk shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:risk-uuid ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:AssociatedRisk .
+
+oscal:AuthorizationBoundaryShape a sh:NodeShape ;
+    rdfs:label "Authorization Boundary shape" ;
+    sh:property [ sh:class oscal:Diagram ;
+            sh:path oscal:diagram ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:AuthorizationBoundary .
+
+oscal:AuthorizedPrivilegeShape a sh:NodeShape ;
+    rdfs:label "Privilege shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path oscal:function-performed ] ;
+    sh:targetClass oscal:AuthorizedPrivilege .
+
+oscal:BackMatterShape a sh:NodeShape ;
+    rdfs:label "Back matter shape" ;
+    sh:property [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "SHA-224" "SHA-256" "SHA-384" "SHA-512" "SHA3-224" "SHA3-256" "SHA3-384" "SHA3-512" ) ;
+            sh:path oscal:hash ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "http://www.doi.org/" ) ;
+            sh:path oscal:document-id ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:BackMatter .
+
+oscal:ByComponentShape a sh:NodeShape ;
+    rdfs:label "Component Control Implementation shape" ;
+    sh:property [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:ResponsibleRole ;
+            sh:minCount 0 ;
+            sh:path oscal:responsible-role ],
+        [ sh:class oscal:ResponsibleRole ;
+            sh:minCount 0 ;
+            sh:path oscal:responsible-role ],
+        [ sh:class oscal:ResponsibleRole ;
+            sh:minCount 0 ;
+            sh:path oscal:responsible-role ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:ImplementationStatus ;
+            sh:path oscal:implementation-status ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:ResponsibleRole ;
+            sh:minCount 0 ;
+            sh:path oscal:responsible-role ],
+        [ sh:class oscal:ResponsibleRole ;
+            sh:path oscal:responsible-role ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:SetParameter ;
+            sh:path oscal:set-parameter ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:component-uuid ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:ByComponent .
+
+oscal:CapabilityShape a sh:NodeShape ;
+    rdfs:label "Capability shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:IncorporatesComponent ;
+            sh:path oscal:incorporates-component ],
+        [ sh:class oscal:ControlImplementation ;
+            sh:path oscal:control-implementation ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:name ] ;
+    sh:targetClass oscal:Capability .
+
+oscal:CatalogShape a sh:NodeShape ;
+    rdfs:label "Catalog shape" ;
+    sh:property [ sh:class oscal:Group ;
+            sh:path oscal:group ],
+        [ sh:class oscal:Parameter ;
+            sh:path oscal:parameter ],
+        [ sh:class oscal:BackMatter ;
+            sh:path oscal:back-matter ],
+        [ sh:class oscal:Control ;
+            sh:path oscal:control ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:Metadata ;
+            sh:minCount 1 ;
+            sh:path oscal:metadata ] ;
+    sh:targetClass oscal:Catalog .
+
+oscal:CharacterizationShape a sh:NodeShape ;
+    rdfs:label "Characterization shape" ;
+    sh:property [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Origin ;
+            sh:minCount 1 ;
+            sh:path oscal:origin ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:Characterization .
+
+oscal:ComponentDefinitionShape a sh:NodeShape ;
+    rdfs:label "Component Definition shape" ;
+    sh:property [ sh:class oscal:ImportComponentDefinition ;
+            sh:path oscal:import-component-definition ],
+        [ sh:class oscal:Metadata ;
+            sh:minCount 1 ;
+            sh:path oscal:metadata ],
+        [ sh:class oscal:DefinedComponent ;
+            sh:path oscal:defined-component ],
+        [ sh:class oscal:BackMatter ;
+            sh:path oscal:back-matter ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:Capability ;
+            sh:path oscal:capability ] ;
+    sh:targetClass oscal:ComponentDefinition .
+
+oscal:ConfidenceScoreShape a sh:NodeShape ;
+    rdfs:label "Confidence Score shape" ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:path oscal:percentage ] ;
+    sh:targetClass oscal:ConfidenceScore .
+
+oscal:ControlImplementationShape a sh:NodeShape ;
+    rdfs:label "Control Implementation Set shape" ;
+    sh:property [ sh:class oscal:SetParameter ;
+            sh:path oscal:set-parameter ],
+        [ sh:class oscal:ImplementedRequirement ;
+            sh:minCount 1 ;
+            sh:path oscal:implemented-requirement ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:source ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:ControlImplementation .
+
+oscal:ControlShape a sh:NodeShape ;
+    rdfs:label "Control shape" ;
+    sh:property [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:path oscal:class ],
+        [ sh:class oscal:Part ;
+            sh:path oscal:part ],
+        [ sh:class oscal:Parameter ;
+            sh:path oscal:parameter ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Control ;
+            sh:path oscal:control ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:id ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:Control .
+
+oscal:DataFlowShape a sh:NodeShape ;
+    rdfs:label "Data Flow shape" ;
+    sh:property [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Diagram ;
+            sh:path oscal:diagram ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:DataFlow .
+
+oscal:DefinedComponentShape a sh:NodeShape ;
+    rdfs:label "Component shape" ;
+    sh:property [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:ControlImplementation ;
+            sh:path oscal:control-implementation ],
+        [ sh:class oscal:Protocol ;
+            sh:path oscal:protocol ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:ResponsibleRole ;
+            sh:path oscal:responsible-role ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:defined-component-type ] ;
+    sh:targetClass oscal:DefinedComponent .
+
+oscal:DiagramShape a sh:NodeShape ;
+    rdfs:label "Diagram shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:Diagram .
+
+oscal:FindingShape a sh:NodeShape ;
+    rdfs:label "Finding shape" ;
+    sh:property [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:AssociatedRisk ;
+            sh:path oscal:associated-risk ],
+        [ sh:class oscal:RelatedObservation ;
+            sh:path oscal:related-observation ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:FindingTarget ;
+            sh:minCount 1 ;
+            sh:path oscal:finding-target ],
+        [ sh:class oscal:Origin ;
+            sh:path oscal:origin ] ;
+    sh:targetClass oscal:Finding .
+
+oscal:FindingTargetShape a sh:NodeShape ;
+    rdfs:label "Objective Status shape" ;
+    sh:property [ sh:class oscal:ImplementationStatus ;
+            sh:path oscal:implementation-status ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:target-id ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "statement-id" "objective-id" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:type ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ] ;
+    sh:targetClass oscal:FindingTarget .
+
+oscal:GapSummaryShape a sh:NodeShape ;
+    rdfs:label "Gap Summary shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:SelectControlById ;
+            sh:minCount 1 ;
+            sh:path oscal:select-control-by-id ] ;
+    sh:targetClass oscal:GapSummary .
+
+oscal:GroupShape a sh:NodeShape ;
+    rdfs:label "Control Group shape" ;
+    sh:property [ sh:class oscal:Group ;
+            sh:path oscal:group ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:path oscal:id ],
+        [ sh:class oscal:Parameter ;
+            sh:path oscal:parameter ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:path oscal:class ],
+        [ sh:class oscal:Part ;
+            sh:path oscal:part ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Control ;
+            sh:path oscal:control ] ;
+    sh:targetClass oscal:Group .
+
+oscal:ImpactShape a sh:NodeShape ;
+    rdfs:label "Impact Level shape" ;
+    sh:property [ sh:datatype rdf:HTML ;
+            sh:path oscal:adjustment-justification ],
+        [ sh:datatype xsd:string ;
+            sh:path oscal:selected ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path oscal:base ] ;
+    sh:targetClass oscal:Impact .
+
+oscal:ImplementationStatusShape a sh:NodeShape ;
+    rdfs:label "Implementation Status shape" ;
+    sh:property [ sh:datatype xsd:token ;
+            sh:in ( "implemented" "partial" "planned" "alternative" "not-applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:state ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:ImplementationStatus .
+
+oscal:ImplementedRequirementShape a sh:NodeShape ;
+    rdfs:label "Control Implementation shape" ;
+    sh:property [ sh:class oscal:ResponsibleRole ;
+            sh:path oscal:responsible-role ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:control-id ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:SetParameter ;
+            sh:path oscal:set-parameter ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Statement ;
+            sh:path oscal:statement ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:ImplementedRequirement .
+
+oscal:ImportApShape a sh:NodeShape ;
+    rdfs:label "Import Assessment Plan shape" ;
+    sh:property [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:href ] ;
+    sh:targetClass oscal:ImportAp .
+
+oscal:ImportComponentDefinitionShape a sh:NodeShape ;
+    rdfs:label "Import Component Definition shape" ;
+    sh:property [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:href ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:ImportComponentDefinition .
+
+oscal:ImportProfileShape a sh:NodeShape ;
+    rdfs:label "Import Profile shape" ;
+    sh:property [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:href ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:ImportProfile .
+
+oscal:ImportShape a sh:NodeShape ;
+    rdfs:label "Import Resource shape" ;
+    sh:property [ sh:class oscal:SelectControlById ;
+            sh:minCount 1 ;
+            sh:path oscal:select-control-by-id ],
+        [ sh:class oscal:IncludeAll ;
+            sh:minCount 1 ;
+            sh:path oscal:include-all ],
+        [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:href ],
+        [ sh:class oscal:SelectControlById ;
+            sh:path oscal:select-control-by-id ] ;
+    sh:targetClass oscal:Import .
+
+oscal:ImportSspShape a sh:NodeShape ;
+    rdfs:label "Import System Security Plan shape" ;
+    sh:property [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:href ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:ImportSsp .
+
+oscal:IncludeAllShape a sh:NodeShape ;
+    rdfs:label "Include All shape" ;
+    sh:targetClass oscal:IncludeAll .
+
+oscal:IncorporatesComponentShape a sh:NodeShape ;
+    rdfs:label "Incorporates Component shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:component-uuid ] ;
+    sh:targetClass oscal:IncorporatesComponent .
+
+oscal:InsertControlsShape a sh:NodeShape ;
+    rdfs:label "Insert Controls shape" ;
+    sh:property [ sh:class oscal:SelectControlById ;
+            sh:minCount 1 ;
+            sh:path oscal:select-control-by-id ],
+        [ sh:datatype xsd:token ;
+            sh:in ( "keep" "ascending" "descending" ) ;
+            sh:maxCount 1 ;
+            sh:path oscal:order ],
+        [ sh:class oscal:IncludeAll ;
+            sh:minCount 1 ;
+            sh:path oscal:include-all ],
+        [ sh:class oscal:SelectControlById ;
+            sh:path oscal:select-control-by-id ] ;
+    sh:targetClass oscal:InsertControls .
+
+oscal:InventoryItemShape a sh:NodeShape ;
+    rdfs:label "Inventory Item shape" ;
+    sh:property [ sh:class oscal:ResponsibleParty ;
+            sh:path oscal:responsible-party ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:ResponsibleParty ;
+            sh:path oscal:responsible-party ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ] ;
+    sh:targetClass oscal:InventoryItem .
+
+oscal:LinkShape a sh:NodeShape ;
+    rdfs:label "Link shape" ;
+    sh:property [ sh:datatype xsd:token ;
+            sh:in ( "reference" ) ;
+            sh:maxCount 1 ;
+            sh:path oscal:rel ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:resource-fragment ],
+        [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:href ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:media-type ] ;
+    sh:targetClass oscal:Link .
+
+oscal:LocalDefinitionsShape a sh:NodeShape ;
+    rdfs:label "Local Definitions shape" ;
+    sh:property [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:SystemComponent ;
+            sh:minCount 0 ;
+            sh:path oscal:system-component ],
+        [ sh:class oscal:InventoryItem ;
+            sh:minCount 0 ;
+            sh:path oscal:inventory-item ],
+        [ sh:class oscal:AssessmentAssets ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:assessment-assets ] ;
+    sh:targetClass oscal:LocalDefinitions .
+
+oscal:LocalObjectiveShape a sh:NodeShape ;
+    rdfs:label "Assessment-Specific Control Objective shape" ;
+    sh:property [ sh:class oscal:Part ;
+            sh:minCount 1 ;
+            sh:path oscal:part ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:control-id ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:LocalObjective .
+
+oscal:LoggedByShape a sh:NodeShape ;
+    rdfs:label "Logged By shape" ;
+    sh:property [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:path oscal:role-id ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:party-uuid ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:LoggedBy .
+
+oscal:MapShape a sh:NodeShape ;
+    rdfs:label "Mapping Entry shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:matching-rationale ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:datatype xsd:decimal ;
+            sh:in ( "arbitrary" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:coverage ],
+        [ sh:class oscal:MappingItem ;
+            sh:minCount 1 ;
+            sh:path oscal:mapping-item ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:QualifierItem ;
+            sh:minCount 0 ;
+            sh:path oscal:qualifier-item ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:MappingItem ;
+            sh:minCount 1 ;
+            sh:path oscal:mapping-item ],
+        [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:path oscal:ns ],
+        [ sh:class oscal:ConfidenceScore ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:confidence-score ] ;
+    sh:targetClass oscal:Map .
+
+oscal:MappingCollectionShape a sh:NodeShape ;
+    rdfs:label "Mapping Collection shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:BackMatter ;
+            sh:path oscal:back-matter ],
+        [ sh:class oscal:Mapping ;
+            sh:minCount 1 ;
+            sh:path oscal:mapping ],
+        [ sh:class oscal:MappingProvenance ;
+            sh:minCount 1 ;
+            sh:path oscal:mapping-provenance ],
+        [ sh:class oscal:Metadata ;
+            sh:minCount 1 ;
+            sh:path oscal:metadata ] ;
+    sh:targetClass oscal:MappingCollection .
+
+oscal:MappingItemShape a sh:NodeShape ;
+    rdfs:label "Mapping Entry Item (source or target) shape" ;
+    sh:property [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:token ;
+            sh:in ( "control" "statement" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:type ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:id-ref ] ;
+    sh:targetClass oscal:MappingItem .
+
+oscal:MappingProvenanceShape a sh:NodeShape ;
+    rdfs:label "Mapping Provenance shape" ;
+    sh:property [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:decimal ;
+            sh:in ( "arbitrary" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:coverage ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:mapping-description ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:method ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:status ],
+        [ sh:class oscal:ConfidenceScore ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:confidence-score ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:matching-rationale ],
+        [ sh:class oscal:ResponsibleParty ;
+            sh:path oscal:responsible-party ] ;
+    sh:targetClass oscal:MappingProvenance .
+
+oscal:MappingResourceReferenceShape a sh:NodeShape ;
+    rdfs:label "Mapped Resource Reference shape" ;
+    sh:property [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:href ],
+        [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:path oscal:ns ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:token ;
+            sh:in ( "catalog" "profile" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:type ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:MappingResourceReference .
+
+oscal:MappingShape a sh:NodeShape ;
+    rdfs:label "Control Mapping shape" ;
+    sh:property [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:mapping-description ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:method ],
+        [ sh:class oscal:MappingResourceReference ;
+            sh:minCount 1 ;
+            sh:path oscal:mapping-resource-reference ],
+        [ sh:class oscal:GapSummary ;
+            sh:path oscal:gap-summary ],
+        [ sh:class oscal:Map ;
+            sh:minCount 1 ;
+            sh:path oscal:map ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:datatype xsd:decimal ;
+            sh:in ( "arbitrary" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:coverage ],
+        [ sh:class oscal:MappingResourceReference ;
+            sh:minCount 1 ;
+            sh:path oscal:mapping-resource-reference ],
+        [ sh:class oscal:ConfidenceScore ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:confidence-score ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:matching-rationale ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:GapSummary ;
+            sh:path oscal:gap-summary ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:status ] ;
+    sh:targetClass oscal:Mapping .
+
+oscal:MatchingShape a sh:NodeShape ;
+    rdfs:label "Match Controls by Pattern shape" ;
+    sh:property [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:pattern ] ;
+    sh:targetClass oscal:Matching .
+
+oscal:MergeShape a sh:NodeShape ;
+    rdfs:label "Merge Controls shape" ;
+    sh:property [ sh:class oscal:Group ;
+            sh:path oscal:group ],
+        [ sh:class oscal:InsertControls ;
+            sh:path oscal:insert-controls ] ;
+    sh:targetClass oscal:Merge .
+
+oscal:MetadataShape a sh:NodeShape ;
+    rdfs:label "Document Metadata shape" ;
+    sh:property [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Address ;
+            sh:path oscal:address ],
+        [ sh:datatype xsd:string ;
+            sh:path oscal:email-address ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:string ;
+            sh:path oscal:email-address ],
+        [ sh:datatype xsd:string ;
+            sh:path oscal:oscal-version ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path oscal:version ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path oscal:version ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:ResponsibleParty ;
+            sh:path oscal:responsible-party ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path oscal:oscal-version ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Address ;
+            sh:path oscal:address ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "http://www.doi.org/" ) ;
+            sh:path oscal:document-id ],
+        [ sh:datatype xsd:dateTime ;
+            sh:path oscal:last-modified ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:path oscal:location-uuid ],
+        [ sh:datatype xsd:dateTime ;
+            sh:minCount 1 ;
+            sh:path oscal:last-modified ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "home" "office" "mobile" ) ;
+            sh:path oscal:telephone-number ],
+        [ sh:datatype xsd:dateTime ;
+            sh:path oscal:published ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "home" "office" "mobile" ) ;
+            sh:path oscal:telephone-number ],
+        [ sh:class oscal:Action ;
+            sh:path oscal:action ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:dateTime ;
+            sh:path oscal:published ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:Metadata .
+
+oscal:ModifyShape a sh:NodeShape ;
+    rdfs:label "Modify Controls shape" ;
+    sh:property [ sh:class oscal:ParameterSelection ;
+            sh:path oscal:parameter-selection ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:ParameterGuideline ;
+            sh:path oscal:parameter-guideline ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:ParameterConstraint ;
+            sh:path oscal:parameter-constraint ],
+        [ sh:datatype xsd:string ;
+            sh:path oscal:parameter-value ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Parameter ;
+            sh:path oscal:parameter ],
+        [ sh:class oscal:Part ;
+            sh:path oscal:part ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ] ;
+    sh:targetClass oscal:Modify .
+
+oscal:NetworkArchitectureShape a sh:NodeShape ;
+    rdfs:label "Network Architecture shape" ;
+    sh:property [ sh:class oscal:Diagram ;
+            sh:path oscal:diagram ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ] ;
+    sh:targetClass oscal:NetworkArchitecture .
+
+oscal:ObservationShape a sh:NodeShape ;
+    rdfs:label "Observation shape" ;
+    sh:property [ sh:class oscal:SubjectReference ;
+            sh:minCount 0 ;
+            sh:path oscal:subject-reference ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Origin ;
+            sh:path oscal:origin ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ] ;
+    sh:targetClass oscal:Observation .
+
+oscal:OriginActorShape a sh:NodeShape ;
+    rdfs:label "Originating Actor shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:actor-uuid ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype xsd:token ;
+            sh:in ( "tool" "assessment-platform" "party" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:type ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:path oscal:role-id ] ;
+    sh:targetClass oscal:OriginActor .
+
+oscal:OriginShape a sh:NodeShape ;
+    rdfs:label "Origin shape" ;
+    sh:property [ sh:class oscal:OriginActor ;
+            sh:minCount 1 ;
+            sh:path oscal:origin-actor ],
+        [ sh:class oscal:RelatedTask ;
+            sh:path oscal:related-task ] ;
+    sh:targetClass oscal:Origin .
+
+oscal:ParameterConstraintShape a sh:NodeShape ;
+    rdfs:label "Constraint shape" ;
+    sh:property [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:ParameterConstraint .
+
+oscal:ParameterGuidelineShape a sh:NodeShape ;
+    rdfs:label "Guideline shape" ;
+    sh:targetClass oscal:ParameterGuideline .
+
+oscal:ParameterSelectionShape a sh:NodeShape ;
+    rdfs:label "Selection shape" ;
+    sh:property [ sh:datatype xsd:token ;
+            sh:in ( "one" "one-or-more" ) ;
+            sh:maxCount 1 ;
+            sh:path oscal:how-many ] ;
+    sh:targetClass oscal:ParameterSelection .
+
+oscal:ParameterShape a sh:NodeShape ;
+    rdfs:label "Parameter shape" ;
+    sh:property [ sh:class oscal:ParameterConstraint ;
+            sh:path oscal:parameter-constraint ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:id ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype xsd:string ;
+            sh:path oscal:parameter-value ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:path oscal:class ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:path oscal:depends-on ],
+        [ sh:class oscal:ParameterGuideline ;
+            sh:path oscal:parameter-guideline ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:ParameterSelection ;
+            sh:path oscal:parameter-selection ] ;
+    sh:targetClass oscal:Parameter .
+
+oscal:PartShape a sh:NodeShape ;
+    rdfs:label "Part shape" ;
+    sh:property [ sh:class oscal:Part ;
+            sh:path oscal:part ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:path oscal:id ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:name ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:path oscal:class ],
+        [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:path oscal:ns ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:Part .
+
+oscal:PlanOfActionAndMilestonesShape a sh:NodeShape ;
+    rdfs:label "Plan of Action and Milestones (POA&M) shape" ;
+    sh:property [ sh:class oscal:ImportSsp ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:import-ssp ],
+        [ sh:class oscal:PoamItem ;
+            sh:minCount 1 ;
+            sh:path oscal:poam-item ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "http://fedramp.gov" "http://fedramp.gov/ns/oscal" "https://ietf.org/rfc/rfc4122" "http://ietf.org/rfc/rfc4122" "http://datatracker.ietf.org/doc/html/rfc4122" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:system-id ],
+        [ sh:class oscal:BackMatter ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:back-matter ],
+        [ sh:class oscal:Metadata ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:metadata ],
+        [ sh:class oscal:Finding ;
+            sh:minCount 0 ;
+            sh:path oscal:finding ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:LocalDefinitions ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:local-definitions ],
+        [ sh:class oscal:Observation ;
+            sh:minCount 0 ;
+            sh:path oscal:observation ],
+        [ sh:class oscal:Risk ;
+            sh:minCount 0 ;
+            sh:path oscal:risk ] ;
+    sh:targetClass oscal:PlanOfActionAndMilestones .
+
+oscal:PoamItemShape a sh:NodeShape ;
+    rdfs:label "POA&M Item shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:RelatedObservation ;
+            sh:path oscal:related-observation ],
+        [ sh:class oscal:AssociatedRisk ;
+            sh:path oscal:associated-risk ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:OriginActor ;
+            sh:minCount 1 ;
+            sh:path oscal:origin-actor ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:PoamItem .
+
+oscal:PortRangeShape a sh:NodeShape ;
+    rdfs:label "Port Range shape" ;
+    sh:property [ sh:datatype xsd:nonNegativeInteger ;
+            sh:maxCount 1 ;
+            sh:path oscal:end ],
+        [ sh:datatype xsd:token ;
+            sh:in ( "TCP" "UDP" ) ;
+            sh:maxCount 1 ;
+            sh:path oscal:transport ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:nonNegativeInteger ;
+            sh:maxCount 1 ;
+            sh:path oscal:start ] ;
+    sh:targetClass oscal:PortRange .
+
+oscal:ProfileShape a sh:NodeShape ;
+    rdfs:label "Profile shape" ;
+    sh:property [ sh:class oscal:Metadata ;
+            sh:minCount 1 ;
+            sh:path oscal:metadata ],
+        [ sh:class oscal:Import ;
+            sh:minCount 1 ;
+            sh:path oscal:import ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:BackMatter ;
+            sh:path oscal:back-matter ],
+        [ sh:class oscal:Merge ;
+            sh:path oscal:merge ],
+        [ sh:class oscal:Modify ;
+            sh:path oscal:modify ] ;
+    sh:targetClass oscal:Profile .
+
+oscal:PropertyShape a sh:NodeShape ;
+    rdfs:label "Property shape" ;
+    sh:property [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:path oscal:class ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:path oscal:group ],
+        [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:path oscal:ns ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:value ] ;
+    sh:targetClass oscal:Property .
+
+oscal:ProtocolShape a sh:NodeShape ;
+    rdfs:label "Service Protocol Information shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:name ],
+        [ sh:class oscal:PortRange ;
+            sh:path oscal:port-range ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:uuid ] ;
+    sh:targetClass oscal:Protocol .
+
+oscal:QualifierItemShape a sh:NodeShape ;
+    rdfs:label "Relationship Qualifier shape" ;
+    sh:property [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "has-requirement" "has-incompatibility" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:predicate ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "restricted" "addressable" "blocked" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:category ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "source" "target" "both" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:subject ] ;
+    sh:targetClass oscal:QualifierItem .
+
+oscal:RelatedObservationShape a sh:NodeShape ;
+    rdfs:label "Related Observation shape" ;
+    sh:property [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:observation-uuid ] ;
+    sh:targetClass oscal:RelatedObservation .
+
+oscal:RelatedTaskShape a sh:NodeShape ;
+    rdfs:label "Task Reference shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:task-uuid ],
+        [ sh:class oscal:ResponsibleParty ;
+            sh:path oscal:responsible-party ],
+        [ sh:class oscal:AssessmentSubject ;
+            sh:minCount 1 ;
+            sh:path oscal:assessment-subject ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:AssessmentSubject ;
+            sh:path oscal:assessment-subject ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:RelatedTask .
+
+oscal:ResponseShape a sh:NodeShape ;
+    rdfs:label "Risk Response shape" ;
+    sh:property [ sh:class oscal:Origin ;
+            sh:path oscal:origin ],
+        [ sh:datatype xsd:token ;
+            sh:in ( "recommendation" "planned" "completed" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:lifecycle ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Task ;
+            sh:minCount 0 ;
+            sh:path oscal:task ],
+        [ sh:class oscal:SubjectReference ;
+            sh:minCount 0 ;
+            sh:path oscal:subject-reference ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:Response .
+
+oscal:ResponsiblePartyShape a sh:NodeShape ;
+    rdfs:label "Responsible Party shape" ;
+    sh:property [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path oscal:party-uuid ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:role-id ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ] ;
+    sh:targetClass oscal:ResponsibleParty .
+
+oscal:ResponsibleRoleShape a sh:NodeShape ;
+    rdfs:label "Responsible Role shape" ;
+    sh:property [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype xsd:token ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:role-id ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:path oscal:party-uuid ] ;
+    sh:targetClass oscal:ResponsibleRole .
+
+oscal:ResultShape a sh:NodeShape ;
+    rdfs:label "Assessment Result shape" ;
+    sh:property [ sh:class oscal:ReviewedControls ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:reviewed-controls ],
+        [ sh:class oscal:AssessmentPart ;
+            sh:minCount 1 ;
+            sh:path oscal:assessment-part ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Risk ;
+            sh:path oscal:risk ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Observation ;
+            sh:minCount 0 ;
+            sh:path oscal:observation ],
+        [ sh:class oscal:InventoryItem ;
+            sh:minCount 0 ;
+            sh:path oscal:inventory-item ],
+        [ sh:class oscal:RelatedTask ;
+            sh:path oscal:related-task ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:AssessmentAssets ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:assessment-assets ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:LoggedBy ;
+            sh:path oscal:logged-by ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Task ;
+            sh:minCount 0 ;
+            sh:path oscal:task ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:SystemUser ;
+            sh:minCount 0 ;
+            sh:path oscal:system-user ],
+        [ sh:class oscal:Finding ;
+            sh:path oscal:finding ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:SystemComponent ;
+            sh:minCount 0 ;
+            sh:path oscal:system-component ],
+        [ sh:class oscal:ResponsibleParty ;
+            sh:path oscal:responsible-party ] ;
+    sh:targetClass oscal:Result .
+
+oscal:ReviewedControlsShape a sh:NodeShape ;
+    rdfs:label "Reviewed Controls and Control Objectives shape" ;
+    sh:property [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:SelectObjectiveById ;
+            sh:minCount 1 ;
+            sh:path oscal:select-objective-by-id ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:SelectControlById ;
+            sh:path oscal:select-control-by-id ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:IncludeAll ;
+            sh:minCount 1 ;
+            sh:path oscal:include-all ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:IncludeAll ;
+            sh:minCount 1 ;
+            sh:path oscal:include-all ],
+        [ sh:class oscal:SelectObjectiveById ;
+            sh:path oscal:select-objective-by-id ],
+        [ sh:class oscal:SelectControlById ;
+            sh:minCount 1 ;
+            sh:path oscal:select-control-by-id ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:ReviewedControls .
+
+oscal:RiskShape a sh:NodeShape ;
+    rdfs:label "Identified Risk shape" ;
+    sh:property [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:RelatedObservation ;
+            sh:path oscal:related-observation ],
+        [ sh:datatype xsd:token ;
+            sh:in ( "open" "investigating" "remediating" "deviation-requested" "deviation-approved" "closed" ) ;
+            sh:minCount 1 ;
+            sh:path oscal:risk-status ],
+        [ sh:datatype xsd:token ;
+            sh:in ( "open" "investigating" "remediating" "deviation-requested" "deviation-approved" "closed" ) ;
+            sh:path oscal:risk-status ],
+        [ sh:class oscal:Origin ;
+            sh:path oscal:origin ],
+        [ sh:class oscal:SubjectReference ;
+            sh:minCount 0 ;
+            sh:path oscal:subject-reference ],
+        [ sh:class oscal:Characterization ;
+            sh:minCount 0 ;
+            sh:path oscal:characterization ],
+        [ sh:datatype xsd:anyURI ;
+            sh:in ( "http://fedramp.gov" "http://fedramp.gov/ns/oscal" ) ;
+            sh:minCount 0 ;
+            sh:path oscal:threat-id ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:RelatedTask ;
+            sh:path oscal:related-task ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:LoggedBy ;
+            sh:path oscal:logged-by ],
+        [ sh:class oscal:Response ;
+            sh:minCount 0 ;
+            sh:path oscal:response ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:Risk .
+
+oscal:SecurityImpactLevelShape a sh:NodeShape ;
+    rdfs:label "Security Impact Level shape" ;
+    sh:targetClass oscal:SecurityImpactLevel .
+
+oscal:SelectControlByIdShape a sh:NodeShape ;
+    rdfs:label "Select Control shape" ;
+    sh:property [ sh:class oscal:Matching ;
+            sh:path oscal:matching ],
+        [ sh:datatype xsd:token ;
+            sh:path oscal:with-id ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path oscal:with-child-controls ] ;
+    sh:targetClass oscal:SelectControlById .
+
+oscal:SelectObjectiveByIdShape a sh:NodeShape ;
+    rdfs:label "Select Objective shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:objective-id ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:SelectObjectiveById .
+
+oscal:SelectSubjectByIdShape a sh:NodeShape ;
+    rdfs:label "Select Assessment Subject shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:subject-uuid ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:subject-type ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ] ;
+    sh:targetClass oscal:SelectSubjectById .
+
+oscal:SetParameterShape a sh:NodeShape ;
+    rdfs:label "Set Parameter Value shape" ;
+    sh:property [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:param-id ] ;
+    sh:targetClass oscal:SetParameter .
+
+oscal:StatementShape a sh:NodeShape ;
+    rdfs:label "Control Statement Implementation shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:statement-id ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:ResponsibleRole ;
+            sh:path oscal:responsible-role ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:Statement .
+
+oscal:StatusShape a sh:NodeShape ;
+    rdfs:label "Status shape" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "operational" "under-development" "under-major-modification" "disposition" "other" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:state ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:Status .
+
+oscal:SubjectReferenceShape a sh:NodeShape ;
+    rdfs:label "Identifies the Subject shape" ;
+    sh:property [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:subject-type ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:subject-uuid ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:SubjectReference .
+
+oscal:SystemCharacteristicsShape a sh:NodeShape ;
+    rdfs:label "System Characteristics shape" ;
+    sh:property [ sh:class oscal:Status ;
+            sh:minCount 1 ;
+            sh:path oscal:status ],
+        [ sh:class oscal:SystemInformation ;
+            sh:minCount 1 ;
+            sh:path oscal:system-information ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:NetworkArchitecture ;
+            sh:path oscal:network-architecture ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:date ;
+            sh:path oscal:date-authorized ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:ResponsibleParty ;
+            sh:path oscal:responsible-party ],
+        [ sh:class oscal:DataFlow ;
+            sh:path oscal:data-flow ],
+        [ sh:class oscal:AuthorizationBoundary ;
+            sh:minCount 1 ;
+            sh:path oscal:authorization-boundary ],
+        [ sh:class oscal:SecurityImpactLevel ;
+            sh:minCount 0 ;
+            sh:path oscal:security-impact-level ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "http://fedramp.gov" "http://fedramp.gov/ns/oscal" "https://ietf.org/rfc/rfc4122" "http://ietf.org/rfc/rfc4122" "http://datatracker.ietf.org/doc/html/rfc4122" ) ;
+            sh:minCount 1 ;
+            sh:path oscal:system-id ] ;
+    sh:targetClass oscal:SystemCharacteristics .
+
+oscal:SystemComponentShape a sh:NodeShape ;
+    rdfs:label "Component shape" ;
+    sh:property [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:ResponsibleRole ;
+            sh:path oscal:responsible-role ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:system-component-type ],
+        [ sh:class oscal:Protocol ;
+            sh:path oscal:protocol ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:SystemComponent .
+
+oscal:SystemImplementationShape a sh:NodeShape ;
+    rdfs:label "System Implementation shape" ;
+    sh:property [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:SystemComponent ;
+            sh:minCount 1 ;
+            sh:path oscal:system-component ],
+        [ sh:datatype xsd:date ;
+            sh:minCount 1 ;
+            sh:path oscal:date-authorized ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:SystemUser ;
+            sh:minCount 0 ;
+            sh:path oscal:system-user ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:InventoryItem ;
+            sh:minCount 0 ;
+            sh:path oscal:inventory-item ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ] ;
+    sh:targetClass oscal:SystemImplementation .
+
+oscal:SystemInformationShape a sh:NodeShape ;
+    rdfs:label "System Information shape" ;
+    sh:property [ sh:class oscal:Impact ;
+            sh:path oscal:impact ],
+        [ sh:class oscal:Impact ;
+            sh:path oscal:impact ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:Impact ;
+            sh:path oscal:impact ] ;
+    sh:targetClass oscal:SystemInformation .
+
+oscal:SystemSecurityPlanShape a sh:NodeShape ;
+    rdfs:label "System Security Plan (SSP) shape" ;
+    sh:property [ sh:class oscal:SystemCharacteristics ;
+            sh:minCount 1 ;
+            sh:path oscal:system-characteristics ],
+        [ sh:class oscal:Metadata ;
+            sh:minCount 1 ;
+            sh:path oscal:metadata ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:class oscal:ImportProfile ;
+            sh:minCount 1 ;
+            sh:path oscal:import-profile ],
+        [ sh:class oscal:SystemImplementation ;
+            sh:minCount 1 ;
+            sh:path oscal:system-implementation ],
+        [ sh:class oscal:ControlImplementation ;
+            sh:minCount 1 ;
+            sh:path oscal:control-implementation ],
+        [ sh:class oscal:BackMatter ;
+            sh:path oscal:back-matter ] ;
+    sh:targetClass oscal:SystemSecurityPlan .
+
+oscal:SystemUserShape a sh:NodeShape ;
+    rdfs:label "System User shape" ;
+    sh:property [ sh:datatype xsd:token ;
+            sh:minCount 0 ;
+            sh:path oscal:role-id ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:datatype rdf:HTML ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:class oscal:AuthorizedPrivilege ;
+            sh:path oscal:authorized-privilege ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ] ;
+    sh:targetClass oscal:SystemUser .
+
+oscal:TaskShape a sh:NodeShape ;
+    rdfs:label "Task shape" ;
+    sh:property [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:ResponsibleRole ;
+            sh:path oscal:responsible-role ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:ResponsibleRole ;
+            sh:path oscal:responsible-role ],
+        [ sh:class oscal:AssessmentSubject ;
+            sh:path oscal:assessment-subject ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:uuid ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:class oscal:Property ;
+            sh:path oscal:property ],
+        [ sh:class oscal:Task ;
+            sh:minCount 0 ;
+            sh:path oscal:task ],
+        [ sh:class oscal:AssessmentSubject ;
+            sh:minCount 1 ;
+            sh:path oscal:assessment-subject ],
+        [ sh:datatype rdf:HTML ;
+            sh:maxCount 1 ;
+            sh:minCount 0 ;
+            sh:path oscal:remarks ],
+        [ sh:datatype xsd:token ;
+            sh:in ( "milestone" "action" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path oscal:type ],
+        [ sh:class oscal:Link ;
+            sh:path oscal:link ] ;
+    sh:targetClass oscal:Task .
+

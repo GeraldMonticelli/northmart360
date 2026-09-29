@@ -1,0 +1,19 @@
+resources:
+  jobs:
+    semantic_poc_setup:
+      name: semantic-poc-setup
+
+      tasks:
+        - task_key: create_tables
+          sql_task:
+            warehouse_id: ${var.sql_warehouse_id}
+            file:
+              path: ../src/sql/01_create_tables.sql
+
+        - task_key: seed_data
+          depends_on:
+            - task_key: create_tables
+          sql_task:
+            warehouse_id: ${var.sql_warehouse_id}
+            file:
+              path: ../src/sql/02_seed_data.sql

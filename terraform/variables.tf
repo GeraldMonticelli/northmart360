@@ -74,4 +74,6 @@ locals {
   vnet_name               = "vnet-${var.workload_name}-${var.environment}"
   access_connector_name   = "ac-${var.workload_name}-${var.environment}"
   ncc_name                = "ncc-${var.workload_name}-${var.environment}"
+  resource_group_name     = var.environment == "dev" ? data.azurerm_resource_group.northmart[0].name : azurerm_resource_group.northmart[0].name
+  vnet_id                 = var.environment == "dev" ? data.azurerm_virtual_network.northmart[0].id : azurerm_virtual_network.northmart[0].id
 }

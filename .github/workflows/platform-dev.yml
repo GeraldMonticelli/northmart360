@@ -45,7 +45,10 @@ jobs:
 
       - name: Terraform init
         working-directory: terraform
-        run: terraform init
+        run: |
+          terraform init \
+            -reconfigure \
+            -backend-config="key=northmart-dev.tfstate"
 
       - name: Terraform validate
         working-directory: terraform

@@ -1,0 +1,190 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix ok: <https://w3id.org/ontouml/knowledge#> .
+@prefix ontouml: <https://w3id.org/ontouml#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix theory: <https://w3id.org/ontouml/knowledge#theory/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ontouml:generalization ok:groundedIn theory:generalization .
+
+ok:OntoUMLModel ok:doesNotSpecify theory:individual ;
+    ok:specifies theory:type .
+
+theory:identity-condition a ok:TheoryConcept ;
+    rdfs:label "Identity Condition" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/identity> ;
+    rdfs:subClassOf theory:identity ;
+    skos:definition "A necessary condition for identity that is not sufficient by itself." ;
+    ok:necessaryFor theory:identity ;
+    ok:sufficientFor false .
+
+theory:identity-principle a ok:TheoryConcept ;
+    rdfs:label "Identity Principle" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/identity> ;
+    rdfs:subClassOf theory:identity ;
+    skos:definition "A function-like principle used to distinguish individuals and re-identify the same individual through time." .
+
+theory:instantiation a ok:TheoryConcept ;
+    rdfs:label "Instantiation" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/individuals> ;
+    skos:definition "The relation holding between an individual and a type that the individual exemplifies." .
+
+ontouml:mixin ok:groundedInTheory theory:identity ;
+    ok:hasIdentityBehavior theory:mixed-identity .
+
+ontouml:quality ok:groundedInTheory theory:rigidity ;
+    ok:hasRigidity theory:rigid .
+
+theory:generalization a ok:TheoryConcept ;
+    rdfs:label "Generalization" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/individuals> ;
+    skos:definition "The OntoUML relation used to represent the subtype/supertype constraint." ;
+    ok:represents theory:subtype .
+
+theory:individual a ok:TheoryConcept ;
+    rdfs:label "Individual" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/individuals> ;
+    skos:definition "A particular entity that can instantiate one or more types." ;
+    ok:instantiates theory:type .
+
+theory:subtype a ok:TheoryConcept ;
+    rdfs:label "Subtype" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/individuals> ;
+    skos:definition "A type whose extension is always included in the extension of another type." ;
+    ok:extensionIncludedIn theory:type .
+
+theory:type-extension a ok:TheoryConcept ;
+    rdfs:label "Extension of a type" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/individuals> ;
+    skos:definition "The set of all individuals that instantiate a type at a particular instant of time." .
+
+ontouml:category ok:groundedInTheory theory:identity,
+        theory:rigidity ;
+    ok:hasIdentityBehavior theory:mixed-identity ;
+    ok:hasRigidity theory:rigid .
+
+ontouml:collective ok:groundedInTheory theory:identity,
+        theory:rigidity ;
+    ok:hasIdentityBehavior theory:provides-identity ;
+    ok:hasRigidity theory:rigid .
+
+ontouml:kind ok:groundedInTheory theory:identity,
+        theory:rigidity ;
+    ok:hasIdentityBehavior theory:provides-identity ;
+    ok:hasRigidity theory:rigid .
+
+ontouml:mode ok:groundedInTheory theory:identity,
+        theory:rigidity ;
+    ok:hasIdentityBehavior theory:provides-identity ;
+    ok:hasRigidity theory:rigid .
+
+ontouml:phase ok:groundedInTheory theory:identity,
+        theory:rigidity ;
+    ok:hasIdentityBehavior theory:inherits-single-identity ;
+    ok:hasRigidity theory:anti-rigid .
+
+ontouml:quantity ok:groundedInTheory theory:identity,
+        theory:rigidity ;
+    ok:hasIdentityBehavior theory:provides-identity ;
+    ok:hasRigidity theory:rigid .
+
+ontouml:relator ok:groundedInTheory theory:identity,
+        theory:rigidity ;
+    ok:hasIdentityBehavior theory:provides-identity ;
+    ok:hasRigidity theory:rigid .
+
+ontouml:role ok:groundedInTheory theory:identity,
+        theory:rigidity ;
+    ok:hasIdentityBehavior theory:inherits-single-identity ;
+    ok:hasRigidity theory:anti-rigid .
+
+ontouml:roleMixin ok:groundedInTheory theory:identity,
+        theory:rigidity ;
+    ok:hasIdentityBehavior theory:mixed-identity ;
+    ok:hasRigidity theory:anti-rigid .
+
+ontouml:subkind ok:groundedInTheory theory:identity,
+        theory:rigidity ;
+    ok:hasIdentityBehavior theory:inherits-single-identity ;
+    ok:hasRigidity theory:rigid .
+
+<https://w3id.org/ontouml/knowledge#source/rigidity> a ok:SourceDocument ;
+    rdfs:label "Rigidity" ;
+    ok:fileName "rigidity.rst" .
+
+theory:anti-rigid a ok:MetaPropertyValue,
+        ok:TheoryConcept ;
+    rdfs:label "Anti-rigid" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/rigidity> ;
+    skos:definition "A type is anti-rigid if every individual instantiating it at a particular time can cease to instantiate it and still exist." ;
+    ok:characterizesStereotype ontouml:phase,
+        ontouml:role,
+        ontouml:roleMixin ;
+    ok:valueOf theory:rigidity .
+
+theory:inherits-single-identity a ok:TheoryConcept ;
+    rdfs:label "Inherits a common identity" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/identity> ;
+    skos:definition "The type does not provide identity, but all its instances share a common identity principle inherited through the type hierarchy." ;
+    ok:characterizesStereotype ontouml:phase,
+        ontouml:role,
+        ontouml:subkind .
+
+theory:mixed-identity a ok:TheoryConcept ;
+    rdfs:label "Mixed identity" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/identity> ;
+    skos:definition "The type does not provide identity and its instances can follow different identity principles." ;
+    ok:characterizesStereotype ontouml:category,
+        ontouml:mixin,
+        ontouml:roleMixin .
+
+theory:type a ok:TheoryConcept ;
+    rdfs:label "Type" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/individuals> ;
+    skos:definition "An abstract construct used to classify individuals by bundling characteristics expected of its instances." ;
+    ok:hasExtension theory:type-extension .
+
+theory:provides-identity a ok:TheoryConcept ;
+    rdfs:label "Provides identity" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/identity> ;
+    skos:definition "The type provides an identity principle for its instances." ;
+    ok:characterizesStereotype ontouml:collective,
+        ontouml:kind,
+        ontouml:mode,
+        ontouml:quantity,
+        ontouml:relator .
+
+<https://w3id.org/ontouml/knowledge#source/identity> a ok:SourceDocument ;
+    rdfs:label "Identity" ;
+    ok:fileName "identity.rst" .
+
+<https://w3id.org/ontouml/knowledge#source/individuals> a ok:SourceDocument ;
+    rdfs:label "Types and Individuals" ;
+    ok:fileName "individuals.rst" .
+
+theory:rigid a ok:MetaPropertyValue,
+        ok:TheoryConcept ;
+    rdfs:label "Rigid" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/rigidity> ;
+    skos:definition "A type is rigid if an individual must instantiate it in all possible scenarios in which that individual exists." ;
+    ok:characterizesStereotype ontouml:category,
+        ontouml:collective,
+        ontouml:kind,
+        ontouml:mode,
+        ontouml:quality,
+        ontouml:quantity,
+        ontouml:relator,
+        ontouml:subkind ;
+    ok:valueOf theory:rigidity .
+
+theory:rigidity a ok:TheoryConcept ;
+    rdfs:label "Rigidity" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/rigidity> ;
+    skos:definition "An ontological meta-property of types concerning whether their instances instantiate them essentially or contingently." .
+
+theory:identity a ok:TheoryConcept ;
+    rdfs:label "Identity" ;
+    dcterms:source <https://w3id.org/ontouml/knowledge#source/identity> ;
+    skos:definition "The ontological notion used to distinguish and re-identify individuals, including through change over time." .
+

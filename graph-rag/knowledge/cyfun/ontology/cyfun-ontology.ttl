@@ -1,0 +1,42 @@
+@prefix cyfun: <https://cyfun.eu/ontology#> .
+@prefix oscal: <https://example.org/oscal#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://cyfun.eu/ontology> a owl:Ontology ;
+    rdfs:label "CyFun lightweight ontology"@en ;
+    rdfs:comment "Lightweight semantic specialization of the OSCAL structural model for the CyFun 2025 framework. The CyFun catalog content itself is represented separately as instances."@en .
+
+cyfun:CyFunFramework a owl:Class ;
+    rdfs:subClassOf oscal:Catalog ;
+    rdfs:label "CyFun Framework"@en .
+
+cyfun:Function a owl:Class ;
+    rdfs:subClassOf oscal:Group ;
+    rdfs:label "Function"@en .
+
+cyfun:Category a owl:Class ;
+    rdfs:subClassOf oscal:Group ;
+    rdfs:label "Category"@en .
+
+cyfun:Subcategory a owl:Class ;
+    rdfs:subClassOf oscal:Group ;
+    rdfs:label "Subcategory"@en .
+
+cyfun:Requirement a owl:Class ;
+    rdfs:subClassOf oscal:Control ;
+    rdfs:label "Requirement"@en .
+
+cyfun:AssuranceLevel a owl:Class ;
+    rdfs:label "Assurance level"@en .
+
+cyfun:Basic a cyfun:AssuranceLevel ; rdfs:label "Basic"@en .
+cyfun:Important a cyfun:AssuranceLevel ; rdfs:label "Important"@en .
+cyfun:Essential a cyfun:AssuranceLevel ; rdfs:label "Essential"@en .
+
+cyfun:assuranceLevel a owl:ObjectProperty ;
+    rdfs:domain cyfun:Requirement ;
+    rdfs:range cyfun:AssuranceLevel ;
+    rdfs:label "assurance level"@en .

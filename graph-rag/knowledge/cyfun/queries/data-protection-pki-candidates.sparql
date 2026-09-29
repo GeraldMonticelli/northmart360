@@ -1,0 +1,21 @@
+PREFIX cyfun: <https://cyfun.eu/ontology#>
+PREFIX oscal: <https://example.org/oscal#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?requirement ?label ?text
+WHERE {
+    ?requirement a cyfun:Requirement ;
+                 rdfs:label ?label .
+
+    ?requirement oscal:part ?part .
+    ?part oscal:prose ?text .
+
+    FILTER (
+        REGEX(
+            STR(?text),
+            "cryptograph|encrypt|certificate|key management|public key|PKI|TLS|SSL|data protection|confidential|data at rest|data in transit",
+            "i"
+        )
+    )
+}
+ORDER BY ?requirement

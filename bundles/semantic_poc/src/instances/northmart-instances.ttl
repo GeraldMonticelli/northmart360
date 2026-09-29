@@ -1,0 +1,17 @@
+@prefix : <https://example.com#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+:Alice
+    rdf:type :Person .
+
+:NorthMartBank
+    rdf:type :Organization .
+
+:CR001
+    rdf:type :CustomerRelationship .
+
+:Alice
+    :customerParticipation :CR001 .
+
+#:NorthMartBank
+#    :providerParticipation :CR001 .

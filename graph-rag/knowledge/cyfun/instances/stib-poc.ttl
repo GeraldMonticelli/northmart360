@@ -1,0 +1,103 @@
+@prefix stib:  <https://example.org/stib/> .
+@prefix poc:   <https://example.org/cyfun-poc#> .
+@prefix cyfun: <https://cyfun.eu/control/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+# ============================================================
+# Systems
+# ============================================================
+
+stib:PassengerPortal
+    a poc:System ;
+    poc:name "Passenger Portal" .
+
+stib:APIManagement
+    a poc:System ;
+    poc:name "API Management Gateway" .
+
+stib:PaymentBackend
+    a poc:CriticalSystem ;
+    poc:name "Payment Backend" .
+
+stib:PaymentDatabase
+    a poc:CriticalSystem ;
+    poc:name "Payment PostgreSQL Database" .
+
+
+# ============================================================
+# Information flows
+# ============================================================
+
+stib:Flow-PassengerAPI
+    a poc:InformationFlow ;
+
+    poc:source stib:PassengerPortal ;
+    poc:destination stib:APIManagement ;
+
+    poc:protocol "HTTPS" ;
+    poc:tlsVersion "1.3" ;
+
+    poc:isEncrypted true ;
+    poc:isInventoried true ;
+    poc:isMonitored true .
+
+
+stib:Flow-PaymentBackend
+    a poc:InformationFlow ;
+
+    poc:source stib:APIManagement ;
+    poc:destination stib:PaymentBackend ;
+
+    poc:protocol "HTTPS" ;
+    poc:tlsVersion "1.2" ;
+
+    poc:isEncrypted true ;
+    poc:isInventoried false ;
+    poc:isMonitored true .
+
+
+stib:Flow-Database
+    a poc:InformationFlow ;
+
+    poc:source stib:PaymentBackend ;
+    poc:destination stib:PaymentDatabase ;
+
+    poc:protocol "PostgreSQL" ;
+
+    poc:isEncrypted false ;
+    poc:isInventoried true ;
+    poc:isMonitored false .
+
+
+# ============================================================
+# Evidence
+# ============================================================
+
+stib:Evidence-APIM-TLS
+    a poc:Evidence ;
+    poc:evidenceType "Azure API Management configuration" ;
+    poc:supports stib:Flow-PassengerAPI .
+
+stib:Evidence-NetworkInventory
+    a poc:Evidence ;
+    poc:evidenceType "Network flow inventory export" ;
+    poc:supports stib:Flow-PassengerAPI .
+
+
+# ============================================================
+# Assessments
+# ============================================================
+
+stib:Assessment-001
+    a poc:Assessment ;
+    poc:assesses stib:Flow-PaymentBackend ;
+    poc:againstControl cyfun:ID.AM-03-2 ;
+    poc:status "FAIL" ;
+    poc:finding "Flow is encrypted and monitored but is not present in the current data-flow inventory." .
+
+stib:Assessment-002
+    a poc:Assessment ;
+    poc:assesses stib:Flow-Database ;
+    poc:againstControl cyfun:PR.IR-01.8 ;
+    poc:status "FAIL" ;
+    poc:finding "Database flow is neither encrypted nor monitored." .

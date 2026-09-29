@@ -1,0 +1,8 @@
+PREFIX ent: <https://northmart.example/enterprise/>
+
+SELECT ?party ?name
+WHERE {
+    ?party a ent:Party ;
+           ent:givenName ?name .
+}
+ORDER BY ?party

@@ -1,0 +1,31 @@
+@startuml
+
+hide empty members
+skinparam classAttributeIconSize 0
+
+class "Person" as person <<kind>>
+class "Customer" as customer <<roleMixin>>
+class "Organization" as organization <<kind>>
+class "Merchant" as merchant <<role>>
+class "PersonCustomer" as person_customer <<role>>
+class "OrganizationCustomer" as organization_customer <<role>>
+class "Minor" as minor <<phase>>
+class "Adult" as adult <<phase>>
+class "Card" as card <<kind>>
+class "CardHolding" as card_holding <<relator>>
+class "CustomerRelationship" as customer_relationship <<relator>>
+
+merchant --|> organization
+person_customer --|> person
+person_customer --|> customer
+organization_customer --|> organization
+organization_customer --|> customer
+minor --|> person
+adult --|> person
+
+customer "0..*" -- "1" customer_relationship : <<mediation>>\ncustomer participation
+organization "0..*" -- "1" customer_relationship : <<mediation>>\nprovider participation
+customer "0..*" -- "1" card_holding : <<mediation>>\ncard holder participation
+card "0..*" -- "1" card_holding : <<mediation>>\ncard participation
+
+@enduml

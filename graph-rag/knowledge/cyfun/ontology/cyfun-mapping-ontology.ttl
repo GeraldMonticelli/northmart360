@@ -1,0 +1,35 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix map: <https://example.org/cyfun/mapping#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+map:CCB-CyFun2025-Mapping-2026-05-WIP a map:MappingSource ;
+    rdfs:label "CCB CyFun 2025 Mapping 2026-05 WIP" ;
+    dcterms:source "CyFun2025_mapping_2026-05-WIP.xlsx" .
+
+map:MappingAssertion a owl:Class ;
+    rdfs:comment "Réification d’une correspondance publiée dans la cartographie CyFun 2025 du CCB. Elle conserve la provenance de la ligne/cellule et n’implique pas une équivalence logique." .
+
+map:StandardReference a owl:Class .
+
+map:mappingGranularity a owl:DatatypeProperty ;
+    rdfs:comment "La cartographie source peut placer plusieurs requirements CyFun sur une même ligne avec une cellule de mapping partagée. Cette granularité est conservée explicitement." .
+
+map:mappingSource a owl:ObjectProperty .
+
+map:mappingStatement a owl:DatatypeProperty .
+
+map:mappingStatus a owl:DatatypeProperty .
+
+map:sourceCell a owl:DatatypeProperty .
+
+map:sourceRequirement a owl:ObjectProperty .
+
+map:sourceRow a owl:DatatypeProperty .
+
+map:targetFramework a owl:DatatypeProperty .
+
+map:targetReference a owl:ObjectProperty .
+
+map:MappingSource a owl:Class .
+

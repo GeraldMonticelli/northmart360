@@ -1,0 +1,27 @@
+PREFIX cyfun: <https://cyfun.eu/ontology#>
+PREFIX cis:   <https://example.org/cis-controls-v8.1/>
+PREFIX ciso:  <https://example.org/cis-controls-v8.1/ontology#>
+PREFIX map:   <https://example.org/cyfun/mapping#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?requirement ?requirementLabel ?cisReference ?cisLabel
+WHERE {
+  {
+    BIND(cis:3 AS ?cisReference)
+    cis:3 rdfs:label ?cisLabel .
+  }
+  UNION
+  {
+    ?cisReference a ciso:Safeguard ;
+                  ciso:belongsToControl cis:3 ;
+                  rdfs:label ?cisLabel .
+  }
+
+  ?mapping a map:MappingAssertion ;
+           map:sourceRequirement ?requirement ;
+           map:targetReference ?cisReference .
+
+  ?requirement a cyfun:Requirement ;
+               rdfs:label ?requirementLabel .
+}
+ORDER BY ?requirement ?cisReference

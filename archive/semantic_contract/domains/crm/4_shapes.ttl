@@ -1,0 +1,25 @@
+@prefix sh:  <http://www.w3.org/ns/shacl#> .
+@prefix crm: <https://northmart.example/crm/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Domain-owned constraints on CRM Customer RDF instances.
+crm:CustomerShape a sh:NodeShape ;
+  sh:targetClass crm:Customer ;
+  sh:property [
+    sh:path crm:customerId ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "A CRM Customer must have exactly one customerId."@en
+  ] ;
+  sh:property [
+    sh:path crm:givenName ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "A CRM Customer must have exactly one givenName."@en
+  ] ;
+  sh:property [
+    sh:path crm:birthDate ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:date ;
+    sh:message "birthDate, when present, must be an xsd:date."@en
+  ] .

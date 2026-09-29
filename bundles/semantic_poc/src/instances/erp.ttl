@@ -1,0 +1,16 @@
+@prefix : <https://example.com#> .
+@prefix erp: <https://erp.example.com#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+erp:ACME
+    rdf:type :Organization .
+
+erp:CR900
+    rdf:type :CustomerRelationship .
+
+erp:ACME
+    :customerParticipation erp:CR900 .
+
+erp:NorthMart
+    rdf:type :Organization ;
+    :providerParticipation erp:CR900 .

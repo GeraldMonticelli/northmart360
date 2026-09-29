@@ -1,0 +1,20 @@
+PREFIX poc:   <https://example.org/cyfun-poc#>
+PREFIX stib:  <https://example.org/stib/>
+PREFIX cyfun: <https://cyfun.eu/control/>
+
+SELECT
+    ?flow
+    ?source
+    ?destination
+    ?encrypted
+    ?inventoried
+    ?monitored
+WHERE {
+    ?flow
+        a poc:InformationFlow ;
+        poc:source ?source ;
+        poc:destination ?destination ;
+        poc:isEncrypted ?encrypted ;
+        poc:isInventoried ?inventoried ;
+        poc:isMonitored ?monitored .
+}
