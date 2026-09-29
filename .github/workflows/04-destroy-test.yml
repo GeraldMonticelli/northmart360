@@ -167,7 +167,7 @@ jobs:
           fi
 
           SCHEMA_OWNER=$(jq -r '.owner // empty' <<< "$SCHEMA")
-          PERMISSIONS_ENDPOINT="$API/permissions/schemas/northmart_test.silver"
+          PERMISSIONS_ENDPOINT="$API/permissions/SCHEMA/northmart_test.silver"
           PERMISSIONS_RESPONSE=$(curl --silent --show-error \
             --write-out $'\n%{http_code}' \
             --header "$AUTH_HEADER" \
@@ -246,7 +246,7 @@ jobs:
           if [[ "$OWNER_MATCH" != "true" ]]; then
             TABLE_PERMISSIONS=$(curl --fail --silent --show-error \
               --header "$AUTH_HEADER" \
-              "$API/permissions/tables/$ENCODED_FULL_NAME")
+              "$API/permissions/TABLE/$ENCODED_FULL_NAME")
             HAS_MANAGE=$(jq -r \
               --arg application_id "$APPLICATION_ID" \
               --arg display_name "$DISPLAY_NAME" \
