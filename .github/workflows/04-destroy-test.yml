@@ -120,7 +120,7 @@ jobs:
 
           echo "DATABRICKS_HOST=$HOST" >> "$GITHUB_ENV"
 
-      - name: Remove the remaining TEST silver table
+      - name: Remove runtime Unity Catalog objects from TEST
         shell: bash
         run: |
           TOKEN=$(az account get-access-token \
@@ -135,6 +135,129 @@ jobs:
 
           API="$DATABRICKS_HOST/api/2.1/unity-catalog"
           AUTH_HEADER="Authorization: Bearer $TOKEN"
+          CATALOG="northmart_test"
+
+          # These names come from the databricks_schema resources in terraform/databricks.tf.
+          TERRAFORM_MANAGED_SCHEMAS=(bronze silver ml gold reference sandbox)
+
+          api_request() {
+            local method="$1"
+            local endpoint="$2"
+            local allow_missing="$3"
+            shift 3
+
+            local -a curl_args=(
+              --silent
+              --show-error
+              --write-out $'\n%{http_code}'
+              --header "$AUTH_HEADER"
+            )
+            if [[ "$method" == "GET" ]]; then
+              curl_args+=(--get)
+            else
+              curl_args+=(--request "$method")
+            fi
+            curl_args+=("$@")
+            curl_args+=("$API$endpoint")
+
+            local raw_response
+            raw_response=$(curl "${curl_args[@]}")
+            API_STATUS="${raw_response##*$'\n'}"
+            API_BODY="${raw_response%$'\n'*}"
+
+            if [[ "$API_STATUS" == 2?? ]]; then
+              return 0
+            fi
+            if [[ "$allow_missing" == "true" && "$API_STATUS" == "404" ]]; then
+              return 0
+            fi
+
+            echo "Databricks request endpoint: $API$endpoint" >&2
+            echo "Databricks HTTP status: $API_STATUS" >&2
+            echo "Databricks response body:" >&2
+            printf '%s\n' "$API_BODY" >&2
+            return 1
+          }
+
+          list_uc_objects() {
+            local endpoint="$1"
+            local response_key="$2"
+            shift 2
+
+            local page_token=""
+            local all_objects="[]"
+            local page_objects
+            local next_page_token
+            while true; do
+              local -a query_args=("$@" --data-urlencode "max_results=0")
+              if [[ -n "$page_token" ]]; then
+                query_args+=(--data-urlencode "page_token=$page_token")
+              fi
+              api_request GET "$endpoint" false "${query_args[@]}"
+              page_objects=$(jq --arg key "$response_key" '.[$key] // []' <<< "$API_BODY")
+              all_objects=$(jq -cn \
+                --argjson all "$all_objects" \
+                --argjson page "$page_objects" \
+                '$all + $page')
+              next_page_token=$(jq -r '.next_page_token // empty' <<< "$API_BODY")
+              if [[ -z "$next_page_token" ]]; then
+                break
+              fi
+              page_token="$next_page_token"
+            done
+
+            LIST_RESULT="$all_objects"
+          }
+
+          is_terraform_managed_schema() {
+            local candidate="$1"
+            local managed_schema
+            for managed_schema in "${TERRAFORM_MANAGED_SCHEMAS[@]}"; do
+              if [[ "$candidate" == "$managed_schema" ]]; then
+                return 0
+              fi
+            done
+            return 1
+          }
+
+          cleanup_collection() {
+            local schema_name="$1"
+            local endpoint="$2"
+            local response_key="$3"
+            local default_type="$4"
+            local type_field="$5"
+
+            list_uc_objects "$endpoint" "$response_key" \
+              --data-urlencode "catalog_name=$CATALOG" \
+              --data-urlencode "schema_name=$schema_name" \
+              --data-urlencode "include_browse=true"
+            local objects="$LIST_RESULT"
+
+            while IFS= read -r object; do
+              local object_name
+              local object_type
+              local full_name
+              local encoded_name
+              [[ -n "$object" ]] || continue
+              object_name=$(jq -r '.name // empty' <<< "$object")
+              object_type=$(jq -r --arg key "$type_field" \
+                --arg fallback "$default_type" '.[$key] // $fallback' <<< "$object")
+              if [[ -z "$object_name" ]]; then
+                echo "ERROR: Databricks returned a $default_type without a name."
+                return 1
+              fi
+
+              full_name="$CATALOG.$schema_name.$object_name"
+              encoded_name=$(jq -rn --arg name "$full_name" '$name | @uri')
+              echo "Discovered Unity Catalog $object_type: $full_name"
+              api_request DELETE "$endpoint/$encoded_name" true
+              if [[ "$API_STATUS" == "404" ]]; then
+                echo "Already absent Unity Catalog $object_type: $full_name"
+              else
+                echo "Deleted Unity Catalog $object_type: $full_name"
+              fi
+            done < <(jq -c '.[]' <<< "$objects")
+          }
 
           CURRENT_USER=$(curl --fail --silent --show-error \
             --header "$AUTH_HEADER" \
@@ -151,78 +274,93 @@ jobs:
 
           echo "Authenticated Databricks principal: ${DISPLAY_NAME:-$USER_NAME}"
 
-          SCHEMA_ENDPOINT="$API/schemas/northmart_test.silver"
-          SCHEMA_RESPONSE=$(curl --silent --show-error \
-            --write-out $'\n%{http_code}' \
-            --header "$AUTH_HEADER" \
-            "$SCHEMA_ENDPOINT")
-          SCHEMA_STATUS="${SCHEMA_RESPONSE##*$'\n'}"
-          SCHEMA="${SCHEMA_RESPONSE%$'\n'*}"
-          echo "Databricks request endpoint: $SCHEMA_ENDPOINT"
-          echo "Databricks HTTP status: $SCHEMA_STATUS"
-          echo "Databricks response body:"
-          printf '%s\n' "$SCHEMA"
-          if [[ "$SCHEMA_STATUS" != 2?? ]]; then
+          list_uc_objects "/schemas" "schemas" \
+            --data-urlencode "catalog_name=$CATALOG" \
+            --data-urlencode "include_browse=true"
+          INITIAL_SCHEMAS="$LIST_RESULT"
+
+          while IFS= read -r schema; do
+            schema_name=$(jq -r '.name // empty' <<< "$schema")
+            [[ -n "$schema_name" ]] || {
+              echo "ERROR: Databricks returned a schema without a name."
+              exit 1
+            }
+            echo "Discovered Unity Catalog SCHEMA: $CATALOG.$schema_name"
+
+            cleanup_collection "$schema_name" "/tables" "tables" "TABLE" "table_type"
+            cleanup_collection "$schema_name" "/volumes" "volumes" "VOLUME" ""
+            cleanup_collection "$schema_name" "/functions" "functions" "FUNCTION" ""
+            cleanup_collection "$schema_name" "/models" "registered_models" "MODEL" ""
+
+            if ! is_terraform_managed_schema "$schema_name"; then
+              encoded_schema=$(jq -rn --arg name "$CATALOG.$schema_name" '$name | @uri')
+              echo "Deleting runtime-created Unity Catalog SCHEMA: $CATALOG.$schema_name"
+              api_request DELETE "/schemas/$encoded_schema" true
+              if [[ "$API_STATUS" == "404" ]]; then
+                echo "Already absent Unity Catalog SCHEMA: $CATALOG.$schema_name"
+              else
+                echo "Deleted runtime-created Unity Catalog SCHEMA: $CATALOG.$schema_name"
+              fi
+            fi
+          done < <(jq -c '.[]' <<< "$INITIAL_SCHEMAS")
+
+          echo "Unity Catalog objects remaining before Terraform apply:"
+          api_request GET "/catalogs/$CATALOG" false
+          echo "REMAINING CATALOG: $CATALOG (Terraform-managed)"
+
+          list_uc_objects "/schemas" "schemas" \
+            --data-urlencode "catalog_name=$CATALOG" \
+            --data-urlencode "include_browse=true"
+          REMAINING_SCHEMAS="$LIST_RESULT"
+          remaining_runtime_objects=0
+
+          while IFS= read -r schema; do
+            schema_name=$(jq -r '.name // empty' <<< "$schema")
+            full_schema_name="$CATALOG.$schema_name"
+            if is_terraform_managed_schema "$schema_name"; then
+              echo "REMAINING SCHEMA: $full_schema_name (Terraform-managed)"
+            else
+              echo "REMAINING SCHEMA: $full_schema_name (unexpected runtime schema)"
+              remaining_runtime_objects=$((remaining_runtime_objects + 1))
+            fi
+
+            for collection in \
+              "tables tables TABLE table_type" \
+              "volumes volumes VOLUME -" \
+              "functions functions FUNCTION -" \
+              "models registered_models MODEL -"; do
+              read -r route response_key default_type type_field <<< "$collection"
+              if [[ "$type_field" == "-" ]]; then
+                type_field=""
+              fi
+              list_uc_objects "/$route" "$response_key" \
+                --data-urlencode "catalog_name=$CATALOG" \
+                --data-urlencode "schema_name=$schema_name" \
+                --data-urlencode "include_browse=true"
+              while IFS= read -r object; do
+                [[ -n "$object" ]] || continue
+                object_name=$(jq -r '.name // empty' <<< "$object")
+                object_type=$(jq -r --arg key "$type_field" \
+                  --arg fallback "$default_type" \
+                  'if $key == "" then $fallback else (.[$key] // $fallback) end' \
+                  <<< "$object")
+                echo "REMAINING Unity Catalog $object_type: $CATALOG.$schema_name.$object_name"
+                remaining_runtime_objects=$((remaining_runtime_objects + 1))
+              done < <(jq -c '.[]' <<< "$LIST_RESULT")
+            done
+          done < <(jq -c '.[]' <<< "$REMAINING_SCHEMAS")
+
+          if [[ "$remaining_runtime_objects" -ne 0 ]]; then
+            echo "ERROR: $remaining_runtime_objects non-Terraform Unity Catalog object(s) remain."
             exit 1
           fi
 
-          TABLES=$(curl --fail --silent --show-error --get \
-            --header "$AUTH_HEADER" \
-            --data-urlencode "catalog_name=northmart_test" \
-            --data-urlencode "schema_name=silver" \
-            --data-urlencode "max_results=100" \
-            "$API/tables")
-
-          NEXT_PAGE=$(jq -r '.next_page_token // empty' <<< "$TABLES")
-          TABLE_COUNT=$(jq '.tables | length' <<< "$TABLES")
-          if [[ -n "$NEXT_PAGE" || "$TABLE_COUNT" -ne 1 ]]; then
-            echo "ERROR: Expected exactly the one remaining silver table from the failed Terraform run."
-            echo "Found $TABLE_COUNT table(s); refusing cleanup."
-            exit 1
-          fi
-
-          TABLE_NAME=$(jq -r '.tables[0].name // empty' <<< "$TABLES")
-          TABLE_TYPE=$(jq -r '.tables[0].table_type // empty' <<< "$TABLES")
-          FULL_NAME="northmart_test.silver.$TABLE_NAME"
-          if [[ -z "$TABLE_NAME" || ( "$TABLE_TYPE" != "MANAGED" && "$TABLE_TYPE" != "EXTERNAL" ) ]]; then
-            echo "ERROR: The remaining object is not a supported managed or external table."
-            exit 1
-          fi
-
-          ENCODED_FULL_NAME=$(jq -rn --arg name "$FULL_NAME" '$name | @uri')
-          TABLE=$(curl --fail --silent --show-error \
-            --header "$AUTH_HEADER" \
-            "$API/tables/$ENCODED_FULL_NAME")
-          TABLE_OWNER=$(jq -r '.owner // empty' <<< "$TABLE")
-          echo "Blocking table owner: ${TABLE_OWNER:-unknown}"
-
-          echo "Deleting only $FULL_NAME ($TABLE_TYPE)."
-          DELETE_ENDPOINT="$API/tables/$ENCODED_FULL_NAME"
-          DELETE_RESPONSE=$(curl --silent --show-error \
-            --write-out $'\n%{http_code}' \
-            --request DELETE \
-            --header "$AUTH_HEADER" \
-            "$DELETE_ENDPOINT")
-          DELETE_STATUS="${DELETE_RESPONSE##*$'\n'}"
-          DELETE_BODY="${DELETE_RESPONSE%$'\n'*}"
-          echo "Databricks request endpoint: $DELETE_ENDPOINT"
-          echo "Databricks HTTP status: $DELETE_STATUS"
-          echo "Databricks response body:"
-          printf '%s\n' "$DELETE_BODY"
-          if [[ "$DELETE_STATUS" != 2?? ]]; then
-            exit 1
-          fi
-
-          REMAINING_TABLES=$(curl --fail --silent --show-error --get \
-            --header "$AUTH_HEADER" \
-            --data-urlencode "catalog_name=northmart_test" \
-            --data-urlencode "schema_name=silver" \
-            --data-urlencode "max_results=100" \
-            "$API/tables")
-          if [[ "$(jq '.tables | length' <<< "$REMAINING_TABLES")" -ne 0 ]]; then
-            echo "ERROR: A table remains in northmart_test.silver after cleanup."
-            exit 1
-          fi
+          for managed_schema in "${TERRAFORM_MANAGED_SCHEMAS[@]}"; do
+            if ! jq -e --arg name "$managed_schema" \
+              'any(.[]; .name == $name)' <<< "$REMAINING_SCHEMAS" >/dev/null; then
+              echo "Managed schema is absent and will not be recreated: $CATALOG.$managed_schema"
+            fi
+          done
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
