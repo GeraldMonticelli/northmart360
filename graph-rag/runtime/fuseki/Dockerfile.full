@@ -1,8 +1,25 @@
+# ---- Build Jena/Fuseki ----
+FROM maven:3.9-eclipse-temurin-21 AS builder
+
+WORKDIR /build
+
+RUN git clone https://github.com/apache/jena.git
+
+WORKDIR /build/jena
+
+RUN git checkout ad65246b
+
+RUN mvn clean package -pl jena-fuseki2/jena-fuseki-server -am -DskipTests
+
+
+# ---- Runtime ----
 FROM eclipse-temurin:21-jre
 
 WORKDIR /fuseki
 
-COPY jena-src/jena-fuseki2/jena-fuseki-server/target/jena-fuseki-server-6.3.0-SNAPSHOT.jar /fuseki/fuseki-server.jar
+COPY --from=builder \
+    /build/jena/jena-fuseki2/jena-fuseki-server/target/jena-fuseki-server-6.3.0-SNAPSHOT.jar \
+    /fuseki/fuseki-server.jar
 
 EXPOSE 3030
 
