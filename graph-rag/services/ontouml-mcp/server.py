@@ -35,6 +35,10 @@ ELASTICSEARCH_INDEX = os.getenv(
 
 mcp = MCPServer("generic-knowledge-graph")
 
+async def _query_fuseki(query: str) -> dict:
+    """Internal Fuseki query helper used by OntoUML reasoning tools."""
+    return await execute_sparql(query)
+
 async def _get_structural_neighborhood(
     element_iri: str,
     graph: str,
@@ -640,13 +644,6 @@ ORDER BY ?label
         "missing_discriminators": discriminators,
         "incompatible_candidates": incompatible,
     }
-
-
-def _binding_value(binding: dict, name: str):
-    """Return the lexical value of a SPARQL JSON binding, or None."""
-    item = binding.get(name)
-    return item.get("value") if item else None
-
 
 def _local_name(value: str | None) -> str | None:
     """Compact an IRI for MCP output while preserving literals."""
