@@ -36,7 +36,7 @@ print(f"Connected to Elasticsearch {es.info()['version']['number']}")
 
 MAPPINGS = {
     "properties": {
-        "stable_id": {
+        "id": {
             "type": "keyword"
         },
         "source": {
@@ -60,7 +60,12 @@ MAPPINGS = {
         "provenance": {
             "type": "keyword"
         },
-
+        "repository": {
+            "type": "keyword"
+        },
+        "document_type": {
+            "type": "keyword"
+        },
         # Used by BM25
         "text": {
             "type": "text"
@@ -164,11 +169,11 @@ if embeddings.shape[1] != EMBEDDING_DIMS:
 def actions():
     for chunk, embedding in zip(chunks, embeddings):
 
-        stable_id = chunk.get("stable_id")
+        chunk_id = chunk.get("id")
 
-        if not stable_id:
+        if not chunk_id:
             raise RuntimeError(
-                "A chunk does not contain stable_id"
+                "A chunk does not contain id"
             )
 
         document = dict(chunk)
@@ -177,7 +182,7 @@ def actions():
 
         yield {
             "_index": INDEX_NAME,
-            "_id": stable_id,
+            "_id": chunk_id,
             "_source": document
         }
 
