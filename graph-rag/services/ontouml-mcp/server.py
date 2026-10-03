@@ -1,11 +1,13 @@
 from mcp.server import MCPServer
-from mcp.server.apps import Apps
+from mcp.server.mcpserver.context import Context
+from mcp.server.apps import Apps, client_supports_apps
 from mcp.types import CallToolResult, TextContent
 import httpx
 import os
 import re
 import logging
 import json
+import hashlib
 import tempfile
 import uuid
 from copy import deepcopy
@@ -246,135 +248,342 @@ ELASTICSEARCH_MODELS_INDEX = os.getenv(
     "ontouml-models-v1",
 )
 
-ONTOUML_UI_URI = "ui://ontouml/working-model-pip-v3.html"
-
-# IMPORTANT: MCP Apps extensions are consumed when MCPServer is constructed.
-# Register the UI resource BEFORE creating MCPServer.
+# MCP Apps UI — registered before MCPServer construction.
 apps = Apps()
 
-ONTOUML_WORKING_MODEL_HTML = r"""<!doctype html>
+ONTOUML_WORKING_MODEL_HTML = r"""<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>OntoUML Live Model</title>
-<style>
-  :root { color-scheme: light dark; }
-  * { box-sizing: border-box; }
-  body { margin:0; padding:14px; font:14px/1.4 system-ui,-apple-system,Segoe UI,sans-serif; background:Canvas; color:CanvasText; }
-  .head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px; }
-  .title { font-weight:650; }
-  .live { font-size:12px; opacity:.7; }
-  .panel { min-height:180px; border:1px solid color-mix(in srgb, CanvasText 20%, transparent); border-radius:8px; display:grid; place-items:center; padding:16px; }
-  .empty { opacity:.65; }
-  #debug { margin-top:8px; font-size:11px; opacity:.55; }
-</style>
-</head>
-<body>
-  <div class="head"><div><div class="title">OntoUML Working Model</div><div id="version" class="live">version 1</div></div><div class="live">● LIVE</div></div>
-  <div class="panel" id="panel"><div class="empty">Empty working model</div></div>
-  <div id="debug">UI loaded · initializing MCP Apps bridge…</div>
-<script type="module">
-(() => {
-  const debug = document.getElementById('debug');
-  let rpcId = 0;
-  const pending = new Map();
-
-  const notify = (method, params = {}) => {
-    window.parent.postMessage({ jsonrpc: '2.0', method, params }, '*');
-  };
-
-  const request = (method, params = {}) => new Promise((resolve, reject) => {
-    const id = ++rpcId;
-    pending.set(id, { resolve, reject });
-    window.parent.postMessage({ jsonrpc: '2.0', id, method, params }, '*');
-  });
-
-  window.addEventListener('message', (event) => {
-    if (event.source !== window.parent) return;
-    const msg = event.data;
-    if (!msg || msg.jsonrpc !== '2.0') return;
-
-    if (typeof msg.id === 'number') {
-      const p = pending.get(msg.id);
-      if (!p) return;
-      pending.delete(msg.id);
-      if (msg.error) p.reject(msg.error); else p.resolve(msg.result);
-      return;
-    }
-
-    if (msg.method === 'ui/notifications/tool-result') {
-      const sc = msg.params?.structuredContent || msg.params?.structured_content;
-      const model = sc?.model;
-      if (model) {
-        document.getElementById('version').textContent = `version ${model.version ?? '?'}`;
-        document.getElementById('panel').innerHTML = model.classes?.length
-          ? `<div>${model.classes.length} class(es)</div>`
-          : '<div class="empty">Empty working model</div>';
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OntoUML MCP Apps UI Test</title>
+    <style>
+      html, body {
+        width: 100%;
+        min-height: 100%;
+        box-sizing: border-box;
       }
-    }
-  }, { passive: true });
 
-  async function boot() {
-    try {
-      await request('ui/initialize', {
-        appInfo: { name: 'ontouml-live-model', version: '0.1.0' },
-        appCapabilities: {},
-        protocolVersion: '2026-01-26'
-      });
-      notify('ui/notifications/initialized', {});
-      debug.textContent = 'MCP Apps bridge initialized';
+      body {
+        margin: 0;
+        padding: 16px;
+        background: #f6f8fb;
+        color: #0b0b0f;
+        font-family: Inter, system-ui, -apple-system, sans-serif;
+      }
 
-      // PiP is a ChatGPT extension layered on top of the standard MCP Apps bridge.
-      if (window.openai?.requestDisplayMode) {
-        try {
-          await window.openai.requestDisplayMode({ mode: 'pip' });
-          debug.textContent = 'MCP Apps bridge initialized · PiP requested';
-        } catch (e) {
-          debug.textContent = 'MCP Apps bridge initialized · PiP request rejected';
+      main {
+        width: 100%;
+        max-width: 720px;
+        min-height: 260px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: 1.25rem;
+      }
+
+      #status {
+        margin: 0 0 16px;
+        font-size: 14px;
+      }
+
+      #payload {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 12px;
+        background: #f3f4f6;
+        border-radius: 10px;
+        padding: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h2>UI TEST OK</h2>
+      <p id="status">HTML chargé. Initialisation du bridge MCP Apps…</p>
+      <pre id="payload">En attente du résultat de render_working_model…</pre>
+    </main>
+
+    <script>
+      const statusEl = document.getElementById("status");
+      const payloadEl = document.getElementById("payload");
+
+      const updateFromResponse = (response) => {
+        if (response?.structuredContent) {
+          statusEl.textContent = "Bridge MCP Apps actif — résultat reçu.";
+          payloadEl.textContent = JSON.stringify(
+            response.structuredContent,
+            null,
+            2
+          );
         }
-      }
-    } catch (e) {
-      debug.textContent = 'MCP Apps bridge initialization failed';
-      console.error(e);
-    }
-  }
+      };
 
-  boot();
-})();
-</script>
-</body>
+      // MCP Apps standard bridge: JSON-RPC messages over postMessage.
+      //
+      // - Initialize the bridge with `ui/initialize`.
+      // - Confirm readiness with `ui/notifications/initialized`.
+      // - Call tools with `tools/call`.
+      // - Listen for `ui/notifications/tool-result` to react to model-initiated tool calls.
+      let rpcId = 0;
+      const pendingRequests = new Map();
+
+      const rpcNotify = (method, params) => {
+        window.parent.postMessage({ jsonrpc: "2.0", method, params }, "*");
+      };
+
+      const rpcRequest = (method, params) =>
+        new Promise((resolve, reject) => {
+          const id = ++rpcId;
+          pendingRequests.set(id, { resolve, reject });
+          window.parent.postMessage(
+            { jsonrpc: "2.0", id, method, params },
+            "*"
+          );
+        });
+
+      window.addEventListener(
+        "message",
+        (event) => {
+          if (event.source !== window.parent) return;
+          const message = event.data;
+          if (!message || message.jsonrpc !== "2.0") return;
+
+          // Responses
+          if (typeof message.id === "number") {
+            const pending = pendingRequests.get(message.id);
+            if (!pending) return;
+            pendingRequests.delete(message.id);
+
+            if (message.error) {
+              pending.reject(message.error);
+              return;
+            }
+
+            pending.resolve(message.result);
+            return;
+          }
+
+          // Notifications
+          if (typeof message.method !== "string") return;
+          if (message.method === "ui/notifications/tool-result") {
+            updateFromResponse(message.params);
+          }
+        },
+        { passive: true }
+      );
+
+      const initializeBridge = async () => {
+        const appInfo = { name: "ontouml-ui-test", version: "0.1.0" };
+        const appCapabilities = {};
+        const protocolVersion = "2026-01-26";
+
+        try {
+          await rpcRequest("ui/initialize", {
+            appInfo,
+            appCapabilities,
+            protocolVersion,
+          });
+          rpcNotify("ui/notifications/initialized", {});
+          statusEl.textContent =
+            "Bridge MCP Apps initialisé — attente du résultat outil.";
+        } catch (error) {
+          console.error("Failed to initialize the MCP Apps bridge:", error);
+          statusEl.textContent =
+            "ÉCHEC initialisation bridge MCP Apps — voir console.";
+          throw error;
+        }
+      };
+
+      const bridgeReady = initializeBridge();
+    </script>
+  </body>
 </html>"""
+
+ONTOUML_UI_HASH = hashlib.sha256(
+    ONTOUML_WORKING_MODEL_HTML.encode("utf-8")
+).hexdigest()[:12]
+ONTOUML_UI_URI = f"ui://ontouml/working-model-{ONTOUML_UI_HASH}.html"
 
 apps.add_html_resource(
     ONTOUML_UI_URI,
     ONTOUML_WORKING_MODEL_HTML,
-    title="OntoUML Working Model Viewer",
+    title="OntoUML Working Model",
     prefers_border=True,
 )
+
+class RenderWorkingModelOutput(BaseModel):
+    model: dict
+    model_id: str
+    name: str
+    version: int
+
 
 @apps.tool(
     resource_uri=ONTOUML_UI_URI,
     visibility=["model", "app"],
     title="Render OntoUML working model",
-    description=(
-        "Render the current OntoUML working model visually. "
-        "Use this after creating or modifying a working model."
-    ),
+    description="Render an OntoUML working model in the ChatGPT MCP Apps iframe.",
     meta={
+        # Legacy MCP Apps compatibility key.
+        "ui/resourceUri": ONTOUML_UI_URI,
+        # ChatGPT compatibility alias.
+        "openai/outputTemplate": ONTOUML_UI_URI,
         "openai/toolInvocation/invoking": "Rendering OntoUML model…",
         "openai/toolInvocation/invoked": "OntoUML model rendered.",
     },
 )
-async def render_working_model(model_id: str) -> CallToolResult:
+async def render_working_model(
+    model_id: str, ctx: Context
+) -> Annotated[CallToolResult, RenderWorkingModelOutput]:
+    # DIAGNOSTIC: inspect what the connected ChatGPT client actually negotiated.
+    caps = getattr(getattr(ctx, "request_context", None), "client_capabilities", None)
+    extensions = getattr(caps, "extensions", None) if caps is not None else None
+    print(">>> UI_DIAG client_supports_apps =", client_supports_apps(ctx), flush=True)
+    print(">>> UI_DIAG client_capabilities =", repr(caps), flush=True)
+    print(">>> UI_DIAG extensions =", repr(extensions), flush=True)
+    print(">>> UI_DIAG expected_extension = io.modelcontextprotocol/ui", flush=True)
+    print(">>> UI_DIAG expected_mime = text/html;profile=mcp-app", flush=True)
+
     model = get_model(model_id)
-    payload = {"model": model, "model_id": model_id, "name": model["name"], "version": model["version"]}
+    payload = {
+        "model": model,
+        "model_id": model_id,
+        "name": model["name"],
+        "version": model["version"],
+    }
     return CallToolResult(
-        content=[TextContent(type="text", text=f"Rendering OntoUML working model {model_id} version {model['version']}.")],
+        content=[TextContent(
+            type="text",
+            text=f"Rendering OntoUML working model {model_id} version {model['version']}."
+        )],
         structured_content=payload,
     )
 
+
 mcp = MCPServer("generic-knowledge-graph", extensions=[apps])
+
+# -------------------------------------------------------------------------
+# TEMP DIAGNOSTIC — capture every decoded inbound MCP message and the
+# corresponding handler result. This sits after HTTP decoding and before
+# MCP validation/dispatch, so it will show server/discover, tools/list,
+# tools/call, resources/read, etc.
+# -------------------------------------------------------------------------
+async def _capture_mcp_exchange(ctx, call_next):
+    def _jsonable(value):
+        if value is None:
+            return None
+        if hasattr(value, "model_dump"):
+            return value.model_dump(mode="json", by_alias=True, exclude_none=True)
+        if isinstance(value, dict):
+            return value
+        if isinstance(value, (list, tuple)):
+            return [_jsonable(v) for v in value]
+        return repr(value)
+
+    print(
+        ">>> MCP_WIRE IN",
+        json.dumps(
+            {
+                "method": ctx.method,
+                "request_id": str(ctx.request_id) if ctx.request_id is not None else None,
+                "protocol_version": getattr(ctx, "protocol_version", None),
+                "params": _jsonable(ctx.params),
+            },
+            ensure_ascii=False,
+            default=str,
+            separators=(",", ":"),
+        ),
+        flush=True,
+    )
+
+    try:
+        result = await call_next(ctx)
+    except Exception as exc:
+        print(
+            ">>> MCP_WIRE ERROR",
+            json.dumps(
+                {
+                    "method": ctx.method,
+                    "type": type(exc).__module__ + "." + type(exc).__qualname__,
+                    "message": str(exc),
+                },
+                ensure_ascii=False,
+                separators=(",", ":"),
+            ),
+            flush=True,
+        )
+        raise
+
+    print(
+        ">>> MCP_WIRE OUT",
+        json.dumps(
+            {
+                "method": ctx.method,
+                "result": _jsonable(result),
+            },
+            ensure_ascii=False,
+            default=str,
+            separators=(",", ":"),
+        ),
+        flush=True,
+    )
+    return result
+
+# First in the list = closest to the decoded MCP wire.
+mcp.middleware.insert(0, _capture_mcp_exchange)
+
+
+# -------------------------------------------------------------------------
+# TEMP DIAGNOSTIC — log the exact Tool objects returned by MCP tools/list.
+# This runs on the actual MCPServer list_tools path used by the transport.
+# Remove after diagnosis.
+# -------------------------------------------------------------------------
+_original_list_tools = mcp.list_tools
+
+async def _diagnostic_list_tools(*args, **kwargs):
+    result = await _original_list_tools(*args, **kwargs)
+
+    print(">>> MCP_TOOLS_LIST ENTER", flush=True)
+    print(">>> MCP_TOOLS_LIST result_type =", type(result).__module__ + "." + type(result).__qualname__, flush=True)
+
+    try:
+        tools = result if isinstance(result, (list, tuple)) else getattr(result, "tools", [])
+        for tool in tools:
+            if getattr(tool, "name", None) != "render_working_model":
+                continue
+
+            if hasattr(tool, "model_dump"):
+                payload = tool.model_dump(mode="json", by_alias=True, exclude_none=True)
+            else:
+                payload = {
+                    "name": getattr(tool, "name", None),
+                    "title": getattr(tool, "title", None),
+                    "description": getattr(tool, "description", None),
+                    "inputSchema": getattr(tool, "inputSchema", None),
+                    "_meta": getattr(tool, "meta", None),
+                }
+
+            print(
+                ">>> MCP_TOOLS_LIST RENDER_DESCRIPTOR_JSON =",
+                json.dumps(payload, ensure_ascii=False, separators=(",", ":")),
+                flush=True,
+            )
+    except Exception as exc:
+        print(">>> MCP_TOOLS_LIST PROBE_ERROR =", repr(exc), flush=True)
+
+    print(">>> MCP_TOOLS_LIST EXIT", flush=True)
+    return result
+
+mcp.list_tools = _diagnostic_list_tools
+
 
 class AddClassChange(BaseModel):
     op: Literal["add_class"]
