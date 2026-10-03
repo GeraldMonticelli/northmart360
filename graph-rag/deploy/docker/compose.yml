@@ -35,12 +35,25 @@ services:
     environment:
       FUSEKI_QUERY_URL: "http://fuseki:3030/ontouml"
       ELASTICSEARCH_URL: "http://elasticsearch:9200"
-      ELASTICSEARCH_INDEX: "ontouml"
+      ELASTICSEARCH_LANGUAGE_INDEX: "ontouml-language-v1"
+      ELASTICSEARCH_MODELS_INDEX: "ontouml-models-v1"
+    volumes:
+      - ontouml-working-models:/app/working_models
     depends_on:
       - fuseki
       - elasticsearch
     restart: unless-stopped
 
+  ontouml-renderer:
+    build:
+      context: ../../services/ontouml-renderer
+      dockerfile: Dockerfile
+    image: ontouml-renderer
+    ports:
+      - "8080:8080"
+    volumes:
+      - ontouml-working-models:/app/working_models:ro
+    restart: unless-stopped
 
   cyfun-mcp:
     build:
@@ -97,3 +110,4 @@ services:
 volumes:
   fuseki-data:
   elasticsearch-data:
+  ontouml-working-models:

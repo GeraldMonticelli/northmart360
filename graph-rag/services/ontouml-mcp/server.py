@@ -1,17 +1,225 @@
 from mcp.server import MCPServer
+from mcp.server.apps import Apps
+from mcp.types import CallToolResult, TextContent
 import httpx
 import os
 import re
+import logging
+import json
+import tempfile
+import uuid
+from copy import deepcopy
+from datetime import datetime, timezone
+from pathlib import Path
 from rdflib import Graph
 from pyshacl import validate as shacl_validate
 from pyshacl.errors import ValidationFailure
+from typing import Annotated, Literal, Union
+from pydantic import BaseModel, Field
 
-from working_model import (
-    create_model,
-    get_model,
-    apply_changes,
-    WorkingModelError,
-)
+
+# -----------------------------------------------------------------------------
+# Persistent working-model store
+# -----------------------------------------------------------------------------
+# Keep the authoritative working model inside this MCP server. This avoids any
+# ambiguity between server.py and a separately imported persistence module.
+MODEL_DIR = Path(os.getenv("ONTOUML_WORKING_MODEL_DIR", "/app/working_models"))
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
+
+
+class WorkingModelError(Exception):
+    pass
+
+
+class ModelNotFoundError(WorkingModelError):
+    pass
+
+
+class ModelVersionConflictError(WorkingModelError):
+    pass
+
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _safe_model_id(model_id: str) -> str:
+    if not model_id or not re.fullmatch(r"[A-Za-z0-9._-]+", model_id):
+        raise WorkingModelError("Invalid model_id")
+    return model_id
+
+
+def _model_path(model_id: str) -> Path:
+    return MODEL_DIR / f"{_safe_model_id(model_id)}.json"
+
+
+def _atomic_write_json(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp_name = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=path.parent)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, indent=2)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp_name, path)
+    finally:
+        if os.path.exists(tmp_name):
+            os.unlink(tmp_name)
+
+
+def _slug(value: str) -> str:
+    value = re.sub(r"[^A-Za-z0-9]+", "-", value.strip().lower()).strip("-")
+    return value[:48] or "model"
+
+
+def create_model(name: str, description: str | None = None) -> dict:
+    now = _utc_now()
+    model_id = f"{_slug(name)}-{uuid.uuid4().hex[:8]}"
+    model = {
+        "model_id": model_id,
+        "name": name,
+        "description": description,
+        "version": 1,
+        "status": "draft",
+        "created_at": now,
+        "updated_at": now,
+        "classes": [],
+        "relations": [],
+        "generalizations": [],
+        "decisions": [],
+        "history": [],
+    }
+    _atomic_write_json(_model_path(model_id), model)
+    return deepcopy(model)
+
+
+def get_model(model_id: str) -> dict:
+    path = _model_path(model_id)
+    if not path.is_file():
+        raise ModelNotFoundError(
+            f"Working model '{model_id}' was not found in {MODEL_DIR}."
+        )
+    with path.open("r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _find_index(items: list[dict], item_id: str, key: str = "id") -> int:
+    for i, item in enumerate(items):
+        if item.get(key) == item_id:
+            return i
+    return -1
+
+
+def apply_changes(
+    model_id: str,
+    expected_version: int,
+    changes: list[dict],
+    reason: str | None = None,
+) -> dict:
+    # Read and write through exactly the same path used by create_model/get_model.
+    current = get_model(model_id)
+    if current.get("version") != expected_version:
+        raise ModelVersionConflictError(
+            f"Version conflict for '{model_id}': expected {expected_version}, "
+            f"current version is {current.get('version')}."
+        )
+
+    model = deepcopy(current)
+    classes = model.setdefault("classes", [])
+    relations = model.setdefault("relations", [])
+    generalizations = model.setdefault("generalizations", [])
+    decisions = model.setdefault("decisions", [])
+
+    for change in changes:
+        op = change.get("op")
+
+        if op == "add_class":
+            if _find_index(classes, change["id"]) >= 0:
+                raise WorkingModelError(f"Class '{change['id']}' already exists.")
+            classes.append({k: v for k, v in change.items() if k != "op"})
+
+        elif op == "update_class":
+            idx = _find_index(classes, change["id"])
+            if idx < 0:
+                raise WorkingModelError(f"Class '{change['id']}' does not exist.")
+            classes[idx].update({k: v for k, v in change.items() if k not in {"op", "id"}})
+
+        elif op == "remove_class":
+            cid = change["id"]
+            idx = _find_index(classes, cid)
+            if idx < 0:
+                raise WorkingModelError(f"Class '{cid}' does not exist.")
+            classes.pop(idx)
+            relations[:] = [r for r in relations if r.get("source") != cid and r.get("target") != cid]
+            generalizations[:] = [g for g in generalizations if g.get("specific") != cid and g.get("general") != cid]
+
+        elif op == "add_generalization":
+            specific, general = change["specific"], change["general"]
+            if _find_index(classes, specific) < 0 or _find_index(classes, general) < 0:
+                raise WorkingModelError("Generalization endpoints must reference existing classes.")
+            item = {k: v for k, v in change.items() if k != "op"}
+            item["id"] = item.get("id") or f"gen-{uuid.uuid4().hex[:8]}"
+            if _find_index(generalizations, item["id"]) >= 0:
+                raise WorkingModelError(f"Generalization '{item['id']}' already exists.")
+            generalizations.append(item)
+
+        elif op == "remove_generalization":
+            idx = _find_index(generalizations, change["id"])
+            if idx < 0:
+                raise WorkingModelError(f"Generalization '{change['id']}' does not exist.")
+            generalizations.pop(idx)
+
+        elif op == "add_relation":
+            if _find_index(relations, change["id"]) >= 0:
+                raise WorkingModelError(f"Relation '{change['id']}' already exists.")
+            if _find_index(classes, change["source"]) < 0 or _find_index(classes, change["target"]) < 0:
+                raise WorkingModelError("Relation endpoints must reference existing classes.")
+            relations.append({k: v for k, v in change.items() if k != "op"})
+
+        elif op == "update_relation":
+            idx = _find_index(relations, change["id"])
+            if idx < 0:
+                raise WorkingModelError(f"Relation '{change['id']}' does not exist.")
+            candidate = deepcopy(relations[idx])
+            candidate.update({k: v for k, v in change.items() if k not in {"op", "id"}})
+            if _find_index(classes, candidate.get("source")) < 0 or _find_index(classes, candidate.get("target")) < 0:
+                raise WorkingModelError("Relation endpoints must reference existing classes.")
+            relations[idx] = candidate
+
+        elif op == "remove_relation":
+            idx = _find_index(relations, change["id"])
+            if idx < 0:
+                raise WorkingModelError(f"Relation '{change['id']}' does not exist.")
+            relations.pop(idx)
+
+        elif op == "record_decision":
+            item = {k: v for k, v in change.items() if k != "op"}
+            item["decision_id"] = item.get("decision_id") or f"decision-{uuid.uuid4().hex[:8]}"
+            if any(d.get("decision_id") == item["decision_id"] for d in decisions):
+                raise WorkingModelError(f"Decision '{item['decision_id']}' already exists.")
+            decisions.append(item)
+
+        elif op == "resolve_decision":
+            did = change["decision_id"]
+            idx = next((i for i, d in enumerate(decisions) if d.get("decision_id") == did), -1)
+            if idx < 0:
+                raise WorkingModelError(f"Decision '{did}' does not exist.")
+            decisions[idx].update({k: v for k, v in change.items() if k not in {"op", "decision_id"}})
+
+        else:
+            raise WorkingModelError(f"Unsupported model change operation: {op!r}")
+
+    model["version"] = expected_version + 1
+    model["updated_at"] = _utc_now()
+    model.setdefault("history", []).append({
+        "version": model["version"],
+        "timestamp": model["updated_at"],
+        "reason": reason,
+        "changes": changes,
+    })
+    _atomic_write_json(_model_path(model_id), model)
+    return deepcopy(model)
+
 
 MODEL_GRAPH_PREFIX = "urn:ontouml:model:"
 CATALOG_GRAPH = "urn:ontouml:models"
@@ -28,12 +236,118 @@ ELASTICSEARCH_URL = os.getenv(
     "http://localhost:9200",
 )
 
-ELASTICSEARCH_INDEX = os.getenv(
-    "ELASTICSEARCH_INDEX",
-    "ontouml",
+ELASTICSEARCH_LANGUAGE_INDEX = os.getenv(
+    "ELASTICSEARCH_LANGUAGE_INDEX",
+    "ontouml-language-v1",
 )
 
-mcp = MCPServer("generic-knowledge-graph")
+ELASTICSEARCH_MODELS_INDEX = os.getenv(
+    "ELASTICSEARCH_MODELS_INDEX",
+    "ontouml-models-v1",
+)
+
+ONTOUML_UI_URI = "ui://ontouml/working-model-v5.html"
+
+apps = Apps()
+mcp = MCPServer("generic-knowledge-graph", extensions=[apps])
+
+class AddClassChange(BaseModel):
+    op: Literal["add_class"]
+    id: str
+    name: str
+    stereotype: str | None = None
+    status: str = "proposed"
+    description: str | None = None
+
+
+class UpdateClassChange(BaseModel):
+    op: Literal["update_class"]
+    id: str
+    name: str | None = None
+    stereotype: str | None = None
+    status: str | None = None
+    description: str | None = None
+
+
+class RemoveClassChange(BaseModel):
+    op: Literal["remove_class"]
+    id: str
+
+
+class AddGeneralizationChange(BaseModel):
+    op: Literal["add_generalization"]
+    id: str | None = None
+    specific: str
+    general: str
+    status: str = "proposed"
+
+
+class RemoveGeneralizationChange(BaseModel):
+    op: Literal["remove_generalization"]
+    id: str
+
+
+class AddRelationChange(BaseModel):
+    op: Literal["add_relation"]
+    id: str
+    source: str
+    target: str
+    name: str | None = None
+    stereotype: str | None = None
+    status: str = "proposed"
+    description: str | None = None
+
+
+class UpdateRelationChange(BaseModel):
+    op: Literal["update_relation"]
+    id: str
+    source: str | None = None
+    target: str | None = None
+    name: str | None = None
+    stereotype: str | None = None
+    status: str | None = None
+    description: str | None = None
+
+
+class RemoveRelationChange(BaseModel):
+    op: Literal["remove_relation"]
+    id: str
+
+
+class RecordDecisionChange(BaseModel):
+    op: Literal["record_decision"]
+    decision_id: str | None = None
+    subject: str | None = None
+    property: str | None = None
+    value: object | None = None
+    status: str = "proposed"
+    rationale: str | None = None
+    evidence: list = Field(default_factory=list)
+
+
+class ResolveDecisionChange(BaseModel):
+    op: Literal["resolve_decision"]
+    decision_id: str
+    status: str
+    rationale: str | None = None
+    evidence: list | None = None
+
+
+ModelChange = Annotated[
+    Union[
+        AddClassChange,
+        UpdateClassChange,
+        RemoveClassChange,
+        AddGeneralizationChange,
+        RemoveGeneralizationChange,
+        AddRelationChange,
+        UpdateRelationChange,
+        RemoveRelationChange,
+        RecordDecisionChange,
+        ResolveDecisionChange,
+    ],
+    Field(discriminator="op"),
+]
 
 async def _query_fuseki(query: str) -> dict:
     """Internal Fuseki query helper used by OntoUML reasoning tools."""
@@ -279,27 +593,18 @@ async def _validate_shacl(model_turtle: str) -> dict:
 # fonction d’accès Elasticsearch
 async def execute_elasticsearch_search(
     query: str,
+    index: str,
     top_k: int = 5,
+    source_fields: list[str] | None = None,
 ) -> dict:
     """
-    Search the indexed official OntoUML documentation using
-    Elasticsearch BM25 retrieval.
+    Execute a BM25 search against an Elasticsearch index.
     """
 
     top_k = min(max(top_k, 1), 20)
 
     body = {
         "size": top_k,
-        "_source": [
-            "source",
-            "domain",
-            "element",
-            "section",
-            "unit_type",
-            "unit_id",
-            "provenance",
-            "text",
-        ],
         "query": {
             "match": {
                 "text": query
@@ -307,9 +612,12 @@ async def execute_elasticsearch_search(
         },
     }
 
+    if source_fields:
+        body["_source"] = source_fields
+
     async with httpx.AsyncClient() as client:
         response = await client.post(
-            f"{ELASTICSEARCH_URL}/{ELASTICSEARCH_INDEX}/_search",
+            f"{ELASTICSEARCH_URL}/{index}/_search",
             json=body,
             timeout=10.0,
         )
@@ -1296,7 +1604,18 @@ async def _search_ontouml_documentation(
 
     result = await execute_elasticsearch_search(
         query=query.strip(),
+        index=ELASTICSEARCH_LANGUAGE_INDEX,
         top_k=top_k,
+        source_fields=[
+            "source",
+            "domain",
+            "element",
+            "section",
+            "unit_type",
+            "unit_id",
+            "provenance",
+            "text",
+        ],
     )
 
     hits = result.get("hits", {}).get("hits", [])
@@ -1306,7 +1625,7 @@ async def _search_ontouml_documentation(
         "retrieval": {
             "engine": "elasticsearch",
             "method": "BM25",
-            "index": ELASTICSEARCH_INDEX,
+            "index": ELASTICSEARCH_LANGUAGE_INDEX,
         },
         "result_count": len(hits),
         "results": [
@@ -2296,6 +2615,12 @@ async def create_working_model(
         description=description,
     )
 
+    print(
+        ">>> CREATE_WORKING_MODEL",
+        repr(model["model_id"]),
+        flush=True,
+    )
+
     return {
         "model": model,
         "instruction": (
@@ -2318,11 +2643,17 @@ async def get_working_model(
         "model": get_model(model_id)
     }
 
-@mcp.tool()
+@mcp.tool(
+    title="Apply OntoUML model changes",
+    description=(
+        "Apply controlled changes to an OntoUML working model. "
+        "After a successful change, call render_working_model with the same model_id."
+    ),
+)
 async def apply_model_changes(
     model_id: str,
     expected_version: int,
-    changes: list[dict],
+    changes: list[ModelChange],
     reason: str | None = None,
 ) -> dict:
     """
@@ -2340,12 +2671,25 @@ async def apply_model_changes(
     Always use the current model version as expected_version.
     Record important ontological decisions and their evidence.
     """
-
+ 
+    print(
+        ">>> APPLY_MODEL_CHANGES",
+        repr(model_id),
+        "version=",
+        expected_version,
+        flush=True,
+    )
+    
+    change_dicts = [
+        change.model_dump(exclude_none=True)
+        for change in changes
+    ]
+    
     try:
         model = apply_changes(
             model_id=model_id,
             expected_version=expected_version,
-            changes=changes,
+            changes=change_dicts,
             reason=reason,
         )
 
@@ -2623,6 +2967,322 @@ async def assess_model(
             "formal OntoUML constraints."
         ),
     }
+
+async def _search_ontouml_models(
+    query: str,
+    top_k: int = 10,
+    document_type: str | None = None,
+    stereotype: str | None = None,
+) -> dict:
+    """
+    Search elements extracted from the OntoUML model corpus.
+
+    Elasticsearch is used for candidate discovery.
+    Fuseki remains the authoritative source for graph structure.
+    """
+
+    if not query or not query.strip():
+        raise ValueError("query must not be empty")
+
+    top_k = min(max(top_k, 1), 20)
+
+    must = [
+        {
+            "match": {
+                "text": query.strip()
+            }
+        }
+    ]
+
+    filters = []
+
+    if document_type:
+        filters.append({
+            "term": {
+                "document_type": document_type
+            }
+        })
+
+    if stereotype:
+        filters.append({
+            "term": {
+                "stereotype": stereotype
+            }
+        })
+
+    body = {
+        "size": top_k,
+        "query": {
+            "bool": {
+                "must": must,
+                "filter": filters,
+            }
+        },
+        "_source": [
+            "model_id",
+            "model_slug",
+            "model_name",
+            "document_type",
+            "element_id",
+            "element_name",
+            "stereotype",
+            "description",
+            "source",
+            "text",
+        ],
+    }
+
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            f"{ELASTICSEARCH_URL}/"
+            f"{ELASTICSEARCH_MODELS_INDEX}/_search",
+            json=body,
+            timeout=10.0,
+        )
+
+        response.raise_for_status()
+        result = response.json()
+
+    hits = []
+
+    for hit in result.get("hits", {}).get("hits", []):
+        source = hit.get("_source", {})
+
+        hits.append({
+            "score": hit.get("_score"),
+            "model_id": source.get("model_id"),
+            "model_slug": source.get("model_slug"),
+            "model_name": source.get("model_name"),
+            "document_type": source.get("document_type"),
+            "element_id": source.get("element_id"),
+            "element_name": source.get("element_name"),
+            "stereotype": source.get("stereotype"),
+            "description": source.get("description"),
+            "source": source.get("source"),
+            "text": source.get("text"),
+        })
+
+    return {
+        "engine": "elasticsearch",
+        "index": ELASTICSEARCH_MODELS_INDEX,
+        "query": query,
+        "document_type": document_type,
+        "stereotype": stereotype,
+        "count": len(hits),
+        "hits": hits,
+    }
+
+@mcp.tool()
+async def search_ontouml_models(
+    query: str,
+    top_k: int = 10,
+    document_type: str | None = None,
+    stereotype: str | None = None,
+) -> dict:
+    """
+    Search real OntoUML models and model elements.
+
+    Use this tool to find examples of classes, relations,
+    stereotypes, generalizations and modeling structures
+    in the OntoUML model corpus.
+
+    document_type may be:
+    model, class, relation, generalization,
+    generalization_set.
+
+    stereotype may be used to restrict results,
+    for example: kind, role, relator, mediation.
+    """
+
+    return await _search_ontouml_models(
+        query=query,
+        top_k=top_k,
+        document_type=document_type,
+        stereotype=stereotype,
+    )
+    
+def _working_model_to_mermaid(model: dict) -> str:
+    """Render the authoritative working model as Mermaid classDiagram."""
+
+    lines = ["classDiagram"]
+
+    for cls in model.get("classes", []):
+        class_id = cls["id"]
+        name = cls.get("name") or class_id
+        stereotype = cls.get("stereotype")
+
+        lines.append(f'    class {class_id}["{name}"]')
+
+        if stereotype:
+            lines.append(f"    <<{stereotype}>> {class_id}")
+
+    for gen in model.get("generalizations", []):
+        specific = gen.get("specific")
+        general = gen.get("general")
+
+        if specific and general:
+            lines.append(f"    {general} <|-- {specific}")
+
+    for rel in model.get("relations", []):
+        source = rel.get("source")
+        target = rel.get("target")
+        name = rel.get("name") or ""
+        stereotype = rel.get("stereotype")
+
+        label = name
+
+        if stereotype:
+            label = (
+                f"{name} «{stereotype}»"
+                if name
+                else f"«{stereotype}»"
+            )
+
+        if source and target:
+            lines.append(
+                f'    {source} --> {target} : {label}'
+            )
+
+    return "\n".join(lines)
+
+
+ONTOUML_WORKING_MODEL_HTML = r"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>OntoUML Working Model</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.4 system-ui, -apple-system, Segoe UI, sans-serif; background: Canvas; color: CanvasText; }
+  header { padding: 12px 16px 8px; border-bottom: 1px solid color-mix(in srgb, CanvasText 18%, transparent); }
+  h1 { margin: 0; font-size: 16px; }
+  #meta { margin-top: 3px; opacity: .65; font-size: 12px; }
+  #status { padding: 8px 16px; font-size: 12px; opacity: .75; }
+  #wrap { overflow: auto; padding: 16px; min-height: 260px; }
+  svg { display: block; min-width: 100%; height: auto; }
+  .box { fill: Canvas; stroke: CanvasText; stroke-width: 1.3; }
+  .st { font-size: 11px; font-style: italic; opacity: .75; text-anchor: middle; }
+  .nm { font-size: 13px; font-weight: 650; text-anchor: middle; }
+  .edge { fill: none; stroke: CanvasText; stroke-width: 1.25; }
+  .label { font-size: 11px; text-anchor: middle; paint-order: stroke; stroke: Canvas; stroke-width: 4px; stroke-linejoin: round; }
+  .empty { opacity: .65; padding: 32px; text-align: center; }
+</style>
+</head>
+<body>
+<header><h1 id="title">OntoUML working model</h1><div id="meta"></div></header>
+<div id="status">Connecting to ChatGPT…</div>
+<div id="wrap"><div class="empty">Waiting for model…</div></div>
+<script>
+(() => {
+  const statusEl = document.getElementById('status');
+  const wrap = document.getElementById('wrap');
+  const titleEl = document.getElementById('title');
+  const metaEl = document.getElementById('meta');
+  let renderedVersion = null;
+
+  function esc(v) { return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function normalize(payload) {
+    if (!payload) return null;
+    if (payload.structuredContent) payload = payload.structuredContent;
+    if (payload.structured_content) payload = payload.structured_content;
+    if (payload.result) return normalize(payload.result);
+    if (payload.model) return payload.model;
+    return payload.classes || payload.relations || payload.generalizations ? payload : null;
+  }
+  function render(payload) {
+    const model = normalize(payload);
+    if (!model) return;
+    if (renderedVersion === model.version && wrap.querySelector('svg')) return;
+    renderedVersion = model.version;
+    statusEl.textContent = 'Model loaded';
+    titleEl.textContent = model.name || 'OntoUML working model';
+    metaEl.textContent = [model.model_id, model.version != null ? `version ${model.version}` : null].filter(Boolean).join(' · ');
+
+    const classes = model.classes || [], gens = model.generalizations || [], rels = model.relations || [];
+    if (!classes.length) { wrap.innerHTML = '<div class="empty">The working model is empty.</div>'; return; }
+    const W=220,H=70,GX=70,GY=90, cols=Math.max(1,Math.ceil(Math.sqrt(classes.length)));
+    const rows=Math.ceil(classes.length/cols), width=40+cols*(W+GX), height=40+rows*(H+GY);
+    const pos={};
+    classes.forEach((c,i)=>{ const col=i%cols,row=Math.floor(i/cols); pos[c.id]={x:30+col*(W+GX),y:30+row*(H+GY)}; });
+    let defs='<defs><marker id="tri" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="Canvas" stroke="CanvasText"/></marker><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="CanvasText"/></marker></defs>';
+    let edges='';
+    const centers=id=>{const p=pos[id]; return p?{x:p.x+W/2,y:p.y+H/2}:null};
+    gens.forEach(g=>{const a=centers(g.specific),b=centers(g.general); if(a&&b) edges+=`<line class="edge" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" marker-end="url(#tri)"/>`;});
+    rels.forEach(r=>{const a=centers(r.source),b=centers(r.target); if(!a||!b)return; const label=[r.name,r.stereotype?`«${r.stereotype}»`:null].filter(Boolean).join(' '); edges+=`<line class="edge" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" marker-end="url(#arrow)"/>`; if(label) edges+=`<text class="label" x="${(a.x+b.x)/2}" y="${(a.y+b.y)/2-5}">${esc(label)}</text>`;});
+    let nodes='';
+    classes.forEach(c=>{const p=pos[c.id]; nodes+=`<g><rect class="box" x="${p.x}" y="${p.y}" width="${W}" height="${H}" rx="5"/>${c.stereotype?`<text class="st" x="${p.x+W/2}" y="${p.y+23}">«${esc(c.stereotype)}»</text>`:''}<text class="nm" x="${p.x+W/2}" y="${p.y+(c.stereotype?46:39)}">${esc(c.name||c.id)}</text></g>`;});
+    wrap.innerHTML=`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="OntoUML model">${defs}${edges}${nodes}</svg>`;
+  }
+
+  // MCP Python SDK Apps documentation: the host posts the tool result to the iframe.
+window.addEventListener('message', event => {
+    if (event.source !== window.parent) return;
+
+    const message = event.data;
+    if (!message || message.jsonrpc !== "2.0") return;
+
+    if (message.method === "ui/notifications/tool-result") {
+        render(message.params?.structuredContent);
+    }
+});
+
+  // ChatGPT compatibility alias.
+  if (window.openai?.toolOutput) render(window.openai.toolOutput);
+  window.addEventListener('openai:set_globals', e => render(e.detail?.globals?.toolOutput || e.detail?.toolOutput));
+
+  statusEl.textContent = 'Waiting for model…';
+})();
+</script>
+</body>
+</html>"""
+
+apps.add_html_resource(
+    ONTOUML_UI_URI,
+    ONTOUML_WORKING_MODEL_HTML,
+    title="OntoUML Working Model Viewer",
+    prefers_border=True,
+)
+
+
+@mcp.tool(
+    title="Render OntoUML working model",
+    description=(
+        "Render the current OntoUML working model visually. "
+        "Use this after creating or modifying a working model."
+    ),
+    meta={
+        "openai/outputTemplate": ONTOUML_UI_URI,
+        "openai/toolInvocation/invoking":
+            "Rendering OntoUML model…",
+        "openai/toolInvocation/invoked":
+            "OntoUML model rendered.",
+    }
+)
+async def render_working_model(model_id: str) -> CallToolResult:
+
+    model = get_model(model_id)
+
+    payload = {
+        "model": model,
+        "model_id": model_id,
+        "name": model["name"],
+        "version": model["version"],
+    }
+
+    return CallToolResult(
+        content=[
+            TextContent(
+                type="text",
+                text=(
+                    f"Rendering OntoUML working model {model_id} "
+                    f"version {model['version']}."
+                ),
+            )
+        ],
+        structured_content=payload,
+    )
 
 if __name__ == "__main__":
     mcp.run(
