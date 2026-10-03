@@ -246,9 +246,113 @@ ELASTICSEARCH_MODELS_INDEX = os.getenv(
     "ontouml-models-v1",
 )
 
-ONTOUML_UI_URI = "ui://ontouml/working-model-pip-v1.html"
+ONTOUML_UI_URI = "ui://ontouml/working-model-pip-v2.html"
 
+# IMPORTANT: MCP Apps extensions are consumed when MCPServer is constructed.
+# Register the UI resource BEFORE creating MCPServer.
 apps = Apps()
+
+ONTOUML_WORKING_MODEL_HTML = r"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>OntoUML Live Model</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:14px; font:14px/1.4 system-ui,-apple-system,Segoe UI,sans-serif; background:Canvas; color:CanvasText; }
+  .head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px; }
+  .title { font-weight:650; }
+  .live { font-size:12px; opacity:.7; }
+  .panel { min-height:180px; border:1px solid color-mix(in srgb, CanvasText 20%, transparent); border-radius:8px; display:grid; place-items:center; padding:16px; }
+  .empty { opacity:.65; }
+  #debug { margin-top:8px; font-size:11px; opacity:.55; }
+</style>
+</head>
+<body>
+  <div class="head"><div><div class="title">OntoUML Working Model</div><div id="version" class="live">version 1</div></div><div class="live">● LIVE</div></div>
+  <div class="panel" id="panel"><div class="empty">Empty working model</div></div>
+  <div id="debug">UI loaded · initializing MCP Apps bridge…</div>
+<script type="module">
+(() => {
+  const debug = document.getElementById('debug');
+  let rpcId = 0;
+  const pending = new Map();
+
+  const notify = (method, params = {}) => {
+    window.parent.postMessage({ jsonrpc: '2.0', method, params }, '*');
+  };
+
+  const request = (method, params = {}) => new Promise((resolve, reject) => {
+    const id = ++rpcId;
+    pending.set(id, { resolve, reject });
+    window.parent.postMessage({ jsonrpc: '2.0', id, method, params }, '*');
+  });
+
+  window.addEventListener('message', (event) => {
+    if (event.source !== window.parent) return;
+    const msg = event.data;
+    if (!msg || msg.jsonrpc !== '2.0') return;
+
+    if (typeof msg.id === 'number') {
+      const p = pending.get(msg.id);
+      if (!p) return;
+      pending.delete(msg.id);
+      if (msg.error) p.reject(msg.error); else p.resolve(msg.result);
+      return;
+    }
+
+    if (msg.method === 'ui/notifications/tool-result') {
+      const sc = msg.params?.structuredContent || msg.params?.structured_content;
+      const model = sc?.model;
+      if (model) {
+        document.getElementById('version').textContent = `version ${model.version ?? '?'}`;
+        document.getElementById('panel').innerHTML = model.classes?.length
+          ? `<div>${model.classes.length} class(es)</div>`
+          : '<div class="empty">Empty working model</div>';
+      }
+    }
+  }, { passive: true });
+
+  async function boot() {
+    try {
+      await request('ui/initialize', {
+        appInfo: { name: 'ontouml-live-model', version: '0.1.0' },
+        appCapabilities: {},
+        protocolVersion: '2026-01-26'
+      });
+      notify('ui/notifications/initialized', {});
+      debug.textContent = 'MCP Apps bridge initialized';
+
+      // PiP is a ChatGPT extension layered on top of the standard MCP Apps bridge.
+      if (window.openai?.requestDisplayMode) {
+        try {
+          await window.openai.requestDisplayMode({ mode: 'pip' });
+          debug.textContent = 'MCP Apps bridge initialized · PiP requested';
+        } catch (e) {
+          debug.textContent = 'MCP Apps bridge initialized · PiP request rejected';
+        }
+      }
+    } catch (e) {
+      debug.textContent = 'MCP Apps bridge initialization failed';
+      console.error(e);
+    }
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>"""
+
+apps.add_html_resource(
+    ONTOUML_UI_URI,
+    ONTOUML_WORKING_MODEL_HTML,
+    title="OntoUML Working Model Viewer",
+    prefers_border=True,
+)
+
 mcp = MCPServer("generic-knowledge-graph", extensions=[apps])
 
 class AddClassChange(BaseModel):
@@ -3146,116 +3250,7 @@ def _working_model_to_mermaid(model: dict) -> str:
     return "\n".join(lines)
 
 
-ONTOUML_WORKING_MODEL_HTML = r"""<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>OntoUML Working Model</title>
-<style>
-  :root { color-scheme: light dark; }
-  * { box-sizing: border-box; }
-  body { margin: 0; font: 14px/1.4 system-ui, -apple-system, Segoe UI, sans-serif; background: Canvas; color: CanvasText; }
-  header { padding: 12px 16px 8px; border-bottom: 1px solid color-mix(in srgb, CanvasText 18%, transparent); }
-  h1 { margin: 0; font-size: 16px; }
-  #meta { margin-top: 3px; opacity: .65; font-size: 12px; }
-  #status { padding: 8px 16px; font-size: 12px; opacity: .75; }
-  #wrap { overflow: auto; padding: 16px; min-height: 260px; }
-  svg { display: block; min-width: 100%; height: auto; }
-  .box { fill: Canvas; stroke: CanvasText; stroke-width: 1.3; }
-  .st { font-size: 11px; font-style: italic; opacity: .75; text-anchor: middle; }
-  .nm { font-size: 13px; font-weight: 650; text-anchor: middle; }
-  .edge { fill: none; stroke: CanvasText; stroke-width: 1.25; }
-  .label { font-size: 11px; text-anchor: middle; paint-order: stroke; stroke: Canvas; stroke-width: 4px; stroke-linejoin: round; }
-  .empty { opacity: .65; padding: 32px; text-align: center; }
-</style>
-</head>
-<body>
-<header><h1 id="title">OntoUML working model</h1><div id="meta"></div></header>
-<div id="status">Model v1 · LIVE</div>
-<div id="wrap"><div class="empty">Empty working model</div></div>
-<script>
-(() => {
-  const statusEl = document.getElementById('status');
-  const wrap = document.getElementById('wrap');
-  const titleEl = document.getElementById('title');
-  const metaEl = document.getElementById('meta');
-  let renderedVersion = null;
 
-  function esc(v) { return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-  function normalize(payload) {
-    if (!payload) return null;
-    if (payload.structuredContent) payload = payload.structuredContent;
-    if (payload.structured_content) payload = payload.structured_content;
-    if (payload.result) return normalize(payload.result);
-    if (payload.model) return payload.model;
-    return payload.classes || payload.relations || payload.generalizations ? payload : null;
-  }
-  function render(payload) {
-    const model = normalize(payload);
-    if (!model) return;
-    if (renderedVersion === model.version && wrap.querySelector('svg')) return;
-    renderedVersion = model.version;
-    statusEl.textContent = 'Model loaded';
-    titleEl.textContent = model.name || 'OntoUML working model';
-    metaEl.textContent = [model.model_id, model.version != null ? `version ${model.version}` : null].filter(Boolean).join(' · ');
-
-    const classes = model.classes || [], gens = model.generalizations || [], rels = model.relations || [];
-    if (!classes.length) { wrap.innerHTML = '<div class="empty">The working model is empty.</div>'; return; }
-    const W=220,H=70,GX=70,GY=90, cols=Math.max(1,Math.ceil(Math.sqrt(classes.length)));
-    const rows=Math.ceil(classes.length/cols), width=40+cols*(W+GX), height=40+rows*(H+GY);
-    const pos={};
-    classes.forEach((c,i)=>{ const col=i%cols,row=Math.floor(i/cols); pos[c.id]={x:30+col*(W+GX),y:30+row*(H+GY)}; });
-    let defs='<defs><marker id="tri" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="Canvas" stroke="CanvasText"/></marker><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="CanvasText"/></marker></defs>';
-    let edges='';
-    const centers=id=>{const p=pos[id]; return p?{x:p.x+W/2,y:p.y+H/2}:null};
-    gens.forEach(g=>{const a=centers(g.specific),b=centers(g.general); if(a&&b) edges+=`<line class="edge" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" marker-end="url(#tri)"/>`;});
-    rels.forEach(r=>{const a=centers(r.source),b=centers(r.target); if(!a||!b)return; const label=[r.name,r.stereotype?`«${r.stereotype}»`:null].filter(Boolean).join(' '); edges+=`<line class="edge" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" marker-end="url(#arrow)"/>`; if(label) edges+=`<text class="label" x="${(a.x+b.x)/2}" y="${(a.y+b.y)/2-5}">${esc(label)}</text>`;});
-    let nodes='';
-    classes.forEach(c=>{const p=pos[c.id]; nodes+=`<g><rect class="box" x="${p.x}" y="${p.y}" width="${W}" height="${H}" rx="5"/>${c.stereotype?`<text class="st" x="${p.x+W/2}" y="${p.y+23}">«${esc(c.stereotype)}»</text>`:''}<text class="nm" x="${p.x+W/2}" y="${p.y+(c.stereotype?46:39)}">${esc(c.name||c.id)}</text></g>`;});
-    wrap.innerHTML=`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="OntoUML model">${defs}${edges}${nodes}</svg>`;
-  }
-
-  // Ask ChatGPT to keep this live model visible while the conversation continues.
-  async function requestPip() {
-    try {
-      if (window.openai?.requestDisplayMode) {
-        await window.openai.requestDisplayMode({ mode: 'pip' });
-      }
-    } catch (e) {
-      console.warn('PiP request was not accepted:', e);
-    }
-  }
-  requestPip();
-
-  // MCP Apps tool-result updates.
-window.addEventListener('message', event => {
-    if (event.source !== window.parent) return;
-
-    const message = event.data;
-    if (!message || message.jsonrpc !== "2.0") return;
-
-    if (message.method === "ui/notifications/tool-result") {
-        render(message.params?.structuredContent);
-    }
-});
-
-  // ChatGPT compatibility alias.
-  if (window.openai?.toolOutput) render(window.openai.toolOutput);
-  window.addEventListener('openai:set_globals', e => render(e.detail?.globals?.toolOutput || e.detail?.toolOutput));
-
-  // Keep the v1 placeholder visible until the first authoritative model arrives.
-})();
-</script>
-</body>
-</html>"""
-
-apps.add_html_resource(
-    ONTOUML_UI_URI,
-    ONTOUML_WORKING_MODEL_HTML,
-    title="OntoUML Working Model Viewer",
-    prefers_border=True,
-)
 
 
 @mcp.tool(
