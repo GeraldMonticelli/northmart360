@@ -246,7 +246,7 @@ ELASTICSEARCH_MODELS_INDEX = os.getenv(
     "ontouml-models-v1",
 )
 
-ONTOUML_UI_URI = "ui://ontouml/working-model-pip-v2.html"
+ONTOUML_UI_URI = "ui://ontouml/working-model-pip-v3.html"
 
 # IMPORTANT: MCP Apps extensions are consumed when MCPServer is constructed.
 # Register the UI resource BEFORE creating MCPServer.
@@ -352,6 +352,27 @@ apps.add_html_resource(
     title="OntoUML Working Model Viewer",
     prefers_border=True,
 )
+
+@apps.tool(
+    resource_uri=ONTOUML_UI_URI,
+    visibility=["model", "app"],
+    title="Render OntoUML working model",
+    description=(
+        "Render the current OntoUML working model visually. "
+        "Use this after creating or modifying a working model."
+    ),
+    meta={
+        "openai/toolInvocation/invoking": "Rendering OntoUML model…",
+        "openai/toolInvocation/invoked": "OntoUML model rendered.",
+    },
+)
+async def render_working_model(model_id: str) -> CallToolResult:
+    model = get_model(model_id)
+    payload = {"model": model, "model_id": model_id, "name": model["name"], "version": model["version"]}
+    return CallToolResult(
+        content=[TextContent(type="text", text=f"Rendering OntoUML working model {model_id} version {model['version']}.")],
+        structured_content=payload,
+    )
 
 mcp = MCPServer("generic-knowledge-graph", extensions=[apps])
 
@@ -3251,46 +3272,6 @@ def _working_model_to_mermaid(model: dict) -> str:
 
 
 
-
-
-@mcp.tool(
-    title="Render OntoUML working model",
-    description=(
-        "Render the current OntoUML working model visually. "
-        "Use this after creating or modifying a working model."
-    ),
-    meta={
-        "ui": {"resourceUri": ONTOUML_UI_URI},
-        "openai/outputTemplate": ONTOUML_UI_URI,
-        "openai/toolInvocation/invoking":
-            "Rendering OntoUML model…",
-        "openai/toolInvocation/invoked":
-            "OntoUML model rendered.",
-    }
-)
-async def render_working_model(model_id: str) -> CallToolResult:
-
-    model = get_model(model_id)
-
-    payload = {
-        "model": model,
-        "model_id": model_id,
-        "name": model["name"],
-        "version": model["version"],
-    }
-
-    return CallToolResult(
-        content=[
-            TextContent(
-                type="text",
-                text=(
-                    f"Rendering OntoUML working model {model_id} "
-                    f"version {model['version']}."
-                ),
-            )
-        ],
-        structured_content=payload,
-    )
 
 if __name__ == "__main__":
     mcp.run(
