@@ -246,7 +246,7 @@ ELASTICSEARCH_MODELS_INDEX = os.getenv(
     "ontouml-models-v1",
 )
 
-ONTOUML_UI_URI = "ui://ontouml/working-model-v5.html"
+ONTOUML_UI_URI = "ui://ontouml/working-model-pip-v1.html"
 
 apps = Apps()
 mcp = MCPServer("generic-knowledge-graph", extensions=[apps])
@@ -3172,8 +3172,8 @@ ONTOUML_WORKING_MODEL_HTML = r"""<!doctype html>
 </head>
 <body>
 <header><h1 id="title">OntoUML working model</h1><div id="meta"></div></header>
-<div id="status">Connecting to ChatGPT…</div>
-<div id="wrap"><div class="empty">Waiting for model…</div></div>
+<div id="status">Model v1 · LIVE</div>
+<div id="wrap"><div class="empty">Empty working model</div></div>
 <script>
 (() => {
   const statusEl = document.getElementById('status');
@@ -3216,7 +3216,19 @@ ONTOUML_WORKING_MODEL_HTML = r"""<!doctype html>
     wrap.innerHTML=`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="OntoUML model">${defs}${edges}${nodes}</svg>`;
   }
 
-  // MCP Python SDK Apps documentation: the host posts the tool result to the iframe.
+  // Ask ChatGPT to keep this live model visible while the conversation continues.
+  async function requestPip() {
+    try {
+      if (window.openai?.requestDisplayMode) {
+        await window.openai.requestDisplayMode({ mode: 'pip' });
+      }
+    } catch (e) {
+      console.warn('PiP request was not accepted:', e);
+    }
+  }
+  requestPip();
+
+  // MCP Apps tool-result updates.
 window.addEventListener('message', event => {
     if (event.source !== window.parent) return;
 
@@ -3232,7 +3244,7 @@ window.addEventListener('message', event => {
   if (window.openai?.toolOutput) render(window.openai.toolOutput);
   window.addEventListener('openai:set_globals', e => render(e.detail?.globals?.toolOutput || e.detail?.toolOutput));
 
-  statusEl.textContent = 'Waiting for model…';
+  // Keep the v1 placeholder visible until the first authoritative model arrives.
 })();
 </script>
 </body>
@@ -3253,6 +3265,7 @@ apps.add_html_resource(
         "Use this after creating or modifying a working model."
     ),
     meta={
+        "ui": {"resourceUri": ONTOUML_UI_URI},
         "openai/outputTemplate": ONTOUML_UI_URI,
         "openai/toolInvocation/invoking":
             "Rendering OntoUML model…",
